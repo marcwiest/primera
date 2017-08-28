@@ -1,0 +1,69 @@
+/*!
+  Shoelace.css {{version}}
+  (c) A Beautiful Site, LLC
+
+  Released under the MIT license
+  Source: https://github.com/claviska/shoelace-css
+*/
+
+@import url('normalize.css');
+@import url('content.css');
+@import url('alerts.css');
+@import url('badges.css');
+@import url('buttons.css');
+@import url('dropdowns.css');
+@import url('forms.css');
+@import url('loaders.css');
+@import url('progress-bars.css');
+@import url('switches.css');
+@import url('tabs.css');
+@import url('tables.css');
+@import url('utilities.css');
+
+:root {
+  /* Fonts */
+  --font-sans-serif: sans-serif;
+  --font-serif: serif;
+  --font-system: system-ui;
+  --font-monospace: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+  /* Colors (most courtesy of http://clrs.cc/) */
+  --color-white: white;
+  --color-navy: #001f3f;
+  --color-blue: #0074d9;
+  --color-aqua: #7fdbff;
+  --color-teal: #39cccc;
+  --color-olive: #3d9970;
+  --color-green: #2ecc40;
+  --color-lime: #01ff70;
+  --color-yellow: #ffdc00;
+  --color-orange: #ff851b;
+  --color-red: #ff4136;
+  --color-maroon: #85144b;
+  --color-fuchsia: #f012be;
+  --color-purple: #b10dc9;
+  --color-black: #111;
+  --color-gray: #aaa;
+  --color-silver: #ddd;
+
+  /* States */
+  --state-primary: var(--color-blue);
+  --state-secondary: var(--color-gray);
+  --state-success: var(--color-green);
+  --state-info: var(--color-teal);
+  --state-warning: var(--color-orange);
+  --state-danger: var(--color-red);
+  --state-light: var(--color-white);
+  --state-dark: var(--color-black);
+
+  /* Components */
+  --component-bg-color: #f2f2f2;
+  --component-border-color: #ddd;
+  --component-border-radius: .25rem;
+  --component-border-width: 1px;
+  --component-padding-x: 1rem;
+  --component-padding-y: 1rem;
+  --component-speed: .1s;
+  --component-box-shadow-inner: inset 0 1px 1px rgba(0, 0, 0, .05);
+  --component-box-shadow-outer: 0 1px 0 rgba(0, 0, 0, .05);
+}
