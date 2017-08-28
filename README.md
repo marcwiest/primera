@@ -38,7 +38,7 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 - Will keep running until you hit `crtl+c`
 
 **`gulp`**
-- Runs `gulp cssmin`, `gulp jsmin` and `imgmin` once
+- Runs `cssmin`, `jsmin` and `imgmin` once
 
 ## Shoelace CSS
 
