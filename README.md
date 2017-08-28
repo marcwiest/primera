@@ -1,6 +1,4 @@
 
-# Primera WordPress Theme
-
 A WordPress starter theme with support for PostCSS (inc. autoprefixer), ES6 and LiveReload using GulpJS.
 
 ---
