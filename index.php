@@ -4,12 +4,10 @@ get_header();
 
 while( have_posts() ) {
     the_post();
-    ?>
-    <article <?php post_class(); ?>>
-        <h2><?php the_title(); ?></h2>
-        <div><?php the_content(); ?></div>
-    </article>
-    <?php
+    echo '<article class="'.join( ' ', get_post_class() ).'">';
+    echo '<h2>'.get_the_title().'</h2>';
+    echo '<div>'.get_the_content().'</div>';
+    echo '</article>';
 }
 
 if ( is_active_sidebar( 'primary' ) ) {
