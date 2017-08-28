@@ -81,8 +81,7 @@ gulp.task( 'watch', function() {
     // Live Reload
     livereload.listen();
     gulp.watch([
-            './*.php',
-            './php/*.php',
+            './**/*.php',
             './app.js',
             './style.css'
         ],
