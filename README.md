@@ -44,7 +44,8 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 
 The [Shoelace](//shoelace.style/) CSS Framework is included by default to demonstrate PostCSS but can be removed.
 
-## Resources
+## PostCSS & ES6 Resources
 
 - [postcss.org](//postcss.org)
-- [webdesign.tutsplus.com](//webdesign.tutsplus.com/series/postcss-deep-dive--cms-889)
+- [webdesign.tutsplus.com/series/postcss-deep-dive--cms-889](//webdesign.tutsplus.com/series/postcss-deep-dive--cms-889)
+- [babeljs.io/learn-es2015/](//babeljs.io/learn-es2015/)
