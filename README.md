@@ -33,7 +33,7 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 
 **`gulp watch`**
 - Listens for changes within any `.php`, `.js` or `.css` files via [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
-- Applies `gulp cssmin` or `gulp jsmin` as needed
+- Applies `cssmin` or `jsmin` as needed
 - Activated [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) browser extension is required
 - Will keep running until you hit `crtl+c`
 
