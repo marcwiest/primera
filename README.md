@@ -49,3 +49,4 @@ The [Shoelace](//shoelace.style/) CSS Framework is included by default to demons
 - [postcss.org](//postcss.org)
 - [webdesign.tutsplus.com/series/postcss-deep-dive--cms-889](//webdesign.tutsplus.com/series/postcss-deep-dive--cms-889)
 - [babeljs.io/learn-es2015/](//babeljs.io/learn-es2015/)
+[laracasts.com/series/es6-cliffsnotes](//laracasts.com/series/es6-cliffsnotes)
