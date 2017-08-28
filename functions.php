@@ -61,19 +61,19 @@ function primera_enqueue_frontend_scripts()
 	if ( defined('WP_DEBUG') && WP_DEBUG )
 		$version = filemtime( get_template_directory().'/app.js' );
 
+	wp_enqueue_style(
+		'primera',
+		get_stylesheet_uri(),
+		array(),
+		$version
+	);
+
 	wp_enqueue_script(
 		'primera',
 		get_template_directory_uri().'/app.js',
 		array('jquery'),
 		$version,
 		true
-	);
-
-	wp_enqueue_style(
-		'primera',
-		get_stylesheet_uri(),
-		array(),
-		$version
 	);
 
 	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
