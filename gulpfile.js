@@ -1,7 +1,4 @@
 
-// todo:
-// https://www.npmjs.com/package/gulp-wp-pot
-
 var gulp       = require('gulp');
 var babel      = require('gulp-babel');
 var concat     = require('gulp-concat');
