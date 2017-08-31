@@ -42,11 +42,23 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 
 ## Shoelace CSS
 
-The [Shoelace](//shoelace.style/) CSS Framework is included by default to demonstrate PostCSS but can be removed.
+The [Shoelace](//shoelace.style/) CSS Framework is included by default to demonstrate PostCSS.
 
 ## PostCSS & ES6 Resources
 
-- [postcss.org](//postcss.org)
-- [webdesign.tutsplus.com/series/postcss-deep-dive--cms-889](//webdesign.tutsplus.com/series/postcss-deep-dive--cms-889)
-- [babeljs.io/learn-es2015/](//babeljs.io/learn-es2015/)
-[laracasts.com/series/es6-cliffsnotes](//laracasts.com/series/es6-cliffsnotes)
+Please visit the following links to learn more:
+
+- https://postcss.org
+- https://webdesign.tutsplus.com/series/postcss-deep-dive--cms-889
+- https://laracasts.com/series/es6-cliffsnotes
+- https://babeljs.io/learn-es2015/
+
+## Translation
+
+1) While developing, wrap any hard coded translatable text strings in their [appropriate WP function](https://developer.wordpress.org/themes/functionality/internationalization/#localization-functions).
+2) When you are ready to publish your theme, revisit `gulpfile.js` and make sure the `domain` parameter inside `gulp.task('potfile')` matches your theme's text domain.
+3) Now simply run `gulp potfile` inside the terminal to update the `.pot` file inside the languages folder.
+4) To translate the `.pot` file and create the necessary `.po` and `.mo` files you can use either [Poedit](https://poedit.net/) to translate on your computer or [Loco Translate](https://wordpress.org/plugins/loco-translate/) to translate within the WordPress dashboard.
+
+Please visit the following link to learn more about internationalization:
+https://developer.wordpress.org/themes/functionality/internationalization/
