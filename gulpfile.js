@@ -1,4 +1,7 @@
 
+// todo:
+// https://www.npmjs.com/package/gulp-wp-pot
+
 var gulp       = require('gulp');
 var babel      = require('gulp-babel');
 var concat     = require('gulp-concat');
@@ -8,6 +11,7 @@ var livereload = require('gulp-livereload');
 var postcss    = require('gulp-postcss');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify     = require('gulp-uglify');
+var wpPot      = require('gulp-wp-pot');
 var pngquant   = require('imagemin-pngquant');
 var lostGrid   = require('lost');
 var cssnext    = require('postcss-cssnext');
@@ -68,6 +72,22 @@ gulp.task( 'imgmin', function () {
 
 
 /**
+* Create translation (POT) file.
+*/
+gulp.task( 'potfile', function () {
+
+    var stream = gulp.src('**/*.php')
+        .pipe( wpPot({
+            domain: 'primera'
+        }) )
+        .pipe( gulp.dest('./languages/primera.pot') );
+
+    return stream;
+
+});
+
+
+/**
 * Gulp Watch
 */
 gulp.task( 'watch', function() {
@@ -96,4 +116,4 @@ gulp.task( 'watch', function() {
 /**
 * Gulp Default
 */
-gulp.task( 'default', ['cssmin','jsmin','imgmin'] );
+gulp.task( 'default', ['cssmin','jsmin','imgmin','potfile'] );
