@@ -57,8 +57,8 @@ Please visit the following links to learn more:
 
 1) While developing, wrap any hard coded translatable text strings in their [appropriate WP function](https://developer.wordpress.org/themes/functionality/internationalization/#localization-functions).
 2) Revisit `gulpfile.js` and make sure the `domain` property inside `wpPot()` matches your theme's text domain.
-3) Run `gulp potfile` to update the `.pot` file inside the languages folder.
-4) Translate the `.pot` file and create the necessary `.po` and `.mo` via either [Poedit](https://poedit.net/) or [Loco Translate](https://wordpress.org/plugins/loco-translate/).
+3) Run `gulp potfile` to create a `.pot` file inside the languages folder.
+4) To translate the `.pot` file and create the necessary `.po` and `.mo` files, you can use either [Poedit](https://poedit.net/) or [Loco Translate](https://wordpress.org/plugins/loco-translate/).
 
 Please visit the following link to learn more about internationalization:
 https://developer.wordpress.org/themes/functionality/internationalization/
