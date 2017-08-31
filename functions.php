@@ -19,13 +19,13 @@ if ( empty( $GLOBALS['content_width'] ) ) {
 function primera_load_theme_textdomain()
 {
     // wp-content/languages/themes/theme-name/it_IT.mo
-    load_theme_textdomain( 'primera-theme', WP_LANG_DIR.'/themes/'.get_template() );
+    load_theme_textdomain( 'primera', WP_LANG_DIR.'/themes/'.get_template() );
 
     // wp-content/themes/child-theme-name/languages/it_IT.mo
-    load_theme_textdomain( 'primera-theme', get_stylesheet_directory().'/languages' );
+    load_theme_textdomain( 'primera', get_stylesheet_directory().'/languages' );
 
     // wp-content/themes/theme-name/languages/it_IT.mo
-    load_theme_textdomain( 'primera-theme', get_template_directory().'/languages' );
+    load_theme_textdomain( 'primera', get_template_directory().'/languages' );
 }
 add_action( 'after_setup_theme', 'primera_load_theme_textdomain' );
 
@@ -91,7 +91,7 @@ add_action( 'wp_enqueue_scripts', 'primera_enqueue_frontend_scripts' );
 function primera_register_nav_menus()
 {
 	register_nav_menus( array(
-		'primary' => esc_html_x('Primary Menu','Registered nav-menu name.','primera-theme'),
+		'primary' => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
 	) );
 }
 add_action( 'after_setup_theme', 'primera_register_nav_menus' );
@@ -106,7 +106,7 @@ function primera_register_sidebars()
 {
 	register_sidebar( array(
 		'id'            => 'primary',
-		'name'          => esc_html_x('Primary Sidebar','Sidebar title.','primera-theme'),
+		'name'          => esc_html_x('Primary Sidebar','Sidebar title.','primera'),
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
