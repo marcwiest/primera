@@ -17,8 +17,10 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 
 ## Gulp Commands
 
+GulpJS is a task runner. Below is a list of tasks you can run inside your terminal.
+
 **`gulp cssmin`**
-- Processes PostCSS and includes support for [CSSNext](//cssnext.io/) and [LostGrid](//lostgrid.org/)
+- Processes PostCSS and includes support for [CSSNext](//cssnext.io/) as well as [LostGrid](//lostgrid.org/)
 - Concatenates and minifies all CSS files into style.css
 - Runs once
 
@@ -37,19 +39,19 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 - The [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) browser extension must be active
 - Will keep running until you hit `crtl+c` within the terminal
 
+**`gulp potfile`**
+- Create a `.pot` file to be used for translations
+- Please see the Translation section below for more information
+
 **`gulp`**
-- Runs `gulp cssmin`, `gulp jsmin` and `gulp imgmin` once
+- Runs `gulp cssmin`, `gulp jsmin`, `gulp imgmin` and `gulp potfile` once
 
-## Shoelace CSS
+## PostCSS, CSSNext and Shoelace
 
-The [Shoelace](//shoelace.style/) CSS Framework is included by default.
+[PostCSS](https://postcss.org) is a JavaScript framework which processes CSS files. [CSSNext] is a PostCSS plugin which helps you to use the latest CSS syntax today. The [Shoelace](//shoelace.style/) CSS framework is included by default to demonstrate the syntax.
 
-## PostCSS & ES6 Resources
+## ES6 Resources
 
-Please visit the following links to learn more:
-
-- https://postcss.org
-- https://webdesign.tutsplus.com/series/postcss-deep-dive--cms-889
 - https://laracasts.com/series/es6-cliffsnotes
 - https://babeljs.io/learn-es2015/
 
