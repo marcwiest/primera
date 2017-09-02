@@ -1,7 +1,7 @@
 /*!
 Theme Name: 	  Primera Theme
-Theme URI:        https://primeratheme.com
-Description:      The theme's description.
+Theme URI:        https://github.com/marclarr/primera-theme
+Description:      A WordPress starter theme.
 Version:          {{version}}
 Author:        	  Marc Wiest
 Author URI:       https://marcwiest.com
@@ -11,4 +11,17 @@ Domain Path:   	  languages
 Text Domain:      primera
 */
 
+/*
+Shoelace CSS framework.
+*/
 @import 'shoelace/shoelace.css';
+
+/*
+App variables & Shoelace overrides.
+*/
+@import 'variables.css';
+
+/*
+WordPress core styles.
+*/
+@import 'wordpress.css';
