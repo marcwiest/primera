@@ -1,8 +1,6 @@
 'use strict';
 
-const PRIMERA_VERSION  = require('./package.json').version;
-const SHOELACE_VERSION = require('./package.json').shoelaceVersion;
-
+var pjson      = require('./package.json');
 var gulp       = require('gulp');
 var babel      = require('gulp-babel');
 var concat     = require('gulp-concat');
@@ -28,11 +26,11 @@ gulp.task( 'cssmin', function() {
     var stream = gulp.src( './css/style.css' )
         .pipe( sourcemaps.init() )
         // Replace primera version before concatenation.
-        .pipe( replace( '{{version}}', PRIMERA_VERSION ) )
+        .pipe( replace( '{{version}}', pjson.version ) )
         // Concatenate files via atImport function.
         .pipe( postcss([ atImport(), lostGrid(), cssnext() ]) )
         // Replace shoelace version after concatenation.
-        .pipe( replace( '{{version}}', SHOELACE_VERSION ) )
+        .pipe( replace( '{{version}}', pjson.shoelaceVersion ) )
         .pipe( cssnano() )
         .pipe( sourcemaps.write('./') )
         .pipe( gulp.dest('./') );
