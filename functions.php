@@ -1,7 +1,7 @@
 <?php
 
 # Current theme version.
-define( 'PRIMERA_VERSION', '1.0' );
+define( 'PRIMERA_VERSION', wp_get_theme()->version );
 
 # Set content width.
 if ( empty( $GLOBALS['content_width'] ) ) {
