@@ -1,3 +1,7 @@
+'use strict';
+
+const PRIMERA_VERSION  = require('./package.json').version;
+const SHOELACE_VERSION = require('./package.json').shoelaceVersion;
 
 var gulp       = require('gulp');
 var babel      = require('gulp-babel');
@@ -6,6 +10,7 @@ var cssnano    = require('gulp-cssnano');
 var imagemin   = require('gulp-imagemin');
 var livereload = require('gulp-livereload');
 var postcss    = require('gulp-postcss');
+var replace    = require('gulp-replace');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify     = require('gulp-uglify');
 var wpPot      = require('gulp-wp-pot');
@@ -22,7 +27,12 @@ gulp.task( 'cssmin', function() {
 
     var stream = gulp.src( './css/style.css' )
         .pipe( sourcemaps.init() )
+        // Replace primera version before concatenation.
+        .pipe( replace( '{{version}}', PRIMERA_VERSION ) )
+        // Concatenates via atImport function.
         .pipe( postcss([ atImport(), lostGrid(), cssnext() ]) )
+        // Replace shoelace version after concatenation.
+        .pipe( replace( '{{version}}', SHOELACE_VERSION ) )
         .pipe( cssnano() )
         .pipe( sourcemaps.write('./') )
         .pipe( gulp.dest('./') );
