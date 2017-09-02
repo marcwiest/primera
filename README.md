@@ -62,3 +62,9 @@ Please visit the following links to learn more:
 
 Please visit the following link to learn more about internationalization:
 https://developer.wordpress.org/themes/functionality/internationalization/
+
+## Theme Updates
+Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts, simply make sure that your theme's folder name is unique (e.g. via a prefix).
+
+## Versioning
+To update your themes version, as found inside the `style.css` file, simply bump the version inside your `package.json` file and run `gulp` or `gulp cssmin`.
