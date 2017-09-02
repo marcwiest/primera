@@ -42,7 +42,7 @@ When you are done, just run `glup watch` and active the [LiveReload](https://chr
 
 ## Shoelace CSS
 
-The [Shoelace](//shoelace.style/) CSS Framework is included by default to demonstrate PostCSS.
+The [Shoelace](//shoelace.style/) CSS Framework is included by default.
 
 ## PostCSS & ES6 Resources
 
