@@ -48,7 +48,7 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 
 ## PostCSS, CSSNext and Shoelace
 
-PostCSS is a JavaScript framework which processes CSS files. [CSSNext](//cssnext.io/) is a [PostCSS](https://postcss.org) plugin which helps you to use the latest CSS syntax today. The [Shoelace](//shoelace.style/) CSS framework is included by default to demonstrate the syntax.
+PostCSS is a JavaScript framework which processes CSS files. [CSSNext](//cssnext.io/) is a [PostCSS](https://postcss.org) plugin which helps you use the latest CSS syntax. The [Shoelace](//shoelace.style/) CSS framework is included by default to demonstrate the syntax.
 
 ## ES6 Resources
 
