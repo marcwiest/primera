@@ -1,24 +1,4 @@
 /*! Dropdowns */
-:root {
-  --dropdown-min-width: 10rem;
-  --dropdown-max-width: 25rem;
-  --dropdown-max-height: none;
-  --dropdown-border-color: var(--component-border-color);
-  --dropdown-border-radius: var(--component-border-radius);
-  --dropdown-border-width: var(--component-border-width);
-  --dropdown-color: var(--body-color);
-  --dropdown-color-hover: var(--color-white);
-  --dropdown-bg-color: var(--color-white);
-  --dropdown-bg-color-hover: var(--state-primary);
-  --dropdown-box-shadow: var(--component-box-shadow-outer);
-  --dropdown-divider-color: var(--component-border-color);
-  --dropdown-divider-width: var(--component-border-width);
-  --dropdown-padding-x: 1rem;
-  --dropdown-padding-y: .25rem;
-  --dropdown-offset-x: 0;
-  --dropdown-offset-y: 1px;
-  --dropdown-z-index: 100;
-}
 
 .dropdown {
   position: relative;
@@ -49,6 +29,10 @@
     min-width: var(--dropdown-min-width);
     max-width: var(--dropdown-max-width);
     max-height: var(--dropdown-max-height);
+    line-height: var(--dropdown-line-height);
+    font-size: var(--dropdown-font-size);
+    font-weight: var(--dropdown-font-weight);
+    text-align: left;
     background-color: var(--dropdown-bg-color);
     border: solid var(--dropdown-border-width) var(--dropdown-border-color);
     border-radius: var(--dropdown-border-radius);
@@ -57,6 +41,7 @@
     padding: var(--dropdown-padding-y) 0;
     overflow-y: auto;
     transform: translateZ(0);
+    user-select: none;
 
     & a {
       position: relative;
@@ -68,18 +53,20 @@
       overflow-x: hidden;
       text-overflow: ellipsis;
 
-      &:focus:not(.disabled) {
+      &:focus {
         outline: none;
         color: var(--dropdown-color);
         background-color: color(var(--dropdown-bg-color) shade(5%));
       }
 
-      &:hover:not(.disabled) {
+      &:hover {
         color: var(--dropdown-color-hover);
         background-color: var(--dropdown-bg-color-hover);
       }
 
       &.disabled {
+        background-color: transparent;
+        color: var(--dropdown-color);
         outline: none;
         cursor: not-allowed;
         opacity: .5;
@@ -98,6 +85,14 @@
       width: 100%;
       border-top: solid var(--dropdown-divider-width) var(--dropdown-divider-color);
       margin: var(--dropdown-padding-y) 0;
+    }
+
+    & .dropdown-heading {
+      font-size: var(--dropdown-heading-font-size);
+      font-weight: var(--dropdown-heading-font-weight);
+      color: var(--dropdown-heading-color);
+      padding: var(--dropdown-padding-y) calc(var(--dropdown-padding-x) + .5em);
+      cursor: default;
     }
   }
 
