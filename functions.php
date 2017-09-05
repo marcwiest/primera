@@ -59,7 +59,7 @@ function primera_enqueue_frontend_scripts()
 {
 	$version = PRIMERA_VERSION;
 	if ( defined('WP_DEBUG') && WP_DEBUG )
-		$version = filemtime( get_template_directory().'/app.js' );
+		$version = time();
 
 	wp_enqueue_style(
 		'primera-theme',
