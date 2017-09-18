@@ -1,7 +1,5 @@
 <?php
-
-echo apply_filters( 'primera_site_wrapper_tag_close', '</div>' );
-
+do_action( 'primera/footer' );
 wp_footer();
 ?>
 </body>

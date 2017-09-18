@@ -9,7 +9,4 @@
 </head>
 <body <?php body_class(); ?>>
 <?php
-
-echo apply_filters( 'primera_site_wrapper_tag_open', '<div id="primera-site-wrapper">' );
-
-echo '<h1>'.get_bloginfo('name').'</h1>';
+do_action( 'primera/header' );
