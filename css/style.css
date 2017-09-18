@@ -22,6 +22,11 @@ App variables & Shoelace overrides.
 @import 'variables.css';
 
 /*
+Material design shadows.
+*/
+@import 'shadows.css';
+
+/*
 WordPress core styles.
 */
 @import 'wordpress.css';
