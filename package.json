@@ -1,15 +1,27 @@
 {
-  "name": "primera-theme",
+  "name": "primera",
   "version": "1.0.0",
   "shoelaceVersion": "1.0.0-beta22",
-  "description": "Gulp setup for Primera WordPress theme",
+  "description": "A WordPress starter theme.",
   "main": "gulpfile.js",
   "author": "Marc Wiest",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/marclarr/primera-theme"
+    "url": "https://github.com/marcwiest/primera"
   },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "ie >= 10",
+    "ie_mob >= 10",
+    "ff >= 30",
+    "chrome >= 34",
+    "safari >= 7",
+    "opera >= 23",
+    "ios >= 7",
+    "android >= 4"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
@@ -28,6 +40,7 @@
     "lost": "^8.2.0",
     "postcss": "^6.0.9",
     "postcss-cssnext": "^3.0.2",
+    "postcss-extend": "^1.0.5",
     "postcss-import": "^10.0.0"
   }
 }
