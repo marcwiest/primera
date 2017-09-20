@@ -15,6 +15,7 @@ var wpPot      = require('gulp-wp-pot');
 var pngquant   = require('imagemin-pngquant');
 var lostGrid   = require('lost');
 var cssnext    = require('postcss-cssnext');
+var atExtend   = require('postcss-extend');
 var atImport   = require('postcss-import');
 
 
@@ -28,7 +29,7 @@ gulp.task( 'cssmin', function() {
         // Replace primera version before concatenation.
         .pipe( replace( '{{version}}', pjson.version ) )
         // Concatenate files via atImport function.
-        .pipe( postcss([ atImport(), lostGrid(), cssnext() ]) )
+        .pipe( postcss([ atImport(), atExtend(), lostGrid(), cssnext() ]) )
         // Replace shoelace version after concatenation.
         .pipe( replace( '{{version}}', pjson.shoelaceVersion ) )
         .pipe( cssnano() )
@@ -103,7 +104,7 @@ gulp.task( 'watch', function() {
     // Minify JS
     gulp.watch( './js/**/*.js', ['jsmin'] );
 
-    // Live Reload
+    // Live Reload (Remember, you must activate the browser extension!)
     livereload.listen();
     gulp.watch([
             './**/*.php',
