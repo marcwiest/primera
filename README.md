@@ -66,6 +66,7 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 
 - https://laracasts.com/series/es6-cliffsnotes
 - https://babeljs.io/learn-es2015/
+- https://github.com/mbeaudru/modern-js-cheatsheet
 
 ## Translation
 
