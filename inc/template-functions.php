@@ -3,33 +3,9 @@ This file holds functions that are ment to be hooked.
 */
 
 
-if ( ! function_exists('primera_site_wrapper_tag_open') ) :
-/**
-* Site wrapper tag open.
-*/
-function primera_site_wrapper_tag_open()
-{
-    echo '<div id="primera-site-wrapper">';
-}
-endif;
-
-
-
-if ( ! function_exists('primera_site_wrapper_tag_close') ) :
-/**
-* Site wrapper tag close.
-*/
-function primera_site_wrapper_tag_close()
-{
-    echo '</div>';
-}
-endif;
-
-
-
 if ( ! function_exists('primera_site_tag_open') ) :
 /**
-* Site wrapper tag open.
+* Site tag open.
 */
 function primera_site_tag_open()
 {
@@ -41,9 +17,57 @@ endif;
 
 if ( ! function_exists('primera_site_tag_close') ) :
 /**
-* Site wrapper tag close.
+* Site tag close.
 */
 function primera_site_tag_close()
+{
+    echo '</div>';
+}
+endif;
+
+
+
+if ( ! function_exists('primera_site_canvas_tag_open') ) :
+/**
+* Site canvas tag open.
+*/
+function primera_site_canvas_tag_open()
+{
+    echo '<div id="primera-site-canvas">';
+}
+endif;
+
+
+
+if ( ! function_exists('primera_site_canvas_tag_close') ) :
+/**
+* Site canvas tag close.
+*/
+function primera_site_canvas_tag_close()
+{
+    echo '</div>';
+}
+endif;
+
+
+
+if ( ! function_exists('primera_main_content_tag_open') ) :
+/**
+* Main content tag open.
+*/
+function primera_main_content_tag_open()
+{
+    echo '<div class="primera-main-content">';
+}
+endif;
+
+
+
+if ( ! function_exists('primera_main_content_tag_close') ) :
+/**
+* Main content tag close.
+*/
+function primera_main_content_tag_close()
 {
     echo '</div>';
 }
@@ -69,44 +93,64 @@ endif;
 
 
 
-if ( ! function_exists('primera_index') ) :
+if ( ! function_exists('primera_entries') ) :
 /**
-* Display index.
+* Display entries.
 */
-function primera_index()
+function primera_entries()
 {
-    echo '<main id="primera-site-content">';
-
-    ?><div class="content"><?php
-    while( have_posts() ) : the_post();
-        ?>
+    ?>
+    <main class="primera-entries">
+    <?php while( have_posts() ) : the_post(); ?>
         <article class="<?php post_class('entry'); ?>">
-            <h2><?php the_title(); ?></h2>
-            <div><?php the_content(); ?></div>
+            <h1><?php the_title(); ?></h1>
+            <div><?php
+                the_content();
+                wp_link_pages( array(
+                    'before'           => '<div class="primera-link-pages">',
+                    'after'            => '</div>',
+                    'link_before'      => '',
+                    'link_after'       => '',
+                    'next_or_number'   => 'number',
+                    'separator'        => ' ',
+                    'nextpagelink'     => esc_html__( 'Next', 'portal' ),
+                    'previouspagelink' => esc_html__( 'Previous', 'portal' ),
+                    'pagelink'         => '%',
+                    'echo'             => 1,
+                ) );
+            ?></div>
         </article>
-        <?php
-    endwhile;
-    ?></div><?php
-
-    if ( is_active_sidebar( 'primary' ) ) :
-        ?>
-        <div class="sidebar">
-            <?php dynamic_sidebar( 'primary' ); ?>
-        </div>
-        <?php
-    endif;
-
-    echo '</main>';
+    <?php endwhile; ?>
+    </main>
+    <?php
 }
 endif;
 
 
 
-if ( ! function_exists('primera_footer') ) :
+if ( ! function_exists('primera_sidebar') ) :
 /**
-* Display footer.
+* Display sidebar.
 */
-function primera_footer()
+function primera_sidebar()
+{
+    if ( is_active_sidebar( 'primary' ) ) :
+        ?>
+        <div class="primera-sidebar">
+            <?php dynamic_sidebar( 'primary' ); ?>
+        </div>
+        <?php
+    endif;
+}
+endif;
+
+
+
+if ( ! function_exists('primera_colophon') ) :
+/**
+* Display colophon.
+*/
+function primera_colophon()
 {
     $year = date('Y');
     $site = get_bloginfo('name');
