@@ -10,6 +10,19 @@ if ( empty( $GLOBALS['content_width'] ) ) {
 
 
 /**
+* Init site.
+*
+* @since  1.0
+*/
+function primera_init_site()
+{
+	require_once get_template_directory().'/inc/template-functions.php';
+	require_once get_template_directory().'/inc/template-hooks.php';
+}
+add_action( 'after_setup_theme', 'primera_init_site' );
+
+
+/**
 * Load text domain.
 *
 * First .mo file found gets used. Text domain should match theme folder name.
@@ -139,19 +152,6 @@ function primera_register_sidebars()
 	) );
 }
 add_action( 'widgets_init', 'primera_register_sidebars' );
-
-
-/**
-* Init site.
-*
-* @since  1.0
-*/
-function primera_init_site()
-{
-	require_once get_template_directory().'/inc/template-functions.php';
-	require_once get_template_directory().'/inc/template-hooks.php';
-}
-add_action( 'after_setup_theme', 'primera_init_site' );
 
 
 /**
