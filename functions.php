@@ -30,6 +30,30 @@ function primera_load_theme_textdomain()
 add_action( 'after_setup_theme', 'primera_load_theme_textdomain' );
 
 
+
+/**
+* Add head meta.
+*
+* @since  1.0
+*/
+function primera_add_head_meta()
+{
+    $meta = apply_filters( 'primera_head_meta', array(
+        'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">',
+        'ie_edge'  => '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
+    ) );
+
+    if ( ! $GLOBALS['is_IE'] && ! empty($meta['ie_edge']) ) {
+        unset( $meta['ie_edge'] );
+	}
+
+    foreach ( $meta as $m ) {
+        echo $m;
+    }
+}
+add_action( 'wp_head', 'primera_add_head_meta' );
+
+
 /**
 * Add theme support.
 *
@@ -128,3 +152,48 @@ function primera_init_site()
 	require_once get_template_directory().'/inc/template-hooks.php';
 }
 add_action( 'after_setup_theme', 'primera_init_site' );
+
+
+/**
+* Changing the logo link from wordpress.org to home_url.
+*
+* @since  1.0
+*/
+function primera_modify_login_url()
+{
+	return esc_url( home_url('/') );
+}
+add_filter( 'login_headerurl', 'primera_modify_login_url' );
+
+
+/**
+* Changing the alt text on the logo to show your site name.
+*
+* @since  1.0
+*/
+function primera_modify_login_title()
+{
+	return get_bloginfo('name');
+}
+add_filter( 'login_headertitle', 'primera_modify_login_title' );
+
+
+/**
+* Modify Tag Cloud widget arguments.
+*
+* @since  1.0
+*/
+function primera_modify_tag_cloud_args( $args )
+{
+	// $args['number']    = 24;
+	// $args['smallest']  = 14;
+	// $args['largest']   = 14;
+	// $args['unit']      = 'px';
+	$args['format']    = 'flat'; // list / flat (custom classes only work with flat)
+	$args['separator'] = "\n";
+	$args['orderby']   = 'count'; // name(alphabetical) / count(popularity)
+	$args['order']     = 'ASC';
+
+	return $args;
+}
+add_filter( 'widget_tag_cloud_args', 'primera_modify_tag_cloud_args' );
