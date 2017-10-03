@@ -1,5 +1,7 @@
 'use strict';
 
+const THEME_TEXT_DOMAIN = 'primera';
+
 var pjson      = require('./package.json');
 var gulp       = require('gulp');
 var babel      = require('gulp-babel');
@@ -28,7 +30,7 @@ gulp.task( 'cssmin', function() {
         .pipe( sourcemaps.init() )
         // Replace primera version before concatenation.
         .pipe( replace( '{{version}}', pjson.version ) )
-        // Concatenate files via atImport function.
+        // Concatenate files via atImport.
         .pipe( postcss([ atImport(), atExtend(), lostGrid(), cssnext() ]) )
         // Replace shoelace version after concatenation.
         .pipe( replace( '{{version}}', pjson.shoelaceVersion ) )
@@ -46,9 +48,17 @@ gulp.task( 'cssmin', function() {
 */
 gulp.task( 'jsmin', function() {
 
-    var stream = gulp.src( './js/**/*.js' )
+    var jsFiles = [
+        './js/shoelace/dropdowns.js',
+        './js/shoelace/tabs.js',
+        './js/tools.js',
+        './js/theme.js',
+        './js/init.js'
+    ];
+
+    var stream = gulp.src( jsFiles )
         .pipe( sourcemaps.init() )
-        .pipe( concat('app.js') )
+        .pipe( concat('script.js') )
         .pipe( babel() )
         .pipe( uglify() )
         .pipe( sourcemaps.write('./') )
@@ -84,7 +94,7 @@ gulp.task( 'potfile', function () {
 
     var stream = gulp.src('**/*.php')
         .pipe( wpPot({
-            domain: 'primera'
+            domain: THEME_TEXT_DOMAIN
         }) )
         .pipe( gulp.dest('./languages/primera.pot') );
 
