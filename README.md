@@ -18,7 +18,7 @@ folder name is unique (e.g. via a prefix).
 **2)** Open `package.json` and change the package's `name` to match your theme's folder name. This is
 done because your package's name must also be [unique](https://docs.npmjs.com/files/package.json#name).
 
-**3)** Find and replace all `primera` or `PRIMERA` strings inside the theme's folder to suit your project.
+**3)** Find and replace all `primera` and `PRIMERA` strings inside the theme's folder to suit your project.
 
 **4)** Open `css/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project.
 
@@ -83,3 +83,5 @@ To update your themes version, as found inside the `style.css` file, simply bump
 
 ## Browser Support
 While writing CSS you do not need to worry about browser prefixes. The Autoprefixer plugin will do that for you. To adjust which browsers to support you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
+
+But remember, [Autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. A great place to check which browser supports what, have a look at: [caniuse.com](http://caniuse.com/).
