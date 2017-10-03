@@ -3,23 +3,13 @@
 # Current theme version.
 define( 'PRIMERA_VERSION', wp_get_theme()->get('Version') );
 
-# Set content width.
+# Set embedded media width.
 if ( empty( $GLOBALS['content_width'] ) ) {
-	$GLOBALS['content_width'] = 1140;
+	$GLOBALS['content_width'] = 800;
 }
 
-
-/**
-* Init site.
-*
-* @since  1.0
-*/
-function primera_init_site()
-{
-	require_once get_template_directory().'/inc/template-functions.php';
-	require_once get_template_directory().'/inc/template-hooks.php';
-}
-add_action( 'after_setup_theme', 'primera_init_site' );
+# Load include files.
+require_once get_template_directory().'/inc/template-tags.php';
 
 
 /**
