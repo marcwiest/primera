@@ -2,6 +2,12 @@
 if ( post_password_required() ) {
 	return;
 }
+if ( ! comments_open() ) {
+	return;
+}
+if ( ! get_comments_number() ) {
+	return;
+}
 ?>
 
 <div id="comments" class="comments-area">
