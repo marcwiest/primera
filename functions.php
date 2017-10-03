@@ -71,10 +71,38 @@ function primera_add_theme_support()
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'customize-selective-refresh-widgets' );
 
-    # Image Sizes
+    # Image Sizes (default: 150x150)
 	set_post_thumbnail_size( 300, 300, true );
+
+	# Add Custom Image Size (16:9)
+	// add_image_size( 'post_entry_banner', 1680, (1680/16*9) );
 }
 add_action( 'after_setup_theme', 'primera_add_theme_support' );
+
+
+/**
+* Filter featured image HTML in admin.
+*
+* @since  1.0
+* @return  string  Featured image HTML with note reg. recommened size.
+*/
+function primera_filter_admin_post_thumbnail_html( $content, $post_id, $thumbnail_id )
+{
+	$post_type = get_post_type( $post_id );
+
+	$note = '';
+
+	if ( 'post' == $post_type ) {
+		$note = esc_html__('Recommened Image Size: 300x300','primera');
+	}
+
+	if ( $note ) {
+		return $content . "<p class='primera-recommened-thumbnail-size'>$note</p>";
+	}
+
+	return $content;
+}
+add_filter( 'admin_post_thumbnail_html', 'primera_filter_admin_post_thumbnail_html', 10, 3 );
 
 
 /**
@@ -97,11 +125,17 @@ function primera_enqueue_frontend_scripts()
 
 	wp_enqueue_script(
 		'primera',
-		get_template_directory_uri().'/app.js',
-		array('jquery'),
+		get_template_directory_uri().'/script.js',
+		array( 'jquery' ),
 		$version,
 		true
 	);
+
+	// wp_remote_get( rest_url('/wp/v2/') );
+	// wp_localize_script( 'primera', 'primeraRest', array(
+	// 	'nonce' => wp_create_nonce( 'primera_rest' ),
+	// 	'root'  => esc_url_raw( rest_url('/wp/v2/') ),
+	// ) );
 
 	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
 		wp_enqueue_script('comment-reply');
@@ -118,7 +152,8 @@ add_action( 'wp_enqueue_scripts', 'primera_enqueue_frontend_scripts' );
 function primera_register_nav_menus()
 {
 	register_nav_menus( array(
-		'primary' => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
+		'primera_primary_menu'  => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
+		'primera_colophon_menu' => esc_html_x('Colophon Menu','Registered nav-menu name.','primera'),
 	) );
 }
 add_action( 'after_setup_theme', 'primera_register_nav_menus' );
@@ -132,16 +167,69 @@ add_action( 'after_setup_theme', 'primera_register_nav_menus' );
 function primera_register_sidebars()
 {
 	register_sidebar( array(
-		'id'            => 'primary',
-		'name'          => esc_html_x('Primary Sidebar','Sidebar title.','primera'),
+		'id'            => 'primera_content_sidebar',
+		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primera'),
 		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'before_widget' => '<aside id="%1$s" class="primera-content-widget widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
+		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
+	) );
+
+	register_sidebar( array(
+		'id'            => 'primera_off_canvas_sidebar',
+		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primera'),
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="primera-off-canvas-widget widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
 		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
 	) );
 }
 add_action( 'widgets_init', 'primera_register_sidebars' );
+
+
+/**
+* Add HTML tag before registered sidebars.
+*
+* @since 1.0
+* @return string HTML opening tag for sidebar.
+*/
+function primera_dynamic_sidebar_before( $index )
+{
+	$primera_sidebars = array(
+		'primera_content_sidebar',
+		'primera_off_canvas_sidebar',
+	);
+
+	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
+
+		$index = str_replace( '_', '-', $index );
+
+		echo "<div class='primera-sidebar $index'>";
+	}
+}
+add_action( 'dynamic_sidebar_before', 'primera_dynamic_sidebar_before' );
+
+
+/**
+* Add HTML tag after registered sidebars.
+*
+* @since 1.0
+* @return string HTML closing tag for sidebar.
+*/
+function primera_dynamic_sidebar_after( $index )
+{
+	$primera_sidebars = array(
+		'primera_content_sidebar',
+		'primera_off_canvas_sidebar',
+	);
+
+	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
+		echo "</div>";
+	}
+}
+add_action( 'dynamic_sidebar_after', 'primera_dynamic_sidebar_after' );
 
 
 /**
@@ -163,7 +251,7 @@ add_filter( 'login_headerurl', 'primera_modify_login_url' );
 */
 function primera_modify_login_title()
 {
-	return get_bloginfo('name');
+	return get_bloginfo( 'name' );
 }
 add_filter( 'login_headertitle', 'primera_modify_login_title' );
 
@@ -187,3 +275,41 @@ function primera_modify_tag_cloud_args( $args )
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'primera_modify_tag_cloud_args' );
+
+
+/**
+* Filter nav menu list item classes.
+*
+* This filter can be found in wp-includes/class-walker-nav-menu.php
+*
+* @since  1.0
+* @return  array  Numeric array of list item classes.
+*/
+function primera_filter_nav_menu_list_item_classes( $classes, $item, $args, $depth ) {
+
+	if ( 'primera_primary_menu' == $args->theme_location ) {
+		array_push( $classes, 'primera-menu-item primera-menu-item-demo' );
+	}
+
+	return $classes;
+}
+add_filter( 'nav_menu_css_class', 'primera_filter_nav_menu_list_item_classes', 10, 4 );
+
+
+/**
+* Filter nav menu link attributes.
+*
+* This filter can be found in wp-includes/class-walker-nav-menu.php
+*
+* @since  1.0
+* @return  array  Asccociative array of anchor attributes.
+*/
+function primera_filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
+
+	if ( 'primera_primary_menu' == $args->theme_location ) {
+		$atts['class'] = 'primera-menu-link primera-menu-link-demo';
+	}
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'primera_filter_nav_menu_link_atts', 10, 4 );
