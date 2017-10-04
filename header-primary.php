@@ -5,9 +5,14 @@
 
 		<div class="col">
 
-            <h1 class="primera-brand">
-				<?php bloginfo('name'); ?>
-			</h1>
+            <div class="primera-brand">
+                <?php
+                    $title     = get_bloginfo( 'name' );
+                    $title_tag = is_home() ? 'h1' : 'strong';
+                    $home_url  = esc_url( home_url('/') );
+                    echo "<$title_tag class='primera-brand-title'><a href='$home_url' rel='home'>$title</a></$title_tag>";
+                ?>
+			</div>
 
         </div>
 
