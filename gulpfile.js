@@ -96,7 +96,7 @@ gulp.task( 'potfile', function () {
         .pipe( wpPot({
             domain: THEME_TEXT_DOMAIN
         }) )
-        .pipe( gulp.dest('./languages/primera.pot') );
+        .pipe( gulp.dest('./languages/'+ THEME_TEXT_DOMAIN +'.pot') );
 
     return stream;
 
