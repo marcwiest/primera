@@ -1,12 +1,14 @@
 <?php
 
-# Current theme version.
-define( 'PRIMERA_VERSION', wp_get_theme()->get('Version') );
-
 # Set embedded media width.
 if ( empty( $GLOBALS['content_width'] ) ) {
-	$GLOBALS['content_width'] = 800;
+	$GLOBALS['content_width'] = 840;
 }
+
+
+# Define current theme version.
+define( 'PRIMERA_VERSION', wp_get_theme()->get('Version') );
+
 
 # Load include files.
 require_once get_template_directory().'/inc/template-tags.php';
@@ -112,9 +114,7 @@ add_filter( 'admin_post_thumbnail_html', 'primera_filter_admin_post_thumbnail_ht
 */
 function primera_enqueue_frontend_scripts()
 {
-	$version = PRIMERA_VERSION;
-	if ( defined('WP_DEBUG') && WP_DEBUG )
-		$version = time();
+	$version = defined('WP_DEBUG') && WP_DEBUG ? time() : PRIMERA_VERSION;
 
 	wp_enqueue_style(
 		'primera',
@@ -131,6 +131,7 @@ function primera_enqueue_frontend_scripts()
 		true
 	);
 
+	# WP API references.
 	// wp_remote_get( rest_url('/wp/v2/') );
 	// wp_localize_script( 'primera', 'primeraRest', array(
 	// 	'nonce' => wp_create_nonce( 'primera_rest' ),
@@ -233,30 +234,6 @@ add_action( 'dynamic_sidebar_after', 'primera_dynamic_sidebar_after' );
 
 
 /**
-* Changing the logo link from wordpress.org to home_url.
-*
-* @since  1.0
-*/
-function primera_modify_login_url()
-{
-	return esc_url( home_url('/') );
-}
-add_filter( 'login_headerurl', 'primera_modify_login_url' );
-
-
-/**
-* Changing the alt text on the logo to show your site name.
-*
-* @since  1.0
-*/
-function primera_modify_login_title()
-{
-	return get_bloginfo( 'name' );
-}
-add_filter( 'login_headertitle', 'primera_modify_login_title' );
-
-
-/**
 * Modify Tag Cloud widget arguments.
 *
 * @since  1.0
@@ -313,3 +290,27 @@ function primera_filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
 	return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'primera_filter_nav_menu_link_atts', 10, 4 );
+
+
+/**
+* Changing the logo link from wordpress.org to home_url.
+*
+* @since  1.0
+*/
+function primera_modify_login_url()
+{
+	return esc_url( home_url('/') );
+}
+add_filter( 'login_headerurl', 'primera_modify_login_url' );
+
+
+/**
+* Changing the alt text on the logo to show your site name.
+*
+* @since  1.0
+*/
+function primera_modify_login_title()
+{
+	return get_bloginfo( 'name' );
+}
+add_filter( 'login_headertitle', 'primera_modify_login_title' );
