@@ -21,7 +21,7 @@
             <nav class="primera-menu primera-menu-primary" role="navigation">
 			<?php
 				wp_nav_menu( array(
-					'theme_location' => 'primera_primary_menu',
+					'theme_location' => 'primera_primary',
 					'depth'          => 0,
 					'container'      => false,
 					'fallback_cb'    => false,

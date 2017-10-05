@@ -18,7 +18,7 @@
             <nav class="primera-menu primera-menu-colophon" role="navigation">
                 <?php
                     wp_nav_menu( array(
-                    	'theme_location' => 'primera_colophon_menu',
+                    	'theme_location' => 'primera_colophon',
                     	'depth'          => 1,
                     	'container'      => false,
                     	'fallback_cb'    => false,
