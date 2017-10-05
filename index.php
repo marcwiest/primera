@@ -26,7 +26,7 @@ get_header( 'primary' );
 
         <div class="col col-3">
 
-            <?php dynamic_sidebar( 'primera_content_sidebar' ); ?>
+            <?php dynamic_sidebar( 'primera_primary' ); ?>
 
         </div>
 
