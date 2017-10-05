@@ -18,7 +18,7 @@
 
 		<div class="col">
 
-            <nav class="primera-primary-menu" role="navigation">
+            <nav class="primera-menu primera-menu-primary" role="navigation">
 			<?php
 				wp_nav_menu( array(
 					'theme_location' => 'primera_primary_menu',

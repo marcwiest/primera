@@ -15,7 +15,7 @@
                     );
                 ?>
             </small>
-            <nav class="primera-colophon-menu" role="navigation">
+            <nav class="primera-menu primera-menu-colophon" role="navigation">
                 <?php
                     wp_nav_menu( array(
                     	'theme_location' => 'primera_colophon_menu',

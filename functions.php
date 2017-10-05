@@ -153,8 +153,8 @@ add_action( 'wp_enqueue_scripts', 'primera_enqueue_frontend_scripts' );
 function primera_register_nav_menus()
 {
 	register_nav_menus( array(
-		'primera_primary_menu'  => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
-		'primera_colophon_menu' => esc_html_x('Colophon Menu','Registered nav-menu name.','primera'),
+		'primera_primary'  => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
+		'primera_colophon' => esc_html_x('Colophon Menu','Registered nav-menu name.','primera'),
 	) );
 }
 add_action( 'after_setup_theme', 'primera_register_nav_menus' );
@@ -168,20 +168,20 @@ add_action( 'after_setup_theme', 'primera_register_nav_menus' );
 function primera_register_sidebars()
 {
 	register_sidebar( array(
-		'id'            => 'primera_content_sidebar',
+		'id'            => 'primera_content',
 		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primera'),
 		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="primera-content-widget widget %2$s">',
+		'before_widget' => '<aside id="%1$s" class="primera-widget primera-widget-content widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
 		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
 	) );
 
 	register_sidebar( array(
-		'id'            => 'primera_off_canvas_sidebar',
+		'id'            => 'primera_off_canvas',
 		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primera'),
 		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="primera-off-canvas-widget widget %2$s">',
+		'before_widget' => '<aside id="%1$s" class="primera-widget primera-widget-off-canvas widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
 		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
@@ -199,8 +199,8 @@ add_action( 'widgets_init', 'primera_register_sidebars' );
 function primera_dynamic_sidebar_before( $index )
 {
 	$primera_sidebars = array(
-		'primera_content_sidebar',
-		'primera_off_canvas_sidebar',
+		'primera_content',
+		'primera_off_canvas',
 	);
 
 	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
@@ -222,8 +222,8 @@ add_action( 'dynamic_sidebar_before', 'primera_dynamic_sidebar_before' );
 function primera_dynamic_sidebar_after( $index )
 {
 	$primera_sidebars = array(
-		'primera_content_sidebar',
-		'primera_off_canvas_sidebar',
+		'primera_content',
+		'primera_off_canvas',
 	);
 
 	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
@@ -264,7 +264,7 @@ add_filter( 'widget_tag_cloud_args', 'primera_modify_tag_cloud_args' );
 */
 function primera_filter_nav_menu_list_item_classes( $classes, $item, $args, $depth ) {
 
-	if ( 'primera_primary_menu' == $args->theme_location ) {
+	if ( 'primera_primary' == $args->theme_location ) {
 		array_push( $classes, 'primera-menu-item primera-menu-item-demo' );
 	}
 
@@ -283,7 +283,7 @@ add_filter( 'nav_menu_css_class', 'primera_filter_nav_menu_list_item_classes', 1
 */
 function primera_filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
 
-	if ( 'primera_primary_menu' == $args->theme_location ) {
+	if ( 'primera_primary' == $args->theme_location ) {
 		$atts['class'] = 'primera-menu-link primera-menu-link-demo';
 	}
 
