@@ -168,7 +168,7 @@ add_action( 'after_setup_theme', 'primera_register_nav_menus' );
 function primera_register_sidebars()
 {
 	register_sidebar( array(
-		'id'            => 'primera_content',
+		'id'            => 'primera_primary',
 		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primera'),
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="primera-widget primera-widget-content widget %2$s">',
