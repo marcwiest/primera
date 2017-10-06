@@ -31,7 +31,7 @@ gulp.task( 'cssmin', function() {
         // Replace primera version before concatenation.
         .pipe( replace( '{{version}}', pjson.version ) )
         // Concatenate files via atImport.
-        .pipe( postcss([ atImport(), atExtend(), lostGrid(), cssnext() ]) )
+        .pipe( postcss([ atImport(), atExtend(), cssnext(), lostGrid() ]) )
         // Replace shoelace version after concatenation.
         .pipe( replace( '{{version}}', pjson.shoelaceVersion ) )
         .pipe( cssnano() )
