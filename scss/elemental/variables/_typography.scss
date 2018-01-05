@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Font Smoothing
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$apply_font_smoothing: true !default;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Font Family
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$font_family_sans:   sans-serif !default;
+$font_family_serif:  serif !default;
+$font_family_system: system-ui !default;
+$font_family_mono:   Menlo, Incosolata, Consolas, monospace !default;
+
+$font_family_heading:     $font_family_sans !default;
+$font_family_text:        $font_family_sans !default;
+$font_family_code:        $font_family_mono !default;
+$font_family_button:      $font_family_sans !default;
+$font_family_input:       $font_family_sans !default;
+$font_family_input_label: $font_family_sans !default;
+$font_family_tabel_head:  $font_family_sans !default;
+$font_family_tabel_cell:  $font_family_sans !default;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Font Weight
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$font_weight_light:  200 !default;
+$font_weight_normal: 400 !default;
+$font_weight_bold:   600 !default;
+
+$font_weight_heading:     $font_weight_normal !default;
+$font_weight_text:        $font_weight_normal !default;
+$font_weight_lead:        $font_weight_light !default;
+$font_weight_small:       $font_weight_normal !default;
+$font_weight_button:      $font_weight_normal !default;
+$font_weight_code:        $font_weight_normal !default;
+$font_weight_input:       $font_weight_normal !default;
+$font_weight_input_label: $font_weight_normal !default;
+$font_weight_tabel_head:  $font_weight_bold !default;
+$font_weight_tabel_cell:  $font_weight_normal !default;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Line Height
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Should be unitless numbers.
+$line_height_ratio_text:    1.65 !default;
+$line_height_ratio_heading: 1.25 !default;
+$line_height_ratio_input:   1.65 !default;
+$line_height_ratio_table:   1.65 !default;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Font Size
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$font_size_h1: 46px !default;
+$font_size_h2: 36px !default;
+$font_size_h3: 28px !default;
+$font_size_h4: 22px !default;
+$font_size_h5: 18px !default;
+$font_size_h6: 16px !default;
+
+$font_size_small:       14px !default;
+$font_size_code:        14px !default;
+$font_size_text:        18px !default;
+$font_size_button:      18px !default;
+$font_size_input_label: 18px !default;
+$font_size_input:       18px !default;
+$font_size_tabel_head:  18px !default;
+$font_size_tabel_cell:  18px !default;

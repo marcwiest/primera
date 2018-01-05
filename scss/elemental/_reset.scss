@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+// Reset default CSS values.
+// www.w3schools.com/cssref/css_default_values.asp
+
+menu, fieldset, legend, ol, ul, hr, table {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+form, fieldset,
+h1, h2, h3, h4, h5, h6,
+p, pre, dl, dd, ol, ul,
+figure, address, blockquote,
+audio, video,
+table {
+    margin: 0;
+    margin-bottom: $margin_bottom;
+}

@@ -1,9 +1,11 @@
 {
   "name": "primera",
   "version": "1.0.0",
-  "shoelaceVersion": "1.0.0-beta22",
   "description": "A WordPress starter theme.",
   "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp"
+  },
   "author": "Marc Wiest",
   "license": "GPL-3.0",
   "repository": {
@@ -24,7 +26,11 @@
   ],
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-plugin-syntax-export-extensions": "^6.13.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-env": "^1.6.0",
+    "css-mqpacker": "^6.0.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
@@ -32,7 +38,9 @@
     "gulp-imagemin": "^2.3.0",
     "gulp-livereload": "^3.8.1",
     "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
+    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
     "gulp-wp-pot": "^2.0.6",
@@ -40,7 +48,7 @@
     "lost": "^8.2.0",
     "postcss": "^6.0.9",
     "postcss-cssnext": "^3.0.2",
-    "postcss-extend": "^1.0.5",
-    "postcss-import": "^10.0.0"
+    "postcss-easings": "^1.0.0",
+    "postcss-property-lookup": "^2.0.0"
   }
 }

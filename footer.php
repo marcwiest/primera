@@ -1,12 +1,16 @@
+<?php
 
-</div><!-- .primera-site-inner end -->
-</div><!-- .primera-site end -->
+echo '</div>'; // end of .primera-content
 
-<?php get_template_part( 'off-canvas' ); ?>
+Primera_Module::display( 'footer-primary' );
 
-</div><!-- #app end -->
+echo '</div>'; // end of .primera-site-inner
+echo '</div>'; // end of .primera-site
 
-<?php wp_footer(); ?>
+Primera_Module::display( 'off-canvas' );
 
+wp_footer();
+
+?>
 </body>
 </html>

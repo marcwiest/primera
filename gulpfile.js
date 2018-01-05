@@ -1,40 +1,48 @@
 'use strict';
 
+
 const THEME_TEXT_DOMAIN = 'primera';
 
-var pjson      = require('./package.json');
-var gulp       = require('gulp');
-var babel      = require('gulp-babel');
-var concat     = require('gulp-concat');
-var cssnano    = require('gulp-cssnano');
-var imagemin   = require('gulp-imagemin');
-var livereload = require('gulp-livereload');
-var postcss    = require('gulp-postcss');
-var replace    = require('gulp-replace');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify     = require('gulp-uglify');
-var wpPot      = require('gulp-wp-pot');
-var pngquant   = require('imagemin-pngquant');
-var lostGrid   = require('lost');
-var cssnext    = require('postcss-cssnext');
-var atExtend   = require('postcss-extend');
-var atImport   = require('postcss-import');
+
+var packagejson    = require('./package.json');
+var gulp           = require('gulp');
+var babel          = require('gulp-babel');
+var mqpacker       = require('css-mqpacker');
+var concat         = require('gulp-concat');
+var cssnano        = require('gulp-cssnano');
+var imagemin       = require('gulp-imagemin');
+var livereload     = require('gulp-livereload');
+var postcss        = require('gulp-postcss');
+var rename         = require('gulp-rename');
+var replace        = require('gulp-replace');
+var sass           = require('gulp-sass');
+var sourcemaps     = require('gulp-sourcemaps');
+var uglify         = require('gulp-uglify');
+var wpPot          = require('gulp-wp-pot');
+var pngquant       = require('imagemin-pngquant');
+var lostGrid       = require('lost');
+var cssnext        = require('postcss-cssnext');
+var easings        = require('postcss-easings');
+var propertyLookup = require('postcss-property-lookup');
 
 
 /**
-* Minify CSS
+* Process CSS
 */
-gulp.task( 'cssmin', function() {
+gulp.task( 'css', function() {
 
-    var stream = gulp.src( './css/style.css' )
+    var stream = gulp.src( './scss/style.scss' )
         .pipe( sourcemaps.init() )
-        // Replace primera version before concatenation.
-        .pipe( replace( '{{version}}', pjson.version ) )
-        // Concatenate files via atImport.
-        .pipe( postcss([ atImport(), atExtend(), cssnext(), lostGrid() ]) )
-        // Replace shoelace version after concatenation.
-        .pipe( replace( '{{version}}', pjson.shoelaceVersion ) )
-        .pipe( cssnano() )
+        .pipe( replace( '{{version}}', packagejson.version ) )
+        .pipe( sass({ outputStyle : 'expanded' }) )
+        .pipe( postcss([
+            cssnext(),
+            propertyLookup(),
+            lostGrid(),
+            easings(),
+            mqpacker()
+        ]) )
+        .pipe( cssnano({ zindex : false }) )
         .pipe( sourcemaps.write('./') )
         .pipe( gulp.dest('./') );
 
@@ -44,21 +52,18 @@ gulp.task( 'cssmin', function() {
 
 
 /**
-* Minify JS
+* Process JS
 */
-gulp.task( 'jsmin', function() {
+gulp.task( 'js', function() {
 
-    var jsFiles = [
-        './js/shoelace/dropdowns.js',
-        './js/shoelace/tabs.js',
-        './js/tools.js',
-        './js/theme.js',
-        './js/init.js'
+    var files = [
+        './js/primera.js',
+        './js/script.js'
     ];
 
-    var stream = gulp.src( jsFiles )
+    var stream = gulp.src( files )
         .pipe( sourcemaps.init() )
-        .pipe( concat('script.js') )
+        .pipe( concat( 'script.js' ) )
         .pipe( babel() )
         .pipe( uglify() )
         .pipe( sourcemaps.write('./') )
@@ -108,17 +113,17 @@ gulp.task( 'potfile', function () {
 */
 gulp.task( 'watch', function() {
 
-    // Minify CSS
-    gulp.watch( './css/**/*.css', ['cssmin'] );
+    // Watch CSS
+    gulp.watch( './scss/**/*.scss', ['css'] );
 
-    // Minify JS
-    gulp.watch( './js/**/*.js', ['jsmin'] );
+    // Watch JS
+    gulp.watch( './js/**/*.js', ['js'] );
 
     // Live Reload (Remember, you must activate the browser extension!)
     livereload.listen();
     gulp.watch([
             './**/*.php',
-            './app.js',
+            './script.js',
             './style.css'
         ],
         function( path ) {
@@ -132,4 +137,4 @@ gulp.task( 'watch', function() {
 /**
 * Gulp Default
 */
-gulp.task( 'default', ['cssmin','jsmin','imgmin','potfile'] );
+gulp.task( 'default', ['css','js','imgmin','potfile'] );

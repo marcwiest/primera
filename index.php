@@ -1,40 +1,36 @@
 <?php
 
 get_header();
-get_header( 'primary' );
 
-?>
+if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
-<div class="primera-main">
-<div class="container">
-    <div class="row">
+    echo '<main class="primera-content primera-content--archive">';
 
-        <div class="col col-9">
+        while ( have_posts() ) { the_post();
+            Primera_Module::display( 'post-teaser' );
+        }
 
-            <?php
-                if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
+        Primera_Module::display( 'pagination' );
 
-                    get_template_part( 'content', 'archive' );
-                }
-                else {
+    echo '</main>';
 
-                    get_template_part( 'content', 'singular' );
-                }
-            ?>
+}
+else {
 
-        </div>
+    echo '<main class="primera-content primera-content--singular">';
 
-        <div class="col col-3">
+        while ( have_posts() ) { the_post();
+            Primera_Module::display( 'post-full' );
+        }
 
-            <?php dynamic_sidebar( 'primera_primary' ); ?>
+        Primera_Module::display( 'related-entries' );
 
-        </div>
+        comments_template();
 
-    </div>
-</div>
-</div>
+    echo '</main>';
 
-<?php
+}
 
-get_footer( 'primary' );
+dynamic_sidebar( 'primera_primary' );
+
 get_footer();

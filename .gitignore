@@ -22,7 +22,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-## Gulp Files
+## Node & Gulp Files
 *.map
 node_modules
 

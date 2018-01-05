@@ -3,6 +3,12 @@ A WordPress starter theme with support for PostCSS (inc. autoprefixer), ES6 and 
 
 ---
 
+## NEW STUFF
+- WP 4.9 Media Player is IE11 only (https://make.wordpress.org/core/2017/10/30/mediaelement-upgrades-in-wordpress-4-9/)
+- new postcss modules
+- npm run build
+- http://easings.net/ & https://github.com/postcss/postcss-easings
+
 ## Requirements
 
 1. [Node.js](https://nodejs.org/)
@@ -75,7 +81,7 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 3) Run `gulp potfile` to create a `.pot` file inside the languages folder.
 4) To translate the `.pot` file and create the necessary `.po` and `.mo` files, you can use either [Poedit](https://poedit.net/) or [Loco Translate](https://wordpress.org/plugins/loco-translate/).
 
-Please visit the following link to learn more about internationalization:
+Please visit the following link to learn more about internationalization (i18n):
 https://developer.wordpress.org/themes/functionality/internationalization/
 
 ## Versioning

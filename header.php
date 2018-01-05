@@ -7,7 +7,11 @@
 </head>
 <body <?php body_class(); ?>>
 
-<div id="app">
+<noscript>You need to enable JavaScript to run this site.</noscript>
 
 <div class="primera-site">
 <div class="primera-site-inner">
+
+<?php Primera_Module::display( 'header-primary' ); ?>
+
+<div class="primera-content">

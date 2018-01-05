@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Margin
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Effects most block-level elements
+$margin_bottom: 24px !default;
+
+// Shorthand alias
+$mb: $margin_bottom;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Padding 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Input padding
+$padding_left_input:   12px !default;
+$padding_right_input:  12px !default;
+$padding_top_input:    06px !default;
+$padding_bottom_input: 06px !default;
+
+// Button padding
+$padding_left_button:   24px !default;
+$padding_right_button:  24px !default;
+$padding_top_button:    12px !default;
+$padding_bottom_button: 12px !default;
+
+// Table padding
+$padding_left_table:   12px !default;
+$padding_right_table:  12px !default;
+$padding_top_table:    12px !default;
+$padding_bottom_table: 12px !default;

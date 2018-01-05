@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+@mixin button {
+
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: $font_family_button;
+    font-size: $font_size_button;
+    font-weight: $font_weight_button;
+    padding:
+        $padding_top_button
+        $padding_right_button
+        $padding_bottom_button
+        $padding_left_button;
+    color: $color_button;
+    background-color: $bg_color_button;
+    border-style: solid;
+    border-width: $border_width_button;
+    border-radius: $border_radius_button;
+    border-color: $border_color_button;
+    user-select: none;
+    -webkit-user-drag: none;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover, &:active {
+        @include button--active;
+    }
+
+    &:disabled {
+        @include button--disabled;
+    }
+}
+
+@mixin button--active {
+    text-decoration: none;
+    color: $color_button_hover;
+    background-color: $bg_color_button_hover;
+    border-color: $border_color_button_hover;
+}
+
+@mixin button--disabled {
+    box-shadow: none;
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@mixin button--block {
+    display: block;
+    width: 100%;
+}
+
+@mixin button--link {
+    &, &:hover, &:active {
+        border-color: transparent;
+        background-color: transparent;
+        color: $color_link;
+    }
+    &:hover, &:active {
+        color: $color_link_hover;
+    }
+}
+
+@mixin button--pill {
+    border-radius: $font_size_button + $padding_top_button + $padding_bottom_button;
+}
+
+@mixin button--outline {
+    &, &:hover, &:active {
+        background-color: transparent;
+        border-color: $border_color_button;
+    }
+}
+
+%button           { @include button; }
+
+%button--block    { @include button--block; }
+%button--active   { @include button--active; }
+%button--link     { @include button--link; }
+%button--pill     { @include button--pill; }
+%button--outline  { @include button--outline; }
+%button--disabled { @include button--disabled; }
