@@ -37,8 +37,8 @@
     .flex-item--first { order: -1; }
     .flex-item--last { order: 1; }
     .flex-item--#{$i} {
-        flex-basis: 100% / $i;
-        max-width: 100% / $i;
+        flex-basis: 100% / 12 * $i;
+        max-width: 100% / 12 * $i;
     }
 }
 
@@ -47,8 +47,8 @@
         .flex-item--first-md { order: -1; }
         .flex-item--last-md { order: 1; }
         .flex-item--#{$i}-md {
-            flex-basis: 100% / $i;
-            max-width: 100% / $i;
+            flex-basis: 100% / 12 * $i;
+            max-width: 100% / 12 * $i;
         }
     }
 }
@@ -58,8 +58,8 @@
         .flex-item--first-lg { order: -1; }
         .flex-item--last-lg { order: 1; }
         .flex-item--#{$i}-lg {
-            flex-basis: 100% / $i;
-            max-width: 100% / $i;
+            flex-basis: 100% / 12 * $i;
+            max-width: 100% / 12 * $i;
         }
     }
 }
