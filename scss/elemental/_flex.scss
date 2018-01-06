@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Rows
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+}
+
+.flex-row--spaced { justify-content: space-around; }
+.flex-row--spread { justify-content: space-between; }
+.flex-row--centered { justify-content: center; }
+// .flex-row--left { justify-content: flex-start; }
+// .flex-row--right { justify-content: flex-end; }
+
+.flex-row--top { align-items: flex-start; }
+.flex-row--middle { align-items: center; }
+.flex-row--bottom { align-items: flex-end; }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Items
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.flex-item {
+    flex: 0 0 auto;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+}
+
+@for $i from 1 through 12 {
+    .flex-item--first { order: -1; }
+    .flex-item--last { order: 1; }
+    .flex-item--#{$i} {
+        flex-basis: 100% / $i;
+        max-width: 100% / $i;
+    }
+}
+
+@include md {
+    @for $i from 1 through 12 {
+        .flex-item--first-md { order: -1; }
+        .flex-item--last-md { order: 1; }
+        .flex-item--#{$i}-md {
+            flex-basis: 100% / $i;
+            max-width: 100% / $i;
+        }
+    }
+}
+
+@include lg {
+    @for $i from 1 through 12 {
+        .flex-item--first-lg { order: -1; }
+        .flex-item--last-lg { order: 1; }
+        .flex-item--#{$i}-lg {
+            flex-basis: 100% / $i;
+            max-width: 100% / $i;
+        }
+    }
+}
