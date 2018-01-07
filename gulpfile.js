@@ -111,7 +111,7 @@ gulp.task( 'potfile', function () {
 /**
 * Gulp Watch
 */
-gulp.task( 'watch', function() {
+gulp.task( 'watch', ['css','js'], function() {
 
     // Watch CSS
     gulp.watch( './scss/**/*.scss', ['css'] );
