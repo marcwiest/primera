@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+/*
+Flyout Mixin
+
+This mixin works like a dropdown, except that you can change the side where the dropdown should
+appear. You can control the height and width of the flyout-content element via width and max-height.
+
+Usage example:
+<div class="flyout">
+    <button>Button</button>
+    <div class="flyout-content"> </div>
+</div>
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Flyout
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin flyout( $hover:false ) {
+    display: inline-block;
+    position: relative;
+    @if $hover {
+        &:hover > :last-child {
+            display: block;
+        }
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Flyout Content
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin flyout-content( $direction:'down-right', $offset:0 ) {
+
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+    width: 120px;
+    overflow-y: auto;
+    transform: translateZ(0);
+    user-select: none;
+
+    @if $direction == 'up' {
+
+        top: auto;
+        bottom: calc(100% + #{$offset});
+        left: 50%;
+        transform: translateX( -50% );
+
+    } @else if $direction == 'up-left' {
+
+        top: auto;
+        left: auto;
+        right: 0;
+        bottom: calc(100% + #{$offset});
+
+    } @else if $direction == 'up-right' {
+
+        top: auto;
+        bottom: calc(100% + #{$offset});
+
+    } @else if $direction == 'right' {
+
+        top: 50%;
+        left: calc(100% + #{$offset});
+        transform: translateY( -50% );
+
+    } @else if $direction == 'right-up' {
+
+        top: auto;
+        left: calc(100% + #{$offset});
+        bottom: 0;
+
+    } @else if $direction == 'right-down' {
+
+        top: 0;
+        left: calc(100% + #{$offset});
+
+    } @else if $direction == 'down' {
+
+        top: calc(100% + #{$offset});
+        bottom: auto;
+        left: 50%;
+        transform: translateX( -50% );
+
+    } @else if $direction == 'down-left' {
+
+        top: calc(100% + #{$offset});
+        left: auto;
+        right: 0;
+
+    } @else if $direction == 'down-right' {
+
+        top: calc(100% + #{$offset});
+        left: 0;
+
+    } @else if $direction == 'left' {
+
+        top: 50%;
+        left: auto;
+        right: calc(100% + #{$offset});
+        transform: translateY( -50% );
+
+    } @else if $direction == 'left-up' {
+
+        top: auto;
+        left: auto;
+        right: calc(100% + #{$offset});
+        bottom: 0;
+
+    } @else if $direction == 'left-down' {
+
+        top: 0;
+        left: auto;
+        right: calc(100% + #{$offset});
+
+    }
+}
