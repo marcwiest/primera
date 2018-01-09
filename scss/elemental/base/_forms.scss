@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Forms
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$calculated_input_height: calc(
+    #{$font_size_input * $line_height_ratio_input}
+    + #{$padding_top_input}
+    + #{$padding_bottom_input}
+    + #{$border_width_input * 2}
+);
+
 form {
     &::after {
         content: '';
@@ -17,20 +28,20 @@ legend, label {
     line-height: $line_height_ratio_input;
 }
 
-[type=date],
-[type=datetime],
-[type=datetime-local],
-[type=month],
-[type=time],
-[type=week],
-[type=file],
-[type=email],
-[type=number],
-[type=password],
-[type=search],
-[type=tel],
-[type=text],
-[type=url],
+[type*="date"],
+[type*="datetime"],
+[type*="datetime-local"],
+[type*="month"],
+[type*="time"],
+[type*="week"],
+[type*="file"],
+[type*="email"],
+[type*="number"],
+[type*="password"],
+[type*="search"],
+[type*="tel"],
+[type*="text"],
+[type*="url"],
 input:not([type]),
 textarea,
 select {
@@ -74,9 +85,9 @@ textarea {
 
 textarea {
     display: inline-block;
-    // Remove space below the textarea
+    // Remove space below the textarea.
     vertical-align: top;
-    // Only allow vertical resizing
+    // Only allow vertical resizing.
     resize: vertical;
     overflow: auto;
 }
@@ -87,22 +98,21 @@ select {
     // Override webkit to ensure proper display when multiple or size attribute is present.
     -webkit-appearance: menulist-button;
     // A height is required, because padding alone will not size this input appropriately.
-    // The following calculation of height matches the input height.
-    height: calc(#{$font_size_input * $line_height_ratio_input} + #{$padding_top_input} + #{$padding_bottom_input} + #{$border_width_input * 2});
+    height: $calculated_input_height;
     cursor: pointer;
 }
 
 button,
-[type=button],
-[type=submit],
-[type=reset] {
+[type*="button"],
+[type*="submit"],
+[type*="reset"] {
     display: inline-block;
     appearance: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-[type=checkbox],
-[type=radio] {
+[type*="checkbox"],
+[type*="radio"] {
     cursor: pointer;
 }
