@@ -16,3 +16,11 @@
 %clearfix {
     @include clearfix;
 }
+
+@if $export_clearfix {
+
+    .#{$ns}clearfix {
+        @extend %clearfix;
+    }
+
+}
