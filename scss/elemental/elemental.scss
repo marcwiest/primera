@@ -1,32 +1,36 @@
 @charset "UTF-8";
 
-@import './normalize';
+@import 'base/normalize';
+
+/*! ElementalCSS v1.0.0-beta1 */
 
 @import
     'variables/borders',
     'variables/colors',
+    'variables/export',
     'variables/spacing',
     'variables/typography',
     'variables/widths';
 
 @import
-    'mixins/flyout',
+    'mixins/arrow',
+    'mixins/material-shadows',
     'mixins/media-queries',
-    'mixins/screen-cover',
     'mixins/scrollable',
-    'mixins/shadows',
+    'mixins/triangle',
     'mixins/truncate';
 
-/*! ElementalCSS v1.0.0-beta1 */
+@import
+    'base/reset',
+    'base/document',
+    'base/content',
+    'base/headings',
+    'base/tables',
+    'base/forms';
 
 @import
-    'reset',
-    'document',
-    'content',
-    'tables',
-    'forms',
     'clearfix',
-    'headings',
     'flex',
-    'flags',
-    'buttons';
+    'buttons',
+    'flyout',
+    'media';
