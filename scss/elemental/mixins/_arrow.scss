@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+@mixin arrow( $color:currentColor, $rotation:0deg, $size:10px, $thickness:4px ) {
+    position: relative;
+    display: inline-block;
+    height: $size;
+    width: $size;
+    pointer-events: none;
+    border: $thickness solid $color;
+    border-bottom: 0;
+    border-left: 0;
+    transform: rotate( $rotation );
+}
+
+@mixin arrow--color( $color ) {
+    border-color: $color;
+}
