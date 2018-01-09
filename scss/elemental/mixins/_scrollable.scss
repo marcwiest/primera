@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Scrollable
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin scrollable {
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+@mixin scrollable--vertical( $height:100px ) {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: $height;
+}
