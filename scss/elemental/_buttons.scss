@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Button
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 @mixin button {
 
     display: inline-block;
@@ -78,10 +82,21 @@
 }
 
 %button           { @include button; }
-
 %button--block    { @include button--block; }
 %button--active   { @include button--active; }
 %button--link     { @include button--link; }
 %button--pill     { @include button--pill; }
 %button--outline  { @include button--outline; }
 %button--disabled { @include button--disabled; }
+
+@if $export_button {
+
+    .#{$ns}button           { @extend %button; }
+    .#{$ns}button--block    { @extend %button--block; }
+    .#{$ns}button--active   { @extend %button--active; }
+    .#{$ns}button--link     { @extend %button--link; }
+    .#{$ns}button--pill     { @extend %button--pill; }
+    .#{$ns}button--outline  { @extend %button--outline; }
+    .#{$ns}button--disabled { @extend %button--disabled; }
+
+}
