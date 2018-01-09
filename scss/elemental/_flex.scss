@@ -4,62 +4,168 @@
 // Rows
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-.flex-row {
+@mixin flex-row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex: 0 1 auto;
 }
 
-.flex-row--spaced { justify-content: space-around; }
-.flex-row--spread { justify-content: space-between; }
-.flex-row--centered { justify-content: center; }
-// .flex-row--left { justify-content: flex-start; }
-// .flex-row--right { justify-content: flex-end; }
+@mixin flex-row--spaced   { justify-content: space-around; }
+@mixin flex-row--spread   { justify-content: space-between; }
+@mixin flex-row--centered { justify-content: center; }
+@mixin flex-row--left     { justify-content: flex-start; }
+@mixin flex-row--right    { justify-content: flex-end; }
+@mixin flex-row--top      { align-items: flex-start; }
+@mixin flex-row--middle   { align-items: center; }
+@mixin flex-row--bottom   { align-items: flex-end; }
 
-.flex-row--top { align-items: flex-start; }
-.flex-row--middle { align-items: center; }
-.flex-row--bottom { align-items: flex-end; }
+%flex-row           { @include flex-row; }
+%flex-row--spaced   { @include flex-row--spaced; }
+%flex-row--spread   { @include flex-row--spread; }
+%flex-row--centered { @include flex-row--centered; }
+%flex-row--left     { @include flex-row--left; }
+%flex-row--right    { @include flex-row--right; }
+%flex-row--top      { @include flex-row--top; }
+%flex-row--middle   { @include flex-row--middle; }
+%flex-row--bottom   { @include flex-row--bottom; }
+
+@if $export_flex {
+
+    .#{$ns}flex-row           { @extend %flex-row; }
+    .#{$ns}flex-row--spaced   { @extend %flex-row--spaced; }
+    .#{$ns}flex-row--spread   { @extend %flex-row--spread; }
+    .#{$ns}flex-row--centered { @extend %flex-row--centered; }
+    .#{$ns}flex-row--left     { @extend %flex-row--left; }
+    .#{$ns}flex-row--right    { @extend %flex-row--right; }
+    .#{$ns}flex-row--top      { @extend %flex-row--top; }
+    .#{$ns}flex-row--middle   { @extend %flex-row--middle; }
+    .#{$ns}flex-row--bottom   { @extend %flex-row--bottom; }
+
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Items
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-.flex-item {
+@mixin flex-item {
     flex: 0 0 auto;
     flex-grow: 1;
     flex-basis: 0;
     max-width: 100%;
 }
 
-@for $i from 1 through 12 {
-    .flex-item--first { order: -1; }
-    .flex-item--last { order: 1; }
-    .flex-item--#{$i} {
-        flex-basis: 100% / 12 * $i;
-        max-width: 100% / 12 * $i;
-    }
+@mixin flex-item--width( $columns:12 ) {
+    flex-basis: 100% / 12 * $columns;
+    max-width: 100% / 12 * $columns;
 }
 
+@mixin flex-item--first { order: -1; }
+@mixin flex-item--last { order: 1; }
+
+%flex-item        { @include flex-item; }
+
+%flex-item--first { @include flex-item--first; }
+%flex-item--last  { @include flex-item--last; }
+%flex-item--1     { @include flex-item--width( 1 ); }
+%flex-item--2     { @include flex-item--width( 2 ); }
+%flex-item--3     { @include flex-item--width( 3 ); }
+%flex-item--4     { @include flex-item--width( 4 ); }
+%flex-item--5     { @include flex-item--width( 5 ); }
+%flex-item--6     { @include flex-item--width( 6 ); }
+%flex-item--7     { @include flex-item--width( 7 ); }
+%flex-item--8     { @include flex-item--width( 8 ); }
+%flex-item--9     { @include flex-item--width( 9 ); }
+%flex-item--10    { @include flex-item--width( 10 ); }
+%flex-item--11    { @include flex-item--width( 11 ); }
+%flex-item--12    { @include flex-item--width( 12 ); }
+
 @include md {
-    @for $i from 1 through 12 {
-        .flex-item--first-md { order: -1; }
-        .flex-item--last-md { order: 1; }
-        .flex-item--#{$i}-md {
-            flex-basis: 100% / 12 * $i;
-            max-width: 100% / 12 * $i;
-        }
-    }
+
+    %flex-item--first-md { @include flex-item--first; }
+    %flex-item--last-md  { @include flex-item--last; }
+    %flex-item--1-md     { @include flex-item--width( 1 ); }
+    %flex-item--2-md     { @include flex-item--width( 2 ); }
+    %flex-item--3-md     { @include flex-item--width( 3 ); }
+    %flex-item--4-md     { @include flex-item--width( 4 ); }
+    %flex-item--5-md     { @include flex-item--width( 5 ); }
+    %flex-item--6-md     { @include flex-item--width( 6 ); }
+    %flex-item--7-md     { @include flex-item--width( 7 ); }
+    %flex-item--8-md     { @include flex-item--width( 8 ); }
+    %flex-item--9-md     { @include flex-item--width( 9 ); }
+    %flex-item--10-md    { @include flex-item--width( 10 ); }
+    %flex-item--11-md    { @include flex-item--width( 11 ); }
+    %flex-item--12-md    { @include flex-item--width( 12 ); }
+
 }
 
 @include lg {
-    @for $i from 1 through 12 {
-        .flex-item--first-lg { order: -1; }
-        .flex-item--last-lg { order: 1; }
-        .flex-item--#{$i}-lg {
-            flex-basis: 100% / 12 * $i;
-            max-width: 100% / 12 * $i;
-        }
-    }
+
+    %flex-item--first-lg { @include flex-item--first; }
+    %flex-item--last-lg  { @include flex-item--last; }
+    %flex-item--1-lg     { @include flex-item--width( 1 ); }
+    %flex-item--2-lg     { @include flex-item--width( 2 ); }
+    %flex-item--3-lg     { @include flex-item--width( 3 ); }
+    %flex-item--4-lg     { @include flex-item--width( 4 ); }
+    %flex-item--5-lg     { @include flex-item--width( 5 ); }
+    %flex-item--6-lg     { @include flex-item--width( 6 ); }
+    %flex-item--7-lg     { @include flex-item--width( 7 ); }
+    %flex-item--8-lg     { @include flex-item--width( 8 ); }
+    %flex-item--9-lg     { @include flex-item--width( 9 ); }
+    %flex-item--10-lg    { @include flex-item--width( 10 ); }
+    %flex-item--11-lg    { @include flex-item--width( 11 ); }
+    %flex-item--12-lg    { @include flex-item--width( 12 ); }
+
+}
+
+@if $export_flex {
+
+    .#{$ns}flex-item        { @extend %flex-item; }
+
+    .#{$ns}flex-item--first { @extend %flex-item--first; }
+    .#{$ns}flex-item--last  { @extend %flex-item--last; }
+    .#{$ns}flex-item--1     { @extend %flex-item--1; }
+    .#{$ns}flex-item--2     { @extend %flex-item--2; }
+    .#{$ns}flex-item--3     { @extend %flex-item--3; }
+    .#{$ns}flex-item--4     { @extend %flex-item--4; }
+    .#{$ns}flex-item--5     { @extend %flex-item--5; }
+    .#{$ns}flex-item--6     { @extend %flex-item--6; }
+    .#{$ns}flex-item--7     { @extend %flex-item--7; }
+    .#{$ns}flex-item--8     { @extend %flex-item--8; }
+    .#{$ns}flex-item--9     { @extend %flex-item--9; }
+    .#{$ns}flex-item--10    { @extend %flex-item--10; }
+    .#{$ns}flex-item--11    { @extend %flex-item--11; }
+    .#{$ns}flex-item--12    { @extend %flex-item--12; }
+
+    .#{$ns}flex-item--first-md { @extend %flex-item--first-md; }
+    .#{$ns}flex-item--last-md  { @extend %flex-item--last-md; }
+    .#{$ns}flex-item--1-md     { @extend %flex-item--1-md; }
+    .#{$ns}flex-item--2-md     { @extend %flex-item--2-md; }
+    .#{$ns}flex-item--3-md     { @extend %flex-item--3-md; }
+    .#{$ns}flex-item--4-md     { @extend %flex-item--4-md; }
+    .#{$ns}flex-item--5-md     { @extend %flex-item--5-md; }
+    .#{$ns}flex-item--6-md     { @extend %flex-item--6-md; }
+    .#{$ns}flex-item--7-md     { @extend %flex-item--7-md; }
+    .#{$ns}flex-item--8-md     { @extend %flex-item--8-md; }
+    .#{$ns}flex-item--9-md     { @extend %flex-item--9-md; }
+    .#{$ns}flex-item--10-md    { @extend %flex-item--10-md; }
+    .#{$ns}flex-item--11-md    { @extend %flex-item--11-md; }
+    .#{$ns}flex-item--12-md    { @extend %flex-item--12-md; }
+
+    .#{$ns}flex-item--first-lg { @extend %flex-item--first-lg; }
+    .#{$ns}flex-item--last-lg  { @extend %flex-item--last-lg; }
+    .#{$ns}flex-item--1-lg     { @extend %flex-item--1-lg; }
+    .#{$ns}flex-item--2-lg     { @extend %flex-item--2-lg; }
+    .#{$ns}flex-item--3-lg     { @extend %flex-item--3-lg; }
+    .#{$ns}flex-item--4-lg     { @extend %flex-item--4-lg; }
+    .#{$ns}flex-item--5-lg     { @extend %flex-item--5-lg; }
+    .#{$ns}flex-item--6-lg     { @extend %flex-item--6-lg; }
+    .#{$ns}flex-item--7-lg     { @extend %flex-item--7-lg; }
+    .#{$ns}flex-item--8-lg     { @extend %flex-item--8-lg; }
+    .#{$ns}flex-item--9-lg     { @extend %flex-item--9-lg; }
+    .#{$ns}flex-item--10-lg    { @extend %flex-item--10-lg; }
+    .#{$ns}flex-item--11-lg    { @extend %flex-item--11-lg; }
+    .#{$ns}flex-item--12-lg    { @extend %flex-item--12-lg; }
+
 }
