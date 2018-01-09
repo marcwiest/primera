@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@mixin screen-width( $min, $max:false ) {
+@mixin media( $min, $max:false ) {
     @if $min and $max {
         @media (min-width:$min) and (max-width:$max) { @content; }
     }
@@ -13,21 +13,21 @@
 }
 
 @mixin sm {
-    @include screen-width( false, $small_screen_end ) { @content; }
+    @include media( false, $small_screen_end ) { @content; }
 }
 
 @mixin sm-md {
-    @include screen-width( false, $medium_screen_end ) { @content; }
+    @include media( false, $medium_screen_end ) { @content; }
 }
 
 @mixin md {
-    @include screen-width( $medium_screen_start, $medium_screen_end ) { @content; }
+    @include media( $medium_screen_start, $medium_screen_end ) { @content; }
 }
 
 @mixin md-lg {
-    @include screen-width( $medium_screen_start ) { @content; }
+    @include media( $medium_screen_start ) { @content; }
 }
 
 @mixin lg {
-    @include screen-width( $large_screen_start ) { @content; }
+    @include media( $large_screen_start ) { @content; }
 }
