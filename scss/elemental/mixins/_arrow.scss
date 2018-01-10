@@ -1,17 +1,27 @@
 @charset "UTF-8";
 
-@mixin arrow( $color:currentColor, $rotation:0deg, $size:10px, $thickness:4px ) {
-    position: relative;
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Arrow
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin arrow( $color:currentColor, $rotation:135deg, $size:10px, $thickness:4px, $clickable:true  ) {
     display: inline-block;
-    height: $size;
-    width: $size;
-    pointer-events: none;
-    border: $thickness solid $color;
-    border-bottom: 0;
-    border-left: 0;
+    padding: $size;
+    border: solid $color;
+    border-width: $thickness $thickness 0 0;
     transform: rotate( $rotation );
+    pointer-events: if( $clickable, auto, none );
 }
 
-@mixin arrow--color( $color ) {
-    border-color: $color;
-}
+@mixin arrow--color( $color ) { border-color: $color; }
+
+@mixin arrow--north      { transform: rotate( -45deg ); }
+@mixin arrow--north-east { transform: rotate( 0deg ); }
+@mixin arrow--north-west { transform: rotate( 270deg ); }
+
+@mixin arrow--south      { transform: rotate( 135deg ); }
+@mixin arrow--south-east { transform: rotate( 90deg ); }
+@mixin arrow--south-west { transform: rotate( 180deg ); }
+
+@mixin arrow--east       { transform: rotate( 45deg ); }
+@mixin arrow--west       { transform: rotate( 225deg ); }

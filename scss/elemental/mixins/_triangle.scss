@@ -1,38 +1,29 @@
 @charset "UTF-8";
 
-///
-// Triangle Mixin
-//
-// @param  $thickness  number  Use a CSS length to turn the triangle hollow.
-//
-// .triangle {
-//     @include triangle;
-// }
-//
-// or:
-//
-// .triangle::before {
-//     @include triangle;
-//     content: '';
-//     position: absolute;
-//     left: 1rem;
-//     top: -1rem;
-// }
-//
-// <span class=triangle></span>
-///
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Triangle
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@mixin triangle( $color:currentColor, $rotation:0deg, $size:10px ) {
+@mixin triangle( $color:currentColor, $rotation:0deg, $size:10px, $clickable:true ) {
     position: relative;
     display: inline-block;
     height: $size;
     width: $size;
-    pointer-events: none;
     border: $size solid transparent;
     border-top-color: $color;
     transform: rotate( $rotation );
+    pointer-events: if( $clickable, auto, none );
 }
 
-@mixin triangle--color( $color ) {
-    border-top-color: $color;
-}
+@mixin triangle--color( $color ) { border-top-color: $color; }
+
+@mixin triangle--north      { transform: rotate( 180deg ); }
+@mixin triangle--north-east { transform: rotate( 225deg ); }
+@mixin triangle--north-west { transform: rotate( 135deg ); }
+
+@mixin triangle--south      { transform: rotate( 0deg ); }
+@mixin triangle--south-east { transform: rotate( 315deg ); }
+@mixin triangle--south-west { transform: rotate( 45deg ); }
+
+@mixin triangle--east       { transform: rotate( 270deg ); }
+@mixin triangle--west       { transform: rotate( 90deg ); }
