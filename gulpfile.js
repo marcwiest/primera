@@ -57,7 +57,7 @@ gulp.task( 'css', function() {
 gulp.task( 'js', function() {
 
     var files = [
-        './js/primera.js',
+        './js/util.js',
         './js/script.js'
     ];
 
