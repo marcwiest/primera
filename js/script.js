@@ -159,9 +159,9 @@
 
             // Body classes.
             if ( this.fromTop > 250 ) {
-                this.$body.addClass('mw-elems-are-visible');
+                this.$body.addClass('primera-elems-are-visible');
             } else {
-                this.$body.removeClass('mw-elems-are-visible');
+                this.$body.removeClass('primera-elems-are-visible');
             }
 
             this.accommodateAdminbar();
@@ -174,7 +174,7 @@
         */
         onOffCanvasToggleClick : function( e ) {
             e.preventDefault();
-            this.$body.toggleClass('mw-off-canvas-active');
+            this.$body.toggleClass('primera-off-canvas-active');
         },
 
         /**
