@@ -1,4 +1,4 @@
-(function( $, wp, primera ) {
+(function( $, wp, util, localizedData ) {
     'use strict';
 
     var script = {
@@ -47,8 +47,8 @@
         cacheData : function() {
 
             this.fromTop = this.$window.scrollTop();
-            this.vw      = primera.tools.getViewportWidth();
-            this.vh      = primera.tools.getViewportHeight();
+            this.vw      = util.tools.getViewportWidth();
+            this.vh      = util.tools.getViewportHeight();
         },
 
         /**
@@ -68,17 +68,17 @@
         */
         indicateBrowser : function() {
 
-            if ( primera.tools.isMobile() ) {
+            if ( util.tools.isMobile() ) {
 
                 this.$html.addClass('is-mobile');
             }
             else {
 
-                if ( primera.tools.isIE() ) {
+                if ( util.tools.isIE() ) {
                     this.$html.addClass('is-ie');
                 }
 
-                if ( primera.tools.isEdge() ) {
+                if ( util.tools.isEdge() ) {
                     this.$html.addClass('is-edge');
                 }
             }
@@ -105,7 +105,7 @@
         // */
         // restApiCall : function() {
         //
-        //     var request = primera.rest.post( 'get-something', {
+        //     var request = util.rest.post( 'get-something', {
         //         key : 'val'
         //     });
         //
@@ -140,8 +140,8 @@
         onWindowResize : _.debounce( function( e ) {
 
             // Update module properties.
-            this.vw = primera.tools.getViewportWidth();
-            this.vh = primera.tools.getViewportHeight();
+            this.vw = util.tools.getViewportWidth();
+            this.vh = util.tools.getViewportHeight();
 
             // Adjust Header to height of WP Adminbar.
             this.accommodateAdminbar();
@@ -222,10 +222,10 @@
     };
 
     /**
-    * Init primera.
+    * Init script.
     */
     $(document).on( 'ready', function( e ) {
         script.init();
     });
 
-})( jQuery, (window.wp || {}), (window.primera || {}) );
+})( jQuery, (window.wp || {}), (window.primeraUtil || {}), (window.primeraLocalizedData || {}) );
