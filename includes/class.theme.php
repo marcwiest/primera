@@ -85,7 +85,10 @@ class Primera_Theme
     */
     public static function enqueue_frontend_scripts()
     {
-    	$version = defined('WP_DEBUG') && WP_DEBUG ? time() : wp_get_theme()->get('Version');
+        $version = wp_get_theme()->get('Version');
+        if ( defined('WP_DEBUG') && WP_DEBUG || ! $version ) {
+            $version = time();
+        }
 
     	wp_enqueue_style(
     		'primera',
