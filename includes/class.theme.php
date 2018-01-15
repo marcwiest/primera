@@ -100,7 +100,7 @@ class Primera_Theme
     	wp_enqueue_script(
     		'primera',
     		get_template_directory_uri().'/script.js',
-    		array( 'wp-util' ),
+    		array( 'wp-util', 'hoverIntent' ), // wp-util: jQuery, undescore, wp
     		$version,
     		true
     	);
