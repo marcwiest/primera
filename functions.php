@@ -1,8 +1,5 @@
 <?php
 
-# Define current theme version.
-define( 'PRIMERA_VERSION', wp_get_theme()->get('Version') );
-
 /**
 * Theme init.
 *
