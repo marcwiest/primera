@@ -4,7 +4,7 @@ get_header();
 
 if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
-    echo '<main class="primera-content primera-content--archive">';
+    echo '<main class="primera-content primera-content--archive" role="main">';
 
         while ( have_posts() ) { the_post();
             Primera_Module::display( 'post-teaser' );
@@ -17,7 +17,7 @@ if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 }
 else {
 
-    echo '<main class="primera-content primera-content--singular">';
+    echo '<main class="primera-content primera-content--singular" role="main">';
 
         while ( have_posts() ) { the_post();
             Primera_Module::display( 'post-full' );
@@ -31,6 +31,8 @@ else {
 
 }
 
+echo '<aside class="primera-sidebar">';
 dynamic_sidebar( 'primera_primary' );
+echo '</aside>'
 
 get_footer();
