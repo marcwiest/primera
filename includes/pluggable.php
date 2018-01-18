@@ -38,3 +38,20 @@ function get_current_user_roles( $user=null )
 	return $user->roles ? $user->roles : array();
 }
 endif;
+
+
+if ( ! function_exists('time_ago') ) :
+/**
+* Get the time ago from any date().
+*
+* @since  1.0
+* @param  string  $date  Any date value.
+* @param  string  $suffix  The suffix for the return value.
+* @return  string  A value relative to how long ago from $date (e.g. 2 days ago, 1 hour ago).
+*/
+function time_ago( $date, $suffix=' ago' )
+{
+    $date = new DateTime( $date );
+    return human_time_diff( $date->format('U'), current_time('timestamp') ) . $suffix;
+}
+endif;
