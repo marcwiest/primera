@@ -17,8 +17,6 @@ function _primera_theme_init()
 	add_action( 'wp_enqueue_scripts'     , 'Primera_Theme::enqueue_frontend_scripts' );
 	add_action( 'after_setup_theme'      , 'Primera_Theme::register_nav_menus' );
 	add_action( 'widgets_init'           , 'Primera_Theme::register_sidebars' );
-	add_action( 'dynamic_sidebar_before' , 'Primera_Theme::dynamic_sidebar_before' );
-	add_action( 'dynamic_sidebar_after'  , 'Primera_Theme::dynamic_sidebar_after' );
 
 	add_filter( 'admin_post_thumbnail_html' , 'Primera_Theme::filter_admin_post_thumbnail_html', 10, 3 );
 	add_filter( 'widget_tag_cloud_args'     , 'Primera_Theme::modify_tag_cloud_args' );

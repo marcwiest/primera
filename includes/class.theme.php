@@ -70,6 +70,9 @@ class Primera_Theme
         add_theme_support( 'post-thumbnails' );
         add_theme_support( 'customize-selective-refresh-widgets' );
 
+        # WooCommerce
+        add_theme_support( 'woocommerce' );
+
         # Override default image size (default: 150x150)
     	set_post_thumbnail_size( 300, 300, true );
 
@@ -147,8 +150,8 @@ class Primera_Theme
     		'id'            => 'primera_primary',
     		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primera'),
     		'description'   => '',
-    		'before_widget' => '<aside id="%1$s" class="primera-widget primera-widget-content widget %2$s">',
-    		'after_widget'  => '</aside>',
+    		'before_widget' => '<div id="%1$s" class="primera-widget primera-widget-content widget %2$s">',
+    		'after_widget'  => '</div>',
     		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
     		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
     	) );
@@ -157,52 +160,11 @@ class Primera_Theme
     		'id'            => 'primera_off_canvas',
     		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primera'),
     		'description'   => '',
-    		'before_widget' => '<aside id="%1$s" class="primera-widget primera-widget-off-canvas widget %2$s">',
-    		'after_widget'  => '</aside>',
+    		'before_widget' => '<div id="%1$s" class="primera-widget primera-widget-off-canvas widget %2$s">',
+    		'after_widget'  => '</div>',
     		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
     		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
     	) );
-    }
-
-
-    /**
-    * Add HTML tag before registered sidebars.
-    *
-    * @since 1.0
-    * @return string HTML opening tag for sidebar.
-    */
-    public static function dynamic_sidebar_before( $index )
-    {
-    	$primera_sidebars = array(
-    		'primera_content',
-    		'primera_off_canvas',
-    	);
-
-    	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
-
-    		// $index = str_replace( '_', '-', $index );
-
-    		echo "<div class='primera-sidebar'>";
-    	}
-    }
-
-
-    /**
-    * Add HTML tag after registered sidebars.
-    *
-    * @since 1.0
-    * @return string HTML closing tag for sidebar.
-    */
-    public static function dynamic_sidebar_after( $index )
-    {
-    	$primera_sidebars = array(
-    		'primera_content',
-    		'primera_off_canvas',
-    	);
-
-    	if ( in_array( $index, $primera_sidebars ) && is_active_sidebar($index) ) {
-    		echo '</div>';
-    	}
     }
 
 
