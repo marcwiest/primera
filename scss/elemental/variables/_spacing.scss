@@ -1,11 +1,19 @@
 @charset "UTF-8";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// Default
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Used to standardize whitespace
+$default_spacing: 30px !default;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Margin
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Effects most block-level elements
-$margin_bottom: 24px !default;
+$margin_bottom: $default_spacing !default;
 
 // Shorthand alias
 $mb: $margin_bottom;
@@ -16,19 +24,19 @@ $mb: $margin_bottom;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Input padding
-$padding_left_input:   12px !default;
-$padding_right_input:  12px !default;
-$padding_top_input:    06px !default;
-$padding_bottom_input: 06px !default;
+$padding_left_input:   $default_spacing / 2 !default;
+$padding_right_input:  $default_spacing / 2 !default;
+$padding_top_input:    $default_spacing / 4 !default;
+$padding_bottom_input: $default_spacing / 4 !default;
 
 // Button padding
-$padding_left_button:   24px !default;
-$padding_right_button:  24px !default;
-$padding_top_button:    12px !default;
-$padding_bottom_button: 12px !default;
+$padding_left_button:   $default_spacing !default;
+$padding_right_button:  $default_spacing !default;
+$padding_top_button:    $default_spacing / 2 !default;
+$padding_bottom_button: $default_spacing / 2 !default;
 
 // Table padding
-$padding_left_table:   12px !default;
-$padding_right_table:  12px !default;
-$padding_top_table:    12px !default;
-$padding_bottom_table: 12px !default;
+$padding_left_table:   $default_spacing / 2 !default;
+$padding_right_table:  $default_spacing / 2 !default;
+$padding_top_table:    $default_spacing / 2 !default;
+$padding_bottom_table: $default_spacing / 2 !default;
