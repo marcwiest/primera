@@ -128,6 +128,25 @@
             */
             getViewportHeight : function() {
                 return document.body.clientHeight;
+            },
+
+            /**
+            * Gets the distance of an element to the viewport.
+            *
+            * @param  jQuery  jQuery element of which to get the viewport offset.
+            * @since  1.0
+            */
+            getViewportOffset : function ( $elem ) {
+
+                var $window    = jQuery(window),
+                    scrollLeft = $window.scrollLeft(),
+                    scrollTop  = $window.scrollTop(),
+                    offset     = $elem.offset();
+
+                return {
+                    left : offset.left - scrollLeft,
+                    top  : offset.top - scrollTop
+                };
             }
 
         }
