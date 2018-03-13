@@ -101,6 +101,7 @@
         /**
         * REST API Call.
         *
+        * @link  https://stackoverflow.com/a/22980763/830992
         * @since  1.0
         */
         demoRestApiCall : function() {
