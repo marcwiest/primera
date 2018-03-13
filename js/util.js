@@ -5,19 +5,35 @@
 
         rest : {
 
+            /**
+            * Sends a POST request to a REST endpoint.
+            *
+            * @since  1.0
+            * @param  {(string|object)}  action  The route to send the request to (e.g. 'do-stuff').
+            * @param  {object}  data  Optional. The data to populate $_POST with.
+            */
             post : function( route, data ) {
 
-                var settings = {
+                var options;
+
+                if ( _.isObject(route) ) {
+    				options = route;
+                }
+                else {
+                    options = {
+                        data : data || {}
+                    };
+                }
+
+                options = _.defaults( options, {
                     type       : 'POST',
                     url        : localizedData.restUrl + route,
                     beforeSend : function( xhr ) {
                         xhr.setRequestHeader( 'X-WP-Nonce', localizedData.restNonce );
                     }
-                };
+                });
 
-                settings = _.extend( settings, { data : data || {} } );
-
-                return $.ajax( settings );
+                return $.ajax( options );
             }
 
         },
