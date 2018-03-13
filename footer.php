@@ -1,7 +1,5 @@
 <?php
 
-echo '</div>'; // end of .primera-content
-
 Primera_Module::display( 'footer-primary' );
 
 echo '</div>'; // end of .primera-site-inner
