@@ -232,4 +232,9 @@
         script.init();
     });
 
-})( jQuery, (window.wp || {}), (window.primeraUtil || {}), (window.primeraLocalizedData || {}) );
+})(
+    jQuery,
+    window.wp || {},
+    window.primeraUtil || {},
+    window.primeraLocalizedData || {}
+);

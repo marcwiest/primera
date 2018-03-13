@@ -149,4 +149,8 @@
 
     };
 
-})( jQuery, (window.wp || {}), (window.primeraLocalizedData || {}) );
+})(
+    jQuery,
+    window.wp || {},
+    window.primeraLocalizedData || {}
+);
