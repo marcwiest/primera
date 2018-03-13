@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Container
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin container {
+    max-width: $container_max_width;
+    margin: 0 auto;
+    padding:
+        $padding_top_container
+        $padding_right_container
+        $padding_bottom_container
+        $padding_left_container;
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin container--full-width {
+    max-width: none;
+}
+
+@mixin container--flat {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+%container {
+    @include container;
+}
+
+%container--full-width {
+    @include container--full-width;
+}
+
+%container--flat {
+    @include container--flat;
+}
+
+@if $export_container {
+
+    .#{$ns}container {
+        @extend %container;
+    }
+
+    .#{$ns}container--full-width {
+        @extend %container--full-width;
+    }
+
+    .#{$ns}container--flat {
+        @extend %container--flat;
+    }
+
+}
