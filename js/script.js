@@ -16,7 +16,7 @@
             this.indicateBrowser();
             this.accommodateAdminbar();
             this.bindEvents();
-            // this.restApiCall();
+            // this.demoRestApiCall();
         },
 
         /**
@@ -47,8 +47,8 @@
         cacheData : function() {
 
             this.fromTop = this.$window.scrollTop();
-            this.vw      = util.tools.getViewportWidth();
-            this.vh      = util.tools.getViewportHeight();
+            this.vw      = util.getViewportWidth();
+            this.vh      = util.getViewportHeight();
         },
 
         /**
@@ -68,17 +68,17 @@
         */
         indicateBrowser : function() {
 
-            if ( util.tools.isMobile() ) {
+            if ( util.isMobile() ) {
 
                 this.$html.addClass('is-mobile');
             }
             else {
 
-                if ( util.tools.isIE() ) {
+                if ( util.isIE() ) {
                     this.$html.addClass('is-ie');
                 }
 
-                if ( util.tools.isEdge() ) {
+                if ( util.isEdge() ) {
                     this.$html.addClass('is-edge');
                 }
             }
@@ -98,25 +98,29 @@
             }
         },
 
-        // /**
-        // * REST API Call.
-        // *
-        // * @since  1.0
-        // */
-        // restApiCall : function() {
-        //
-        //     var request = util.rest.post( 'get-something', {
-        //         key : 'val'
-        //     });
-        //
-        //     request.fail( function( response ) {
-        //         console.log( 'Ajax request failed:', response );
-        //     });
-        //
-        //     request.done( function( response ) {
-        //         console.log( 'Success:', response );
-        //     });
-        // }
+        /**
+        * REST API Call.
+        *
+        * @since  1.0
+        */
+        demoRestApiCall : function() {
+
+            var request = util.rest.post( 'get-something', {
+                key : 'val'
+            });
+
+            request.always( function( response ) {
+                console.log( 'always', response );
+            });
+
+            request.fail( function( response ) {
+                console.log( 'fail', response );
+            });
+
+            request.done( function( response ) {
+                console.log( 'done', response );
+            });
+        },
 
         /**
         * Bind module events.
@@ -140,8 +144,8 @@
         onWindowResize : _.debounce( function( e ) {
 
             // Update module properties.
-            this.vw = util.tools.getViewportWidth();
-            this.vh = util.tools.getViewportHeight();
+            this.vw = util.getViewportWidth();
+            this.vh = util.getViewportHeight();
 
             // Adjust Header to height of WP Adminbar.
             this.accommodateAdminbar();
