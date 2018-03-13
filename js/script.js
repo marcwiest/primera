@@ -105,7 +105,7 @@
         */
         demoRestApiCall : function() {
 
-            var request = util.rest.post( 'get-something', {
+            var request = util.rest.post( 'route-name', {
                 key : 'val'
             });
 
