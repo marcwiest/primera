@@ -18,6 +18,7 @@ var replace        = require('gulp-replace');
 var sass           = require('gulp-sass');
 var sourcemaps     = require('gulp-sourcemaps');
 var uglify         = require('gulp-uglify');
+var plumber        = require('gulp-plumber');
 var wpPot          = require('gulp-wp-pot');
 var pngquant       = require('imagemin-pngquant');
 var cssnext        = require('postcss-cssnext');
@@ -31,6 +32,7 @@ var propertyLookup = require('postcss-property-lookup');
 gulp.task( 'css', function() {
 
     var stream = gulp.src( './scss/style.scss' )
+        .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( replace( '{{version}}', packagejson.version ) )
         .pipe( sass({ outputStyle : 'expanded' }) )
@@ -61,6 +63,7 @@ gulp.task( 'js', function() {
     ];
 
     var stream = gulp.src( files )
+        .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( concat( 'script.js' ) )
         .pipe( babel() )
