@@ -2,6 +2,8 @@
 
 get_header();
 
+Primera_Module::display( 'header-primary' );
+
 if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
     echo '<main class="primera-content primera-content--archive" role="main">';
@@ -34,5 +36,7 @@ else {
 echo '<aside class="primera-sidebar">';
 dynamic_sidebar( 'primera_primary' );
 echo '</aside>'
+
+Primera_Module::display( 'footer-primary' );
 
 get_footer();

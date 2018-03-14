@@ -11,5 +11,3 @@
 
 <div class="primera-site">
 <div class="primera-site-inner">
-
-<?php Primera_Module::display( 'header-primary' ); ?>
