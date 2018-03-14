@@ -20,7 +20,6 @@ var sourcemaps     = require('gulp-sourcemaps');
 var uglify         = require('gulp-uglify');
 var wpPot          = require('gulp-wp-pot');
 var pngquant       = require('imagemin-pngquant');
-var lostGrid       = require('lost');
 var cssnext        = require('postcss-cssnext');
 var easings        = require('postcss-easings');
 var propertyLookup = require('postcss-property-lookup');
