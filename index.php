@@ -2,7 +2,7 @@
 
 get_header();
 
-Primera_Module::display( 'header-primary' );
+Primera_Module::display( 'header' );
 
 if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
@@ -37,6 +37,6 @@ echo '<aside class="primera-sidebar">';
 dynamic_sidebar( 'primera_primary' );
 echo '</aside>'
 
-Primera_Module::display( 'footer-primary' );
+Primera_Module::display( 'footer' );
 
 get_footer();
