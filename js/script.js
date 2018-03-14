@@ -16,7 +16,6 @@
             this.indicateBrowser();
             this.accommodateAdminbar();
             this.bindEvents();
-            // this.demoRestApiCall();
         },
 
         /**
@@ -49,6 +48,31 @@
             this.fromTop = this.$window.scrollTop();
             this.vw      = util.getViewportWidth();
             this.vh      = util.getViewportHeight();
+        },
+
+        /**
+        * Demo REST API Call.
+        *
+        * @link  https://stackoverflow.com/a/22980763/830992
+        * @since  1.0
+        */
+        demoRestApiCall : function() {
+
+            var request = util.rest.post( 'route-name', {
+                key : 'val'
+            });
+
+            request.always( function( response ) {
+                console.log( 'always', response );
+            });
+
+            request.fail( function( response ) {
+                console.log( 'fail', response );
+            });
+
+            request.done( function( response ) {
+                console.log( 'done', response );
+            });
         },
 
         /**
@@ -96,31 +120,6 @@
             if ( this.$wpAdminbar.length && this.fromTop < 60 ) {
                 this.$body.css( 'top', displacement );
             }
-        },
-
-        /**
-        * Demo REST API Call.
-        *
-        * @link  https://stackoverflow.com/a/22980763/830992
-        * @since  1.0
-        */
-        demoRestApiCall : function() {
-
-            var request = util.rest.post( 'route-name', {
-                key : 'val'
-            });
-
-            request.always( function( response ) {
-                console.log( 'always', response );
-            });
-
-            request.fail( function( response ) {
-                console.log( 'fail', response );
-            });
-
-            request.done( function( response ) {
-                console.log( 'done', response );
-            });
         },
 
         /**
