@@ -1,5 +1,7 @@
 <?php
 
+get_header();
+
 if ( is_product() ) {
 
     echo 'is_product';
@@ -25,3 +27,5 @@ elseif ( is_account_page() ) {
     echo 'is_account_page';
 
 }
+
+get_footer();
