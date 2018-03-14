@@ -35,7 +35,7 @@ else {
 
 echo '<aside class="primera-sidebar">';
 dynamic_sidebar( 'primera_primary' );
-echo '</aside>'
+echo '</aside>';
 
 Primera_Module::display( 'footer' );
 
