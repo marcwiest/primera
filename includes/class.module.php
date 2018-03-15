@@ -30,7 +30,7 @@ final class Primera_Module
     */
     public static function display( $module, $data=array() )
     {
-        $path = "/modules/{$module}.php";
+        $path = "/modules/$module.php";
 
         if ( file_exists( get_stylesheet_directory().$path ) ) {
 
