@@ -1,5 +1,8 @@
 <?php
 
+/**
+* Handles module rendering.
+*/
 final class Primera_Module
 {
 

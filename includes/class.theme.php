@@ -1,6 +1,9 @@
 <?php
 
-class Primera_Theme
+/**
+* Handles theme setup.
+*/
+final class Primera_Theme
 {
 
     /**
