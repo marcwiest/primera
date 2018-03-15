@@ -8,7 +8,8 @@ if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
     echo '<main class="primera-content primera-content--archive" role="main">';
 
-        while ( have_posts() ) { the_post();
+        while ( have_posts() ) {
+            the_post();
             Primera_Module::display( 'post-teaser' );
         }
 
@@ -21,7 +22,8 @@ else {
 
     echo '<main class="primera-content primera-content--singular" role="main">';
 
-        while ( have_posts() ) { the_post();
+        while ( have_posts() ) {
+            the_post();
             Primera_Module::display( 'post-full' );
         }
 
