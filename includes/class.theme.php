@@ -49,7 +49,7 @@ final class Primera_Theme
         );
 
         if ( $GLOBALS['is_IE'] ) {
-            $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
+            $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
     	}
 
         $meta = apply_filters( 'primera_head_meta', $meta );
