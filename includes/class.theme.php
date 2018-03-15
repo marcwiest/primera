@@ -89,7 +89,7 @@ class Primera_Theme
     public static function enqueue_frontend_scripts()
     {
         $version = wp_get_theme()->get('Version');
-        if ( defined('WP_DEBUG') && WP_DEBUG || ! $version ) {
+        if ( defined('WP_DEBUG') && WP_DEBUG || ! trim( strval($version) ) ) {
             $version = time();
         }
 
