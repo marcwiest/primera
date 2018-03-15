@@ -41,14 +41,15 @@ class Primera_Theme
     */
     public static function add_head_meta()
     {
-        $meta = apply_filters( 'primera_head_meta', array(
+        $meta = array(
             'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">',
-            'ie_edge'  => '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
-        ) );
+        );
 
-        if ( ! $GLOBALS['is_IE'] && ! empty($meta['ie_edge']) ) {
-            unset( $meta['ie_edge'] );
+        if ( $GLOBALS['is_IE'] ) {
+            $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
     	}
+
+        $meta = apply_filters( 'primera_head_meta', $meta );
 
         foreach ( $meta as $m ) {
             echo $m;
