@@ -1,22 +1,9 @@
 <?php
 
-add_action( 'rest_api_init', function() {
-
-    # Get something.
-    register_rest_route( 'primera/v1', '/get-somthing/', array(
-        'methods'  => 'GET',
-        'callback' => 'Primera_REST::get_something',
-    ), true );
-
-    # Post something.
-    register_rest_route( 'primera/v1', '/post-somthing/', array(
-        'methods'  => 'POST',
-        'callback' => 'Primera_REST::post_something',
-    ), true );
-
-});
-
-class Primera_REST
+/**
+* Handles REST requests.
+*/
+final class Primera_REST
 {
 
     /**

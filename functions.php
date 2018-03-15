@@ -48,3 +48,41 @@ function _primera_load_files()
 	}
 }
 _primera_load_files();
+
+
+/**
+* Add AJAX actions.
+*
+* @since  1.0
+* @return  void
+*/
+function _primera_add_ajax_actions()
+{
+	# Action: primeraRenderModule
+	add_action( 'wp_ajax_primeraRenderModule'        , 'Primera_AJAX::primeraRenderModule' );
+	add_action( 'wp_ajax_nopriv_primeraRenderModule' , 'Primera_AJAX::primeraRenderModule' );
+}
+_primera_add_ajax_actions();
+
+
+/**
+* Add REST routes.
+*
+* @since  1.0
+* @return  void
+*/
+function _primera_add_rest_routes()
+{
+    # Get something.
+    register_rest_route( 'primera/v1', '/get-somthing/', array(
+        'methods'  => 'GET',
+        'callback' => 'Primera_REST::get_something',
+    ), true );
+
+    # Post something.
+    register_rest_route( 'primera/v1', '/post-somthing/', array(
+        'methods'  => 'POST',
+        'callback' => 'Primera_REST::post_something',
+    ), true );
+}
+add_action( 'rest_api_init', '_primera_add_rest_routes' );

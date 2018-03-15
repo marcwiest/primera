@@ -1,11 +1,7 @@
 <?php
 
-# primeraRenderModule
-add_action( 'wp_ajax_primeraRenderModule'        , 'Primera_AJAX::primeraRenderModule' );
-add_action( 'wp_ajax_nopriv_primeraRenderModule' , 'Primera_AJAX::primeraRenderModule' );
-
 /**
-* Handels ajax requests.
+* Handles AJAX requests.
 */
 final class Primera_AJAX
 {
