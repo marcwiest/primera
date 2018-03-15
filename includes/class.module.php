@@ -16,7 +16,7 @@ final class Primera_Module
         }
 
         // Empty arrays aren't converted to objects.
-        $data = $data ? json_decode( wp_json_encode($data) ) : new stdClass;
+        return $data = $data ? json_decode( wp_json_encode($data) ) : new stdClass;
     }
 
 
