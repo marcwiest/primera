@@ -1,3 +1,6 @@
+## Track this file i.e. do not ignore it
+!.gitignore
+
 ## General
 *.DS_Store
 .AppleDouble
