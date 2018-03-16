@@ -20,9 +20,7 @@ project. Please only use alphabetic characters `a-zA-Z` and underscores `_`.
 **4th** Open `css/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project.
 Please be sure to keep the version number as it is used throughout the theme.
 
-**5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules.
-
-_Now you can run any of the following gulp commands._
+**5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules. Now you can run any of the following gulp commands.
 
 ## Gulp Commands
 
