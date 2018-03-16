@@ -1,7 +1,7 @@
 'use strict';
 
-
 const THEME_TEXT_DOMAIN = 'primera';
+const LOCALHOST_ADDRESS = 'localhost/primera';
 
 
 var packagejson    = require('./package.json');
@@ -24,10 +24,11 @@ var pngquant       = require('imagemin-pngquant');
 var cssnext        = require('postcss-cssnext');
 var easings        = require('postcss-easings');
 var propertyLookup = require('postcss-property-lookup');
+var browserSync    = require('browser-sync').create();
 
 
 /**
-* Process CSS
+* Process CSS.
 */
 gulp.task( 'css', function() {
 
@@ -52,7 +53,7 @@ gulp.task( 'css', function() {
 
 
 /**
-* Process JS
+* Process JS.
 */
 gulp.task( 'js', function() {
 
@@ -76,7 +77,7 @@ gulp.task( 'js', function() {
 
 
 /**
-* Minify Images
+* Minify images.
 */
 gulp.task( 'imgmin', function () {
 
@@ -110,32 +111,36 @@ gulp.task( 'potfile', function () {
 
 
 /**
-* Gulp Watch
+* Gulp browserSync task.
 */
-gulp.task( 'watch', ['css','js'], function() {
+gulp.task( 'sync', function() {
+
+    browserSync.init({
+        port   : 8888,
+        proxy  : LOCALHOST_ADDRESS,
+        notify : false,
+        tunnel : true
+    });
+
+    // Watch PHP
+    gulp.watch( './**/*.php' ).on( 'change', browserSync.reload );
 
     // Watch CSS
-    gulp.watch( './scss/**/*.scss', ['css'] );
+    gulp.watch( './scss/**/*.scss', ['css'] ).on( 'change', browserSync.reload );
 
     // Watch JS
-    gulp.watch( './js/**/*.js', ['js'] );
-
-    // Live Reload (Remember, you must activate the browser extension!)
-    livereload.listen();
-    gulp.watch([
-            './**/*.php',
-            './script.js',
-            './style.css'
-        ],
-        function( path ) {
-            livereload.changed( path );
-        }
-    );
+    gulp.watch( './js/**/*.js', ['js'] ).on( 'change', browserSync.reload );
 
 });
 
 
 /**
-* Gulp Default
+* Gulp default task.
 */
-gulp.task( 'default', ['css','js','imgmin','potfile'] );
+gulp.task( 'default', ['sync'] );
+
+
+/**
+* Gulp build task.
+*/
+gulp.task( 'build', ['css','js','imgmin','potfile'] );
