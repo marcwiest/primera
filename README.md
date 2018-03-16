@@ -69,7 +69,7 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 - [CSSNext](//cssnext.io/)
 - [PropertyLookup](//github.com/simonsmith/postcss-property-lookup)
 - [Easings](https://www.npmjs.com/package/postcss-easings)
-- [MQPacker]()
+- [MQPacker](https://www.npmjs.com/package/css-mqpacker)
 
 ## ES2015 Resources
 
