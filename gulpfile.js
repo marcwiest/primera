@@ -113,7 +113,7 @@ gulp.task( 'potfile', function () {
 /**
 * Gulp browserSync task.
 */
-gulp.task( 'sync', function() {
+gulp.task( 'watch', function() {
 
     browserSync.init({
         port   : 8888,
