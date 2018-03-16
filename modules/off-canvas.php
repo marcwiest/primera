@@ -1,3 +1,7 @@
+<?php
+// Primera_Module::defaults( $data, array() );
+?>
+
 <div class="primera-off-canvas">
     <div class="primera-off-canvas-inner">
 

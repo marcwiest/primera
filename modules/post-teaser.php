@@ -1,7 +1,5 @@
 <?php
-
-Primera_Module::defaults( $data, array() );
-
+// Primera_Module::defaults( $data, array() );
 ?>
 
 <article id="post-<?php the_ID(); ?>" class="<?php post_class('primera-entry'); ?>" role="article">

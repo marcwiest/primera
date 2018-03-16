@@ -1,3 +1,6 @@
+<?php
+// Primera_Module::defaults( $data, array() );
+?>
 
 <footer class="primera-footer primera-footer--primary">
 

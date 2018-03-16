@@ -1,6 +1,6 @@
 <?php
 
-Primera_Module::defaults( $data, array() );
+// Primera_Module::defaults( $data, array() );
 
 $_post = get_post();
 

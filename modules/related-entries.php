@@ -4,8 +4,10 @@ Primera_Module::defaults( $data, array(
     'amount' => 3,
 ) );
 
-?><div class="primera-related-entries"><?php
+?>
 
+<div class="primera-related-entries">
+    <?php
     if ( $tags = wp_get_post_tags( get_the_ID() ) ) {
 
         $tag_ids = array();
@@ -35,5 +37,5 @@ Primera_Module::defaults( $data, array(
             <?php
         }
     }
-
-?></div><?php
+    ?>
+</div>
