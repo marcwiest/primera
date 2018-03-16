@@ -138,7 +138,7 @@ gulp.task( 'watch', function() {
 /**
 * Gulp default task.
 */
-gulp.task( 'default', ['sync'] );
+gulp.task( 'default', ['watch'] );
 
 
 /**
