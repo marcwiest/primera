@@ -2,6 +2,7 @@
 
 const THEME_TEXT_DOMAIN = 'primera';
 const LOCALHOST_ADDRESS = 'localhost/primera';
+const LOCALHOST_PORT    = 8888;
 
 
 var packagejson    = require('./package.json');
@@ -116,7 +117,7 @@ gulp.task( 'potfile', function () {
 gulp.task( 'watch', function() {
 
     browserSync.init({
-        port   : 8888,
+        port   : LOCALHOST_PORT,
         proxy  : LOCALHOST_ADDRESS,
         notify : false,
         tunnel : true
