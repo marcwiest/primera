@@ -1,7 +1,6 @@
 'use strict';
 
-// const THEME_TEXT_DOMAIN = 'primeraTextDomain';
-const LOCALHOST_ADDRESS = 'localhost/primera';
+const LOCALHOST_ADDRESS = 'localhost/primeraTextDomain';
 const LOCALHOST_PORT    = 8888;
 
 
@@ -35,7 +34,6 @@ gulp.task( 'css', function() {
     var stream = gulp.src( './scss/style.scss' )
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
-        .pipe( replace( '{{version}}', packagejson.version ) )
         .pipe( sass({ outputStyle : 'expanded' }) )
         .pipe( postcss([
             cssnext(),
