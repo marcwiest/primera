@@ -98,14 +98,14 @@ final class primeraObjectPrefix_Theme
         }
 
     	wp_enqueue_style(
-    		'primeraTextDomain',
+    		'primeraFunctionPrefix',
     		get_stylesheet_uri(),
     		array(),
     		$version
     	);
 
     	wp_enqueue_script(
-    		'primeraTextDomain',
+    		'primeraFunctionPrefix',
     		get_template_directory_uri().'/script.js',
     		array( 'wp-util', 'hoverIntent' ), // wp-util: jQuery, undescore, wp
     		$version,
@@ -113,7 +113,7 @@ final class primeraObjectPrefix_Theme
     	);
 
     	wp_localize_script(
-    		'primeraTextDomain',
+    		'primeraFunctionPrefix',
     		'primeraLocalizedData',
     		array(
     			'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
