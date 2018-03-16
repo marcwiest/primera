@@ -17,7 +17,7 @@
 - `primeraObjectPrefix`
 - `primeraCssPrefix`
 
-**4th** Open `scss/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project. Please be sure to keep the {{version}} tag as it is replace dynamically. You can learn more about versioning below.
+**4th** Open `scss/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/). Open `gulpfile.js` and adjust the constants in the top of the document.
 
 **5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules. Now you can run any of the following gulp commands.
 
@@ -74,6 +74,12 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 - https://babeljs.io/learn-es2015/
 - https://github.com/mbeaudru/modern-js-cheatsheet
 
+## Browser Support
+
+While writing CSS you do not need to worry about writing browser prefixes. The autoprefixer PostCSS plugin supplied via CSSNext will do that for you. To see or change which browsers are supported you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
+
+Please also remember that [autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. For a great place to check which browser supports what visit [caniuse.com](http://caniuse.com/).
+
 ## Translation
 
 1) While developing, wrap any hard coded translatable text strings in their [appropriate WP function](https://developer.wordpress.org/themes/functionality/internationalization/#localization-functions).
@@ -86,10 +92,4 @@ https://developer.wordpress.org/themes/functionality/internationalization/
 
 ## Versioning
 
-To update your themes version, as found inside the `style.css` file, simply bump the version inside your `package.json` file and run `gulp css` or `gulp build`.
-
-## Browser Support
-
-While writing CSS you do not need to worry about writing browser prefixes. The autoprefixer PostCSS plugin supplied via CSSNext will do that for you. To see or change which browsers are supported you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
-
-Please also remember that [autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. For a great place to check which browser supports what visit [caniuse.com](http://caniuse.com/).
+To update the themes version simply bump the version number inside `scss/style.scss`.
