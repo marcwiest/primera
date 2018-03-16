@@ -22,7 +22,7 @@ Please be sure to keep the version number as it is used throughout the theme.
 
 **5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules.
 
-Now just can run any of the following gulp commands.
+_Now you can run any of the following gulp commands._
 
 ## Gulp Commands
 
