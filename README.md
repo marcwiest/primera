@@ -7,13 +7,17 @@
 
 ## Installation
 
-**1st** Rename the theme's folder name to whatever suits your project is. Side note: Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts simply make sure that your theme's folder name is unique (e.g. via a prefix).
+**1st** Rename the theme's folder name to whatever suits your project is. _Side note:_ Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts simply make sure that your theme's folder name is unique (e.g. via a prefix).
 
-**2nd** Open `package.json` and change the package's `name` to match your theme's folder name. This is done because your package's name must also be [unique](https://docs.npmjs.com/files/package.json#name).
+**2nd** Open `package.json` and change the package's `name` to match your theme's folder name. This is done because your package's name must also be [unique](https://docs.npmjs.com/files/package.json#name). Please also revise the document briefly to suit your project. However, please do not alter the `devDependencies`.
 
-**3rd** Find and replace all `primera` and `Primera` strings inside the theme's folder to suit your project. Please only use alphabetic characters `a-zA-Z` and underscores `_`.
+**3rd** Use your tool of choice to replace all instances of the following strings with whatever suits your project.
+- `primeraTextDomain`
+- `primeraFunctionPrefix`
+- `primeraObjectPrefix`
+- `primeraCssPrefix`
 
-**4th** Open `css/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project. Please be sure to keep the version number as it is used throughout the theme.
+**4th** Open `scss/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project. Please be sure to keep the {{version}} tag as it is replace dynamically. You can learn more about versioning below.
 
 **5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules. Now you can run any of the following gulp commands.
 
