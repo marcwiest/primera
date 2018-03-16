@@ -4,7 +4,8 @@
   "description": "A WordPress starter theme.",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp build",
+    "watch": "gulp watch",
   },
   "author": "Marc Wiest",
   "license": "GPL-3.0",
