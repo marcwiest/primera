@@ -46,7 +46,8 @@ gulp.task( 'css', function() {
         ]) )
         .pipe( cssnano({ zindex : false }) )
         .pipe( sourcemaps.write('./') )
-        .pipe( gulp.dest('./') );
+        .pipe( gulp.dest('./') )
+        .pipe( browserSync.stream() );
 
     return stream;
 
@@ -70,7 +71,8 @@ gulp.task( 'js', function() {
         .pipe( babel() )
         .pipe( uglify() )
         .pipe( sourcemaps.write('./') )
-        .pipe( gulp.dest('./') );
+        .pipe( gulp.dest('./') )
+        .pipe( browserSync.stream() );
 
     return stream;
 
@@ -112,26 +114,34 @@ gulp.task( 'potfile', function () {
 
 
 /**
-* Gulp browserSync task.
+* Initialize BrowserSync and it's PHP server.
 */
-gulp.task( 'watch', function() {
+gulp.task( 'initBrowserSync', function() {
 
-    browserSync.init({
+    var filesToSync = [
+        './**/*.php',
+        './script.js',
+        './style.css'
+    ];
+
+    browserSync.init( filesToSync, {
         port   : LOCALHOST_PORT,
         proxy  : LOCALHOST_ADDRESS,
         notify : false,
         tunnel : true
     });
 
-    // Watch PHP
-    gulp.watch( './**/*.php' ).on( 'change', browserSync.reload );
+});
 
-    // Watch CSS
-    gulp.watch( './scss/**/*.scss', ['css'] ).on( 'change', browserSync.reload );
 
-    // Watch JS
-    gulp.watch( './js/**/*.js', ['js'] ).on( 'change', browserSync.reload );
+/**
+* Watch task.
+*/
+gulp.task( 'watch', ['css','js','initBrowserSync'], function() {
 
+    // gulp.watch( './**/*.php' ).on( 'change', browserSync.reload );
+    gulp.watch( './scss/**/*.scss', ['css'] );
+    gulp.watch( './js/**/*.js', ['js'] );
 });
 
 
