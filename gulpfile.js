@@ -12,7 +12,6 @@ var mqpacker       = require('css-mqpacker');
 var concat         = require('gulp-concat');
 var cssnano        = require('gulp-cssnano');
 var imagemin       = require('gulp-imagemin');
-var livereload     = require('gulp-livereload');
 var postcss        = require('gulp-postcss');
 var rename         = require('gulp-rename');
 var replace        = require('gulp-replace');
@@ -84,13 +83,13 @@ gulp.task( 'js', function() {
 */
 gulp.task( 'imgmin', function () {
 
-    var stream = gulp.src('./img/*')
+    var stream = gulp.src('./images/*')
         .pipe( imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }) )
-        .pipe( gulp.dest('./img') );
+        .pipe( gulp.dest('./images') );
 
     return stream;
 
