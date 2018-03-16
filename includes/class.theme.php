@@ -203,10 +203,10 @@ final class Primera_Theme
     */
     public static function modify_tag_cloud_args( $args )
     {
-    	// $args['number']    = 24;
-    	// $args['smallest']  = 14;
-    	// $args['largest']   = 14;
-    	// $args['unit']      = 'px';
+    	$args['number']    = 24;
+    	$args['smallest']  = 14;
+    	$args['largest']   = 14;
+    	$args['unit']      = 'px';
     	$args['format']    = 'flat'; // list / flat (custom classes only work with flat)
     	$args['separator'] = "\n";
     	$args['orderby']   = 'count'; // name(alphabetical) / count(popularity)
