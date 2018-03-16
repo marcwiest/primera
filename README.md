@@ -1,74 +1,79 @@
 
-A WordPress starter theme with support for PostCSS (inc. autoprefixer), ES6 and LiveReload using GulpJS.
+A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.
 
 ---
 
-## NEW STUFF
-- WP 4.9 Media Player is IE11 only (https://make.wordpress.org/core/2017/10/30/mediaelement-upgrades-in-wordpress-4-9/)
-- new postcss modules
-- npm run build
-- http://easings.net/ & https://github.com/postcss/postcss-easings
-
 ## Requirements
 
-1. [Node.js](https://nodejs.org/)
-2. [Gulp.js](http://gulpjs.com/)
-3. [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+- [Node.js](https://nodejs.org/)
 
 ## Installation
 
-**1)** Rename the theme's folder name. Update conflicts with themes from wordpress.org arise from
-themes having identical folder names. To avoid such conflicts simply make sure that your theme's
-folder name is unique (e.g. via a prefix).
+**1)** Rename the theme's folder name to whatever suits your project is. Side note: Update conflicts
+with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts
+simply make sure that your theme's folder name is unique (e.g. via a prefix).
 
 **2)** Open `package.json` and change the package's `name` to match your theme's folder name. This is
 done because your package's name must also be [unique](https://docs.npmjs.com/files/package.json#name).
 
-**3)** Find and replace all `primera` and `PRIMERA` strings inside the theme's folder to suit your project.
+**3)** Find and replace all `primera` and `Primera` strings inside the theme's folder to suit your
+project. Please only use alphabetic characters `a-zA-Z` and underscores `_`.
 
 **4)** Open `css/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/) to suit your project.
+Please be sure to keep the version number as it is used throughout the theme.
 
 **5)** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and
 enter you computers admin password to install all node modules.
 
-Now just run `glup watch` and active the [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) browser extension.
+Now just can run any of the following gulp commands.
 
 ## Gulp Commands
 
 GulpJS is a task runner. Below is a list of tasks you can run inside your terminal.
 
-**`gulp cssmin`**
-- Processes PostCSS and includes support for [CSSNext](//cssnext.io/) as well as [LostGrid](//lostgrid.org/)
-- Concatenates and minifies all CSS files into style.css
+**`gulp css`**
+- Processes SCSS, PostCSS
+- Concatenates and minifies all CSS files into ./style.css
 - Runs once
 
-**`gulp jsmin`**
-- Processes [ES6](//babeljs.io/learn-es2015/) via [BabelJS](//babeljs.io/)
-- Concatenates and minifies all JS files into app.js
+**`gulp js`**
+- Processes [ES2015](//babeljs.io/learn-es2015/) via [BabelJS](//babeljs.io/)
+- Concatenates and minifies all JS files into ./script.js
 - Runs once
+
+**`gulp watch`**
+- Listens for changes within any `php`, `js` or `css` file
+- Applies `gulp css` or `gulp js` as needed
+- Will reload the browser to reflect the changes
+- Will keep running until you hit `crtl+c` within the terminal
 
 **`gulp imgmin`**
 - Optimizes all images that are inside the `img` folder
 - Runs once
 
-**`gulp watch`**
-- Listens for changes within any `php`, `js` or `css` file
-- Applies `gulp cssmin` or `gulp jsmin` as needed
-- The [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) browser extension must be active
-- Will keep running until you hit `crtl+c` within the terminal
-
 **`gulp potfile`**
 - Create a `.pot` file to be used for translations
 - Please see the Translation section below for more information
+- Runs once
+
+**`gulp build`**
+- Runs `gulp css`, `gulp js`, `gulp imgmin` and `gulp potfile`
+- Runs once
 
 **`gulp`**
-- Runs `gulp cssmin`, `gulp jsmin`, `gulp imgmin` and `gulp potfile` once
+- Runs `gulp watch`
+- Runs once
 
-## PostCSS, CSSNext and Shoelace
+## SCSS & PostCSS Plugins
 
-[PostCSS](https://postcss.org) is a JavaScript framework which processes CSS files. [CSSNext](//cssnext.io/) is a PostCSS plugin which helps you use the latest CSS syntax. The [Shoelace](//shoelace.style/) CSS framework is included by default to demonstrate the syntax.
+[SASS](//sass-lang.com/) or [SCSS](//sass-lang.com/) is a CSS extension that supplies some [really cool features](//sass-lang.com/guide/) to CSS.
 
-## ES6 Resources
+[PostCSS](//postcss.org) is a JavaScript framework which processes CSS files. Primera includes the following PostCSS plugins.
+- [CSSNext](//cssnext.io/)
+- [PropertyLookup](//github.com/simonsmith/postcss-property-lookup)
+- [Easings](https://www.npmjs.com/package/postcss-easings)
+
+## ES2015 Resources
 
 - https://laracasts.com/series/es6-cliffsnotes
 - https://babeljs.io/learn-es2015/
@@ -85,9 +90,9 @@ Please visit the following link to learn more about internationalization (i18n):
 https://developer.wordpress.org/themes/functionality/internationalization/
 
 ## Versioning
-To update your themes version, as found inside the `style.css` file, simply bump the version inside your `package.json` file and run `gulp cssmin`.
+To update your themes version, as found inside the `style.css` file, simply bump the version inside your `package.json` file and run `gulp css` or `gulp build`.
 
 ## Browser Support
-While writing CSS you do not need to worry about browser prefixes. The Autoprefixer plugin will do that for you. To adjust which browsers to support you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
+While writing CSS you do not need to worry about browser prefixes. The Autoprefixer plugin will do that for you. To adjust which browsers to support you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist). However, the flex and flex-item CSS objects are only compatible with IE11.
 
-But remember, [Autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. A great place to check which browser supports what, have a look at: [caniuse.com](http://caniuse.com/).
+But remember, [autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. A great place to check which browser supports what, have a look at: [caniuse.com](http://caniuse.com/).
