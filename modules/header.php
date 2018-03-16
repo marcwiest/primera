@@ -17,7 +17,7 @@ primeraObjectPrefix_Module::defaults( $data, array(
     <nav class="primeraCssPrefix-menu primeraCssPrefix-menu--primary" role="navigation">
 	<?php
 		wp_nav_menu( array(
-			'theme_location' => 'primeraFunctionPrefix_primary',
+			'theme_location' => 'primary',
 			'depth'          => 0,
 			'container'      => false,
 			'fallback_cb'    => false,

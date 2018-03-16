@@ -5,7 +5,7 @@
 <div class="primeraCssPrefix-off-canvas">
     <div class="primeraCssPrefix-off-canvas-inner">
 
-        <?php dynamic_sidebar( 'primeraFunctionPrefix_off_canvas' ); ?>
+        <?php dynamic_sidebar( 'off_canvas' ); ?>
 
     </div>
 </div>

@@ -36,7 +36,7 @@ else {
 }
 
 echo '<aside class="primeraCssPrefix-sidebar">';
-dynamic_sidebar( 'primeraFunctionPrefix_primary' );
+dynamic_sidebar( 'primary' );
 echo '</aside>';
 
 primeraObjectPrefix_Module::display( 'footer' );

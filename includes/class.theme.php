@@ -137,8 +137,8 @@ final class primeraObjectPrefix_Theme
     public static function register_nav_menus()
     {
     	register_nav_menus( array(
-    		'primeraFunctionPrefix_primary'  => esc_html_x('Primary Menu','Registered nav-menu name.','primeraTextDomain'),
-    		'primeraFunctionPrefix_colophon' => esc_html_x('Colophon Menu','Registered nav-menu name.','primeraTextDomain'),
+    		'primary'  => esc_html_x('Primary Menu','Registered nav-menu name.','primeraTextDomain'),
+    		'colophon' => esc_html_x('Colophon Menu','Registered nav-menu name.','primeraTextDomain'),
     	) );
     }
 
@@ -151,7 +151,7 @@ final class primeraObjectPrefix_Theme
     public static function register_sidebars()
     {
     	register_sidebar( array(
-    		'id'            => 'primeraFunctionPrefix_primary',
+    		'id'            => 'primary',
     		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
     		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-content widget %2$s">',
@@ -161,7 +161,7 @@ final class primeraObjectPrefix_Theme
     	) );
 
     	register_sidebar( array(
-    		'id'            => 'primeraFunctionPrefix_off_canvas',
+    		'id'            => 'off_canvas',
     		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
     		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-off-canvas widget %2$s">',
@@ -226,7 +226,7 @@ final class primeraObjectPrefix_Theme
     */
     public static function filter_nav_menu_list_item_classes( $classes, $item, $args, $depth ) {
 
-    	if ( 'primeraFunctionPrefix_primary' == $args->theme_location ) {
+    	if ( 'primary' == $args->theme_location ) {
     		array_push( $classes, 'primeraCssPrefix-menu-item primeraCssPrefix-menu-item-demo' );
     	}
 
@@ -244,7 +244,7 @@ final class primeraObjectPrefix_Theme
     */
     public static function filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
 
-    	if ( 'primeraFunctionPrefix_primary' == $args->theme_location ) {
+    	if ( 'primary' == $args->theme_location ) {
     		$atts['class'] = 'primeraCssPrefix-menu-link primeraCssPrefix-menu-link-demo';
     	}
 

@@ -19,7 +19,7 @@
     <nav class="primeraCssPrefix-menu primeraCssPrefix-menu--colophon" role="navigation">
         <?php
             wp_nav_menu( array(
-            	'theme_location' => 'primeraFunctionPrefix_colophon',
+            	'theme_location' => 'colophon',
             	'depth'          => 1,
             	'container'      => false,
             	'fallback_cb'    => false,
