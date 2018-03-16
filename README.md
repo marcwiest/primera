@@ -86,10 +86,6 @@ To update your themes version, as found inside the `style.css` file, simply bump
 
 ## Browser Support
 
-While writing CSS you do not need to worry about writing browser prefixes. The autoprefixer PostCSS plugin supplied via CSSNext will do that for you.
+While writing CSS you do not need to worry about writing browser prefixes. The autoprefixer PostCSS plugin supplied via CSSNext will do that for you. To see or change which browsers are supported you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
 
-To see or change which browsers are supported you can simply change the `browserlist` inside `package.json` using [this guide](https://github.com/ai/browserslist).
-
-Please also remember that [autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support.
-
-For a great place to check which browser supports what visit [caniuse.com](http://caniuse.com/).
+Please also remember that [autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. For a great place to check which browser supports what visit [caniuse.com](http://caniuse.com/).
