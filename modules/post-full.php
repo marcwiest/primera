@@ -1,39 +1,39 @@
 <?php
-// Primera_Module::defaults( $data, array() );
+// primeraObjectPrefix_Module::defaults( $data, array() );
 ?>
 
-<article id="post-<?php the_ID(); ?>" class="<?php post_class('primera-entry'); ?>" role="article">
+<article id="post-<?php the_ID(); ?>" class="<?php post_class('primeraCssPrefix-entry'); ?>" role="article">
 
-    <header class="primera-entry-header">
+    <header class="primeraCssPrefix-entry-header">
 
         <?php the_post_thumbnail( 'post-thumbnail', array(
-            'class' => 'primera-entry-thumbnail',
+            'class' => 'primeraCssPrefix-entry-thumbnail',
         ) ); ?>
 
-        <h1 class="primera-entry-title">
+        <h1 class="primeraCssPrefix-entry-title">
             <?php the_title(); ?>
         </h1>
 
-        <time class="primera-entry-date">
+        <time class="primeraCssPrefix-entry-date">
             <?php the_date(); ?>
         </time>
 
     </header>
 
-    <section class="primera-entry-content">
+    <section class="primeraCssPrefix-entry-content">
         <?php
 
             the_content();
 
             wp_link_pages( array(
-                'before'           => '<div class="primera-link-pages">'.esc_html_x( 'Pages:', 'Link pages', 'primera' ),
+                'before'           => '<div class="primeraCssPrefix-link-pages">'.esc_html_x( 'Pages:', 'Link pages', 'primeraTextDomain' ),
                 'after'            => '</div>',
                 'link_before'      => '',
                 'link_after'       => '',
                 'next_or_number'   => 'number',
                 'separator'        => ' ',
-                'nextpagelink'     => esc_html_x( 'Next Page', 'Link pages', 'primera' ),
-                'previouspagelink' => esc_html_x( 'Previous Page', 'Link pages', 'primera' ),
+                'nextpagelink'     => esc_html_x( 'Next Page', 'Link pages', 'primeraTextDomain' ),
+                'previouspagelink' => esc_html_x( 'Previous Page', 'Link pages', 'primeraTextDomain' ),
                 'pagelink'         => '%',
                 'echo'             => 1,
             ) );
@@ -41,8 +41,8 @@
         ?>
     </section>
 
-    <footer class="primera-entry-footer">
-        <?php Primera_Module::display( 'author-info' ); ?>
+    <footer class="primeraCssPrefix-entry-footer">
+        <?php primeraObjectPrefix_Module::display( 'author-info' ); ?>
     </footer>
 
 </article>

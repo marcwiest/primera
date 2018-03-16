@@ -3,7 +3,7 @@
 /**
 * Handles AJAX requests.
 */
-final class Primera_AJAX
+final class primeraObjectPrefix_AJAX
 {
 
     /**
@@ -60,7 +60,7 @@ final class Primera_AJAX
             'moduleData' => array(),
         ) );
 
-        if ( $module = Primera_Module::render( $request['module'], $request['moduleData'] ) ) {
+        if ( $module = primeraObjectPrefix_Module::render( $request['module'], $request['moduleData'] ) ) {
 
             $response->module  = $module;
 

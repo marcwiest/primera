@@ -9,5 +9,5 @@
 
 <noscript>You need to enable JavaScript to run this site.</noscript>
 
-<div class="primera-site">
-<div class="primera-site-inner">
+<div class="primeraCssPrefix-site">
+<div class="primeraCssPrefix-site-inner">

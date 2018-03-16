@@ -2,32 +2,32 @@
 
 get_header();
 
-Primera_Module::display( 'header' );
+primeraObjectPrefix_Module::display( 'header' );
 
 if ( is_home() || is_post_type_archive() || is_archive() || is_search() ) {
 
-    echo '<main class="primera-content primera-content--archive" role="main">';
+    echo '<main class="primeraCssPrefix-content primeraCssPrefix-content--archive" role="main">';
 
         while ( have_posts() ) {
             the_post();
-            Primera_Module::display( 'post-teaser' );
+            primeraObjectPrefix_Module::display( 'post-teaser' );
         }
 
-        Primera_Module::display( 'pagination' );
+        primeraObjectPrefix_Module::display( 'pagination' );
 
     echo '</main>';
 
 }
 else {
 
-    echo '<main class="primera-content primera-content--singular" role="main">';
+    echo '<main class="primeraCssPrefix-content primeraCssPrefix-content--singular" role="main">';
 
         while ( have_posts() ) {
             the_post();
-            Primera_Module::display( 'post-full' );
+            primeraObjectPrefix_Module::display( 'post-full' );
         }
 
-        Primera_Module::display( 'related-entries' );
+        primeraObjectPrefix_Module::display( 'related-entries' );
 
         comments_template();
 
@@ -35,10 +35,10 @@ else {
 
 }
 
-echo '<aside class="primera-sidebar">';
-dynamic_sidebar( 'primera_primary' );
+echo '<aside class="primeraCssPrefix-sidebar">';
+dynamic_sidebar( 'primeraFunctionPrefix_primary' );
 echo '</aside>';
 
-Primera_Module::display( 'footer' );
+primeraObjectPrefix_Module::display( 'footer' );
 
 get_footer();

@@ -29,8 +29,8 @@
             this.$html            = $('html');
             this.$body            = $('body');
             this.$wpAdminbar      = $('#wpadminbar');
-            this.$header          = $('.primera-header');
-            this.$offCanvasToggle = $('.primera-off-canvas-toggle');
+            this.$header          = $('.primeraCssPrefix-header');
+            this.$offCanvasToggle = $('.primeraCssPrefix-off-canvas-toggle');
             this.$wpNavMenu       = $('.menu');
             this.$searchForm      = $('.search-form');
             this.$searchSubmit    = this.$searchForm.find('[type=submit]');
@@ -163,9 +163,9 @@
 
             // Body classes.
             if ( this.fromTop > 250 ) {
-                this.$body.addClass('primera-elems-are-visible');
+                this.$body.addClass('primeraCssPrefix-elems-are-visible');
             } else {
-                this.$body.removeClass('primera-elems-are-visible');
+                this.$body.removeClass('primeraCssPrefix-elems-are-visible');
             }
 
             this.accommodateAdminbar();
@@ -178,7 +178,7 @@
         */
         onOffCanvasToggleClick : function( e ) {
             e.preventDefault();
-            this.$body.toggleClass('primera-off-canvas-active');
+            this.$body.toggleClass('primeraCssPrefix-off-canvas-active');
         },
 
         /**

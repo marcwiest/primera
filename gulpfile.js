@@ -1,6 +1,6 @@
 'use strict';
 
-const THEME_TEXT_DOMAIN = 'primera';
+// const THEME_TEXT_DOMAIN = 'primeraTextDomain';
 const LOCALHOST_ADDRESS = 'localhost/primera';
 const LOCALHOST_PORT    = 8888;
 
@@ -103,9 +103,9 @@ gulp.task( 'potfile', function () {
 
     var stream = gulp.src('**/*.php')
         .pipe( wpPot({
-            domain: THEME_TEXT_DOMAIN
+            domain: 'primeraTextDomain'
         }) )
-        .pipe( gulp.dest('./languages/'+ THEME_TEXT_DOMAIN +'.pot') );
+        .pipe( gulp.dest('./languages/primeraTextDomain.pot') );
 
     return stream;
 

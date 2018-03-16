@@ -3,7 +3,7 @@
 /**
 * Handles REST requests.
 */
-final class Primera_REST
+final class primeraObjectPrefix_REST
 {
 
     /**
@@ -60,7 +60,7 @@ final class Primera_REST
 
         if ( empty($request['data']) ) {
             $response = new WP_Error(
-                'primera_rest_missing_parameter',
+                'primeraFunctionPrefix_rest_missing_parameter',
                 'The data parameter is required.',
                 array( 'status' => 400 )
             );

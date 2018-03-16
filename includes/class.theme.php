@@ -3,7 +3,7 @@
 /**
 * Handles theme setup.
 */
-final class Primera_Theme
+final class primeraObjectPrefix_Theme
 {
 
     /**
@@ -27,13 +27,13 @@ final class Primera_Theme
     public static function load_theme_textdomain()
     {
         // wp-content/languages/themes/theme-name/it_IT.mo
-        load_theme_textdomain( 'primera', WP_LANG_DIR.'/themes/'.get_template() );
+        load_theme_textdomain( 'primeraTextDomain', WP_LANG_DIR.'/themes/'.get_template() );
 
         // wp-content/themes/child-theme-name/languages/it_IT.mo
-        load_theme_textdomain( 'primera', get_stylesheet_directory().'/languages' );
+        load_theme_textdomain( 'primeraTextDomain', get_stylesheet_directory().'/languages' );
 
         // wp-content/themes/theme-name/languages/it_IT.mo
-        load_theme_textdomain( 'primera', get_template_directory().'/languages' );
+        load_theme_textdomain( 'primeraTextDomain', get_template_directory().'/languages' );
     }
 
 
@@ -52,7 +52,7 @@ final class Primera_Theme
             $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
     	}
 
-        $meta = apply_filters( 'primera_head_meta', $meta );
+        $meta = apply_filters( 'primeraFunctionPrefix_head_meta', $meta );
 
         foreach ( $meta as $m ) {
             echo $m;
@@ -98,14 +98,14 @@ final class Primera_Theme
         }
 
     	wp_enqueue_style(
-    		'primera',
+    		'primeraTextDomain',
     		get_stylesheet_uri(),
     		array(),
     		$version
     	);
 
     	wp_enqueue_script(
-    		'primera',
+    		'primeraTextDomain',
     		get_template_directory_uri().'/script.js',
     		array( 'wp-util', 'hoverIntent' ), // wp-util: jQuery, undescore, wp
     		$version,
@@ -113,7 +113,7 @@ final class Primera_Theme
     	);
 
     	wp_localize_script(
-    		'primera',
+    		'primeraTextDomain',
     		'primeraLocalizedData',
     		array(
     			'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
@@ -137,8 +137,8 @@ final class Primera_Theme
     public static function register_nav_menus()
     {
     	register_nav_menus( array(
-    		'primera_primary'  => esc_html_x('Primary Menu','Registered nav-menu name.','primera'),
-    		'primera_colophon' => esc_html_x('Colophon Menu','Registered nav-menu name.','primera'),
+    		'primeraFunctionPrefix_primary'  => esc_html_x('Primary Menu','Registered nav-menu name.','primeraTextDomain'),
+    		'primeraFunctionPrefix_colophon' => esc_html_x('Colophon Menu','Registered nav-menu name.','primeraTextDomain'),
     	) );
     }
 
@@ -151,23 +151,23 @@ final class Primera_Theme
     public static function register_sidebars()
     {
     	register_sidebar( array(
-    		'id'            => 'primera_primary',
-    		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primera'),
+    		'id'            => 'primeraFunctionPrefix_primary',
+    		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
-    		'before_widget' => '<div id="%1$s" class="primera-widget primera-widget-content widget %2$s">',
+    		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-content widget %2$s">',
     		'after_widget'  => '</div>',
-    		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
-    		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
+    		'before_title'  => apply_filters( 'primeraFunctionPrefix_before_widget_title', '<h4 class="widget-title">' ),
+    		'after_title'   => apply_filters( 'primeraFunctionPrefix_after_widget_title', '</h4>' ),
     	) );
 
     	register_sidebar( array(
-    		'id'            => 'primera_off_canvas',
-    		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primera'),
+    		'id'            => 'primeraFunctionPrefix_off_canvas',
+    		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
-    		'before_widget' => '<div id="%1$s" class="primera-widget primera-widget-off-canvas widget %2$s">',
+    		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-off-canvas widget %2$s">',
     		'after_widget'  => '</div>',
-    		'before_title'  => apply_filters( 'primera_before_widget_title', '<h4 class="widget-title">' ),
-    		'after_title'   => apply_filters( 'primera_after_widget_title', '</h4>' ),
+    		'before_title'  => apply_filters( 'primeraFunctionPrefix_before_widget_title', '<h4 class="widget-title">' ),
+    		'after_title'   => apply_filters( 'primeraFunctionPrefix_after_widget_title', '</h4>' ),
     	) );
     }
 
@@ -185,11 +185,11 @@ final class Primera_Theme
     	$note = '';
 
     	if ( 'post' == $post_type ) {
-    		$note = esc_html__('Recommened Image Size: 300x300','primera');
+    		$note = esc_html__('Recommened Image Size: 300x300','primeraTextDomain');
     	}
 
     	if ( $note ) {
-    		return $content . "<p class='primera-recommened-thumbnail-size'>$note</p>";
+    		return $content . "<p class='primeraCssPrefix-recommened-thumbnail-size'>$note</p>";
     	}
 
     	return $content;
@@ -226,8 +226,8 @@ final class Primera_Theme
     */
     public static function filter_nav_menu_list_item_classes( $classes, $item, $args, $depth ) {
 
-    	if ( 'primera_primary' == $args->theme_location ) {
-    		array_push( $classes, 'primera-menu-item primera-menu-item-demo' );
+    	if ( 'primeraFunctionPrefix_primary' == $args->theme_location ) {
+    		array_push( $classes, 'primeraCssPrefix-menu-item primeraCssPrefix-menu-item-demo' );
     	}
 
     	return $classes;
@@ -244,8 +244,8 @@ final class Primera_Theme
     */
     public static function filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
 
-    	if ( 'primera_primary' == $args->theme_location ) {
-    		$atts['class'] = 'primera-menu-link primera-menu-link-demo';
+    	if ( 'primeraFunctionPrefix_primary' == $args->theme_location ) {
+    		$atts['class'] = 'primeraCssPrefix-menu-link primeraCssPrefix-menu-link-demo';
     	}
 
     	return $atts;

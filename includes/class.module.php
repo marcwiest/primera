@@ -3,7 +3,7 @@
 /**
 * Handles module rendering.
 */
-final class Primera_Module
+final class primeraObjectPrefix_Module
 {
 
     /**

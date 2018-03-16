@@ -1,12 +1,12 @@
 <?php
 
-Primera_Module::defaults( $data, array(
+primeraObjectPrefix_Module::defaults( $data, array(
     'amount' => 3,
 ) );
 
 ?>
 
-<div class="primera-related-entries">
+<div class="primeraCssPrefix-related-entries">
     <?php
     if ( $tags = wp_get_post_tags( get_the_ID() ) ) {
 
@@ -26,7 +26,7 @@ Primera_Module::defaults( $data, array(
 
         while( $query->have_posts() ) { $query->the_post();
             ?>
-            <div class="primera-related-entry">
+            <div class="primeraCssPrefix-related-entry">
 
                 <a href="<?php echo esc_url(the_permalink()); ?>" rel="bookmark">
                     <?php if ( has_post_thumbnail() ) the_post_thumbnail('post-thumbnail'); ?>

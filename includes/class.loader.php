@@ -1,6 +1,6 @@
 <?php
 
-final class Primera_Loader
+final class primeraObjectPrefix_Loader
 {
 
     /**
@@ -16,11 +16,11 @@ final class Primera_Loader
         $r = array();
 
         if ( -1 === version_compare( phpversion(), '5.4' ) ) {
-            $r[] = esc_html_x('Primera requires PHP version 5.4 or higher. Please upgrade the PHP version on your server or contact your host for assistance.','Admin notice','primera');
+            $r[] = esc_html_x('Primera requires PHP version 5.4 or higher. Please upgrade the PHP version on your server or contact your host for assistance.','Admin notice','primeraTextDomain');
         }
 
         if ( -1 === version_compare( $wp_version, '4.5' ) ) {
-    	    $r[] = esc_html_x('Primera requires WordPress version 4.5 or higher. Please upgrade WordPress to version 4.5 or higher or contact you administrator for assistance.','Admin notice','primera');
+    	    $r[] = esc_html_x('Primera requires WordPress version 4.5 or higher. Please upgrade WordPress to version 4.5 or higher or contact you administrator for assistance.','Admin notice','primeraTextDomain');
         }
 
         if ( $r ) {

@@ -1,25 +1,25 @@
 <?php
-// Primera_Module::defaults( $data, array() );
+// primeraObjectPrefix_Module::defaults( $data, array() );
 ?>
 
-<footer class="primera-footer primera-footer--primary">
+<footer class="primeraCssPrefix-footer primeraCssPrefix-footer--primary">
 
-    <small class="primera-colophon" role="contentinfo">
+    <small class="primeraCssPrefix-colophon" role="contentinfo">
         <?php
             /* translators: &copy;: copyright symbol, %1$s: current year, %2$s: site name */
-            $colophon = esc_html_x( '&copy; %1$s %2$s, all rights reserved.', 'Copyright message', 'primera' );
+            $colophon = esc_html_x( '&copy; %1$s %2$s, all rights reserved.', 'Copyright message', 'primeraTextDomain' );
             printf(
-                apply_filters( 'primera_colophon_text', $colophon ),
+                apply_filters( 'primeraFunctionPrefix_colophon_text', $colophon ),
                 date_i18n( 'Y' ),
                 get_bloginfo( 'name' )
             );
         ?>
     </small>
 
-    <nav class="primera-menu primera-menu--colophon" role="navigation">
+    <nav class="primeraCssPrefix-menu primeraCssPrefix-menu--colophon" role="navigation">
         <?php
             wp_nav_menu( array(
-            	'theme_location' => 'primera_colophon',
+            	'theme_location' => 'primeraFunctionPrefix_colophon',
             	'depth'          => 1,
             	'container'      => false,
             	'fallback_cb'    => false,

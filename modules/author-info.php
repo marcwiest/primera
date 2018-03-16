@@ -1,6 +1,6 @@
 <?php
 
-// Primera_Module::defaults( $data, array() );
+// primeraObjectPrefix_Module::defaults( $data, array() );
 
 $_post = get_post();
 
@@ -20,20 +20,20 @@ $_posts_url = esc_url( get_author_posts_url( get_the_author_meta( 'ID', $_post->
 $avatar = get_avatar( get_the_author_meta( 'user_email', $_post->post_author ) , 90 );
 
 $urls = array(
-    esc_html__('Website','primera') => esc_url( trim( get_the_author_meta( 'url', $_post->post_author ) ) ),
+    esc_html__('Website','primeraTextDomain') => esc_url( trim( get_the_author_meta( 'url', $_post->post_author ) ) ),
 );
 
 $r = '';
 
-$r .= '<div class="primera-author-info">';
+$r .= '<div class="primeraCssPrefix-author-info">';
 
-$r .= '<div class="primera-author-id">';
+$r .= '<div class="primeraCssPrefix-author-id">';
 $r .= $avatar;
-$r .= "<a class='primera-author-name' href='$_posts_url' rel='bookmark'>$name</a>";
+$r .= "<a class='primeraCssPrefix-author-name' href='$_posts_url' rel='bookmark'>$name</a>";
 $r .= '</div>';
 
 if ( $bio ) {
-    $r .= "<div class='primera-author-bio'>$bio</div>";
+    $r .= "<div class='primeraCssPrefix-author-bio'>$bio</div>";
 }
 
 $profiles = '';
@@ -45,7 +45,7 @@ foreach ( $urls as $title => $url ) {
 }
 
 if ( $profiles ) {
-    $r .= '<div class="primera-author-links">';
+    $r .= '<div class="primeraCssPrefix-author-links">';
     $r .= $profiles;
     $r .= '</div>';
 }

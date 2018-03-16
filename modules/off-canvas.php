@@ -1,11 +1,11 @@
 <?php
-// Primera_Module::defaults( $data, array() );
+// primeraObjectPrefix_Module::defaults( $data, array() );
 ?>
 
-<div class="primera-off-canvas">
-    <div class="primera-off-canvas-inner">
+<div class="primeraCssPrefix-off-canvas">
+    <div class="primeraCssPrefix-off-canvas-inner">
 
-        <?php dynamic_sidebar( 'primera_off_canvas' ); ?>
+        <?php dynamic_sidebar( 'primeraFunctionPrefix_off_canvas' ); ?>
 
     </div>
 </div>

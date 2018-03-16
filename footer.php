@@ -1,9 +1,9 @@
 <?php
 
-echo '</div>'; // end of .primera-site-inner
-echo '</div>'; // end of .primera-site
+echo '</div>'; // end of .primeraCssPrefix-site-inner
+echo '</div>'; // end of .primeraCssPrefix-site
 
-Primera_Module::display( 'off-canvas' );
+primeraObjectPrefix_Module::display( 'off-canvas' );
 
 wp_footer();
 
