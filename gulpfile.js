@@ -116,21 +116,16 @@ gulp.task( 'potfile', function () {
 gulp.task( 'initBrowserSync', function() {
 
     browserSync.init( filesToSync, {
-        port   : LOCALHOST_PORT,
-        proxy  : LOCALHOST_ADDRESS,
-        notify : false,
-        tunnel : true,
-        files  : [
+        port        : LOCALHOST_PORT,
+        proxy       : LOCALHOST_ADDRESS,
+        notify      : false,
+        tunnel      : true,
+        watchEvents : [ 'change', 'add', 'unlink', 'addDir', 'unlinkDir' ],
+        files       : [
             './**/*.php',
             './script.js',
             './style.css',
-            {
-                // Monitor images folder for added images.
-                match : ['./images/**'],
-                fn    : function( event, file ) {
-                    this.reload();
-                }
-            }
+            './images/**'
         ]
     });
 
