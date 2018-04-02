@@ -81,13 +81,13 @@ gulp.task( 'js', function() {
 */
 gulp.task( 'imgmin', function () {
 
-    var stream = gulp.src('./images/*')
+    var stream = gulp.src('./images/original/*')
         .pipe( imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }) )
-        .pipe( gulp.dest('./images') );
+        .pipe( gulp.dest('./images/optimized/') );
 
     return stream;
 
@@ -125,7 +125,7 @@ gulp.task( 'initBrowserSync', function() {
             './**/*.php',
             './script.js',
             './style.css',
-            './images/**'
+            './images/**/*'
         ]
     });
 
