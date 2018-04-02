@@ -107,7 +107,7 @@ final class primeraObjectPrefix_Theme
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
     		get_template_directory_uri().'/script.js',
-    		array( 'wp-util', 'hoverIntent' ), // wp-util: jQuery, undescore, wp
+    		array( 'wp-util', 'hoverIntent', 'imagesloaded' ), // wp-util: jQuery, undescore, wp
     		$version,
     		true
     	);
