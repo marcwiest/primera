@@ -26,6 +26,7 @@ final class primeraObjectPrefix_AJAX
         $response = new stdClass;
         $response->success = true;
         $response->code = 200;
+        $response->description = get_status_header_desc( 200 );
         $response->message = '';
 
         return $response;
