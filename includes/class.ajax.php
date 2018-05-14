@@ -44,7 +44,7 @@ final class primeraObjectPrefix_AJAX
     * @since  1.0.0
     * @return  void
     */
-    public static function primeraRenderModule()
+    public static function render_module()
     {
         $response = self::new_response();
         $response->module = '';

@@ -59,8 +59,8 @@ _primeraFunctionPrefix_load_files();
 function _primeraFunctionPrefix_add_ajax_actions()
 {
 	# Action: primeraRenderModule
-	add_action( 'wp_ajax_primeraRenderModule'        , 'primeraObjectPrefix_AJAX::primeraRenderModule' );
-	add_action( 'wp_ajax_nopriv_primeraRenderModule' , 'primeraObjectPrefix_AJAX::primeraRenderModule' );
+	add_action( 'wp_ajax_primeraRenderModule'        , 'primeraObjectPrefix_AJAX::render_module' );
+	add_action( 'wp_ajax_nopriv_primeraRenderModule' , 'primeraObjectPrefix_AJAX::render_module' );
 }
 _primeraFunctionPrefix_add_ajax_actions();
 
