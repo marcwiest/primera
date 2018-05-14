@@ -2,7 +2,6 @@
 Template Name: Blank Page
 Template Post Type: page
 
-If selected, this template loads in place of the index.php file.
 https://developer.wordpress.org/themes/template-files-section/
 */
 
