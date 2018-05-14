@@ -74,13 +74,13 @@ _primeraFunctionPrefix_add_ajax_actions();
 function _primeraFunctionPrefix_add_rest_routes()
 {
     # Get something.
-    register_rest_route( 'primera/v1', '/get-somthing/', array(
+    register_rest_route( 'primeraFunctionPrefix/v1', '/get-somthing/', array(
         'methods'  => 'GET',
         'callback' => 'primeraObjectPrefix_REST::get_something',
     ), true );
 
     # Post something.
-    register_rest_route( 'primera/v1', '/post-somthing/', array(
+    register_rest_route( 'primeraFunctionPrefix/v1', '/post-somthing/', array(
         'methods'  => 'POST',
         'callback' => 'primeraObjectPrefix_REST::post_something',
     ), true );

@@ -114,10 +114,10 @@ final class primeraObjectPrefix_Theme
 
     	wp_localize_script(
     		'primeraFunctionPrefix',
-    		'primeraLocalizedData',
+    		'primeraFunctionPrefixLocalizedData',
     		array(
     			'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
-    			'restUrl'   => esc_url_raw( rest_url('/primera/v1/') ),
+    			'restUrl'   => esc_url_raw( rest_url('/primeraFunctionPrefix/v1/') ),
     			'ajaxNonce' => wp_create_nonce( 'wp_ajax' ),
     			'restNonce' => wp_create_nonce( 'wp_rest' ),
     		)
