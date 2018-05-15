@@ -1,10 +1,10 @@
 'use strict';
 
-const LOCALHOST_PORT    = 8888;
+// var pkg = require('./package.json');
 
 const LOCALHOST_ADDRESS = 'localhost/primera';
+const LOCALHOST_PORT    = 8888;
 
-var packagejson    = require('./package.json');
 var gulp           = require('gulp');
 var babel          = require('gulp-babel');
 var mqpacker       = require('css-mqpacker');
