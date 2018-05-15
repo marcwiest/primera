@@ -137,12 +137,7 @@ gulp.task( 'initBrowserSync', function() {
 /**
 * Watch task.
 */
-gulp.task( 'watch', ['css','js','initBrowserSync'], function() {
-
-    // gulp.watch( './**/*.php' ).on( 'change', browserSync.reload );
-    gulp.watch( './scss/**/*.scss', ['css'] );
-    gulp.watch( './js/**/*.js', ['js'] );
-});
+gulp.task( 'watch', ['initBrowserSync'] );
 
 
 /**
