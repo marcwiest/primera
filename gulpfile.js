@@ -126,7 +126,8 @@ gulp.task( 'initBrowserSync', function() {
             './**/*.php',
             './script.js',
             './style.css',
-            './images/**/*'
+            './images/**/*',
+            './**/*.{woff,ttf,svg,eot}'
         ]
     });
 
