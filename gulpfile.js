@@ -1,8 +1,8 @@
 'use strict';
 
-const LOCALHOST_ADDRESS = 'localhost/primeraTextDomain';
 const LOCALHOST_PORT    = 8888;
 
+const LOCALHOST_ADDRESS = 'localhost/primera';
 
 var packagejson    = require('./package.json');
 var gulp           = require('gulp');
