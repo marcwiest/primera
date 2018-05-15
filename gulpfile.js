@@ -115,7 +115,8 @@ gulp.task( 'potfile', function () {
 */
 gulp.task( 'initBrowserSync', function() {
 
-    browserSync.init( filesToSync, {
+    // browsersync.io/docs/options
+    browserSync.init({
         port        : LOCALHOST_PORT,
         proxy       : LOCALHOST_ADDRESS,
         notify      : false,
