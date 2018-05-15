@@ -145,12 +145,12 @@ gulp.task( 'watch', ['css','js','initBrowserSync'], function() {
 
 
 /**
-* Gulp default task.
-*/
-gulp.task( 'default', ['watch'] );
-
-
-/**
 * Gulp build task.
 */
 gulp.task( 'build', ['css','js','imgmin','potfile'] );
+
+
+/**
+* Gulp default task.
+*/
+gulp.task( 'default', ['watch'] );
