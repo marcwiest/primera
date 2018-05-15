@@ -9,9 +9,9 @@
 
 **1st** Rename the theme's folder name to whatever suits your project is. _Side note:_ Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts simply make sure that your theme's folder name is unique (e.g. via a prefix).
 
-**2nd** Open `package.json` and change the package's `name` to match your theme's folder name. This is done because your package's name must also be [unique](https://docs.npmjs.com/files/package.json#name). Please also revise the document briefly to suit your project. However, please do not alter the `devDependencies`.
+**2nd** Open `package.json` and change the package's `name` to match your theme's folder name and also revise the rest of the package briefly to suit your project.
 
-**3rd** Use your tool of choice to replace all instances of the following strings with whatever suits your project.
+**3rd** Replace all instances of the following strings with whatever suits your project.
 - `primeraTextDomain`
 - `primeraFunctionPrefix`
 - `primeraObjectPrefix`
