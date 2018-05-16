@@ -125,10 +125,10 @@ gulp.task( 'initBrowserSync', ['css','js'], function() {
         tunnel      : true,
         watchEvents : [ 'change', 'add', 'unlink', 'addDir', 'unlinkDir' ],
         files       : [
-            './**/*.php',
+            './images/**/*',
             './script.js',
             './style.css',
-            './images/**/*',
+            './**/*.php',
             './**/*.{woff,ttf,svg,eot}'
         ]
     });
