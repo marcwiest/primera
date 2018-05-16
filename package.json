@@ -43,6 +43,7 @@
     "gulp-rename": "^1.2.3",
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^4.0.1",
+    "gulp-sass-glob": "^1.0.9",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "gulp-wp-pot": "^2.3.1",
