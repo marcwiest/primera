@@ -15,6 +15,7 @@ var postcss        = require('gulp-postcss');
 var rename         = require('gulp-rename');
 var replace        = require('gulp-replace');
 var sass           = require('gulp-sass');
+var sassGlob       = require('gulp-sass-glob');
 var sourcemaps     = require('gulp-sourcemaps');
 var uglify         = require('gulp-uglify');
 var plumber        = require('gulp-plumber');
@@ -34,6 +35,7 @@ gulp.task( 'css', function() {
     var stream = gulp.src( './scss/style.scss' )
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
+        .pipe( sassGlob() )
         .pipe( sass({ outputStyle : 'expanded' }) )
         .pipe( postcss([
             cssnext(),
