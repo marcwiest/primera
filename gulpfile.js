@@ -113,7 +113,7 @@ gulp.task( 'potfile', function () {
 /**
 * Initialize BrowserSync and it's PHP server.
 */
-gulp.task( 'initBrowserSync', function() {
+gulp.task( 'initBrowserSync', ['css','js'], function() {
 
     // browsersync.io/docs/options
     browserSync.init({
