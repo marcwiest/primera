@@ -81,7 +81,7 @@ gulp.task( 'js', function() {
 */
 gulp.task( 'imgmin', function () {
 
-    var stream = gulp.src('./images/original/*')
+    var stream = gulp.src('./images/*')
         .pipe( imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
