@@ -152,7 +152,7 @@ final class primeraObjectPrefix_Theme
     {
     	register_sidebar( array(
     		'id'            => 'primary',
-    		'name'          => esc_html_x('Content Sidebar','Sidebar title.','primeraTextDomain'),
+    		'name'          => esc_html_x('Main Sidebar','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
     		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-content widget %2$s">',
     		'after_widget'  => '</div>',
@@ -161,8 +161,8 @@ final class primeraObjectPrefix_Theme
     	) );
 
     	register_sidebar( array(
-    		'id'            => 'off_canvas',
-    		'name'          => esc_html_x('Off Canvas Sidebar','Sidebar title.','primeraTextDomain'),
+    		'id'            => 'offcanvas',
+    		'name'          => esc_html_x('Off Canvas','Sidebar title.','primeraTextDomain'),
     		'description'   => '',
     		'before_widget' => '<div id="%1$s" class="primeraCssPrefix-widget primeraCssPrefix-widget-off-canvas widget %2$s">',
     		'after_widget'  => '</div>',
