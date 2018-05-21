@@ -8,7 +8,7 @@ primeraObjectPrefix_Module::defaults( $data, array(
 
 ?>
 
-<header class="primeraCssPrefix-header primeraCssPrefix-header--primary" role="banner">
+<header class="primeraCssPrefix-header" role="banner">
 
     <div class="primeraCssPrefix-brand">
         <?php echo "<$data->title_tag class='primeraCssPrefix-brand-title'><a href='$data->home_url' rel='home'>$data->title</a></$data->title_tag>"; ?>
