@@ -16,8 +16,9 @@ $color_danger:    #ff4136 !default;
 // Typography Colors
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$color_text:       #606060 !default;
-$color_heading:    #202020 !default;
+$color_text:       #474747 !default;
+$color_text_light: #a4a4a4 !default;
+$color_heading:    $color_text !default;
 $color_link:       $color_primary !default;
 $color_link_hover: $color_primary !default;
 
