@@ -36,7 +36,7 @@ gulp.task( 'css', function() {
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( sassGlob() )
-        .pipe( sass({ outputStyle : 'expanded' }) )
+        .pipe( sass({ outputStyle : 'compact' }) )
         .pipe( postcss([
             cssnext(),
             propertyLookup(),
@@ -143,7 +143,7 @@ gulp.task( 'watch', ['initBrowserSync'], function() {
 
     gulp.watch( './scss/**/*.scss', ['css'] );
     gulp.watch( './js/**/*.js', ['js'] );
-    
+
 });
 
 
