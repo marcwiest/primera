@@ -14,12 +14,9 @@ final class primeraObjectPrefix_Module
     */
     public static function defaults( &$data, $defaults )
     {
-        if ( $defaults ) {
-            $data = wp_parse_args( $data, $defaults );
-        }
-
-        // Empty arrays aren't converted to objects.
-        return $data = $data ? json_decode( wp_json_encode($data) ) : new stdClass;
+        return $data = self::cast_object(
+            wp_parse_args( $data, $defaults )
+        );
     }
 
 
@@ -61,6 +58,21 @@ final class primeraObjectPrefix_Module
         self::display( $module, $data );
 
         return ob_get_clean();
+    }
+
+
+    /**
+    * Cast an array into an object.
+    *
+    * Using json encode decode casts an array deeply rather than just the top level.
+    *
+    * @since  1.0
+    * @param  array  $array
+    * @return  object
+    */
+    public static function cast_object( $array )
+    {
+        return ! empty($array) ? json_decode( wp_json_encode($array) ) : new stdClass;
     }
 
 
