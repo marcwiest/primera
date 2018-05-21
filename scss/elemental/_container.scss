@@ -5,27 +5,47 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @mixin container {
+
     max-width: $container_max_width;
-    margin: 0 auto;
-    padding:
-        $padding_top_container
-        $padding_right_container
-        $padding_bottom_container
-        $padding_left_container;
+    margin: {
+        left: auto;
+        right: auto;
+    }
+    padding: {
+        left: $padding_left_container;
+        right: $padding_right_container;
+        top: $padding_top_container;
+        bottom: $padding_bottom_container;
+    }
+
     &::after {
         content: '';
         display: table;
         clear: both;
     }
+
+    @each $prop, $val in map-get($properties,container) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin container--full-width {
+
     max-width: none;
+
+    @each $prop, $val in map-get($properties,container--full-width) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin container--flat {
+
     padding-top: 0;
     padding-bottom: 0;
+
+    @each $prop, $val in map-get($properties,container--flat) {
+        #{$prop}: $val;
+    }
 }
 
 %container {

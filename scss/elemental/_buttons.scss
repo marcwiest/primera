@@ -31,6 +31,10 @@
     white-space: nowrap;
     cursor: pointer;
 
+    @each $prop, $val in map-get($properties,button) {
+        #{$prop}: $val;
+    }
+
     &:hover, &:active {
         @include button--active;
     }
@@ -41,42 +45,73 @@
 }
 
 @mixin button--active {
+
     text-decoration: none;
     color: $color_button_hover;
     background-color: $bg_color_button_hover;
     border-color: $border_color_button_hover;
+
+    @each $prop, $val in map-get($properties,button--active) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin button--disabled {
+
     box-shadow: none;
     opacity: .5;
     cursor: not-allowed;
+
+    @each $prop, $val in map-get($properties,button--disabled) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin button--block {
+
     display: block;
     width: 100%;
+
+    @each $prop, $val in map-get($properties,button--block) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin button--link {
+
     &, &:hover, &:active {
         border-color: transparent;
         background-color: transparent;
         color: $color_link;
     }
+
     &:hover, &:active {
         color: $color_link_hover;
+    }
+
+    @each $prop, $val in map-get($properties,button--link) {
+        #{$prop}: $val;
     }
 }
 
 @mixin button--pill {
+
     border-radius: $font_size_button + $padding_top_button + $padding_bottom_button;
+
+    @each $prop, $val in map-get($properties,button--pill) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin button--outline {
+
     &, &:hover, &:active {
         background-color: transparent;
         border-color: $border_color_button;
+
+        @each $prop, $val in map-get($properties,button--outline) {
+            #{$prop}: $val;
+        }
     }
 }
 

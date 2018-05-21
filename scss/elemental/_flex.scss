@@ -5,20 +5,73 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @mixin flex-row {
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex: 0 1 auto;
+
+    @each $prop, $val in map-get($properties,flex-row) {
+        #{$prop}: $val;
+    }
 }
 
-@mixin flex-row--spaced   { justify-content: space-around; }
-@mixin flex-row--spread   { justify-content: space-between; }
-@mixin flex-row--centered { justify-content: center; }
-@mixin flex-row--left     { justify-content: flex-start; }
-@mixin flex-row--right    { justify-content: flex-end; }
-@mixin flex-row--top      { align-items: flex-start; }
-@mixin flex-row--middle   { align-items: center; }
-@mixin flex-row--bottom   { align-items: flex-end; }
+@mixin flex-row--spaced {
+    justify-content: space-around;
+    @each $prop, $val in map-get($properties,flex-row--spaced) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--spread {
+    justify-content: space-between;
+    @each $prop, $val in map-get($properties,flex-row--spread) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--centered {
+    justify-content: center;
+    @each $prop, $val in map-get($properties,flex-row--centered) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--left {
+    justify-content: flex-start;
+    @each $prop, $val in map-get($properties,flex-row--left) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--right {
+    justify-content: flex-end;
+    @each $prop, $val in map-get($properties,flex-row--right) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--top {
+    align-items: flex-start;
+    @each $prop, $val in map-get($properties,flex-row--top) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--middle {
+    align-items: center;
+    @each $prop, $val in map-get($properties,flex-row--middle) {
+        #{$prop}: $val;
+    }
+}
+
+@mixin flex-row--bottom {
+    align-items: flex-end;
+    @each $prop, $val in map-get($properties,flex-row--bottom) {
+        #{$prop}: $val;
+    }
+}
+
 
 %flex-row           { @include flex-row; }
 %flex-row--spaced   { @include flex-row--spaced; }
@@ -50,10 +103,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @mixin flex-item {
+
     flex: 0 0 auto;
     flex-grow: 1;
     flex-basis: 0;
     max-width: 100%;
+
+    @each $prop, $val in map-get($properties,flex-item) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin flex-item--width( $columns:12 ) {

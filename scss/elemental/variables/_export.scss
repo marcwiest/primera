@@ -8,6 +8,43 @@ $ns: '' !default;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// Default Properties
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$default_properties: () !default;
+
+$properties: map-merge( (
+
+    button: (),
+    button--active: (),
+    button--disabled: (),
+    button--block: (),
+    button--link: (),
+    button--pill: (),
+    button--outline: (),
+
+    container: (),
+    container--full-width: (),
+    container--flat: (),
+
+    flex-row: (),
+    flex-row--spaced: (),
+    flex-row--spread: (),
+    flex-row--centered: (),
+    flex-row--left: (),
+    flex-row--right: (),
+    flex-row--top: (),
+    flex-row--middle: (),
+    flex-row--bottom: (),
+    flex-item: (),
+
+    flyout: (),
+    flyout-item: (),
+
+), $default_properties );
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Export
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

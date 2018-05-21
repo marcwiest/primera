@@ -18,8 +18,13 @@ Usage example:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @mixin flyout {
+
     display: inline-block;
     position: relative;
+
+    @each $prop, $val in map-get($properties,flyout) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin flyout--hover {
@@ -42,6 +47,7 @@ Usage example:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @mixin flyout-item {
+
     display: none;
     position: absolute;
     top: 100%;
@@ -51,6 +57,10 @@ Usage example:
     overflow-y: auto;
     transform: translateZ(0);
     user-select: none;
+
+    @each $prop, $val in map-get($properties,flyout-item) {
+        #{$prop}: $val;
+    }
 }
 
 @mixin flyout-item--up( $offset:0 ) {
