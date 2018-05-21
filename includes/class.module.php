@@ -32,6 +32,20 @@ final class primeraObjectPrefix_Module
     {
         $path = "/modules/$module.php";
 
+        $args = array_slice( func_get_args(), 2 );
+
+        foreach ( $args as $arg ) {
+            $data = wp_parse_args( $data, $arg );
+        }
+
+        if ( ! is_object($data) ) {
+            $data = self::cast_object( $data );
+        }
+
+        if ( ! isset($data->children) ) {
+            $data->children = new stdClass;
+        }
+
         if ( file_exists( get_stylesheet_directory().$path ) ) {
 
             include get_stylesheet_directory().$path;
