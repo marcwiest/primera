@@ -4,23 +4,6 @@
 */
 
 
-if ( ! function_exists('get_dynamic_sidebar') ) :
-/**
-* Get dynamic sidebar.
-*
-* @since  1.0
-* @param  array  $name  Name of sidebar.
-* @return  string  HTML of sidebar widgets.
-*/
-function get_dynamic_sidebar( $name )
-{
-    ob_start();
-    dynamic_sidebar( $name );
-    return ob_get_clean();
-}
-endif;
-
-
 if ( ! function_exists('get_current_user_roles') ) :
 /**
 * Get current user's roles.
