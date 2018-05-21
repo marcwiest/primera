@@ -27,7 +27,7 @@ final class primeraObjectPrefix_Module
     * Display a module.
     *
     * @since  1.0.0
-    * @param  string  $module  The name of the module.
+    * @param  string  $module  The name of the module file without .php.
     * @param  array  $data  The data made available to the module.
     * @return  void
     */
