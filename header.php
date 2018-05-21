@@ -8,6 +8,3 @@
 <body <?php body_class(); ?>>
 
 <noscript>You need to enable JavaScript to run this site.</noscript>
-
-<div class="primeraCssPrefix-site">
-<div class="primeraCssPrefix-site-inner">
