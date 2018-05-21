@@ -14,16 +14,6 @@ primeraObjectPrefix_Module::defaults( $data, array(
         <?php echo "<$data->title_tag class='primeraCssPrefix-brand-title'><a href='$data->home_url' rel='home'>$data->title</a></$data->title_tag>"; ?>
 	</div>
 
-    <nav class="primeraCssPrefix-menu primeraCssPrefix-menu--primary" role="navigation">
-	<?php
-		wp_nav_menu( array(
-			'theme_location' => 'primary',
-			'depth'          => 0,
-			'container'      => false,
-			'fallback_cb'    => false,
-			'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-		) );
-	?>
-    </nav>
+    <?php primeraObjectPrefix_Module::display( 'nav-menu' ); ?>
 
 </header>

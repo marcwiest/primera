@@ -16,16 +16,8 @@
         ?>
     </small>
 
-    <nav class="primeraCssPrefix-menu primeraCssPrefix-menu--colophon" role="navigation">
-        <?php
-            wp_nav_menu( array(
-            	'theme_location' => 'colophon',
-            	'depth'          => 1,
-            	'container'      => false,
-            	'fallback_cb'    => false,
-            	'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-            ) );
-        ?>
-    </nav>
+    <?php primeraObjectPrefix_Module::display( 'nav-menu', array(
+        'theme_location' => 'colophon',
+    ) ); ?>
 
 </footer>
