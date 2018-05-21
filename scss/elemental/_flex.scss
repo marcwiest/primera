@@ -114,7 +114,7 @@
     }
 }
 
-@mixin flex-item--width( $columns:12 ) {
+@mixin flex-item--cols( $columns:12 ) {
     flex-basis: 100% / 12 * $columns;
     max-width: 100% / 12 * $columns;
 }
@@ -126,35 +126,35 @@
 
 %flex-item--first { @include flex-item--first; }
 %flex-item--last  { @include flex-item--last; }
-%flex-item--1     { @include flex-item--width( 1 ); }
-%flex-item--2     { @include flex-item--width( 2 ); }
-%flex-item--3     { @include flex-item--width( 3 ); }
-%flex-item--4     { @include flex-item--width( 4 ); }
-%flex-item--5     { @include flex-item--width( 5 ); }
-%flex-item--6     { @include flex-item--width( 6 ); }
-%flex-item--7     { @include flex-item--width( 7 ); }
-%flex-item--8     { @include flex-item--width( 8 ); }
-%flex-item--9     { @include flex-item--width( 9 ); }
-%flex-item--10    { @include flex-item--width( 10 ); }
-%flex-item--11    { @include flex-item--width( 11 ); }
-%flex-item--12    { @include flex-item--width( 12 ); }
+%flex-item--1     { @include flex-item--cols( 1 ); }
+%flex-item--2     { @include flex-item--cols( 2 ); }
+%flex-item--3     { @include flex-item--cols( 3 ); }
+%flex-item--4     { @include flex-item--cols( 4 ); }
+%flex-item--5     { @include flex-item--cols( 5 ); }
+%flex-item--6     { @include flex-item--cols( 6 ); }
+%flex-item--7     { @include flex-item--cols( 7 ); }
+%flex-item--8     { @include flex-item--cols( 8 ); }
+%flex-item--9     { @include flex-item--cols( 9 ); }
+%flex-item--10    { @include flex-item--cols( 10 ); }
+%flex-item--11    { @include flex-item--cols( 11 ); }
+%flex-item--12    { @include flex-item--cols( 12 ); }
 
 @include md {
 
     %flex-item--first-md { @include flex-item--first; }
     %flex-item--last-md  { @include flex-item--last; }
-    %flex-item--1-md     { @include flex-item--width( 1 ); }
-    %flex-item--2-md     { @include flex-item--width( 2 ); }
-    %flex-item--3-md     { @include flex-item--width( 3 ); }
-    %flex-item--4-md     { @include flex-item--width( 4 ); }
-    %flex-item--5-md     { @include flex-item--width( 5 ); }
-    %flex-item--6-md     { @include flex-item--width( 6 ); }
-    %flex-item--7-md     { @include flex-item--width( 7 ); }
-    %flex-item--8-md     { @include flex-item--width( 8 ); }
-    %flex-item--9-md     { @include flex-item--width( 9 ); }
-    %flex-item--10-md    { @include flex-item--width( 10 ); }
-    %flex-item--11-md    { @include flex-item--width( 11 ); }
-    %flex-item--12-md    { @include flex-item--width( 12 ); }
+    %flex-item--1-md     { @include flex-item--cols( 1 ); }
+    %flex-item--2-md     { @include flex-item--cols( 2 ); }
+    %flex-item--3-md     { @include flex-item--cols( 3 ); }
+    %flex-item--4-md     { @include flex-item--cols( 4 ); }
+    %flex-item--5-md     { @include flex-item--cols( 5 ); }
+    %flex-item--6-md     { @include flex-item--cols( 6 ); }
+    %flex-item--7-md     { @include flex-item--cols( 7 ); }
+    %flex-item--8-md     { @include flex-item--cols( 8 ); }
+    %flex-item--9-md     { @include flex-item--cols( 9 ); }
+    %flex-item--10-md    { @include flex-item--cols( 10 ); }
+    %flex-item--11-md    { @include flex-item--cols( 11 ); }
+    %flex-item--12-md    { @include flex-item--cols( 12 ); }
 
 }
 
@@ -162,18 +162,18 @@
 
     %flex-item--first-lg { @include flex-item--first; }
     %flex-item--last-lg  { @include flex-item--last; }
-    %flex-item--1-lg     { @include flex-item--width( 1 ); }
-    %flex-item--2-lg     { @include flex-item--width( 2 ); }
-    %flex-item--3-lg     { @include flex-item--width( 3 ); }
-    %flex-item--4-lg     { @include flex-item--width( 4 ); }
-    %flex-item--5-lg     { @include flex-item--width( 5 ); }
-    %flex-item--6-lg     { @include flex-item--width( 6 ); }
-    %flex-item--7-lg     { @include flex-item--width( 7 ); }
-    %flex-item--8-lg     { @include flex-item--width( 8 ); }
-    %flex-item--9-lg     { @include flex-item--width( 9 ); }
-    %flex-item--10-lg    { @include flex-item--width( 10 ); }
-    %flex-item--11-lg    { @include flex-item--width( 11 ); }
-    %flex-item--12-lg    { @include flex-item--width( 12 ); }
+    %flex-item--1-lg     { @include flex-item--cols( 1 ); }
+    %flex-item--2-lg     { @include flex-item--cols( 2 ); }
+    %flex-item--3-lg     { @include flex-item--cols( 3 ); }
+    %flex-item--4-lg     { @include flex-item--cols( 4 ); }
+    %flex-item--5-lg     { @include flex-item--cols( 5 ); }
+    %flex-item--6-lg     { @include flex-item--cols( 6 ); }
+    %flex-item--7-lg     { @include flex-item--cols( 7 ); }
+    %flex-item--8-lg     { @include flex-item--cols( 8 ); }
+    %flex-item--9-lg     { @include flex-item--cols( 9 ); }
+    %flex-item--10-lg    { @include flex-item--cols( 10 ); }
+    %flex-item--11-lg    { @include flex-item--cols( 11 ); }
+    %flex-item--12-lg    { @include flex-item--cols( 12 ); }
 
 }
 
