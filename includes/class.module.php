@@ -44,7 +44,41 @@ final class primeraObjectPrefix_Module
 
 
     /**
-    * Renders and returns a module.
+    * Displays child modules.
+    *
+    * @since  1.0
+    * @param  object|array|string  $children  Either a string or array of children's names or the
+    *                                         entire $data object. Arrays can be numeric or
+    *                                         associative holding child data.
+    * @return  void
+    */
+    public static function display_children( $children )
+    {
+        if ( isset($children->children) ) {
+            $children = $children->children;
+        }
+
+        if ( is_string($children) && $children ) {
+            $children = explode( ' ', $children);
+        }
+
+        if ( ! empty($children) ) {
+
+            foreach ( $children as $id => $data ) {
+
+                if ( is_numeric($id) ) {
+                    $id = $data;
+                    $data = array();
+                }
+
+                self::display( $id, $data );
+            }
+        }
+    }
+
+
+    /**
+    * Returns a module instead of displaying it.
     *
     * @since  1.0.0
     * @param  string  $module  The name of the module.
@@ -56,6 +90,23 @@ final class primeraObjectPrefix_Module
         ob_start();
 
         self::display( $module, $data );
+
+        return ob_get_clean();
+    }
+
+
+    /**
+    * Returns child modules instead of displaying them.
+    *
+    * @since  1.0.0
+    * @param  string  $children
+    * @return  string  HTML of child modules.
+    */
+    public static function render_children( $children )
+    {
+        ob_start();
+
+        self::display_children( $children );
 
         return ob_get_clean();
     }
