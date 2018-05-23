@@ -238,8 +238,8 @@ final class primeraObjectPrefix_Theme
     * @since  1.0
     * @return  array  Numeric array of list item classes.
     */
-    public static function filter_nav_menu_list_item_classes( $classes, $item, $args, $depth ) {
-
+    public static function filter_nav_menu_list_item_classes( $classes, $item, $args, $depth )
+    {
     	if ( 'primary' == $args->theme_location ) {
     		array_push( $classes, 'primeraCssPrefix-menu-item primeraCssPrefix-menu-item-demo' );
     	}
@@ -256,8 +256,8 @@ final class primeraObjectPrefix_Theme
     * @since  1.0
     * @return  array  Asccociative array of anchor attributes.
     */
-    public static function filter_nav_menu_link_atts( $atts, $item, $args, $depth ) {
-
+    public static function filter_nav_menu_link_atts( $atts, $item, $args, $depth )
+    {
     	if ( 'primary' == $args->theme_location ) {
     		$atts['class'] = 'primeraCssPrefix-menu-link primeraCssPrefix-menu-link-demo';
     	}
