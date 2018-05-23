@@ -145,6 +145,37 @@ final class primeraObjectPrefix_Module
 
         return $obj;
     }
+
+
+    /**
+    * Get data from parent module.
+    *
+    * @since  1.0
+    * @return  array|null
+    */
+    public static function _get_parent_module()
+    {
+        $backtrace = debug_backtrace();
+
+        $found_self = false;
+
+        foreach ( $backtrace as $callee ) {
+
+            if ( ! isset($callee['class']) || 'TASP_Module' != $callee['class'] ) {
+                continue;
+            }
+
+            if ( ! $found_self && 'display' == $callee['function'] ) {
+                $found_self = true;
+                continue;
+            }
+
+            if ( $found_self && 'display' == $callee['function'] ) {
+                return $callee['args'];
+            }
+        }
+
+        return null;
     }
 
 
