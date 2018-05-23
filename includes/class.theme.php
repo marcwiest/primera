@@ -284,7 +284,7 @@ final class primeraObjectPrefix_Theme
     */
     public static function modify_login_title()
     {
-    	return get_bloginfo( 'name' );
+    	return esc_attr( get_bloginfo('name') );
     }
 
 
