@@ -86,6 +86,20 @@ final class primeraObjectPrefix_Theme
 
 
     /**
+    * Register scripts for later use.
+    *
+    * @since 1.0
+    */
+    public static function register_scripts()
+    {
+        wp_register_script(
+            'font-awesome',
+            'https://use.fontawesome.com/releases/v5.0.13/js/all.js'
+        );
+    }
+
+
+    /**
     * Enqueue frontend scripts.
     *
     * @since 1.0
@@ -107,7 +121,7 @@ final class primeraObjectPrefix_Theme
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
     		get_template_directory_uri().'/script.js',
-    		array( 'wp-util', 'hoverIntent', 'imagesloaded' ), // wp-util: jQuery, undescore, wp
+    		array( 'wp-util', 'font-awesome', 'hoverIntent', 'imagesloaded' ), // wp-util: jQuery, undescore, wp
     		$version,
     		true
     	);

@@ -14,6 +14,7 @@ function _primeraFunctionPrefix_theme_init()
 	add_action( 'after_setup_theme'      , 'primeraObjectPrefix_Theme::load_theme_textdomain' );
 	add_action( 'wp_head'                , 'primeraObjectPrefix_Theme::add_head_meta' );
 	add_action( 'after_setup_theme'      , 'primeraObjectPrefix_Theme::add_theme_support' );
+	add_action( 'wp_enqueue_scripts'     , 'primeraObjectPrefix_Theme::register_scripts' );
 	add_action( 'wp_enqueue_scripts'     , 'primeraObjectPrefix_Theme::enqueue_frontend_scripts' );
 	add_action( 'after_setup_theme'      , 'primeraObjectPrefix_Theme::register_nav_menus' );
 	add_action( 'widgets_init'           , 'primeraObjectPrefix_Theme::register_sidebars' );
