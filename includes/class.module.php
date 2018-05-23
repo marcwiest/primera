@@ -137,7 +137,14 @@ final class primeraObjectPrefix_Module
     */
     public static function cast_object( $array )
     {
-        return ! empty($array) ? json_decode( wp_json_encode($array) ) : new stdClass;
+        $obj = ! empty($array) ? json_decode( wp_json_encode($array) ) : new stdClass;
+
+        if ( wp_is_numeric_array($obj) && isset($obj[0]) ) {
+            $obj = $obj[0];
+        }
+
+        return $obj;
+    }
     }
 
 
