@@ -30,12 +30,16 @@ final class primeraObjectPrefix_Module
     */
     public static function display( $module, $data=array() )
     {
-        $path = "/modules/$module.php";
-
         $args = array_slice( func_get_args(), 2 );
-
         foreach ( $args as $arg ) {
             $data = wp_parse_args( $data, $arg );
+        }
+
+        $path = "/modules/$module.php";
+
+        if ( $parent = self::_get_parent_module() ) {
+            $parent_module = array_shift( $parent );
+            $parent_data   = self::cast_object( $parent );
         }
 
         if ( ! is_object($data) ) {
