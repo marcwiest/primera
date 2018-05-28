@@ -20,7 +20,7 @@ final class primeraObjectPrefix_Loader
         }
 
         if ( -1 === version_compare( $wp_version, '4.5' ) ) {
-    	    $r[] = esc_html_x('Primera requires WordPress version 4.5 or higher. Please upgrade WordPress to version 4.5 or higher or contact you administrator for assistance.','Admin notice','primeraTextDomain');
+    	    $r[] = esc_html_x('Primera requires WordPress version 4.5 or higher. Please upgrade WordPress to version 4.5 or higher or contact your administrator for assistance.','Admin notice','primeraTextDomain');
         }
 
         if ( $r ) {
