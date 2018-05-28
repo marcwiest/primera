@@ -165,7 +165,7 @@ final class primeraObjectPrefix_Module
 
         foreach ( $backtrace as $callee ) {
 
-            if ( ! isset($callee['class']) || 'TASP_Module' != $callee['class'] ) {
+            if ( ! isset($callee['class']) || 'primeraObjectPrefix_Module' != $callee['class'] ) {
                 continue;
             }
 
