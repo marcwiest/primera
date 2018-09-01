@@ -293,13 +293,9 @@ abstract class primeraObjectPrefix_Theme
     		self::get_version()
     	);
 
-        // NOTE Since WP 4.7 you can use these functions to get a file's uri:
-        // - get_parent_theme_file_uri
-        // - get_theme_file_uri
-
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
-    		get_theme_file_uri( 'script.js' ),
+    		get_parent_theme_file_uri( 'script.js' ),
     		array(
                 'wp-util' // jQuery, undescore, wp
                 // 'hoverIntent', // briancherne.github.io/jquery-hoverIntent
