@@ -3,7 +3,7 @@
 /**
 * Handles REST requests.
 */
-final class primeraObjectPrefix_REST
+abstract class primeraObjectPrefix_REST
 {
 
     /**
@@ -12,8 +12,20 @@ final class primeraObjectPrefix_REST
     * @since  1.0.0
     * @return  void
     */
-    public function __construct()
-    {}
+    public function init()
+    {
+        // Get something.
+        register_rest_route( 'primeraFunctionPrefix/v1', '/get-somthing/', array(
+            'methods'  => 'GET',
+            'callback' => __CLASS__ . '::get_something',
+        ), true );
+
+        // Post something.
+        register_rest_route( 'primeraFunctionPrefix/v1', '/post-somthing/', array(
+            'methods'  => 'POST',
+            'callback' => __CLASS__ . '::post_something',
+        ), true );
+    }
 
 
     /**

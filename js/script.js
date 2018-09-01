@@ -15,6 +15,7 @@
             this.indicateJavaScript();
             this.indicateBrowser();
             this.accommodateAdminbar();
+            this.initFitvids();
             this.bindEvents();
         },
 
@@ -120,6 +121,17 @@
             if ( this.$wpAdminbar.length && this.fromTop < 60 ) {
                 this.$body.css( 'top', displacement );
             }
+        },
+
+        /**
+        * Initalize Fitvids.
+        *
+        * @since  1.0
+        */
+        initFitvids : function() {
+
+            // github.com/davatron5000/FitVids.js
+            this.$body.fitVids();
         },
 
         /**

@@ -3,8 +3,15 @@
 /**
 * Handles AJAX requests.
 */
-final class primeraObjectPrefix_AJAX
+abstract class primeraObjectPrefix_AJAX
 {
+
+    public static function init()
+    {
+    	// Action: primeraRenderModule
+    	add_action( 'wp_ajax_primeraRenderModule'        , __CLASS__ . '::render_module' );
+    	add_action( 'wp_ajax_nopriv_primeraRenderModule' , __CLASS__ . '::render_module' );
+    }
 
     /**
     * Checks if the ajax nonce is valid.

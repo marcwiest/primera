@@ -59,6 +59,7 @@ gulp.task( 'css', function() {
 gulp.task( 'js', function() {
 
     var files = [
+        './js/fitvids.js',
         './js/util.js',
         './js/script.js'
     ];
