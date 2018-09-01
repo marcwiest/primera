@@ -11,10 +11,10 @@ License:       	  GPL-3.0
 License URI:   	  license.txt
 */
 
-@import 'variables';
+@import 'variables/*';
 
-@import 'elemental/elemental';
+@import 'framework/framework';
 
-@import 'base', 'wp', 'woo', 'utils';
+@import 'fonts', 'base', 'wp', 'woo', 'utils', 'shared', 'patches';
 
 @import 'modules/*';

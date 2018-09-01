@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+@mixin mq( $min, $max:false ) {
+    @if $min and $max {
+        @media (min-width:$min) and (max-width:$max) { @content; }
+    }
+    @else if $max {
+        @media (max-width:$max) { @content; }
+    }
+    @else {
+        @media (min-width:$min) { @content; }
+    }
+}
+
+@mixin and-below( $width ) {
+    @include mq( false, $width ) { @content; }
+}
+
+@mixin and-above( $width ) {
+    @include mq( $width ) { @content; }
+}
+
+@mixin sm {
+    @include mq( false, $small_screen_end ) { @content; }
+}
+
+@mixin sm-md {
+    @include mq( false, $medium_screen_end ) { @content; }
+}
+
+@mixin md {
+    @include mq( $medium_screen_start, $medium_screen_end ) { @content; }
+}
+
+@mixin md-lg {
+    @include mq( $medium_screen_start ) { @content; }
+}
+
+@mixin lg {
+    @include mq( $large_screen_start ) { @content; }
+}
+
+// medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+@mixin for-width($size) {
+    @if $size == phone-only {
+        @media (max-width: 599px) { @content; }
+    }
+    @else if $size == tablet-portrait-and-up {
+        @media (min-width: 600px) { @content; }
+    }
+    @else if $size == tablet-landscape-and-up {
+        @media (min-width: 900px) { @content; }
+    }
+    @else if $size == desktop-and-up {
+        @media (min-width: 1200px) { @content; }
+    }
+    @else if $size == big-desktop-and-up {
+        @media (min-width: 1800px) { @content; }
+    }
+}

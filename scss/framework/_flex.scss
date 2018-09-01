@@ -1,0 +1,199 @@
+@charset "UTF-8";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Rows
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin flex-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@mixin flex-row--items-reversed { flex-direction: row-reverse; }
+@mixin flex-row--items-spaced   { justify-content: space-around; }
+@mixin flex-row--items-spread   { justify-content: space-between; }
+@mixin flex-row--items-centered { justify-content: center; }
+@mixin flex-row--items-left     { justify-content: flex-start; }
+@mixin flex-row--items-right    { justify-content: flex-end; }
+@mixin flex-row--items-top      { align-items: flex-start; }
+@mixin flex-row--items-middle   { align-items: center; } // row will need height
+@mixin flex-row--items-bottom   { align-items: flex-end; }
+
+%flex-row                 { @include flex-row; }
+%flex-row--items-reversed { @include flex-row--items-reversed; }
+%flex-row--items-spaced   { @include flex-row--items-spaced; }
+%flex-row--items-spread   { @include flex-row--items-spread; }
+%flex-row--items-centered { @include flex-row--items-centered; }
+%flex-row--items-left     { @include flex-row--items-left; }
+%flex-row--items-right    { @include flex-row--items-right; }
+%flex-row--items-top      { @include flex-row--items-top; }
+%flex-row--items-middle   { @include flex-row--items-middle; }
+%flex-row--items-bottom   { @include flex-row--items-bottom; }
+
+@if $export_flex {
+
+    .#{$ns}flex-row                 { @extend %flex-row; }
+    .#{$ns}flex-row--items-reversed { @extend %flex-row--items-reversed; }
+    .#{$ns}flex-row--items-spaced   { @extend %flex-row--items-spaced; }
+    .#{$ns}flex-row--items-spread   { @extend %flex-row--items-spread; }
+    .#{$ns}flex-row--items-centered { @extend %flex-row--items-centered; }
+    .#{$ns}flex-row--items-left     { @extend %flex-row--items-left; }
+    .#{$ns}flex-row--items-right    { @extend %flex-row--items-right; }
+    .#{$ns}flex-row--items-top      { @extend %flex-row--items-top; }
+    .#{$ns}flex-row--items-middle   { @extend %flex-row--items-middle; }
+    .#{$ns}flex-row--items-bottom   { @extend %flex-row--items-bottom; }
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Items
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@mixin flex-item {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 100%;
+    max-width: 100%;
+    // Prevent columns from collapsing when empty.
+    min-height: 1px;
+}
+
+@mixin flex-item--col( $columns ) {
+    flex: 0 0 (100% / 12) * $columns;
+    // Add a `max-width` to ensure content within each column does not blow out
+    // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+    // do not appear to require this.
+    max-width: (100% / 12) * $columns;
+}
+
+@mixin flex-item--width( $width ) {
+    flex: 0 0 $width;
+    // Add a `max-width` to ensure content within each column does not blow out
+    // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+    // do not appear to require this.
+    max-width: $width;
+    @if $width is auto { width: auto; }
+}
+
+@mixin flex-item--first-pos { order: -1; }
+@mixin flex-item--last-pos { order: 1; }
+
+%flex-item             { @include flex-item; }
+
+%flex-item--first-pos  { @include flex-item--first-pos; }
+%flex-item--last-pos   { @include flex-item--last-pos; }
+%flex-item--1-col,
+%flex-item--1-cols     { @include flex-item--col( 1 ); }
+%flex-item--2-cols     { @include flex-item--col( 2 ); }
+%flex-item--3-cols     { @include flex-item--col( 3 ); }
+%flex-item--4-cols     { @include flex-item--col( 4 ); }
+%flex-item--5-cols     { @include flex-item--col( 5 ); }
+%flex-item--6-cols     { @include flex-item--col( 6 ); }
+%flex-item--7-cols     { @include flex-item--col( 7 ); }
+%flex-item--8-cols     { @include flex-item--col( 8 ); }
+%flex-item--9-cols     { @include flex-item--col( 9 ); }
+%flex-item--10-cols    { @include flex-item--col( 10 ); }
+%flex-item--11-cols    { @include flex-item--col( 11 ); }
+%flex-item--12-cols    { @include flex-item--col( 12 ); }
+%flex-item--width-auto { @include flex-item--width( auto ); }
+
+@include md {
+
+    %flex-item--first-pos-md  { @include flex-item--first-pos; }
+    %flex-item--last-pos-md   { @include flex-item--last-pos; }
+    %flex-item--1-col-md,
+    %flex-item--1-cols-md     { @include flex-item--col( 1 ); }
+    %flex-item--2-cols-md     { @include flex-item--col( 2 ); }
+    %flex-item--3-cols-md     { @include flex-item--col( 3 ); }
+    %flex-item--4-cols-md     { @include flex-item--col( 4 ); }
+    %flex-item--5-cols-md     { @include flex-item--col( 5 ); }
+    %flex-item--6-cols-md     { @include flex-item--col( 6 ); }
+    %flex-item--7-cols-md     { @include flex-item--col( 7 ); }
+    %flex-item--8-cols-md     { @include flex-item--col( 8 ); }
+    %flex-item--9-cols-md     { @include flex-item--col( 9 ); }
+    %flex-item--10-cols-md    { @include flex-item--col( 10 ); }
+    %flex-item--11-cols-md    { @include flex-item--col( 11 ); }
+    %flex-item--12-cols-md    { @include flex-item--col( 12 ); }
+    %flex-item--width-auto-md { @include flex-item--width( auto ); }
+
+}
+
+@include lg {
+
+    %flex-item--first-pos-lg  { @include flex-item--first-pos; }
+    %flex-item--last-pos-lg   { @include flex-item--last-pos; }
+    %flex-item--1-col-lg,
+    %flex-item--1-cols-lg     { @include flex-item--col( 1 ); }
+    %flex-item--2-cols-lg     { @include flex-item--col( 2 ); }
+    %flex-item--3-cols-lg     { @include flex-item--col( 3 ); }
+    %flex-item--4-cols-lg     { @include flex-item--col( 4 ); }
+    %flex-item--5-cols-lg     { @include flex-item--col( 5 ); }
+    %flex-item--6-cols-lg     { @include flex-item--col( 6 ); }
+    %flex-item--7-cols-lg     { @include flex-item--col( 7 ); }
+    %flex-item--8-cols-lg     { @include flex-item--col( 8 ); }
+    %flex-item--9-cols-lg     { @include flex-item--col( 9 ); }
+    %flex-item--10-cols-lg    { @include flex-item--col( 10 ); }
+    %flex-item--11-cols-lg    { @include flex-item--col( 11 ); }
+    %flex-item--12-cols-lg    { @include flex-item--col( 12 ); }
+    %flex-item--width-auto-lg { @include flex-item--width( auto ); }
+
+}
+
+@if $export_flex {
+
+    .#{$ns}flex-item             { @extend %flex-item; }
+
+    .#{$ns}flex-item--first-pos  { @extend %flex-item--first-pos; }
+    .#{$ns}flex-item--last-pos   { @extend %flex-item--last-pos; }
+    .#{$ns}flex-item--1-col,
+    .#{$ns}flex-item--1-cols     { @extend %flex-item--1-col; }
+    .#{$ns}flex-item--2-cols     { @extend %flex-item--2-cols; }
+    .#{$ns}flex-item--3-cols     { @extend %flex-item--3-cols; }
+    .#{$ns}flex-item--4-cols     { @extend %flex-item--4-cols; }
+    .#{$ns}flex-item--5-cols     { @extend %flex-item--5-cols; }
+    .#{$ns}flex-item--6-cols     { @extend %flex-item--6-cols; }
+    .#{$ns}flex-item--7-cols     { @extend %flex-item--7-cols; }
+    .#{$ns}flex-item--8-cols     { @extend %flex-item--8-cols; }
+    .#{$ns}flex-item--9-cols     { @extend %flex-item--9-cols; }
+    .#{$ns}flex-item--10-cols    { @extend %flex-item--10-cols; }
+    .#{$ns}flex-item--11-cols    { @extend %flex-item--11-cols; }
+    .#{$ns}flex-item--12-cols    { @extend %flex-item--12-cols; }
+    .#{$ns}flex-item--width-auto { @extend %flex-item--width-auto; }
+
+    .#{$ns}flex-item--first-pos-md  { @extend %flex-item--first-pos-md; }
+    .#{$ns}flex-item--last-pos-md   { @extend %flex-item--last-pos-md; }
+    .#{$ns}flex-item--1-col-md,
+    .#{$ns}flex-item--1-cols-md     { @extend %flex-item--1-col-md; }
+    .#{$ns}flex-item--2-cols-md     { @extend %flex-item--2-cols-md; }
+    .#{$ns}flex-item--3-cols-md     { @extend %flex-item--3-cols-md; }
+    .#{$ns}flex-item--4-cols-md     { @extend %flex-item--4-cols-md; }
+    .#{$ns}flex-item--5-cols-md     { @extend %flex-item--5-cols-md; }
+    .#{$ns}flex-item--6-cols-md     { @extend %flex-item--6-cols-md; }
+    .#{$ns}flex-item--7-cols-md     { @extend %flex-item--7-cols-md; }
+    .#{$ns}flex-item--8-cols-md     { @extend %flex-item--8-cols-md; }
+    .#{$ns}flex-item--9-cols-md     { @extend %flex-item--9-cols-md; }
+    .#{$ns}flex-item--10-cols-md    { @extend %flex-item--10-cols-md; }
+    .#{$ns}flex-item--11-cols-md    { @extend %flex-item--11-cols-md; }
+    .#{$ns}flex-item--12-cols-md    { @extend %flex-item--12-cols-md; }
+    .#{$ns}flex-item--width-auto-md { @extend %flex-item--width-auto; }
+
+    .#{$ns}flex-item--first-pos-lg  { @extend %flex-item--first-pos-lg; }
+    .#{$ns}flex-item--last-pos-lg   { @extend %flex-item--last-pos-lg; }
+    .#{$ns}flex-item--1-col-lg,
+    .#{$ns}flex-item--1-cols-lg     { @extend %flex-item--1-col-lg; }
+    .#{$ns}flex-item--2-cols-lg     { @extend %flex-item--2-cols-lg; }
+    .#{$ns}flex-item--3-cols-lg     { @extend %flex-item--3-cols-lg; }
+    .#{$ns}flex-item--4-cols-lg     { @extend %flex-item--4-cols-lg; }
+    .#{$ns}flex-item--5-cols-lg     { @extend %flex-item--5-cols-lg; }
+    .#{$ns}flex-item--6-cols-lg     { @extend %flex-item--6-cols-lg; }
+    .#{$ns}flex-item--7-cols-lg     { @extend %flex-item--7-cols-lg; }
+    .#{$ns}flex-item--8-cols-lg     { @extend %flex-item--8-cols-lg; }
+    .#{$ns}flex-item--9-cols-lg     { @extend %flex-item--9-cols-lg; }
+    .#{$ns}flex-item--10-cols-lg    { @extend %flex-item--10-cols-lg; }
+    .#{$ns}flex-item--11-cols-lg    { @extend %flex-item--11-cols-lg; }
+    .#{$ns}flex-item--12-cols-lg    { @extend %flex-item--12-cols-lg; }
+    .#{$ns}flex-item--width-auto-lg { @extend %flex-item--width-auto; }
+
+}

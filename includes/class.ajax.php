@@ -17,12 +17,12 @@ abstract class primeraObjectPrefix_AJAX
     * Checks if the ajax nonce is valid.
     *
     * @since  1.0.0
-    * @param  string  $query_arg  The $_REQUEST parameter that sends the nonce via ajax.
     * @param  string  $action  The action name as specified within wp_create_nonce.
+    * @param  string  $query_arg  Where to look for nonce in $_REQUEST.
     * @param  bool  $die  Whether to die if the nonce is invalid.
     * @return  bool  True if nonce is correct, false otherwise.
     */
-    public static function check_nonce( $query_arg='nonce', $action='wp_ajax', $die=true )
+    public static function check_nonce( $action='wp_ajax', $query_arg='nonce', $die=true )
     {
         return check_ajax_referer( $action, $query_arg, $die );
     }
@@ -33,16 +33,9 @@ abstract class primeraObjectPrefix_AJAX
         $response = new stdClass;
         $response->success = true;
         $response->code = 200;
-        $response->description = get_status_header_desc( 200 );
-        $response->message = '';
+        $response->message = get_status_header_desc( 200 );
 
         return $response;
-    }
-
-
-    public static function get_request( $defaults )
-    {
-        return wp_parse_args( $_REQUEST, $defaults );
     }
 
 
@@ -63,7 +56,7 @@ abstract class primeraObjectPrefix_AJAX
         // $module = isset($_REQUEST['module'])     ? $_REQUEST['module']     : '';
         // $data   = isset($_REQUEST['moduleData']) ? $_REQUEST['moduleData'] : array();
 
-        $request = self::get_request( array(
+        $request = wp_parse_args( $_REQUEST, array(
             'module'     => '',
             'moduleData' => array(),
         ) );

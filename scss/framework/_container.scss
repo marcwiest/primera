@@ -7,10 +7,12 @@
 @mixin container {
 
     max-width: $container_max_width;
+
     margin: {
         left: auto;
         right: auto;
     }
+
     padding: {
         left: $padding_left_container;
         right: $padding_right_container;
@@ -48,6 +50,15 @@
     }
 }
 
+@mixin container--flush {
+
+    padding: 0;
+
+    @each $prop, $val in map-get($properties,container--flush) {
+        #{$prop}: $val;
+    }
+}
+
 %container {
     @include container;
 }
@@ -58,6 +69,10 @@
 
 %container--flat {
     @include container--flat;
+}
+
+%container--flush {
+    @include container--flush;
 }
 
 @if $export_container {
@@ -72,6 +87,10 @@
 
     .#{$ns}container--flat {
         @extend %container--flat;
+    }
+
+    .#{$ns}container--flush {
+        @extend %container--flush;
     }
 
 }

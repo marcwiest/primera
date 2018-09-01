@@ -1,0 +1,23 @@
+{
+    "dev" : {
+        "js" : {
+            "files" : [
+                "./js/util.js",
+                "./js/script.js"
+            ]
+        },
+        "browserSync" : {
+            "proxy"  : "localhost",
+            "port"   : 8888,
+            "notify" : false,
+            "tunnel" : false,
+            "files"  : [
+                "./images/**/*",
+                "./script.js",
+                "./style.css",
+                "./**/*.php",
+                "./**/*.{woff,ttf,svg,eot}"
+            ]
+        }
+    }
+}

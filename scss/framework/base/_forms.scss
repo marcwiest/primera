@@ -72,6 +72,12 @@ select {
     }
 }
 
+// Ignore rtl for non rtl data.
+[type*="email"],
+[type*="url"] {
+	direction: ltr;
+}
+
 input {
     display: inline-block;
 }

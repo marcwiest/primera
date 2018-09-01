@@ -12,7 +12,10 @@
     border: $size solid transparent;
     border-top-color: $color;
     transform: rotate( $rotation );
-    pointer-events: if( $clickable, auto, none );
+    // pointer-events: if( $clickable, auto, none );
+    @if $clickable == false { pointer-events: none; }
+
+    // Try: border-radius: 3px;
 }
 
 @mixin triangle--color( $color ) { border-top-color: $color; }

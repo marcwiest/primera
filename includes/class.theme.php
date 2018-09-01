@@ -265,6 +265,18 @@ abstract class primeraObjectPrefix_Theme
     }
 
 
+    public static function get_version()
+    {
+        $version = trim( strval( wp_get_theme()->get('Version') ) );
+
+        if ( defined('WP_DEBUG') && WP_DEBUG || ! $version ) {
+            return time();
+        }
+
+        return $version;
+    }
+
+
     /**
     * Enqueue frontend scripts.
     *
@@ -278,8 +290,12 @@ abstract class primeraObjectPrefix_Theme
     		'primeraFunctionPrefix',
     		get_stylesheet_uri(),
     		array(),
-    		$version
+    		self::get_version()
     	);
+
+        // NOTE Since WP 4.7 you can use these functions to get a file's uri:
+        // - get_parent_theme_file_uri
+        // - get_theme_file_uri
 
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
@@ -307,7 +323,7 @@ abstract class primeraObjectPrefix_Theme
     	);
 
     	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
-    		wp_enqueue_script('comment-reply');
+    		wp_enqueue_script( 'comment-reply', '', '', '',  true );
     	}
     }
 
