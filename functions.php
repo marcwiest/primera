@@ -1,5 +1,20 @@
 <?php
 
+
+// define( 'DEV_NAME', 'Marc Wiest' );
+// define( 'DEV_EMAIL', 'marc@marcwiest.com' );
+//
+// $inc_dir = get_template_directory() . '/includes/';
+//
+// require_once $inc_dir . 'class.loader.php';
+// require_once $inc_dir . 'class.theme.php';
+// require_once $inc_dir . 'class.rest.php';
+// require_once $inc_dir . 'class.mail.php';
+//
+// Orsak_Theme::init();
+// Orsak_REST_API::init();
+// Orsak_Mail::init();
+
 /**
 * Theme init.
 *
