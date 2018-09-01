@@ -139,14 +139,17 @@ abstract class primeraObjectPrefix_Theme
         add_theme_support( 'post-thumbnails' );
         add_theme_support( 'customize-selective-refresh-widgets' );
 
-        # WooCommerce
-        add_theme_support( 'woocommerce' );
+        # Add WooCommerce support.
+        // add_theme_support( 'woocommerce' );
 
-        # Override default image size (default: 150x150)
-    	set_post_thumbnail_size( 300, 300, true );
+        # Override "post-thumbnail" default size (150x150).
+    	// set_post_thumbnail_size( 300, 300, true );
 
-    	# Add Custom Image Size (16:9)
-    	// add_image_size( 'post_entry_banner', 1680, (1680/16*9) );
+    	# Add custom image size (16:9).
+    	// add_image_size( 'homepage-banner', 1680, (1680/16*9) );
+
+        # Add logo support. Usage: the_custom_logo();
+        // add_theme_support( 'custom-logo' );
     }
 
 
@@ -280,11 +283,11 @@ abstract class primeraObjectPrefix_Theme
 
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
-    		get_template_directory_uri().'/script.js',
+    		get_theme_file_uri( 'script.js' ),
     		array(
                 'wp-util' // jQuery, undescore, wp
-                // 'hoverIntent',
-                // 'imagesloaded',
+                // 'hoverIntent', // briancherne.github.io/jquery-hoverIntent
+                // 'imagesloaded', // imagesloaded.desandro.com
                 // 'font-awesome',
                 // 'bx-slider'
             ),
