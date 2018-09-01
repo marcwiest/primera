@@ -13,23 +13,8 @@ final class primeraObjectPrefix_REST
     * @return  void
     */
     public function __construct()
-    {}
-
-
-    /**
-    * Creates a new request object.
-    *
-    * @since  1.0
-    * @return  void
-    */
-    public static function new_response()
     {
-        $response = new stdClass;
-        $response->success = true;
-        $response->status  = 200;
-        $response->message = '';
-
-        return $response;
+        // TODO: Register rest routes hook here and place callbacks below inside this obj.
     }
 
 
@@ -37,36 +22,40 @@ final class primeraObjectPrefix_REST
     * Get something.
     *
     * @since  1.0
-    * @param  object  $request  The request coming from the client. See WP_REST_Request form details.
-    * @return  object  $response  The response that is being send back to the server.
+    * @param  object  $req  The request coming from the client. See WP_REST_Request form details.
+    * @return  object  $resp  The response that is being send back to the server.
     */
-    public static function get_something( $request )
+    public static function get_something( WP_REST_Request $req )
     {
         // # You can access parameters via direct array access on the object or via the helper method:
-        // $parameters = $request['some_param'];
-        // $parameters = $request->get_param( 'some_param' );
+        // $parameters = $req['some_param'];
+        // $parameters = $req->get_param( 'some_param' );
         // # You can get the combined, merged set of parameters:
-        // $parameters = $request->get_params();
+        // $parameters = $req->get_params();
         // # The individual sets of parameters are also available, if needed:
-        // $parameters = $request->get_url_params();
-        // $parameters = $request->get_query_params();
-        // $parameters = $request->get_body_params();
-        // $parameters = $request->get_json_params();
-        // $parameters = $request->get_default_params();
+        // $parameters = $req->get_url_params();
+        // $parameters = $req->get_query_params();
+        // $parameters = $req->get_body_params();
+        // $parameters = $req->get_json_params();
+        // $parameters = $req->get_default_params();
         // # Uploads aren't merged in, but can be accessed separately:
-        // $parameters = $request->get_file_params();
+        // $parameters = $req->get_file_params();
 
-        $response = self::new_response();
+        $resp          = new stdClass;
+        $resp->success = true;
 
-        if ( empty($request['data']) ) {
-            $response = new WP_Error(
-                'primeraFunctionPrefix_rest_missing_parameter',
-                'The data parameter is required.',
-                array( 'status' => 400 )
+        if ( empty($req['someParam']) ) {
+
+            $resp->success = false;
+
+            $resp = new WP_Error(
+                'primeraFunctionPrefix_wp_rest_missing_parameter',
+                'The "someParam" parameter is required.',
+                get_object_vars( $resp )
             );
         }
 
-        return rest_ensure_response( $response );
+        return rest_ensure_response( $resp );
     }
 
 
@@ -79,7 +68,8 @@ final class primeraObjectPrefix_REST
     */
     public static function post_something( $request )
     {
-        $response = self::new_response();
+        $resp          = new stdClass;
+        $resp->success = true;
 
         return rest_ensure_response( $response );
     }

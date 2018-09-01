@@ -5,7 +5,7 @@
 while ( have_posts() ) : the_post();
 
 ?>
-<article id="post-<?php the_ID(); ?>" class="<?php post_class("primeraCssPrefix-entry"); ?>" role="article">
+<article id="post-<?php the_ID(); ?>" <?php post_class("primeraCssPrefix-entry"); ?> role="article">
 
     <header class="primeraCssPrefix-entry-header">
 

@@ -20,20 +20,20 @@ final class primeraObjectPrefix_Theme
     /**
     * Load text domain.
     *
-    * First .mo file found gets used. Text domain should match theme folder name.
+    * First .mo file found gets used. Check WP_LANG_DIR first, then child theme, then parent theme.
+    * Text domain should match theme folder name.
     *
     * @since  1.0
     */
     public static function load_theme_textdomain()
     {
-        // wp-content/languages/themes/theme-name/it_IT.mo
-        load_theme_textdomain( 'primeraTextDomain', WP_LANG_DIR.'/themes/'.get_template() );
-
         // wp-content/themes/child-theme-name/languages/it_IT.mo
-        load_theme_textdomain( 'primeraTextDomain', get_stylesheet_directory().'/languages' );
+        if ( load_theme_textdomain( 'primeraTextDomain', get_stylesheet_directory().'/languages' ) ) {
+            return true;
+        }
 
         // wp-content/themes/theme-name/languages/it_IT.mo
-        load_theme_textdomain( 'primeraTextDomain', get_template_directory().'/languages' );
+        return load_theme_textdomain( 'primeraTextDomain', get_template_directory().'/languages' );
     }
 
 
@@ -74,14 +74,27 @@ final class primeraObjectPrefix_Theme
         add_theme_support( 'post-thumbnails' );
         add_theme_support( 'customize-selective-refresh-widgets' );
 
+        // Gutenberg wide aligned images.
+        // add_theme_support( 'align-wide' );
+
+        // More Gutenberg: https://wprig.io/learn/gutenberg-theme-features/
+
+        // if ( function_exists( 'the_custom_logo' ) ) {
+        //     the_custom_logo();
+        // }
+        // add_theme_support( 'custom-logo' );
+
         # WooCommerce
         add_theme_support( 'woocommerce' );
 
-        # Override default image size (default: 150x150)
-    	set_post_thumbnail_size( 300, 300, true );
-
     	# Add Custom Image Size (16:9)
-    	// add_image_size( 'post_entry_banner', 1680, (1680/16*9) );
+        # Use the following plugin to regenerate your existing images when adding or changing
+        # image sizes: wordpress.org/plugins/regenerate-thumbnails/
+    	// add_image_size( 'portfolio-teaser', 1680, (1680/16*9), true );
+
+        # Override default image size (default: 150x150)
+        # This is equal to: add_image_size( 'post-thumbnail', 1680, (1680/16*9), true );
+    	// set_post_thumbnail_size( 300, 300, true );
     }
 
 
@@ -99,6 +112,18 @@ final class primeraObjectPrefix_Theme
     }
 
 
+    public static function get_version()
+    {
+        $version = trim( strval( wp_get_theme()->get('Version') ) );
+
+        if ( defined('WP_DEBUG') && WP_DEBUG || ! $version ) {
+            return time();
+        }
+
+        return $version;
+    }
+
+
     /**
     * Enqueue frontend scripts.
     *
@@ -106,23 +131,27 @@ final class primeraObjectPrefix_Theme
     */
     public static function enqueue_frontend_scripts()
     {
-        $version = wp_get_theme()->get('Version');
-        if ( defined('WP_DEBUG') && WP_DEBUG || ! trim( strval($version) ) ) {
-            $version = time();
-        }
-
     	wp_enqueue_style(
     		'primeraFunctionPrefix',
     		get_stylesheet_uri(),
     		array(),
-    		$version
+    		self::get_version()
     	);
+
+        // NOTE Since WP 4.7 you can use these functions to get a file's uri:
+        // - get_parent_theme_file_uri
+        // - get_theme_file_uri
 
     	wp_enqueue_script(
     		'primeraFunctionPrefix',
     		get_template_directory_uri().'/script.js',
-    		array( 'wp-util', 'font-awesome', 'hoverIntent', 'imagesloaded' ), // wp-util: jQuery, undescore, wp
-    		$version,
+    		array(
+                'wp-util', // loads jquery, undescore, wp.template & wp.ajax.post
+                'font-awesome', // registered via self::register_scripts()
+                // 'hoverIntent', // briancherne.github.io/jquery-hoverIntent
+                // 'imagesloaded', // imagesloaded.desandro.com
+            ),
+    		self::get_version(),
     		true
     	);
 
@@ -133,12 +162,12 @@ final class primeraObjectPrefix_Theme
     			'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
     			'restUrl'   => esc_url_raw( rest_url('/primeraFunctionPrefix/v1/') ),
     			'ajaxNonce' => wp_create_nonce( 'wp_ajax' ),
-    			'restNonce' => wp_create_nonce( 'wp_rest' ),
+    			'restNonce' => wp_create_nonce( 'wp_rest' ), // must be named wp_rest
     		)
     	);
 
     	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
-    		wp_enqueue_script('comment-reply');
+    		wp_enqueue_script( 'comment-reply', '', '', '',  true );
     	}
     }
 

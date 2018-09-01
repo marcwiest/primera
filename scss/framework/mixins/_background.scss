@@ -1,0 +1,20 @@
+
+// Usage example:
+//
+// @include background( (
+// 	color: red,
+// 	attachment: fixed,
+// ) );
+
+@mixin background( $bg, $hack:true ) {
+
+	@each $prop, $val in $bg {
+	    background-#{$prop}: $val;
+	}
+
+	// Prevent flickering for fixed background attachments.
+	// benfrain.com/improving-css-performance-fixed-position-elements/
+	@if map-has-key($bg,attachment) and fixed == unquote(map-get($bg,attachment)) and $hack {
+		backface-visibility: hidden;
+	}
+}

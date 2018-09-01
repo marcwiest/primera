@@ -75,3 +75,23 @@ $font_size_input_label: 18px !default;
 $font_size_input:       18px !default;
 $font_size_tabel_head:  18px !default;
 $font_size_tabel_cell:  18px !default;
+
+// @mixin heading_scale( $base:18px, $ratio:1.25, $debug:false ) {
+//
+//     $font_size_h6: $base                  !global !default;
+//     $font_size_h5: round($font_size_h6 * $ratio) !global !default;
+//     $font_size_h4: round($font_size_h5 * $ratio) !global !default;
+//     $font_size_h3: round($font_size_h4 * $ratio) !global !default;
+//     $font_size_h2: round($font_size_h3 * $ratio) !global !default;
+//     $font_size_h1: round($font_size_h2 * $ratio) !global !default;
+//
+//     @if ( $debug ) {
+//         @debug
+//             h1 = $font_size_h1,
+//             h2 = $font_size_h2,
+//             h3 = $font_size_h3,
+//             h4 = $font_size_h4,
+//             h5 = $font_size_h5,
+//             h6 = $font_size_h6;
+//     }
+// }

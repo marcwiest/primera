@@ -27,9 +27,6 @@
   ],
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-plugin-syntax-export-extensions": "^6.13.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.24.4",
     "css-mqpacker": "^6.0.2",
@@ -45,6 +42,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-sass-glob": "^1.0.9",
     "gulp-sourcemaps": "^2.6.4",
+    "gulp-string-replace": "^1.1.1",
     "gulp-uglify": "^3.0.0",
     "gulp-wp-pot": "^2.3.1",
     "imagemin-pngquant": "^5.1.0",

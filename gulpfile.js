@@ -1,9 +1,7 @@
 'use strict';
 
 // var pkg = require('./package.json');
-
-const LOCALHOST_ADDRESS = 'localhost/primera';
-const LOCALHOST_PORT    = 8888;
+var config = require('./theme-config.json');
 
 var gulp           = require('gulp');
 var babel          = require('gulp-babel');
@@ -36,16 +34,18 @@ gulp.task( 'css', function() {
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( sassGlob() )
-        .pipe( sass({ outputStyle : 'compact' }) )
+        .pipe( sass({ outputStyle : 'compressed' }) )
         .pipe( postcss([
             cssnext(),
             propertyLookup(),
             easings(),
             mqpacker()
         ]) )
+        // .pipe( gulp.dest('./') )
         .pipe( cssnano({ zindex : false }) )
-        .pipe( sourcemaps.write('./') )
+        // .pipe( rename({ extname : '.min.css' }) )
         .pipe( gulp.dest('./') )
+        .pipe( sourcemaps.write('./') )
         .pipe( browserSync.stream() );
 
     return stream;
@@ -58,12 +58,12 @@ gulp.task( 'css', function() {
 */
 gulp.task( 'js', function() {
 
-    var files = [
-        './js/util.js',
-        './js/script.js'
-    ];
+    // var files = [
+    //     './js/util.js',
+    //     './js/script.js'
+    // ];
 
-    var stream = gulp.src( files )
+    var stream = gulp.src( config.dev.js.files )
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( concat( 'script.js' ) )
@@ -119,18 +119,19 @@ gulp.task( 'initBrowserSync', ['css','js'], function() {
 
     // browsersync.io/docs/options
     browserSync.init({
-        port        : LOCALHOST_PORT,
-        proxy       : LOCALHOST_ADDRESS,
-        notify      : false,
-        tunnel      : true,
         watchEvents : [ 'change', 'add', 'unlink', 'addDir', 'unlinkDir' ],
-        files       : [
-            './images/**/*',
-            './script.js',
-            './style.css',
-            './**/*.php',
-            './**/*.{woff,ttf,svg,eot}'
-        ]
+        port        : config.dev.browserSync.port,
+        proxy       : config.dev.browserSync.proxy,
+        notify      : config.dev.browserSync.notify,
+        tunnel      : config.dev.browserSync.tunnel,
+        files       : config.dev.browserSync.files
+        // files       : [
+        //     './images/**/*',
+        //     './script.js',
+        //     './style.css',
+        //     './**/*.php',
+        //     './**/*.{woff,ttf,svg,eot}'
+        // ]
     });
 
 });
@@ -138,11 +139,14 @@ gulp.task( 'initBrowserSync', ['css','js'], function() {
 
 /**
 * Watch task.
+*
+* The paths must be absolute (not realtive ./) for newly added files to be recognized.
+* https://github.com/sindresorhus/gulp-ruby-sass/issues/11#issuecomment-33660887
 */
 gulp.task( 'watch', ['initBrowserSync'], function() {
 
-    gulp.watch( './scss/**/*.scss', ['css'] );
-    gulp.watch( './js/**/*.js', ['js'] );
+    gulp.watch( 'scss/**/*.scss', ['css'] );
+    gulp.watch( 'js/**/*.js', ['js'] );
 
 });
 

@@ -1,4 +1,29 @@
 
+https://www.wpglossary.net/
+
+# TODO:
+https://boilerform.design/
+https://teutonic.co/ (grid: display grid with flexbox fallback)
+
+https://github.com/tamino-martinius/ui-snippets-menu-animations
+
+https://github.com/google/web-starter-kit
+
+Parcel/Gulp4
+https://www.youtube.com/watch?v=b-6BeS-22yw
+https://www.youtube.com/watch?v=N42LQ2dLoA8&feature=youtu.be
+
+AMP
+https://github.com/Automattic/amp-wp/wiki/Adding-Theme-Support
+
+WP Rig
+https://wptavern.com/wp-rig-a-wordpress-starter-theme-and-build-process-in-one
+https://www.linkedin.com/learning/wordpress-building-progressive-themes-with-wp-rig
+https://github.com/wprig
+https://wprig.io/learn/in-body-modular-style-sheets/
+https://wprig.io/learn/configure-conditional-preloading/
+
+
 **A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.**
 
 ---
@@ -73,6 +98,9 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 - https://laracasts.com/series/es6-cliffsnotes
 - https://babeljs.io/learn-es2015/
 - https://github.com/mbeaudru/modern-js-cheatsheet
+- https://hacks.mozilla.org/category/es6-in-depth/
+- https://mbeaudru.github.io/modern-js-cheatsheet/
+- http://es6-features.org/
 
 ## Browser Support
 
