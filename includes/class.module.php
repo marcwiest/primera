@@ -1,9 +1,12 @@
 <?php
 
+// Exit if accessed directly.
+defined('ABSPATH') || exit;
+
 /**
 * Handles module rendering.
 */
-abstract class primeraObjectPrefix_Module
+abstract class primeraPhpNamespace_Module
 {
 
     /**
@@ -165,7 +168,7 @@ abstract class primeraObjectPrefix_Module
 
         foreach ( $backtrace as $callee ) {
 
-            if ( ! isset($callee['class']) || 'primeraObjectPrefix_Module' != $callee['class'] ) {
+            if ( ! isset($callee['class']) || 'primeraPhpNamespace_Module' != $callee['class'] ) {
                 continue;
             }
 

@@ -1,5 +1,8 @@
 <?php
 
+// This is a required file:
+// developer.wordpress.org/themes/release/required-theme-files/
+
 # Leave if post password is required and not provided.
 if ( post_password_required() ) {
 	return;

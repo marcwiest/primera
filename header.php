@@ -6,5 +6,3 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-
-<noscript>You need to enable JavaScript to run this site.</noscript>

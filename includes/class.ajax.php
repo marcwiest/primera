@@ -1,9 +1,14 @@
 <?php
 
+namespace primeraPhpNamespace;
+
+// Exit if accessed directly.
+defined('ABSPATH') || exit;
+
 /**
 * Handles AJAX requests.
 */
-abstract class primeraObjectPrefix_AJAX
+abstract class AJAX
 {
 
     public static function init()
@@ -61,7 +66,7 @@ abstract class primeraObjectPrefix_AJAX
             'moduleData' => array(),
         ) );
 
-        if ( $module = primeraObjectPrefix_Module::render( $request['module'], $request['moduleData'] ) ) {
+        if ( $module = primeraPhpNamespace_Module::render( $request['module'], $request['moduleData'] ) ) {
 
             $response->module  = $module;
 

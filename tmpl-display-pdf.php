@@ -4,7 +4,9 @@ Template Post Type: page
 
 https://developer.wordpress.org/themes/template-files-section/
 
-Note: Use "Content-Disposition: attachment;" to force the download.
+This template is helpful if you'd like to use a nicer URL to point to a PDF.
+
+NOTE: Use "Content-Disposition: attachment;" to force the download.
 */
 
 $file_name    = 'document.pdf';
@@ -16,7 +18,6 @@ header( 'Content-Description: File Transfer' );
 header( 'Content-Transfer-Encoding: binary' );
 header( 'Pragma: public' );
 header( 'Content-Length: '.strlen($file_content) );
-
 nocache_headers();
 
 echo $file_content;

@@ -1,0 +1,3 @@
+<?php
+
+// Handles admin modification.

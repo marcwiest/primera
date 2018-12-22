@@ -1,50 +1,22 @@
-
-https://www.wpglossary.net/
-
-# TODO:
-https://boilerform.design/
-https://teutonic.co/ (grid: display grid with flexbox fallback)
-
-https://github.com/tamino-martinius/ui-snippets-menu-animations
-
-https://github.com/google/web-starter-kit
-
-Parcel/Gulp4
-https://www.youtube.com/watch?v=b-6BeS-22yw
-https://www.youtube.com/watch?v=N42LQ2dLoA8&feature=youtu.be
-
-AMP
-https://github.com/Automattic/amp-wp/wiki/Adding-Theme-Support
-
-WP Rig
-https://wptavern.com/wp-rig-a-wordpress-starter-theme-and-build-process-in-one
-https://www.linkedin.com/learning/wordpress-building-progressive-themes-with-wp-rig
-https://github.com/wprig
-https://wprig.io/learn/in-body-modular-style-sheets/
-https://wprig.io/learn/configure-conditional-preloading/
-
-
 **A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.**
 
 ---
 
-**Note:** Using this theme requires you to have [Node.js](https://nodejs.org/) installed.
+**Note:** Using this theme requires you to have [Node](https://nodejs.org/) & [Composer](#) installed.
 
 ## Installation
 
 **1st** Rename the theme's folder name to whatever suits your project is. _Side note:_ Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts simply make sure that your theme's folder name is unique (e.g. via a prefix).
 
-**2nd** Open `package.json` and change the package's `name` to match your theme's folder name and also revise the rest of the package briefly to suit your project.
-
-**3rd** Replace all instances of the following strings with whatever suits your project.
-- `primeraTextDomain`
+**2nd** Replace all instances of the following strings with whatever suits your project.
+- `primeraPhpNamespace`
 - `primeraFunctionPrefix`
-- `primeraObjectPrefix`
+- `primeraTextDomain`
 - `primeraCssPrefix`
 
-**4th** Open `scss/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/). Open `gulpfile.js` and adjust the constants in the top of the document.
+**3rd** Open `scss/style.css` and adjust the [header comment section](https://developer.wordpress.org/themes/basics/main-stylesheet-style-css/). Open `gulpfile.js` and adjust the constants in the top of the document.
 
-**5th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules. Now you can run any of the following gulp commands.
+**4th** Open your terminal and `cd` into the theme's folder. There you run `sudo npm install` and enter you computers admin password to install all node modules. Now you can run any of the following gulp commands.
 
 ## Gulp Commands
 
@@ -83,12 +55,21 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 - Runs `gulp watch`
 - Runs once
 
+## Folder Structure & Important Files
+
+### build
+### images
+### includes
+### javascript
+### languages
+### sass
+### templates
+
 ## SCSS & PostCSS Plugins
 
 [SASS](//sass-lang.com/) or [SCSS](//sass-lang.com/) is a CSS extension that supplies some [really cool features](//sass-lang.com/guide/) to CSS.
 
 [PostCSS](//postcss.org) is a JavaScript framework which processes CSS files. Primera includes the following PostCSS plugins.
-- [CSSNext](//cssnext.io/)
 - [PropertyLookup](//github.com/simonsmith/postcss-property-lookup)
 - [Easings](https://www.npmjs.com/package/postcss-easings)
 - [MQPacker](https://www.npmjs.com/package/css-mqpacker)

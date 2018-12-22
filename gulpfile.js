@@ -3,12 +3,13 @@
 // var pkg = require('./package.json');
 var config = require('./theme-config.json');
 
+var autoprefixer   = require('autoprefixer');
 var gulp           = require('gulp');
 var babel          = require('gulp-babel');
 var mqpacker       = require('css-mqpacker');
 var concat         = require('gulp-concat');
 var cssnano        = require('gulp-cssnano');
-var imagemin       = require('gulp-imagemin');
+var flatten        = require('gulp-flatten');
 var postcss        = require('gulp-postcss');
 var rename         = require('gulp-rename');
 var replace        = require('gulp-replace');
@@ -18,10 +19,7 @@ var sourcemaps     = require('gulp-sourcemaps');
 var uglify         = require('gulp-uglify');
 var plumber        = require('gulp-plumber');
 var wpPot          = require('gulp-wp-pot');
-var pngquant       = require('imagemin-pngquant');
-var cssnext        = require('postcss-cssnext');
 var easings        = require('postcss-easings');
-var propertyLookup = require('postcss-property-lookup');
 var browserSync    = require('browser-sync').create();
 
 
@@ -30,22 +28,23 @@ var browserSync    = require('browser-sync').create();
 */
 gulp.task( 'css', function() {
 
-    var stream = gulp.src( './scss/style.scss' )
+    var stream = gulp.src( config.dev.css.files )
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
         .pipe( sassGlob() )
-        .pipe( sass({ outputStyle : 'compressed' }) )
+        .pipe( sass({ outputStyle : 'expanded' }) )
         .pipe( postcss([
-            cssnext(),
-            propertyLookup(),
+            // tailwindcss('./tailwind.js'),
+            autoprefixer(),
             easings(),
             mqpacker()
         ]) )
-        // .pipe( gulp.dest('./') )
+        // .pipe( gulp.dest('./public/css') )
         .pipe( cssnano({ zindex : false }) )
         // .pipe( rename({ extname : '.min.css' }) )
-        .pipe( gulp.dest('./') )
         .pipe( sourcemaps.write('./') )
+        .pipe( flatten() )
+        .pipe( gulp.dest('./public/css') )
         .pipe( browserSync.stream() );
 
     return stream;
@@ -58,39 +57,15 @@ gulp.task( 'css', function() {
 */
 gulp.task( 'js', function() {
 
-    var files = [
-        './js/fitvids.js',
-        './js/util.js',
-        './js/script.js'
-    ];
-
     var stream = gulp.src( config.dev.js.files )
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
-        .pipe( concat( 'script.js' ) )
-        .pipe( babel() )
+        .pipe( concat( 'app.js' ) )
+        // .pipe( babel() )
         .pipe( uglify() )
         .pipe( sourcemaps.write('./') )
-        .pipe( gulp.dest('./') )
+        .pipe( gulp.dest('./public/js') )
         .pipe( browserSync.stream() );
-
-    return stream;
-
-});
-
-
-/**
-* Minify images.
-*/
-gulp.task( 'imgmin', function () {
-
-    var stream = gulp.src('./images/*')
-        .pipe( imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }) )
-        .pipe( gulp.dest('./images/optimized/') );
 
     return stream;
 
@@ -100,13 +75,11 @@ gulp.task( 'imgmin', function () {
 /**
 * Create translation (POT) file.
 */
-gulp.task( 'potfile', function () {
+gulp.task( 'potfile', function() {
 
-    var stream = gulp.src('**/*.php')
-        .pipe( wpPot({
-            domain: 'primeraTextDomain'
-        }) )
-        .pipe( gulp.dest('./languages/primeraTextDomain.pot') );
+    var stream = gulp.src( '**/*.php' )
+        .pipe( wpPot({ domain : config.textdomain }) )
+        .pipe( gulp.dest('./languages/' + config.textdomain + '.pot') );
 
     return stream;
 
@@ -121,18 +94,10 @@ gulp.task( 'initBrowserSync', ['css','js'], function() {
     // browsersync.io/docs/options
     browserSync.init({
         watchEvents : [ 'change', 'add', 'unlink', 'addDir', 'unlinkDir' ],
-        port        : config.dev.browserSync.port,
         proxy       : config.dev.browserSync.proxy,
         notify      : config.dev.browserSync.notify,
         tunnel      : config.dev.browserSync.tunnel,
         files       : config.dev.browserSync.files
-        // files       : [
-        //     './images/**/*',
-        //     './script.js',
-        //     './style.css',
-        //     './**/*.php',
-        //     './**/*.{woff,ttf,svg,eot}'
-        // ]
     });
 
 });
@@ -146,8 +111,8 @@ gulp.task( 'initBrowserSync', ['css','js'], function() {
 */
 gulp.task( 'watch', ['initBrowserSync'], function() {
 
-    gulp.watch( 'scss/**/*.scss', ['css'] );
-    gulp.watch( 'js/**/*.js', ['js'] );
+    gulp.watch( 'resources/sass/**/*.scss', ['css'] );
+    gulp.watch( 'resources/javascript/**/*.js', ['js'] );
 
 });
 
@@ -161,4 +126,4 @@ gulp.task( 'default', ['watch'] );
 /**
 * Gulp build task.
 */
-gulp.task( 'build', ['css','js','imgmin','potfile'] );
+gulp.task( 'build', ['css','js','potfile'] );

@@ -1,20 +1,29 @@
 <?php
 
-define( 'DEV_NAME', 'Marc Wiest' );
-define( 'DEV_EMAIL', 'marc@marcwiest.com' );
+require_once get_parent_theme_file_path( 'vendor/autoload.php' );
 
 $inc_dir = get_template_directory() . '/includes/';
 
-require_once $inc_dir . 'class.loader.php';
+// require_once $inc_dir . 'class.script.php';
 require_once $inc_dir . 'class.theme.php';
+require_once $inc_dir . 'class.controller.php';
+require_once $inc_dir . 'class.twig.php';
 require_once $inc_dir . 'class.ajax.php';
 require_once $inc_dir . 'class.rest.php';
 require_once $inc_dir . 'class.mail.php';
 
-if ( ! primeraObjectPrefix_Loader::missing_dependencies() ) {
+// use primeraPhpNamespace\Script;
+use primeraPhpNamespace\Theme;
+use primeraPhpNamespace\Controller;
+use primeraPhpNamespace\Twig;
+use primeraPhpNamespace\AJAX;
+use primeraPhpNamespace\REST;
+use primeraPhpNamespace\Mail;
 
-    primeraObjectPrefix_Theme::init();
-    primeraObjectPrefix_AJAX::init();
-    primeraObjectPrefix_REST::init();
-    primeraObjectPrefix_Mail::init();
-}
+// Script::init();
+Theme::init();
+Controller::init();
+Twig::init();
+AJAX::init();
+REST::init();
+Mail::init();

@@ -1,9 +1,14 @@
 <?php
 
+namespace primeraPhpNamespace;
+
+// Exit if accessed directly.
+defined('ABSPATH') || exit;
+
 /**
 * Handles REST requests.
 */
-abstract class primeraObjectPrefix_REST
+abstract class REST
 {
 
     /**
@@ -12,7 +17,7 @@ abstract class primeraObjectPrefix_REST
     * @since  1.0.0
     * @return  void
     */
-    public function init()
+    public static function init()
     {
         // Get something.
         register_rest_route( 'primeraFunctionPrefix/v1', '/get-somthing/', array(

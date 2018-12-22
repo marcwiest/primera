@@ -1,6 +1,13 @@
 <?php
 
-abstract class primeraObjectPrefix_Mail
+namespace primeraPhpNamespace;
+
+// Exit if accessed directly.
+defined('ABSPATH') || exit;
+
+use primeraPhpNamespace\Theme;
+
+abstract class Mail
 {
 
     /**
@@ -20,14 +27,16 @@ abstract class primeraObjectPrefix_Mail
     * Sends the contact form.
     *
     * @since  1.0
+    * @return  array|bool  Array: missing fields, true otherwise.
     */
-    public static function send_contact_form()
+    public static function send_contact_form( $data=null )
     {
-        // Form was not submitted via submit button.
-        // TODO Test
-        if ( empty( $_POST['submit'] ) ) {
-            return;
+        if ( ! is_array( $data ) ) {
+            $data = $_POST;
         }
+
+        $should_redirect = boolval( $data['should_redirect'] );
+        $post_id         = absint( $data['post_id'] );
 
         if ( ! $first_name = sanitize_text_field( $_POST['first-name'] ) ) {
             $missing_fields[] = 'first-name';
@@ -41,45 +50,42 @@ abstract class primeraObjectPrefix_Mail
         if ( ! $subject = sanitize_text_field( $_POST['subject'] ) ) {
             $missing_fields[] = 'subject';
         }
-        if ( ! $message = sanitize_textarea_field( $_POST['message'] ) ) {
+        if ( ! $message = wp_kses_post( wpautop( $_POST['message'] ) ) ) {
             $missing_fields[] = 'message';
         }
 
         if ( $missing_fields ) {
-            // TODO
+            return $missing_fields;
         }
 
-        $to       = DEV_EMAIL;
-        $reply_to = DEV_NAME.' <'.DEV_EMAIL.'>';
-
-        // TODO Test
-        // if ( 'production' == Orsak_Theme::get_env() ) {
-        //     $to       = 'info@laneorzak.com';
-        //     $reply_to = 'Lane Orsak <info@laneorzak.com>';
+        $to = 'marc@marcwiest.com';
+        // if ( 'production' == Theme::get_env() ) {
+        //     $to = 'someone@example.com';
         // }
 
-        $mail = array(
-            'to'      => $to,
-            'subject' => $subject,
-            'message' => wpautop( $message ),
-            'headers' => array(
-                'Content-Type: text/html; charset=UTF-8',
-                "from: $first_name $last_name <$email>",
-                "reply-to: $reply_to",
-            ),
-            'attachments' => array(),
+        $headers = array(
+            "MIME-Version: 1.0",
+            "Content-Type: text/html; charset=UTF-8",
+            "From: $first_name $last_name <$email>",
+            // "Reply-To: superman@crypton.planet",
+            // "Cc: John Q Codex <jqc@wordpress.org>",
+            // "Bcc: iluvwp@wordpress.org",
         );
 
-        $success = wp_mail(
-            $mail['to'],
-            $mail['subject'],
-            $mail['message'],
-            $mail['headers'],
-            $mail['attachments']
-        );
+        $attachments = array();
 
-        // if ( $success ) {}
-        // else {}
+        $success = wp_mail( $to, $subject, $message, $headers, $attachments );
+
+        if ( $post_id && $should_redirect ) {
+
+            $redirect_url = add_query_arg( array( 'success' => $success ), get_the_permalink( $post_id ) );
+
+            wp_redirect( esc_url( $redirect_url ) );
+            exit;
+        }
+        else {
+            return $success;
+        }
     }
 
 

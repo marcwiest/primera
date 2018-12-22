@@ -1,22 +1,31 @@
 {
+    "textdomain" : "primera",
+    "productionUrl" : "",
+    "stagingUrl" : "",
     "dev" : {
+        "css" : {
+            "files" : [
+                "./resources/sass/app.scss",
+                "./resources/sass/views/**/*.scss"
+            ]
+        },
         "js" : {
             "files" : [
-                "./js/util.js",
-                "./js/script.js"
+                "./resources/javascript/vendors/fitvids.js",
+                "./resources/javascript/util.js",
+                "./resources/javascript/app.js"
             ]
         },
         "browserSync" : {
-            "proxy"  : "localhost",
-            "port"   : 8888,
+            "proxy"  : "primera",
             "notify" : false,
             "tunnel" : false,
             "files"  : [
-                "./images/**/*",
-                "./script.js",
-                "./style.css",
-                "./**/*.php",
-                "./**/*.{woff,ttf,svg,eot}"
+                "./templates/**/*.twig",
+                "./public/css/**/*.css",
+                "./public/js/**/*.js",
+                "./public/img/**/*",
+                "./**/*.php"
             ]
         }
     }

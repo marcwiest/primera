@@ -1,6 +1,3 @@
-## Track this file i.e. do not ignore it
-!.gitignore
-
 ## General
 *.DS_Store
 .AppleDouble
@@ -25,9 +22,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-## Node & Gulp Files
+## Twig, Node & Gulp Files
+public/twig/*
 *.map
 node_modules
 
-## Project Files
+## Local Project Files
 ROADMAP.md
