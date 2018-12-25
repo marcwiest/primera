@@ -137,7 +137,7 @@ abstract class Theme
     public static function _add_head_meta()
     {
         $meta = array(
-            'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">',
+            'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">',
         );
 
         if ( $GLOBALS['is_IE'] ) {
