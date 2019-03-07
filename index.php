@@ -29,7 +29,7 @@ get_footer();
 // elseif ( is_single() ) {
 //     View::render( 'post' );
 // }
-// elseif ( is_home() || is_archive() || is_search() ) {
+// elseif ( is_home() || is_archive() || is_tax() || is_search() ) {
 //     View::render( 'posts' );
 // }
 // else {

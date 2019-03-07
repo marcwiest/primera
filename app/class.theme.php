@@ -144,6 +144,11 @@ abstract class Theme
             $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
     	}
 
+        // Add a pingback url auto-discovery header for singularly identifiable articles.
+        if ( is_singular() && pings_open() ) {
+            $meta = '<link rel="pingback" href="' . esc_url( get_bloginfo('pingback_url') ) . '">';
+        }
+
         $meta = apply_filters( 'primeraFunctionPrefix_head_meta', $meta );
 
         foreach ( $meta as $m ) {
@@ -386,7 +391,6 @@ abstract class Theme
             'primeraFunctionPrefixLocalizedData',
             array(
                 // 'buildUrl'  => esc_url( get_theme_file_uri('build') ),
-                // TODO: Why was esc_url_raw used and not esc_url?
                 'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
                 'restUrl'   => esc_url_raw( rest_url('/primeraTextDomain/v1/') ),
                 'ajaxNonce' => wp_create_nonce( 'wp_ajax' ),
@@ -437,6 +441,10 @@ abstract class Theme
     */
     public static function _filter_body_classes( $classes )
     {
+        if ( ! is_singular() ) {
+            $classes[] = 'hfeed';
+        }
+
         if ( wp_is_mobile() ) {
             $classes[] = 'primeraCssPrefix-is-mobile-device';
         }

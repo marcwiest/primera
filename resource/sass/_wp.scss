@@ -155,6 +155,15 @@ WP Gallery
 WP Images
 */
 
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+	max-width: 100%;
+	height: auto;
+}
+
 .alignleft {
     display: inline;
     float: left;
