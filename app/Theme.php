@@ -10,7 +10,6 @@ defined('ABSPATH') || exit;
 */
 abstract class Theme
 {
-
     /**
     * Initialize theme.
     *

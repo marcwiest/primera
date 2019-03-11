@@ -13,7 +13,7 @@ $context = array_merge(
 
 get_header();
 
-Twig::display( 'page', $context );
+Twig::display( 'index', $context );
 
 get_footer();
 

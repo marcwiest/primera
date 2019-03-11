@@ -4,6 +4,10 @@
 
 **Note:** Using this theme requires you to have [Node](https://nodejs.org/) & [Composer](#) installed.
 
+## Example Codes Folder
+
+See the `example-codes`.
+
 ## Installation
 
 **1st** Rename the theme's folder name to whatever suits your project is. _Side note:_ Update conflicts with themes from wordpress.org arise from themes having identical folder names. To avoid such conflicts simply make sure that your theme's folder name is unique (e.g. via a prefix).

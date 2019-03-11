@@ -90,9 +90,9 @@ abstract class Twig
         self::$_theme_env = Theme::get_env();
 
         // NOTE Was: trailingslashit( wp_get_upload_dir()['basedir'] ).'twig-cache';
-        self::$_cache_dir = trailingslashit( get_theme_file_path( '/build/twig' ) );
+        self::$_cache_dir = trailingslashit( get_theme_file_path('/public/twig') );
 
-        self::$_views_dir = trailingslashit( get_theme_file_path( 'templates' ) );
+        self::$_views_dir = trailingslashit( get_theme_file_path('/resources/templates') );
 
         self::$_options = array(
             'charset'          => get_bloginfo( 'charset' ),
@@ -105,7 +105,7 @@ abstract class Twig
 
         self::$_filters = array(
             'trailingslashit'    => array( 'trailingslashit' ),
-            'tslashit'           => array( 'trailingslashit' ),
+            'slashit'            => array( 'trailingslashit' ),
             'untrailingslashit'  => array( 'untrailingslashit' ),
             'unslashit'          => array( 'untrailingslashit' ),
             'html_class'         => array( 'sanitize_html_class' ),
@@ -117,7 +117,8 @@ abstract class Twig
             'number_i18n'        => array( 'number_format_i18n' ),
             'apply_filters'      => array( __CLASS__ . '::_apply_filters' ),
             'time_ago'           => array( __CLASS__ . '::_time_ago' ),
-            // 'trim_words'         => array( __CLASS__ . '::trim_words' ),
+            // 'trim_words'         => array( __CLASS__ . '::_trim_words' ),
+            // 'trim_chars'         => array( __CLASS__ . '::_trim_chars' ),
         );
 
         self::$_functions = array(
@@ -201,6 +202,11 @@ abstract class Twig
         // NOTE Uncomment to clear cache files. Left here for reference.
         // self::$_twig->clearCacheFiles();
 
+        // TODO: Add!
+        // foreach ( self::$_globals as $name => $value ) {
+        //     $twig->addGlobal( $name, $value );
+        // }
+
         // Add filters.
         foreach ( self::$_filters as $name => $val ) {
 
@@ -235,9 +241,18 @@ abstract class Twig
         $r = human_time_diff( $date->format('U'), current_time('timestamp') );
         if ( $suffix ) {
             /* translators: Suffix for time_ago filter */
-            return $r .' '. __('ago', 'novathemer-theme');
+            return join('', [
+                "<span class='timeago'>$r<span>",
+                '<span class="nonbreakingspace">&nbsp;</span>',
+                '<span class="agosuffix">' . __('ago', 'novathemer-theme') . '</span>',
+            ]);
         }
-        return $r;
+        return "<span class='timeago'>$r<span>";
+    }
+
+    public static function _trim_chars( $date, $suffix=true )
+    {
+        // wp_html_excerpt
     }
 
 
@@ -258,12 +273,12 @@ abstract class Twig
     {
         if ( strpos( $script_name, '.css' ) ) {
 
-            // TODO Print, not enqueue (wp_add_inline_script?)
+            // TODO Print!, not enqueue (wp_add_inline_script?)
             // wp_enqueue_style( get_parent_theme_file_uri( "assets/css/$script_name" ) );
         }
         else {
 
-            // TODO Print, not enqueue (wp_add_inline_script?)
+            // TODO Print!, not enqueue (wp_add_inline_script?)
             // wp_enqueue_style( get_parent_theme_file_uri( "assets/js/$script_name" ) );
         }
     }
