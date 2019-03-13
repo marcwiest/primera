@@ -44,19 +44,23 @@ abstract class Theme
     * TODO: Replace %% strings with theme-config.json values.
     * @since  1.0
     */
-    public static function get_env()
+    public static function get_env(): string
     {
-        if ( in_array( $_SERVER['REMOTE_ADDR'], array( '::1', '127.0.0.1' ) ) ) {
+        if ( in_array( '%production-url%', array( $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST'] ) ) ) {
 
-            return 'local';
+            return 'production';
         }
-        elseif ( in_array( '%development-url%', array( $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST'] ) ) ) {
+        else if ( in_array( '%staging-url%', array( $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST'] ) ) ) {
+
+            return 'staging';
+        }
+        else if ( in_array( '%development-url%', array( $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST'] ) ) ) {
 
             return 'development';
         }
-        elseif ( in_array( '%staging-url%', array( $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST'] ) ) ) {
+        else if ( in_array( $_SERVER['REMOTE_ADDR'], array( '::1', '127.0.0.1' ) ) ) {
 
-            return 'staging';
+            return 'local';
         }
 
         return 'production';
@@ -69,7 +73,7 @@ abstract class Theme
     * @since  1.0
     * @return  bool  True if in production environment, false otherwise.
     */
-    public static function is_env_prod()
+    public static function is_env_prod(): bool
     {
         if ( 'production' == self::get_env() ) {
             return true;
@@ -86,7 +90,7 @@ abstract class Theme
     *
     * @since  1.0
     */
-    public static function get_version()
+    public static function get_version(): string
     {
         $version = trim( strval( wp_get_theme()->get('Version') ) );
 
@@ -97,7 +101,7 @@ abstract class Theme
         $is_production = 'production' == self::get_env();
 
         if ( $is_debug || ! $is_production || ! $version ) {
-            return time();
+            return (string) time();
         }
 
         return $version;
@@ -282,72 +286,53 @@ abstract class Theme
     */
     public static function _register_scripts()
     {
-        $is_local = 'local' == self::get_env() ? true : false;
+        $isLocal = 'local' == self::get_env();
 
-        $urls = array(
-            'fitvids'       => 'https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js',
-            'fontawesome'   => 'https://use.fontawesome.com/releases/v5.0.13/js/all.js',
-            'slickslider'   => 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js',
-            'fancybox'      => 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js',
-            'formvalidator' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
-        );
+        $vendorScripts = [
 
-        // NOTE: This helps you developing even if you aren't online.
-        if ( $is_local ) {
+            // fitvidsjs.com/
+            'primeraFunctionPrefix-fitvids' => [
+                'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js',
+                'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fitvids.js' ),
+                'deps'     => ['jquery'],
+            ],
 
-            $urls = array(
-                'fitvids'       => get_parent_theme_file_uri( 'public/js/vendor/fitvids.js' ),
-                'fontawesome'   => get_parent_theme_file_uri( 'public/js/vendor/fontawesome.js' ),
-                'slickslider'   => get_parent_theme_file_uri( 'public/js/vendor/slickslider.js' ),
-                'fancybox'      => get_parent_theme_file_uri( 'public/js/vendor/fancybox.js' ),
-                'formvalidator' => get_parent_theme_file_uri( 'public/js/vendor/formvalidator.js' ),
-            );
+            // fontawesome.com/
+            'primeraFunctionPrefix-fontawesome' => [
+                'cdnUrl'   => 'https://use.fontawesome.com/releases/v5.0.13/js/all.js',
+                'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fontawesome.js' ),
+            ],
+
+            // kenwheeler.github.io/slick/
+            'primeraFunctionPrefix-slickslider' => [
+                'cdnUrl'   => 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js',
+                'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/slickslider.js' ),
+                'deps'     => ['jquery'],
+            ],
+
+            // fancyapps.com/fancybox/3/
+            'primeraFunctionPrefix-fancybox' => [
+                'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js',
+                'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fancybox.js' ),
+                'deps'     => ['jquery'],
+            ],
+
+            // formvalidator.net/
+            'primeraFunctionPrefix-formvalidator' => [
+                'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
+                'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/formvalidator.js' ),
+                'deps'     => ['jquery'],
+            ],
+        ];
+
+        foreach ( $vendorScripts as $handle => $script ) {
+
+            $url  = $isLocal ? ($script['localUrl'] ?? $script['cdnUrl']) : ($script['cdnUrl'] ?? $script['localUrl']);
+            $deps = $script['deps'] ?? [];
+
+            wp_register_script(  $handle, $url, $deps, null, false );
+            wp_script_add_data( $handle, 'defer', true );
         }
-
-        // fitvidsjs.com/
-        wp_register_script(
-            'primeraFunctionPrefix-fitvids',
-            $urls['fitvids'],
-            array(),
-            '5.0.13',
-            true
-        );
-
-        // fontawesome.com/
-        wp_register_script(
-            'primeraFunctionPrefix-fontawesome',
-            $urls['fontawesome'],
-            array(),
-            '5.0.13',
-            true
-        );
-
-        // kenwheeler.github.io/slick/
-        wp_register_script(
-            'primeraFunctionPrefix-slickslider',
-            $urls['slickslider'],
-            array( 'jquery' ),
-            '1.8.1',
-            true
-        );
-
-        // fancyapps.com/fancybox/3/
-        wp_register_script(
-            'primeraFunctionPrefix-fancybox',
-            $urls['fancybox'],
-            array( 'jquery' ),
-            '3.4.1',
-            true
-        );
-
-        // formvalidator.net/
-        wp_register_script(
-            'primeraFunctionPrefix-formvalidator',
-            $urls['formvalidator'],
-            array( 'jquery' ),
-            '3.4.1',
-            true
-        );
     }
 
 
@@ -369,27 +354,30 @@ abstract class Theme
     	// 	get_stylesheet_uri(),
     	// 	array(),
     	// 	$version
-    	// );
+        // );
 
-    	wp_enqueue_script(
+        wp_enqueue_script(
     		'primeraFunctionPrefix',
     		get_parent_theme_file_uri( 'public/js/app.js' ),
-    		array(
-                'wp-util' ,// jQuery, undescore, wp.ajax & wp.template
-                // 'hoverIntent', // briancherne.github.io/jquery-hoverIntent/
+    		[
+                'wp-util' ,        // gets jQuery, UndescoreJS, wp.ajax & wp.template
+                // 'hoverIntent',  // briancherne.github.io/jquery-hoverIntent/
                 // 'imagesloaded', // imagesloaded.desandro.com/
-                // 'jquery-form', // malsup.com/jquery/form/
-                // 'jquery-ui-selectmenu'
-            ),
-            filemtime( get_parent_theme_file_path('public/js/app.js') ),
-    		true
-    	);
+                // 'jquery-form',  // malsup.com/jquery/form/
+                // 'jquery-ui-selectmenu',
+                // 'jquery-hotkeys',
+                // 'backbone',
+                // 'jquery',
+            ],
+            filemtime( get_parent_theme_file_path('public/js/app.js') )
+        );
+        wp_script_add_data( 'primeraFunctionPrefix', 'defer', true );
 
         wp_localize_script(
             'primeraFunctionPrefix',
-            'primeraFunctionPrefixLocalizedData',
+            'primeraFunctionPrefixLocalizedData', // js handle
             array(
-                // 'buildUrl'  => esc_url( get_theme_file_uri('build') ),
+                'imgUrl'    => esc_url( get_theme_file_uri('public/img/') ),
                 'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
                 'restUrl'   => esc_url_raw( rest_url('/primeraTextDomain/v1/') ),
                 'ajaxNonce' => wp_create_nonce( 'wp_ajax' ),
@@ -440,25 +428,21 @@ abstract class Theme
     */
     public static function _filter_body_classes( $classes )
     {
-        if ( ! is_singular() ) {
-            $classes[] = 'hfeed';
+        if ( ! is_singular() ) $classes[] = 'hfeed';
+
+        if ( wp_is_mobile() ) $classes[] = 'primeraCssPrefix-is-mobile-device';
+
+        if ( $GLOBALS['is_chrome'] ) {
+            $classes[] = 'primeraCssPrefix-is-chrome';
+        } else if ( $GLOBALS['is_gecko'] ) {
+            $classes[] = 'primeraCssPrefix-is-firefox';
+        } else if ( $GLOBALS['is_safari'] ) {
+            $classes[] = 'primeraCssPrefix-is-safari';
+        } else if ( $GLOBALS['is_edge'] ) {
+            $classes[] = 'primeraCssPrefix-is-ms-edge';
+        } else if ( $GLOBALS['is_IE'] ) {
+            $classes[] = 'primeraCssPrefix-is-ms-ie';
         }
-
-        if ( wp_is_mobile() ) {
-            $classes[] = 'primeraCssPrefix-is-mobile-device';
-        }
-
-        if ( $GLOBALS['is_edge'] ) {
-
-            $classes[] = 'primeraCssPrefix-is-edge';
-        }
-        elseif ( $GLOBALS['is_IE'] ) {
-
-            $classes[] = 'primeraCssPrefix-is-ie';
-        }
-
-        // TODO: Add is_iphone, is_chrome, is_safari
-        // TODO: Create is_firefox, see wp source code and: stackoverflow.com/questions/9209649/how-to-detect-if-browser-is-firefox-with-php
 
         return $classes;
     }
@@ -475,9 +459,9 @@ abstract class Theme
     	$args['smallest']  = 1;
     	$args['largest']   = 1;
     	$args['unit']      = 'rem';
-    	$args['format']    = 'flat'; // list / flat (custom classes only work with flat)
+    	$args['format']    = 'flat'; // list or flat (custom classes only work with flat)
     	$args['separator'] = "\n";
-    	$args['orderby']   = 'count'; // name(alphabetical) / count(popularity)
+    	$args['orderby']   = 'count'; // name (alphabetical) or count (popularity)
     	$args['order']     = 'ASC';
 
     	return $args;
@@ -526,11 +510,11 @@ abstract class Theme
             $atts['class'] .= ' primeraCssPrefix-menu-link--active';
         }
         elseif ( $item->current_item_parent ) {
-            $atts['class'] .= ' primeraCssPrefix-menu-link--active';
+            $atts['class'] .= ' primeraCssPrefix-menu-link--active-parent';
             $atts['class'] .= ' primeraCssPrefix-menu-link--parent';
         }
         elseif ( $item->current_item_ancestor ) {
-            $atts['class'] .= ' primeraCssPrefix-menu-link--active';
+            $atts['class'] .= ' primeraCssPrefix-menu-link--active-ancestor';
             $atts['class'] .= ' primeraCssPrefix-menu-link--ancestor';
         }
 
@@ -540,7 +524,7 @@ abstract class Theme
                 $atts['aria-current'] = 'page';
             }
         }
-        // Otherwise, it's a post item so check if the item is the current post.
+        // Otherwise, it's a post item, so check if the item is the current post.
         elseif ( ! empty( $item->ID ) ) {
             global $post;
             if ( ! empty( $post->ID ) && $post->ID == $item->ID ) {

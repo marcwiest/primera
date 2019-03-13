@@ -1,5 +1,7 @@
 <?php
 
+require_once get_parent_theme_file_path( 'config/app.php' );
+
 require_once get_parent_theme_file_path( 'vendor/autoload.php' );
 
 $app_dir = get_template_directory() . '/app/';

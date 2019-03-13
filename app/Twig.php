@@ -123,9 +123,9 @@ abstract class Twig
 
         self::$_functions = array(
             'enqueue_script' => [ __CLASS__ . '::_enqueue_script' ],
-            'have_posts' => [ 'have_posts' ],
-            'the_post'   => [ 'the_post' ],
-            // 'do_action' => array( __CLASS__ . '::_do_action', array('needs_context'=>true) ),
+            'have_posts'     => [ 'have_posts' ],
+            'the_post'       => [ 'the_post' ],
+            'do_action'      => [ __CLASS__ . '::_do_action', ['needs_context' => true] ],
         );
 
         self::_init_twig();

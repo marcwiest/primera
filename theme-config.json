@@ -6,6 +6,7 @@
         "css" : {
             "files" : [
                 "./resources/sass/app.scss",
+                "./resources/sass/components/**/*.scss",
                 "./resources/sass/views/**/*.scss"
             ]
         },
@@ -17,7 +18,7 @@
             ]
         },
         "browserSync" : {
-            "proxy"  : "primera",
+            "proxy"  : "local.primera.com",
             "notify" : false,
             "tunnel" : false,
             "files"  : [
