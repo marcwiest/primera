@@ -19,7 +19,7 @@ abstract class Theme
     {
         add_action( 'after_setup_theme'         , __CLASS__ . '::_set_global_content_width' );
         add_action( 'after_setup_theme'         , __CLASS__ . '::_load_theme_textdomain' );
-        add_action( 'wp_head'                   , __CLASS__ . '::_add_head_meta' );
+        add_action( 'wp_head'                   , __CLASS__ . '::_add_head_data' );
         add_action( 'after_setup_theme'         , __CLASS__ . '::_add_theme_support' );
         add_action( 'after_setup_theme'         , __CLASS__ . '::_add_gutenberg_support' );
         add_action( 'wp_enqueue_scripts'        , __CLASS__ . '::_register_scripts' );
@@ -133,11 +133,11 @@ abstract class Theme
 
 
     /**
-    * Add head meta.
+    * Add head data.
     *
     * @since  1.0
     */
-    public static function _add_head_meta()
+    public static function _add_head_data()
     {
         $meta = array(
             'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -152,7 +152,7 @@ abstract class Theme
             $meta = '<link rel="pingback" href="' . esc_url( get_bloginfo('pingback_url') ) . '">';
         }
 
-        $meta = apply_filters( 'primeraFunctionPrefix_head_meta', $meta );
+        $meta = apply_filters( 'primeraFunctionPrefix_head_data', $meta );
 
         foreach ( $meta as $m ) {
             echo $m;
@@ -178,9 +178,6 @@ abstract class Theme
         # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
         add_theme_support( 'responsive-embeds' );
 
-        # Add WooCommerce support.
-        // add_theme_support( 'woocommerce' );
-
         # Override "post-thumbnail" default size (150x150).
     	// set_post_thumbnail_size( 300, 300, true );
 
@@ -189,6 +186,9 @@ abstract class Theme
 
         # Add logo support. Usage: the_custom_logo();
         // add_theme_support( 'custom-logo' );
+
+        # Add WooCommerce support.
+        // add_theme_support( 'woocommerce' );
     }
 
 
@@ -343,19 +343,20 @@ abstract class Theme
     */
     public static function _enqueue_frontend_scripts()
     {
-        // $version = self::get_version();
-
-    	if ( is_singular() && comments_open() && get_option('thread_comments') ) {
+        // WP Comments
+        if ( is_singular() && comments_open() && get_option('thread_comments') ) {
     		wp_enqueue_script( 'comment-reply', '', '', '',  true );
-    	}
+        }
 
-    	// wp_enqueue_style(
-    	// 	'primeraFunctionPrefix',
-    	// 	get_stylesheet_uri(),
-    	// 	array(),
-    	// 	$version
-        // );
+        // App CSS
+        wp_enqueue_style(
+    		'primeraFunctionPrefix',
+    		get_parent_theme_file_uri( 'public/css/app.css' ), // alt: get_stylesheet_uri(),
+    		array(),
+    		filemtime( get_parent_theme_file_path('public/css/app.css') )
+        );
 
+        // App JS
         wp_enqueue_script(
     		'primeraFunctionPrefix',
     		get_parent_theme_file_uri( 'public/js/app.js' ),
@@ -373,6 +374,7 @@ abstract class Theme
         );
         wp_script_add_data( 'primeraFunctionPrefix', 'defer', true );
 
+        // Localized App JS
         wp_localize_script(
             'primeraFunctionPrefix',
             'primeraFunctionPrefixLocalizedData', // js handle

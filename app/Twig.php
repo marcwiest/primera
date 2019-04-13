@@ -126,6 +126,8 @@ abstract class Twig
             'have_posts'     => [ 'have_posts' ],
             'the_post'       => [ 'the_post' ],
             'do_action'      => [ __CLASS__ . '::_do_action', ['needs_context' => true] ],
+            'url'            => [ __CLASS__ . '::_get_parent_theme_url', ['needs_context' => true] ],
+            'asset'          => [ __CLASS__ . '::_get_parent_theme_asset_url', ['needs_context' => true] ],
         );
 
         self::_init_twig();
@@ -253,6 +255,22 @@ abstract class Twig
     public static function _trim_chars( $date, $suffix=true )
     {
         // wp_html_excerpt
+    }
+
+
+    public static function _get_parent_theme_url( string $path='' ): string
+    {
+        // 'site_url'         => get_home_url( null, '', null ),
+        $path = ltrim( trim($path), '/' );
+        return esc_url( get_parent_theme_file_uri( $path ) );
+    }
+
+
+    public static function _get_parent_theme_asset_url( string $path='' ): string
+    {
+        // 'img_url'          => get_theme_file_uri( 'public/img/' ),
+        $path = 'public/img/' . ltrim( trim($path), '/' );
+        return esc_url( get_parent_theme_file_uri( $path ) );
     }
 
 

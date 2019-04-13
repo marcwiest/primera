@@ -78,6 +78,10 @@ GulpJS is a task runner. Below is a list of tasks you can run inside your termin
 - [Easings](https://www.npmjs.com/package/postcss-easings)
 - [MQPacker](https://www.npmjs.com/package/css-mqpacker)
 
+## PHP Sessions
+
+https://github.com/pantheon-systems/wp-native-php-sessions
+
 ## ES2015 Resources
 
 - https://laracasts.com/series/es6-cliffsnotes
