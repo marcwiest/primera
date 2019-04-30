@@ -35,6 +35,7 @@ abstract class Theme
         add_filter( 'login_headerurl'           , __CLASS__ . '::_filter_login_url' );
         add_filter( 'login_headertitle'         , __CLASS__ . '::_filter_login_title' );
         add_filter( 'script_loader_tag'         , __CLASS__ . '::_filter_script_loader_tag', 10, 2 );
+        add_filter( 'use_default_gallery_style' , '__return_false' );
     }
 
 
