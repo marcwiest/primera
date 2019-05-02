@@ -1,6 +1,9 @@
 <?php
 
-require_once get_parent_theme_file_path( 'config/app.php' );
+// NOTE: Allows use of unprefixed functions.
+namespace primeraPhpNamespace;
+
+// require_once get_parent_theme_file_path( 'config/app.php' );
 
 require_once get_parent_theme_file_path( 'vendor/autoload.php' );
 

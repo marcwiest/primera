@@ -108,6 +108,48 @@ abstract class Theme
         return $version;
     }
 
+    // TODO: needs testing
+    function get_yoast_primary_category( $post=0 )
+    {
+        // If no category is set, return fasle.
+        if ( ! $category = get_the_category( $post ?: get_the_ID() ) ) {
+            return fasle;
+        }
+
+        // Get first category.
+        $firstCategory = [
+            'title' => $category[0]->name,
+            'slug' => $category[0]->slug,
+            'url' => get_category_link( $category[0]->term_id ),
+        ];
+
+        // If Yoast primary term does not exist, return the first category.
+        if ( ! class_exists('WPSEO_Primary_Term') ) {
+            return $firstCategory;
+        }
+
+        $wpseo_primary_term = new WPSEO_Primary_Term( 'category', get_the_id($post) );
+
+        // If method does not exsits, return the first category.
+        if ( ! method_exists($wpseo_primary_term,'get_primary_term') ) {
+            return $firstCategory;
+        }
+
+        $term = get_term( $wpseo_primary_term->get_primary_term() );
+
+        // If post doesn't have a primary term set, return first category.
+        if ( is_wp_error($term) ) {
+            return $firstCategory;
+        }
+
+        // Yoast primary category is available.
+        return [
+            'title' => $term->name,
+            'slug' => $term->slug,
+            'url' => get_category_link( $term->term_id ),
+        ];
+    }
+
 
     /**
     * Set global content width.

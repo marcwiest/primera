@@ -1,7 +1,7 @@
 'use strict';
 
 // var pkg = require('./package.json');
-var config = require('./theme-config.json');
+var config = require('./config/theme.js');
 
 var autoprefixer   = require('autoprefixer');
 var gulp           = require('gulp');
