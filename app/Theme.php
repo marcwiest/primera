@@ -36,6 +36,18 @@ abstract class Theme
         add_filter( 'login_headertitle'         , __CLASS__ . '::_filter_login_title' );
         add_filter( 'script_loader_tag'         , __CLASS__ . '::_filter_script_loader_tag', 10, 2 );
         add_filter( 'use_default_gallery_style' , '__return_false' );
+
+        if ( ! shortcode_exists( 'current_year' ) ) {
+            add_shortcode( 'current_year', function() {
+                return date('Y');
+            });
+        }
+
+        if ( ! shortcode_exists( 'copyright_symbol' ) ) {
+            add_shortcode( 'copyright_symbol', function() {
+                return '&copy;';
+            });
+        }
     }
 
 
