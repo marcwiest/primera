@@ -5,7 +5,7 @@ namespace App\Models;
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-class Model
+class App
 {
 
     public static function init()

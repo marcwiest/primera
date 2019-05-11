@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Classes;
+
+use Windwalker\Renderer\BladeRenderer;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-class View
+class Renderer
 {
 
     /**
@@ -24,7 +26,21 @@ class View
     */
     public static function init()
     {
-        self::$_view_dir = get_theme_file_path( 'views' );
+        self::$_view_dir = get_theme_file_path( 'soruce/views' );
+    }
+
+    /**
+	* Performs view render.
+	* If there is $view attribute presented, it will render requested view.
+	* If it's not it will try to find necessary view based on $wp_query.
+	*
+	* @param  string|null $view View path in blade format, ex: single, layout.default, single.partials.slider and etc.
+	* @param  array|null  $data Additional params.
+	* @return void
+	*/
+    public static function render( $view=null, $data=[] )
+    {
+        $renderer = new BladeRenderer();
     }
 
     /**
@@ -37,7 +53,7 @@ class View
     * @param  string  $_view_file_name  The name of the PHP file that holds the model.
     * @return  void
     */
-    public static function render( $_view_file_name )
+    public static function _render( $_view_file_name )
     {
         global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;
 

@@ -4,11 +4,11 @@
 * Helper function for prettying up errors.
 * @param string $message
 * @param string $subtitle
-* @param string $title
+* @param string $titlef
 */
 $primeraError = function( $message, $subtitle='', $title='' ) {
     $title = $title ?: __('Primera &rsaquo; Error', 'primeraTextdomain');
-    $footer = '<a href="http://offloadwp.com/primera/docs/">offloadwp.com/primera/docs/</a>';
+    $footer = '<a href="http://offloadwp.com/primera/docs/">https://offloadwp.com/primera/docs/</a>';
     $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
     wp_die( $message, $title );
 };
@@ -28,7 +28,7 @@ if ( version_compare( '5.0', get_bloginfo('version'), '>==' ) ) {
 }
 
 /**
-* Ensure dependencies are loaded.
+* Ensure composer dependencies are loaded.
 */
 if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php' ) ) ) {
     $primeraError(
@@ -39,16 +39,15 @@ if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php
 require_once $composer;
 
 /**
-* Primera required files.
-*
-* The mapped array determines the code library included in your theme.
-* Add or remove files to the array as needed. Supports child theme overrides.
+* Ensure required files are loaded.
+* Add or remove files to the array as needed, locate_template supports child theme overrides.
 */
-foreach ( ['helpers','setup'] as $file ) {
+foreach ( ['helpers','setup','controllers','views'] as $file ) {
     $file = "app/{$file}.php";
-    // NOTE: locate_template uses load_template to include the $file.
     if ( ! locate_template( $file, true, true ) ) {
-        $primeraError(sprintf(__('Error locating <code>%s</code> for inclusion.', 'primeraTextdomain'), $file), 'File not found');
+        $message = __( "Error locating the following dependency for inclusion:", 'primeraTextdomain' );
+        $message .= "<br><code><small>$file</small></code>";
+        $primeraError( $message, __( 'File not found', 'primeraTextdomain' ) );
     }
 }
 
