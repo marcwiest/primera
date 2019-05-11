@@ -1,21 +1,25 @@
 <?php
 
-use primeraPhpNamespace\Controller;
-use primeraPhpNamespace\Twig;
+use App\Models\Model;
 
-// wp_enqueue_style( 'page' );
-// wp_enqueue_script( 'page' );
+echo('<pre style=overflow-x:auto;font-size:12px><code>'.print_r(Model::get_utility_data(),true).'</code></pre>');
 
-$context = array_merge(
-    Controller::get_utility_data(),
-    Controller::get_page_data()
-);
+// use primeraPhpNamespace\Controller;
+// use primeraPhpNamespace\Twig;
 
-get_header();
+// // wp_enqueue_style( 'page' );
+// // wp_enqueue_script( 'page' );
 
-Twig::display( 'index', $context );
+// $context = array_merge(
+//     Controller::get_utility_data(),
+//     Controller::get_page_data()
+// );
 
-get_footer();
+// get_header();
+
+// Twig::display( 'index', $context );
+
+// get_footer();
 
 // if ( is_front_page() ) {
 //     View::render( 'page' );

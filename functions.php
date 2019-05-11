@@ -1,25 +1,54 @@
 <?php
 
-// NOTE: Allows use of unprefixed functions.
-namespace primeraPhpNamespace;
+/**
+* Helper function for prettying up errors.
+* @param string $message
+* @param string $subtitle
+* @param string $title
+*/
+$primeraError = function( $message, $subtitle='', $title='' ) {
+    $title = $title ?: __('Primera &rsaquo; Error', 'primeraTextdomain');
+    $footer = '<a href="http://offloadwp.com/primera/docs/">offloadwp.com/primera/docs/</a>';
+    $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
+    wp_die( $message, $title );
+};
 
-// require_once get_parent_theme_file_path( 'config/app.php' );
+/**
+* Ensure compatible version of PHP is used.
+*/
+if ( version_compare( '7.2', phpversion(), '>==' ) ) {
+    $primeraError( __('You must be using PHP 7.2 or greater.','primeraTextdomain'), __('Invalid PHP version','primeraTextdomain') );
+}
 
-require_once get_parent_theme_file_path( 'vendor/autoload.php' );
+/**
+* Ensure compatible version of WordPress is used.
+*/
+if ( version_compare( '5.0', get_bloginfo('version'), '>==' ) ) {
+    $primeraError( __('You must be using WordPress 5.0 or greater.','primeraTextdomain'), __('Invalid WordPress version','primeraTextdomain') );
+}
 
-$app_dir = get_template_directory() . '/app/';
+/**
+* Ensure dependencies are loaded.
+*/
+if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php' ) ) ) {
+    $primeraError(
+        __( 'You must run <code>composer install</code> from the theme directory.', 'primeraTextdomain' ),
+        __( 'Autoloader not found', 'primeraTextdomain' )
+    );
+}
+require_once $composer;
 
-require_once $app_dir . 'Theme.php';
-require_once $app_dir . 'Admin.php';
-require_once $app_dir . 'Model.php';
-require_once $app_dir . 'Twig.php';
+/**
+* Primera required files.
+*
+* The mapped array determines the code library included in your theme.
+* Add or remove files to the array as needed. Supports child theme overrides.
+*/
+foreach ( ['helpers','setup'] as $file ) {
+    $file = "app/{$file}.php";
+    // NOTE: locate_template uses load_template to include the $file.
+    if ( ! locate_template( $file, true, true ) ) {
+        $primeraError(sprintf(__('Error locating <code>%s</code> for inclusion.', 'primeraTextdomain'), $file), 'File not found');
+    }
+}
 
-use primeraPhpNamespace\Theme;
-use primeraPhpNamespace\Admin;
-use primeraPhpNamespace\Model;
-use primeraPhpNamespace\Twig;
-
-Theme::init();
-Admin::init();
-Model::init();
-Twig::init();

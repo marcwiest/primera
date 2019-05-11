@@ -1,11 +1,11 @@
 <?php
 
-namespace primeraPhpNamespace;
+namespace App\Models;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-abstract class Model
+class Model
 {
 
     public static function init()

@@ -1,6 +1,6 @@
 <?php
 
-namespace primeraPhpNamespace;
+namespace App\Models;
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
@@ -8,7 +8,7 @@ defined('ABSPATH') || exit;
 /**
 * Handles frontend & theme setup.
 */
-abstract class Theme
+class Theme
 {
     /**
     * Initialize theme.
@@ -33,7 +33,7 @@ abstract class Theme
         add_filter( 'nav_menu_link_attributes'  , __CLASS__ . '::_filter_nav_menu_link_atts', 10, 4 );
         add_filter( 'page_menu_link_attributes' , __CLASS__ . '::_filter_nav_menu_link_atts', 10, 4 );
         add_filter( 'login_headerurl'           , __CLASS__ . '::_filter_login_url' );
-        add_filter( 'login_headertitle'         , __CLASS__ . '::_filter_login_title' );
+        add_filter( 'login_headertext'         , __CLASS__ . '::_filter_login_title' );
         add_filter( 'script_loader_tag'         , __CLASS__ . '::_filter_script_loader_tag', 10, 2 );
         add_filter( 'use_default_gallery_style' , '__return_false' );
 
@@ -257,6 +257,9 @@ abstract class Theme
     {
     	// Wide aligned images.
         // add_theme_support( 'align-wide' );
+
+        // Add editor styles.
+        // add_theme_support( 'wp-block-styles' );
 
         // Disable custom color picker.
         // add_theme_support( 'disable-custom-colors' );

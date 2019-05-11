@@ -6,6 +6,19 @@ https://codex.wordpress.org/CSS
 */
 
 /*
+Adminbar Sticky-Header Fix
+*/
+
+.admin-bar .sticky-header {
+    top: 46px;
+}
+@media (min-width: 783px) {
+    .admin-bar .sticky-header {
+        top: 32px;
+    }
+}
+
+/*
 Screen Reader Text
 */
 
