@@ -8,6 +8,6 @@ class App extends Controller
 {
     public function test()
     {
-        echo 'TEST';
+        return 'APP CONTROLLER DATA TEST';
     }
 }

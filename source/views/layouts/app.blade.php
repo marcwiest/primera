@@ -1,13 +1,14 @@
-<!doctype html>
+@php do_action('get_header')
+@endphp<!DOCTYPE html>
 <html class="no-js" {!! get_language_attributes() !!}>
-@include('partials.head')
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	@php wp_head() @endphp
+</head>
 <body @php body_class() @endphp>
-
-@php
-    wp_body_open();
-    do_action('get_header')
-@endphp
-
+@php wp_body_open() @endphp
 <div class="app" role="document">
 
     @include('partials.navbar')
@@ -26,8 +27,8 @@
     </div>
 </div>
 
-    @php do_action('get_footer') @endphp
-    @include('partials.colophon')
-    @php wp_footer() @endphp
+@include('partials.footer')
+
+@php wp_footer() @endphp
 </body>
 </html>

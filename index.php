@@ -1,2 +1,2 @@
 <?php
-// Silence is golden. Deliberately blank.
+// Silence is golden. This file is deliberately blank.

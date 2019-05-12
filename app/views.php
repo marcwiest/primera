@@ -1,18 +1,18 @@
 <?php
-// Helps looking for blade templates.
-// Illuminate helper functions are available.
+// Looks for, and renders blade templates.
 
 namespace App;
 
-use Windwalker\Renderer\BladeRenderer;
+use eftec\bladeone\BladeOne;
 
 /**
- * @param string|string[] $templates Possible template files
- * @return array
- */
-function filter_templates( $templates )
+* Filter templates to locate custom templates.
+* @param string|string[] $templates Possible template files
+* @return array
+*/
+function _filterTemplates( $templates )
 {
-    $paths = apply_filters('primera/filter_templates/paths', [
+    $paths = apply_filters('primera/filterTemplates/paths', [
         'views',
         'source/views'
     ]);
@@ -47,37 +47,27 @@ function filter_templates( $templates )
         ->unique()
         ->all();
 }
-
 collect([
     'index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date', 'home',
     'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment', 'embed'
-])->map(function ($type) {
-    add_filter("{$type}_template_hierarchy", __NAMESPACE__.'\\filter_templates');
+])->map( function( $type ) {
+    add_filter( "{$type}_template_hierarchy", __NAMESPACE__ . '\\_filterTemplates' );
 });
 
 /**
- * @param string|string[] $templates Relative path to possible template files
- * @return string Location of the template
- */
-// function locate_template($templates)
-// {
-//     return \locate_template(filter_templates($templates));
-// }
+* Filter template include to render custom templates.
+*/
+function _renderTemplates( $template ) {
 
-/**
- * Render page using Blade
- */
-add_filter( 'template_include', function( $template ) {
-
-    collect(['get_header', 'wp_head'])->each(function ($tag) {
-        ob_start();
-        do_action($tag);
-        $output = ob_get_clean();
-        remove_all_actions($tag);
-        add_action($tag, function () use ($output) {
-            echo $output;
-        });
-    });
+    // collect(['get_header','wp_head'])->each(function ($tag) {
+    //     ob_start();
+    //     do_action($tag);
+    //     $output = ob_get_clean();
+    //     remove_all_actions($tag);
+    //     add_action($tag, function () use ($output) {
+    //         echo $output;
+    //     });
+    // });
 
     $data = collect(get_body_class())->reduce( function( $data, $class ) use ( $template ) {
         return apply_filters( "primera/template/{$class}/data", $data, $template );
@@ -85,16 +75,24 @@ add_filter( 'template_include', function( $template ) {
 
     if ( $template ) {
 
-        $config   = [ 'cache_path' => __DIR__ . '/cache' ];
-        $renderer = new BladeRenderer( get_theme_file_path( 'source/views' ), $config );
+        // NOTE: More modes can be found within BladeOne.
+        if ( ! empty(WP_DEBUG) ) {
+            $bladeoneMode = BladeOne::MODE_DEBUG;
+        } else {
+            $bladeoneMode = BladeOne::MODE_AUTO;
+        }
 
-        // echo template($template, $data);
-        echo $renderer->render( 'index', $data );
+        $viewsDir = get_theme_file_path("source/views/");
+        $cacheDir = __DIR__ . '/cache';
+        $bladeone = new BladeOne( $viewsDir, $cacheDir, BladeOne::MODE_SLOW );
 
-        // Returns the path to the index, which is intentionally empty.
+        echo $bladeone->run( $template, $data );
+
+        // Always returns the path to the theme's empty index file.
         return get_stylesheet_directory().'/index.php';
     }
 
     return $template;
 
-}, PHP_INT_MAX);
+}
+add_filter( 'template_include', __NAMESPACE__ . '\\_renderTemplates', PHP_INT_MAX);
