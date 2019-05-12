@@ -1,2 +1,5 @@
+@extends('layouts.app')
 
-<h1>FRONT PAGE</h1>
+@section('content')
+    <h1>{{ $test }}</h1>
+@endsection

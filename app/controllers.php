@@ -8,7 +8,7 @@ use Sober\Controller\Loader;
 /**
 * Add controller data to views via filter hook.
 */
-function injectControllers()
+function _injectControllers()
 {
     // Run WordPress hierarchy class
     $hierarchy = new Hierarchy;
@@ -51,4 +51,4 @@ function injectControllers()
         }, 10 );
     }
 }
-add_action( 'init', __NAMESPACE__ . '\\injectControllers');
+add_action( 'init', __NAMESPACE__ . '\\_injectControllers');

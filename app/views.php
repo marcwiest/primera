@@ -4,6 +4,7 @@
 namespace App;
 
 use eftec\bladeone\BladeOne;
+use Illuminate\Support\Collection;
 
 /**
 * Filter templates to locate custom templates.
@@ -12,13 +13,13 @@ use eftec\bladeone\BladeOne;
 */
 function _filterTemplates( $templates )
 {
-    $paths = apply_filters('primera/filterTemplates/paths', [
+    $paths = \apply_filters('primera/filterTemplates/paths', [
         'views',
         'source/views'
     ]);
     $paths_pattern = "#^(" . implode('|', $paths) . ")/#";
 
-    return collect($templates)
+    return \collect($templates)
         ->map(function ($template) use ($paths_pattern) {
             /** Remove .blade.php/.blade/.php from template names */
             $template = preg_replace('#\.(blade\.?)?(php)?$#', '', ltrim($template));
@@ -47,11 +48,11 @@ function _filterTemplates( $templates )
         ->unique()
         ->all();
 }
-collect([
+\collect([
     'index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date', 'home',
     'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment', 'embed'
 ])->map( function( $type ) {
-    add_filter( "{$type}_template_hierarchy", __NAMESPACE__ . '\\_filterTemplates' );
+    \add_filter( "{$type}_template_hierarchy", __NAMESPACE__ . '\\_filterTemplates' );
 });
 
 /**
@@ -69,11 +70,14 @@ function _renderTemplates( $template ) {
     //     });
     // });
 
-    $data = collect(get_body_class())->reduce( function( $data, $class ) use ( $template ) {
-        return apply_filters( "primera/template/{$class}/data", $data, $template );
+    $data = \collect(get_body_class())->reduce( function( $data, $class ) use ( $template ) {
+        return \apply_filters( "primera/template/{$class}/data", $data, $template );
     }, []);
 
     if ( $template ) {
+
+        /** Remove .blade.php/.blade/.php from template and gets it's basename. */
+        $template = basename(preg_replace('#\.(blade\.?)?(php)?$#', '', ltrim($template)));
 
         // NOTE: More modes can be found within BladeOne.
         if ( ! empty(WP_DEBUG) ) {
@@ -82,16 +86,17 @@ function _renderTemplates( $template ) {
             $bladeoneMode = BladeOne::MODE_AUTO;
         }
 
-        $viewsDir = get_theme_file_path("source/views/");
-        $cacheDir = __DIR__ . '/cache';
+        $viewsDir = \get_theme_file_path('source/views/');
+        $cacheDir = \trailingslashit( \wp_get_upload_dir()['basedir'] ).'blade-cache';
         $bladeone = new BladeOne( $viewsDir, $cacheDir, $bladeoneMode );
 
-        echo $bladeone->run( 'index', $data );
+        echo $bladeone->run( $template, $data );
 
         // Always returns the path to the theme's empty index file.
-        return get_stylesheet_directory().'/index.php';
+        return \get_theme_file_path('index.php');
+        // return \get_stylesheet_directory().'/index.php';
     }
 
     return $template;
 }
-add_filter( 'template_include', __NAMESPACE__ . '\\_renderTemplates', PHP_INT_MAX);
+\add_filter( 'template_include', __NAMESPACE__ . '\\_renderTemplates', PHP_INT_MAX );

@@ -1,5 +1,0 @@
-
-<?php  do_action('get_footer')  ?>
-
-<div class="auxiliary"></div>
-<div class="colophon"></div>
