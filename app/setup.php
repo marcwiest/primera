@@ -22,10 +22,10 @@ add_filter( 'body_class'                , __NAMESPACE__ . '\\_filterBodyClasses'
 add_filter( 'widget_tag_cloud_args'     , __NAMESPACE__ . '\\_filterTagCloudArgs' );
 add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\_filterNavMenuListItemClasses', 10, 4 );
 add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\_filterNavMenuLinkAtts', 10, 4 );
-// add_filter( 'page_menu_link_attributes' , __NAMESPACE__ . '\\_filterNavMenuLinkAtts', 10, 4 );
-add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\_filter_login_url' );
-// add_filter( 'login_headertext'          , __NAMESPACE__ . '\\_filter_login_title' );
-add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filter_script_loader_tag', 10, 2 );
+add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\_filterLoginUrl' );
+// NOTE: In WP 5.2, the login_headertitle filter was replaced by login_headertext.
+add_filter( 'login_headertitle'         , __NAMESPACE__ . '\\_filterLoginHeaderText' );
+add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filterScriptLoaderTag', 10, 2 );
 add_filter( 'use_default_gallery_style' , '__return_false' );
 
 /**
@@ -80,12 +80,6 @@ function _addThemeSupport()
     # Gutenberg feature. Replaces Fitvids?
     # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
     add_theme_support( 'responsive-embeds' );
-
-    # Override "post-thumbnail" default size (150x150).
-    // set_post_thumbnail_size( 300, 300, true );
-
-    # Add custom image size (16:9).
-    // add_image_size( 'homepage-banner', 1680, (1680/16*9) );
 
     # Add logo support. Usage: the_custom_logo();
     // add_theme_support( 'custom-logo' );
@@ -183,6 +177,24 @@ function _addGutenbergSupport()
     ) );
 }
 
+/**
+* Define thumbnail image size and register custom image sizes.
+* @since 1.0
+*/
+function _defineImageSizes()
+{
+    // Override "post-thumbnail" default size (150x150).
+    set_post_thumbnail_size( 300, 300, true );
+
+    // Uncomment to register custom image sizes.
+    // $imageSizes = [
+    //     '100vw' => [2000],
+    //     '16:9'  => [1600, (1600/16*9), true],
+    // ];
+    // foreach ( $imageSizes as $name => $size ) {
+    //     add_image_size( $name, $size[0], $size[1] ?? 9999, $size[2] ?? false );
+    // }
+}
 
 /**
 * Register nav menus.
@@ -332,23 +344,29 @@ function _enqueueFrontendScripts()
 */
 function _filterBodyClasses( $classes )
 {
-    if ( ! is_singular() ) $classes[] = 'hfeed';
-
-    if ( wp_is_mobile() ) $classes[] = 'primeraCssPrefix-is-mobile-device';
-
-    if ( $GLOBALS['is_chrome'] ) {
-        $classes[] = 'primeraCssPrefix-is-chrome';
-    } else if ( $GLOBALS['is_gecko'] ) {
-        $classes[] = 'primeraCssPrefix-is-firefox';
-    } else if ( $GLOBALS['is_safari'] ) {
-        $classes[] = 'primeraCssPrefix-is-safari';
-    } else if ( $GLOBALS['is_edge'] ) {
-        $classes[] = 'primeraCssPrefix-is-ms-edge';
-    } else if ( $GLOBALS['is_IE'] ) {
-        $classes[] = 'primeraCssPrefix-is-ms-ie';
+    if ( ! is_singular() ) {
+        $classes[] = 'hfeed';
     }
 
-    return $classes;
+    if ( wp_is_mobile() ) {
+        $classes[] = 'is-mobile-device';
+    }
+
+    // In order of market share.
+    if ( $GLOBALS['is_chrome'] ) {
+        $classes[] = 'is-chrome';
+    } else if ( $GLOBALS['is_safari'] ) {
+        $classes[] = 'is-safari';
+    } else if ( $GLOBALS['is_gecko'] ) {
+        $classes[] = 'is-gecko';
+        $classes[] = 'is-firefox';
+    } else if ( $GLOBALS['is_edge'] ) {
+        $classes[] = 'is-ms-edge';
+    } else if ( $GLOBALS['is_IE'] ) {
+        $classes[] = 'is-ms-ie';
+    }
+
+    return array_unique( $classes );
 }
 
 /**
@@ -370,7 +388,6 @@ function _filterTagCloudArgs( $args )
     return $args;
 }
 
-
 /**
 * Filter nav menu list item classes.
 *
@@ -382,12 +399,11 @@ function _filterTagCloudArgs( $args )
 function _filterNavMenuListItemClasses( $classes, $item, $args, $depth )
 {
     if ( 'primary' == $args->theme_location ) {
-        array_push( $classes, 'primeraCssPrefix-menu-item--primary' );
+        array_push( $classes, 'menu-item--primary' );
     }
 
     return $classes;
 }
-
 
 /**
 * Filter nav menu link attributes.
@@ -399,10 +415,10 @@ function _filterNavMenuListItemClasses( $classes, $item, $args, $depth )
 */
 function _filterNavMenuLinkAtts( $atts, $item, $args, $depth )
 {
-    $atts['class'] = 'primeraCssPrefix-menu-link';
+    $atts['class'] = 'menu-link';
 
     if ( 'primary' == $args->theme_location ) {
-        $atts['class'] .= ' primeraCssPrefix-menu-link--primary';
+        $atts['class'] .= ' menu-link--primary';
 
         // if ( 'category' === $item->object ) {
         //     $atts['data-category-id'] = absint( $item->object_id );
@@ -410,15 +426,15 @@ function _filterNavMenuLinkAtts( $atts, $item, $args, $depth )
     }
 
     if ( $item->current ) {
-        $atts['class'] .= ' primeraCssPrefix-menu-link--active';
+        $atts['class'] .= ' menu-link--active';
     }
     elseif ( $item->current_item_parent ) {
-        $atts['class'] .= ' primeraCssPrefix-menu-link--active-parent';
-        $atts['class'] .= ' primeraCssPrefix-menu-link--parent';
+        $atts['class'] .= ' menu-link--active-parent';
+        $atts['class'] .= ' menu-link--parent';
     }
     elseif ( $item->current_item_ancestor ) {
-        $atts['class'] .= ' primeraCssPrefix-menu-link--active-ancestor';
-        $atts['class'] .= ' primeraCssPrefix-menu-link--ancestor';
+        $atts['class'] .= ' menu-link--active-ancestor';
+        $atts['class'] .= ' menu-link--ancestor';
     }
 
     // First, check if "current" is set, which means the item is a nav menu item.
@@ -438,28 +454,25 @@ function _filterNavMenuLinkAtts( $atts, $item, $args, $depth )
     return $atts;
 }
 
-
 /**
 * Changing the logo link from wordpress.org to home_url.
 *
 * @since  1.0
 */
-function _filter_login_url()
+function _filterLoginUrl()
 {
     return esc_url( home_url('/') );
 }
-
 
 /**
 * Changing the alt text on the logo to show your site name.
 *
 * @since  1.0
 */
-function _filter_login_title()
+function _filterLoginHeaderText()
 {
     return esc_attr( get_bloginfo('name') );
 }
-
 
 /**
 * Adds async/defer attributes to enqueued / registered scripts.
@@ -468,13 +481,13 @@ function _filter_login_title()
 *
 * Source: https://github.com/wprig/wprig/blob/master/dev/inc/template-functions.php#L41
 *
-* @since  1.0
-* @link  https://core.trac.wordpress.org/ticket/12009
-* @param  string  $tag  The script tag.
-* @param  string  $handle  The script handle.
-* @return  array
+* @since 1.0
+* @link https://core.trac.wordpress.org/ticket/12009
+* @param string $tag The script tag.
+* @param string $handle The script handle.
+* @return array
 */
-function _filter_script_loader_tag( $tag, $handle )
+function _filterScriptLoaderTag( $tag, $handle )
 {
     foreach ( array( 'async', 'defer' ) as $attr ) {
 
