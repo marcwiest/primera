@@ -84,15 +84,14 @@ function _renderTemplates( $template ) {
 
         $viewsDir = get_theme_file_path("source/views/");
         $cacheDir = __DIR__ . '/cache';
-        $bladeone = new BladeOne( $viewsDir, $cacheDir, BladeOne::MODE_SLOW );
+        $bladeone = new BladeOne( $viewsDir, $cacheDir, $bladeoneMode );
 
-        echo $bladeone->run( $template, $data );
+        echo $bladeone->run( 'index', $data );
 
         // Always returns the path to the theme's empty index file.
         return get_stylesheet_directory().'/index.php';
     }
 
     return $template;
-
 }
 add_filter( 'template_include', __NAMESPACE__ . '\\_renderTemplates', PHP_INT_MAX);

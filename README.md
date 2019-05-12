@@ -1,6 +1,14 @@
-**A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.**
+
+**Primera Theme**
 
 ---
+
+See `./vendor/illuminate/support/helpers.php` for additional helper functions.
+
+---
+
+OLD DOCS:
+**A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.**
 
 **Note:** Using this theme requires you to have [Node](https://nodejs.org/) & [Composer](#) installed.
 

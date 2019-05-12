@@ -1,0 +1,34 @@
+<?php  do_action('get_header')
+ ?><!DOCTYPE html>
+<html class="no-js" <?php echo get_language_attributes(); ?>>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<?php  wp_head()  ?>
+</head>
+<body <?php  body_class()  ?>>
+<?php  wp_body_open()  ?>
+<div class="app" role="document">
+
+ <?php echo $this->runChild('partials.navbar'); ?>
+
+ <div class="content">
+
+ <main class="main" role="main">
+ <?php echo $this->yieldContent('content'); ?>
+ </main>
+
+ <?php /* <?php if(App\display_sidebar()): ?>
+ <aside class="sidebar">
+ <?php echo $this->runChild('partials.sidebar'); ?>
+ </aside>
+ <?php endif; ?> */ ?>
+ </div>
+</div>
+
+<?php echo $this->runChild('partials.footer'); ?>
+
+<?php  wp_footer()  ?>
+</body>
+</html>
