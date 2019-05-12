@@ -100,3 +100,11 @@ function _renderTemplates( $template ) {
     return $template;
 }
 \add_filter( 'template_include', __NAMESPACE__ . '\\_renderTemplates', PHP_INT_MAX );
+
+/**
+ * Updates the `$post` variable on each iteration of the loop.
+ * Note: updated value is only available for subsequently loaded views, such as partials
+ */
+// add_action('the_post', function ($post) {
+//     sage('blade')->share('post', $post);
+// });

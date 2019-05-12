@@ -15,6 +15,8 @@
 
     <div class="content">
 
+        {{ asset('img/select-arrow.svg') }}
+
         <main class="main" role="main">
             @yield('content')
         </main>
