@@ -94,7 +94,6 @@ function _renderTemplates( $template ) {
 
         // Always returns the path to the theme's empty index file.
         return \get_theme_file_path('index.php');
-        // return \get_stylesheet_directory().'/index.php';
     }
 
     return $template;
