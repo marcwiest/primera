@@ -9,7 +9,7 @@ if ( ! isset( $content_width ) ) {
 
 // Actions
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_loadThemeTextdomain' );
-add_action( 'wp_head'            , __NAMESPACE__ . '\\_addHeadData' );
+add_action( 'wp_head'            , __NAMESPACE__ . '\\_addHeadMeta' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addThemeSupport' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addGutenbergSupport' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_registerNavMenus' );
@@ -23,8 +23,7 @@ add_filter( 'widget_tag_cloud_args'     , __NAMESPACE__ . '\\_filterTagCloudArgs
 add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\_filterNavMenuListItemClasses', 10, 4 );
 add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\_filterNavMenuLinkAtts', 10, 4 );
 add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\_filterLoginUrl' );
-// NOTE: In WP 5.2, the login_headertitle filter was replaced by login_headertext.
-add_filter( 'login_headertitle'         , __NAMESPACE__ . '\\_filterLoginHeaderText' );
+add_filter( 'login_headertext'          , __NAMESPACE__ . '\\_filterLoginHeaderText' );
 add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filterScriptLoaderTag', 10, 2 );
 add_filter( 'use_default_gallery_style' , '__return_false' );
 
@@ -42,7 +41,7 @@ function _loadThemeTextdomain()
 * Add head data.
 * @since 1.0
 */
-function _addHeadData()
+function _addHeadMeta()
 {
     $meta = array(
         'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -57,7 +56,7 @@ function _addHeadData()
         $meta = '<link rel="pingback" href="' . esc_url( get_bloginfo('pingback_url') ) . '">';
     }
 
-    $meta = apply_filters( 'primeraFunctionPrefix_head_data', $meta );
+    $meta = apply_filters( 'primera/head/meta', $meta );
 
     foreach ( $meta as $m ) {
         echo $m;
@@ -355,14 +354,14 @@ function _filterBodyClasses( $classes )
     // In order of market share.
     if ( $GLOBALS['is_chrome'] ) {
         $classes[] = 'is-chrome';
-    } else if ( $GLOBALS['is_safari'] ) {
+    } elseif ( $GLOBALS['is_safari'] ) {
         $classes[] = 'is-safari';
-    } else if ( $GLOBALS['is_gecko'] ) {
+    } elseif ( $GLOBALS['is_gecko'] ) {
         $classes[] = 'is-gecko';
         $classes[] = 'is-firefox';
-    } else if ( $GLOBALS['is_edge'] ) {
+    } elseif ( $GLOBALS['is_edge'] ) {
         $classes[] = 'is-ms-edge';
-    } else if ( $GLOBALS['is_IE'] ) {
+    } elseif ( $GLOBALS['is_IE'] ) {
         $classes[] = 'is-ms-ie';
     }
 
