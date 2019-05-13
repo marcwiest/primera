@@ -5,11 +5,45 @@
         "composer/installers": "~1.0",
         "brain/hierarchy": "^2.4",
         "soberwp/controller": "^2.1",
-        "eftec/bladeone": "^3.24"
+        "eftec/bladeone": "^3.24",
+        "wpackagist-plugin/wp-featherlight": "dev-trunk",
+        "wpackagist-plugin/url-params": "dev-trunk",
+        "wpackagist-plugin/duplicate-post": "dev-trunk",
+        "wpackagist-plugin/force-strong-passwords": "dev-trunk",
+        "wpackagist-plugin/members": "dev-trunk",
+        "wpackagist-plugin/members-role-hierarchy": "dev-trunk",
+        "wpackagist-plugin/query-monitor": "dev-trunk",
+        "wpackagist-plugin/remember-me-controls": "dev-trunk",
+        "wpackagist-plugin/wp-seopress": "dev-trunk",
+        "wpackagist-plugin/series": "dev-trunk",
+        "wpackagist-plugin/wp-inspect": "dev-trunk",
+        "wpackagist-plugin/simply-show-hooks": "dev-trunk",
+        "wpackagist-plugin/transients-manager": "dev-trunk",
+        "wpackagist-plugin/user-switching": "dev-trunk",
+        "wpackagist-plugin/block-bad-queries": "dev-trunk",
+        "wpackagist-plugin/blackhole-bad-bots": "dev-trunk",
+        "wpackagist-plugin/disable-gutenberg": "dev-trunk",
+        "wpackagist-plugin/prismatic": "dev-trunk",
+        "wpackagist-plugin/head-meta-data": "dev-trunk",
+        "wpackagist-plugin/disable-wp-rest-api": "dev-trunk",
+        "wpackagist-plugin/disable-search": "dev-trunk",
+        "wpackagist-plugin/disable-comments": "dev-trunk",
+        "wpackagist-plugin/wp-migrate-db": "dev-trunk"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/"
+        }
+    },
+    "repositories":[
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "extra": {
+        "installer-paths": {
+            "../../plugins/{$name}/": ["type:wordpress-plugin"]
         }
     }
 }
