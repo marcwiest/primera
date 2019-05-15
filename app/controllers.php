@@ -10,10 +10,10 @@ use Sober\Controller\Loader;
 */
 function _injectControllers()
 {
-    // Run WordPress hierarchy class
+    // Run WordPress hierarchy class.
     $hierarchy = new Hierarchy;
 
-    // Run Loader class and pass on WordPress hierarchy class
+    // Run Loader class and pass on WordPress hierarchy class.
     $loader = new Loader( $hierarchy );
 
     // Loop over each class

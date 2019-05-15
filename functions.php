@@ -7,7 +7,7 @@
 * @param string $titlef
 */
 $primeraError = function( $message, $subtitle='', $title='' ) {
-    $title = $title ?: __('Primera &rsaquo; Error', 'primeraTextdomain');
+    $title = $title ?: __('Primera &raquo; Error', 'primeraTextdomain');
     $footer = '<a href="http://offloadwp.com/primera/docs/">https://offloadwp.com/primera/docs/</a>';
     $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
     wp_die( $message, $title );

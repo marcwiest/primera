@@ -1,3 +1,6 @@
+
+export default 'test';
+
 (function( $, wp, localizedData ) {
     'use strict';
 

@@ -1,3 +1,7 @@
+
+import './util';
+import './vendor/fitvids';
+
 (function( $, wp, util, localizedData ) {
     'use strict';
 

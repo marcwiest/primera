@@ -5,9 +5,25 @@
 
 See `./vendor/illuminate/support/helpers.php` for additional helper functions.
 
+https://wptavern.com/the-most-common-wordpress-theme-development-mistakes-and-how-to-fix-them
+
 ---
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 OLD DOCS:
+
 **A WordPress starter theme with support for SCSS, PostCSS, ES2015, BrowserSync and Gulp.**
 
 **Note:** Using this theme requires you to have [Node](https://nodejs.org/) & [Composer](#) installed.
@@ -92,11 +108,10 @@ https://github.com/pantheon-systems/wp-native-php-sessions
 
 ## ES2015 Resources
 
-- https://laracasts.com/series/es6-cliffsnotes
-- https://babeljs.io/learn-es2015/
 - https://github.com/mbeaudru/modern-js-cheatsheet
+- https://babeljs.io/learn-es2015/
+- https://laracasts.com/series/es6-cliffsnotes
 - https://hacks.mozilla.org/category/es6-in-depth/
-- https://mbeaudru.github.io/modern-js-cheatsheet/
 - http://es6-features.org/
 
 ## Browser Support

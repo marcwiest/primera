@@ -93,7 +93,7 @@ function _renderTemplates( $template ) {
         echo $bladeone->run( $template, $data );
 
         // Always returns the path to the theme's empty index file.
-        return \get_theme_file_path('index.php');
+        return \get_theme_file_path('source/index.php');
     }
 
     return $template;

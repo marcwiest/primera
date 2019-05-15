@@ -1,19 +1,18 @@
 
 const { src, dest, watch, series, parallel } = require('gulp');
 
-// var pkg = require('./package.json');
-// var config = require('./config/theme.js');
-
 const autoprefixer = require('autoprefixer');
 const browsersync  = require('browser-sync').create();
 const mqpacker     = require('css-mqpacker');
+const babel        = require("gulp-babel");
 const cssnano      = require('gulp-cssnano');
+const connectphp   = require('gulp-connect-php');
 const gulpif       = require('gulp-if');
 const imagemin     = require('gulp-imagemin');
 const plumber      = require('gulp-plumber');
 const postcss      = require('gulp-postcss');
-// const rename       = require('gulp-rename');
-// const replace      = require('gulp-replace');
+const rename       = require('gulp-rename');
+const replace      = require('gulp-replace');
 const sass         = require('gulp-sass');
 const sassglob     = require('gulp-sass-glob');
 const sourcemaps   = require('gulp-sourcemaps');
@@ -22,19 +21,25 @@ const wppot        = require('gulp-wp-pot');
 const mozjpeg      = require('imagemin-mozjpeg');
 const pngquant     = require('imagemin-pngquant');
 const easings      = require('postcss-easings');
+const rollup       = require('rollup');
+const rollupBabel  = require('rollup-plugin-babel');
 
+
+
+
+let config = {};
 
 /**
 * Process CSS.
 */
-const doCss = done => {
+const processCss = done => {
 
-    let config = {
-        sourceFiles : ['./source/sass/*'],
+    config = {
+        sourceFiles : ['./source/scss/**/*.scss'],
         destFolder: './public/css',
     };
 
-    let stream = gulp.src(config.sourceFiles)
+    return src(config.sourceFiles)
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(sassglob())
@@ -43,56 +48,55 @@ const doCss = done => {
             // tailwindcss('./tailwind.js'),
             autoprefixer(),
             easings(),
-            mqpacker()
+            // mqpacker(),
         ]))
         // .pipe(gulp.dest(config.destFolder))
         .pipe(cssnano({ zindex : false }))
         // .pipe(rename({ extname : '.min.css' }))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(config.destFolder))
+        .pipe(dest(config.destFolder))
         .pipe(browsersync.stream());
-
-    return stream;
 };
 
 /**
 * Process JS.
 */
-const doJs = done => {
+const processJs = done => {
 
-    let config = {
-        concatName: 'app.js',
-        sourceFiles : ['./source/js/app.js'],
-        destFolder : './public/js',
+    config = {
+        sourceFiles: ['./source/js/app.js'],
+        destFolder: './public/js/app.js',
     };
 
-    var stream = gulp.src(config.sourceFiles)
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
-        .pipe(concat(config.concatName))
-        .pipe(babel())
-        .pipe(uglify())
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(config.destFolder))
-        .pipe(browsersync.stream());
-
-    return stream;
+    return rollup.rollup({
+        input: config.sourceFiles,
+        plugins: [
+            rollupBabel()
+        ]
+    }).then(bundle => {
+        return bundle.write({
+            file: config.destFolder,
+            // format: 'umd',
+            // name: 'app',
+            format: 'iife',
+            sourcemap: true
+        });
+    }).then(browsersync.stream());
 };
+
 
 /**
 * Create translation (POT) file for WordPress.
 */
-const doPot = done => {
+const processPot = done => {
 
-    let config = {
+    config = {
         textdomain : 'primera',
     };
 
-    var stream = gulp.src('**/*.php')
+    return src('**/*.php')
         .pipe(wppot({ domain : config.textdomain }))
-        .pipe(gulp.dest('./languages/' + config.textdomain + '.pot'));
-
-    return stream;
+        .pipe(dest('./languages/' + config.textdomain + '.pot'));
 };
 
 /**
@@ -101,7 +105,7 @@ const doPot = done => {
 const initBrowserSync = done => {
 
     // browsersync.io/docs/options
-    let config = {
+    config = {
         watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
         proxy: 'primera',
         notify: false,
@@ -114,23 +118,37 @@ const initBrowserSync = done => {
         ],
     };
 
-    browserSync.init( config );
+    browsersync.init( config );
+    done();
+};
 
+/**
+* Causes BrowserSync to do full window refresh.
+*/
+const reloadBrowserSync = ( done ) => {
+    browsersync.reload();
     done();
 };
 
 /**
 * Watch task.
 *
-* The paths must be absolute (not realtive ./) for newly added files to be recognized.
+* The paths must be absolute (not realtive ./) for newly added files to be recognized during watch.
 * https://github.com/sindresorhus/gulp-ruby-sass/issues/11#issuecomment-33660887
 */
-const doWatch = done => {
+const doWatch = () => {
 
-    // gulp.watch('resources/sass/**/*.css', ['css']);
-    // gulp.watch('resources/javascript/**/*.js', ['js']);
+    watch('source/js/**/*.js', processJs);
+    watch('source/scss/**/*.scss', processCss);
 };
 
-exports.default = doWatch;
-exports.browserSync = initBrowserSync;
+exports.default = series(
+    parallel(processCss, processJs),
+    parallel(initBrowserSync, doWatch)
+);
+
+exports.js = series(
+    processJs,
+    reloadBrowserSync
+);
 
