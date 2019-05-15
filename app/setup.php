@@ -3,6 +3,15 @@
 
 namespace App;
 
+// NOTE: Example code to load setups for only for specific templates.
+// use Brain\Hierarchy\Hierarchy;
+// global $wp_query;
+// $hierarchy = new Hierarchy;
+// $templates = $hierarchy->getTemplates( $wp_query );
+// if ( ! in_array( 'index', $templates ) ) {
+//     return;
+// }
+
 if ( ! isset( $content_width ) ) {
 	$content_width = 1600;
 }
