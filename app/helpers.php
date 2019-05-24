@@ -16,17 +16,37 @@ function asset( string $filePath ): string
 }
 endif;
 
+if (! function_exists('isSsl')) :
+function isSsl()
+{
+    if ( is_ssl() ) {
+        return true;
+    }
+    else if ( 0 === stripos( get_option('siteurl'), 'https://' ) ) {
+        return true;
+    }
+    else if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+        return true;
+    }
+
+    return false;
+}
+endif;
+
 if ( ! function_exists( 'envName' ) ) :
 /**
 * Get current environment.
 * @since 1.0
 * @return string
 */
-function envName()
+function envName( $allowServerName=false )
 {
+    // TODO: Refactor to always first check HTTP_HOST and only fallback to SERVER_NAME if param $allowServerName is true.
+    // See SERVER_NAME on https://www.php.net/manual/en/reserved.variables.server.php for reasoning.
+
     $server = [
         $_SERVER['SERVER_NAME'],
-        $_SERVER['HTTP_HOST']
+        $_SERVER['HTTP_HOST'],
     ];
 
     if ( in_array( '%production-url%', $server ) ) {
