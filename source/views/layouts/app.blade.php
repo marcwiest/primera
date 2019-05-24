@@ -9,6 +9,8 @@
 
 @php wp_body_open() @endphp
 
+<noscript id="primera-noscript">This app works best with JavaScript enabled.</noscript>
+
 <div class="app" role="document">
 
     @include('partials.navbar')
