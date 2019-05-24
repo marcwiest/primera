@@ -1,33 +1,62 @@
 
 const { src, dest, watch, series, parallel } = require('gulp');
 
-const autoprefixer = require('autoprefixer');
-const browsersync  = require('browser-sync').create();
-const mqpacker     = require('css-mqpacker');
-const babel        = require("gulp-babel");
-const cssnano      = require('gulp-cssnano');
-const connectphp   = require('gulp-connect-php');
-const gulpif       = require('gulp-if');
-const imagemin     = require('gulp-imagemin');
-const plumber      = require('gulp-plumber');
-const postcss      = require('gulp-postcss');
-const rename       = require('gulp-rename');
-const replace      = require('gulp-replace');
-const sass         = require('gulp-sass');
-const sassglob     = require('gulp-sass-glob');
-const sourcemaps   = require('gulp-sourcemaps');
-const uglify       = require('gulp-uglify');
-const wppot        = require('gulp-wp-pot');
-const mozjpeg      = require('imagemin-mozjpeg');
-const pngquant     = require('imagemin-pngquant');
-const easings      = require('postcss-easings');
-const rollup       = require('rollup');
-const rollupBabel  = require('rollup-plugin-babel');
-
-
-
+const autoprefixer   = require('autoprefixer');
+const browsersync    = require('browser-sync').create();
+const mqpacker       = require('css-mqpacker');
+const cssnano        = require('cssnano');
+const gulpif         = require('gulp-if');
+const imagemin       = require('gulp-imagemin');
+const plumber        = require('gulp-plumber');
+const postcss        = require('gulp-postcss');
+const rename         = require('gulp-rename');
+const replace        = require('gulp-replace');
+const sass           = require('gulp-sass');
+const sassglob       = require('gulp-sass-glob');
+const sourcemaps     = require('gulp-sourcemaps');
+const uglify         = require('gulp-uglify');
+const wppot          = require('gulp-wp-pot');
+const mozjpeg        = require('imagemin-mozjpeg');
+const pngquant       = require('imagemin-pngquant');
+const easings        = require('postcss-easings');
+const rollup         = require('rollup');
+const rollupBabel    = require('rollup-plugin-babel');
+const rollupCommonjs = require('rollup-plugin-commonjs');
+const rollupUglify   = require('rollup-plugin-uglify-es');
+const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 
 let config = {};
+
+/**
+* Process JS.
+*/
+const processJs = done => {
+
+    config = {
+        sourceFiles: ['./source/js/app.js'],
+        destFolder: './public/js/app.js',
+    };
+
+    return rollup.rollup({
+            input: config.sourceFiles,
+            plugins: [
+                rollupResolveNodeModules(),
+                rollupCommonjs(),
+                rollupBabel(),
+                rollupUglify(),
+            ]
+        })
+        .then(bundle => {
+            return bundle.write({
+                file: config.destFolder,
+                // format: 'umd',
+                // name: 'app',
+                format: 'iife',
+                sourcemap: true,
+            });
+        })
+        .then(browsersync.stream());
+};
 
 /**
 * Process CSS.
@@ -48,40 +77,14 @@ const processCss = done => {
             // tailwindcss('./tailwind.js'),
             autoprefixer(),
             easings(),
+            cssnano({ zindex : false }),
             // mqpacker(),
         ]))
         // .pipe(gulp.dest(config.destFolder))
-        .pipe(cssnano({ zindex : false }))
         // .pipe(rename({ extname : '.min.css' }))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(config.destFolder))
         .pipe(browsersync.stream());
-};
-
-/**
-* Process JS.
-*/
-const processJs = done => {
-
-    config = {
-        sourceFiles: ['./source/js/app.js'],
-        destFolder: './public/js/app.js',
-    };
-
-    return rollup.rollup({
-        input: config.sourceFiles,
-        plugins: [
-            rollupBabel()
-        ]
-    }).then(bundle => {
-        return bundle.write({
-            file: config.destFolder,
-            // format: 'umd',
-            // name: 'app',
-            format: 'iife',
-            sourcemap: true
-        });
-    }).then(browsersync.stream());
 };
 
 
@@ -91,7 +94,7 @@ const processJs = done => {
 const processPot = done => {
 
     config = {
-        textdomain : 'primera',
+        textdomain: 'primera',
     };
 
     return src('**/*.php')
@@ -108,8 +111,9 @@ const initBrowserSync = done => {
     config = {
         watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
         proxy: 'primera',
+        tunnel: false, // can be a string
         notify: false,
-        tunnel: false,
+        open: false,
         files: [
             "./source/views/**/*.blade.php",
             "./public/css/**/*.css",
@@ -125,7 +129,7 @@ const initBrowserSync = done => {
 /**
 * Causes BrowserSync to do full window refresh.
 */
-const reloadBrowserSync = ( done ) => {
+const reloadBrowser = ( done ) => {
     browsersync.reload();
     done();
 };
@@ -149,6 +153,6 @@ exports.default = series(
 
 exports.js = series(
     processJs,
-    reloadBrowserSync
+    reloadBrowser
 );
 
