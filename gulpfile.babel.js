@@ -14,6 +14,7 @@ const replace        = require('gulp-replace');
 const sass           = require('gulp-sass');
 const sassglob       = require('gulp-sass-glob');
 const sourcemaps     = require('gulp-sourcemaps');
+const tailwindcss    = require('tailwindcss');
 const uglify         = require('gulp-uglify');
 const wppot          = require('gulp-wp-pot');
 const mozjpeg        = require('imagemin-mozjpeg');
