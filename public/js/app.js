@@ -486,8 +486,8 @@
 
   var debounce_1 = debounce;
 
-  var $ = window.jQuery || {};
   var wp = window.wp || {};
+  var $ = window.jQuery || {};
   var $win = jQuery(window);
   var $doc = jQuery(document);
   var vh = document.body.clientHeight;
@@ -501,6 +501,8 @@
     fromTop = $win.scrollTop();
   }, 100));
 
+  // tailwindcss.com/docs/configuration
+
   /** Primera theme */
 
   var app = {
@@ -510,7 +512,7 @@
     },
     cacheProps: function cacheProps() {},
     bindEvents: function bindEvents() {
-      $doc.on('click', 'body', app.doSomething);
+      $doc.on('click', app.doSomething);
     },
     doSomething: function doSomething(e) {
       e.preventDefault();
