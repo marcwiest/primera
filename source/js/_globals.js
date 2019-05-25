@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 
-const $    = window.jQuery || {};
 const wp   = window.wp || {};
+const $    = window.jQuery || {};
 const $win = jQuery(window);
 const $doc = jQuery(document);
 
@@ -18,5 +18,5 @@ document.addEventListener('scroll', debounce(event => {
     fromTop = $win.scrollTop();
 }, 100 ));
 
-export         { $, $win, $doc, wp, vh, vw, fromTop };
-export default { $, $win, $doc, wp, vh, vw, fromTop };
+export         { wp, $, $win, $doc, vh, vw, fromTop };
+export default { wp, $, $win, $doc, vh, vw, fromTop };
