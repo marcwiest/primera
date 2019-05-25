@@ -1,10 +1,14 @@
 
-export default 'test';
+// export default 'test';
+const $  = window.jQuery || {};
+const wp = window.wp || {};
+const localizedData = window.primeraFunctionPrefixLocalizedData || {};
 
-(function( $, wp, localizedData ) {
-    'use strict';
+// (function( $, wp, localizedData ) {
+    // 'use strict';
 
-    window.primeraFunctionPrefixUtil = {
+    //window.primeraFunctionPrefixUtil =
+    export default {
 
         rest : {
 
@@ -39,39 +43,6 @@ export default 'test';
                 return $.ajax( options );
             }
 
-        },
-
-        /**
-        * USAGE:
-        * primeraUtil.tools.renderModule( 'header-primary', false, function( module ) {
-        *     $('body').append( module );
-        * });
-        */
-        renderModule : function( module, moduleData, callback ) {
-
-            var request = wp.ajax.post( 'primeraRenderModule', {
-                nonce      : localizedData.ajaxNonce,
-                module     : module,
-                moduleData : moduleData || {}
-            });
-
-            request.fail( function( response ) {
-                console.log( 'Ajax request failed:', response );
-            });
-
-            request.done( function( response ) {
-
-                if ( response.success ) {
-
-                    if ( typeof callback === 'function' ) {
-
-                        callback( response.module, response );
-                    }
-                    else {
-                        return response;
-                    }
-                }
-            });
         },
 
         isAndroid : function() {
@@ -168,8 +139,8 @@ export default 'test';
 
     };
 
-})(
-    jQuery,
-    window.wp || {},
-    window.primeraFunctionPrefixLocalizedData || {}
-);
+// })(
+//     jQuery,
+//     window.wp || {},
+//     window.primeraFunctionPrefixLocalizedData || {}
+// );
