@@ -1,2 +1,523 @@
-!function(){"use strict";!function(t,i,e){window.primeraFunctionPrefixUtil={rest:{post:function(i,n){var o;return o=_.isObject(i)?i:{data:n||{}},o=_.defaults(o,{type:"POST",url:e.restUrl+i,beforeSend:function(t){t.setRequestHeader("X-WP-Nonce",e.restNonce)}}),t.ajax(o)}},renderModule:function(t,n,o){var r=i.ajax.post("primeraRenderModule",{nonce:e.ajaxNonce,module:t,moduleData:n||{}});r.fail(function(t){console.log("Ajax request failed:",t)}),r.done(function(t){if(t.success){if("function"!=typeof o)return t;o(t.module,t)}})},isAndroid:function(){return navigator.userAgent.match(/Android/i)},isBlackBerry:function(){return navigator.userAgent.match(/BlackBerry/i)},isIOS:function(){return navigator.userAgent.match(/iPhone|iPad|iPod/i)},isOperaMini:function(){return navigator.userAgent.match(/Opera Mini/i)},isIEMobile:function(){return navigator.userAgent.match(/IEMobile/i)},isMobile:function(){return this.isAndroid()||this.isIOS()||this.isOperaMini()||this.isBlackBerry()||this.isIEMobile()},isIE:function(){return!!(window.navigator.userAgent.indexOf("MSIE ")>0||navigator.userAgent.match(/Trident.*rv\:11\./))},isEdge:function(){return!(!document.documentMode&&!/Edge/.test(navigator.userAgent))},getViewportWidth:function(){return document.body.clientWidth},getViewportHeight:function(){return document.body.clientHeight},getViewportOffset:function(t){var i=jQuery(window),e=i.scrollLeft(),n=i.scrollTop(),o=t.offset();return{left:o.left-e,top:o.top-n}}}}(jQuery,window.wp||{},window.primeraFunctionPrefixLocalizedData||{}),function(t){t.fn.fitVids=function(i){var e={customSelector:null,ignore:null};if(!document.getElementById("fit-vids-style")){var n=document.head||document.getElementsByTagName("head")[0],o=document.createElement("div");o.innerHTML='<p>x</p><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>',n.appendChild(o.childNodes[1])}return i&&t.extend(e,i),this.each(function(){var i=['iframe[src*="player.vimeo.com"]','iframe[src*="youtube.com"]','iframe[src*="youtube-nocookie.com"]','iframe[src*="kickstarter.com"][src*="video.html"]',"object","embed"];e.customSelector&&i.push(e.customSelector);var n=".fitvidsignore";e.ignore&&(n=n+", "+e.ignore);var o=t(this).find(i.join(","));(o=(o=o.not("object object")).not(n)).each(function(){var i=t(this);if(!(i.parents(n).length>0||"embed"===this.tagName.toLowerCase()&&i.parent("object").length||i.parent(".fluid-width-video-wrapper").length)){i.css("height")||i.css("width")||!isNaN(i.attr("height"))&&!isNaN(i.attr("width"))||(i.attr("height",9),i.attr("width",16));var e=("object"===this.tagName.toLowerCase()||i.attr("height")&&!isNaN(parseInt(i.attr("height"),10))?parseInt(i.attr("height"),10):i.height())/(isNaN(parseInt(i.attr("width"),10))?i.width():parseInt(i.attr("width"),10));if(!i.attr("name")){var o="fitvid"+t.fn.fitVids._count;i.attr("name",o),t.fn.fitVids._count++}i.wrap('<div class="fluid-width-video-wrapper"></div>').parent(".fluid-width-video-wrapper").css("padding-top",100*e+"%"),i.removeAttr("height").removeAttr("width")}})})},t.fn.fitVids._count=0}(window.jQuery||window.Zepto),function(t,i,e,n){var o={init:function(){this.cacheDom(),this.cacheData(),this.indicateJavaScript(),this.indicateBrowser(),this.accommodateAdminbar(),this.initFitvids(),this.bindEvents()},cacheDom:function(){this.$window=t(window),this.$html=t("html"),this.$body=t("body"),this.$wpAdminbar=t("#wpadminbar"),this.$header=t(".primeraCssPrefix-header"),this.$offCanvasToggle=t(".primeraCssPrefix-off-canvas-toggle"),this.$wpNavMenu=t(".menu"),this.$searchForm=t(".search-form"),this.$searchSubmit=this.$searchForm.find("[type=submit]"),this.$searchField=this.$searchForm.find("[type=search]"),this.$fragmentLink=t('a[href^="#"]')},cacheData:function(){this.fromTop=this.$window.scrollTop(),this.vw=e.getViewportWidth(),this.vh=e.getViewportHeight()},demoRestApiCall:function(){var t=e.rest.post("route-name",{key:"val"});t.always(function(t){console.log("always",t)}),t.fail(function(t){console.log("fail",t)}),t.done(function(t){console.log("done",t)})},indicateJavaScript:function(){this.$html.addClass("js").removeClass("no-js")},indicateBrowser:function(){e.isMobile()?this.$html.addClass("is-mobile"):(e.isIE()&&this.$html.addClass("is-ie"),e.isEdge()&&this.$html.addClass("is-edge"))},accommodateAdminbar:function(){var t=this.$wpAdminbar.outerHeight()-Math.abs(this.$wpAdminbar.css("top"));this.$wpAdminbar.length&&this.fromTop<60&&this.$body.css("top",t)},initFitvids:function(){this.$body.fitVids()},bindEvents:function(){this.$window.on("resize",t.proxy(this.onWindowResize,this)),this.$window.on("scroll",t.proxy(this.onWindowScroll,this)),this.$offCanvasToggle.on("click",t.proxy(this.onOffCanvasToggleClick,this)),this.$searchSubmit.on("click",t.proxy(this.preventEmptySearches,this)),this.$fragmentLink.on("click",t.proxy(this.onFragmentLinkClick,this))},onWindowResize:_.debounce(function(t){this.vw=e.getViewportWidth(),this.vh=e.getViewportHeight(),this.accommodateAdminbar()},200),onWindowScroll:function(t){this.fromTop=this.$window.scrollTop(),this.fromTop>250?this.$body.addClass("primeraCssPrefix-elems-are-visible"):this.$body.removeClass("primeraCssPrefix-elems-are-visible"),this.accommodateAdminbar()},onOffCanvasToggleClick:function(t){t.preventDefault(),this.$body.toggleClass("primeraCssPrefix-off-canvas-active")},preventEmptySearches:function(t){""===this.$searchField.val()&&t.preventDefault()},onFragmentLinkClick:function(i){i.preventDefault();var e=i.target.hash,n=t(i.target).data("scroll"),o="#top"===e?this.$html:t(e);if(n&&o.length&&e.length>1){var r=o.offset().top-this.$header.outerHeight(),s="#top"===e?0:Math.max(0,r);this.$html.add(this.$body).stop().animate({scrollTop:s},800,"swing")}}};t(document).on("ready",function(t){o.init()})}(jQuery,window.wp,window.primeraFunctionPrefixUtil||{},window.primeraFunctionPrefixLocalizedData)}();
+(function () {
+  'use strict';
+
+  /**
+   * Checks if `value` is the
+   * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+   * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+   *
+   * @static
+   * @memberOf _
+   * @since 0.1.0
+   * @category Lang
+   * @param {*} value The value to check.
+   * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+   * @example
+   *
+   * _.isObject({});
+   * // => true
+   *
+   * _.isObject([1, 2, 3]);
+   * // => true
+   *
+   * _.isObject(_.noop);
+   * // => true
+   *
+   * _.isObject(null);
+   * // => false
+   */
+  function isObject(value) {
+    var type = typeof value;
+    return value != null && (type == 'object' || type == 'function');
+  }
+
+  var isObject_1 = isObject;
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  /** Detect free variable `global` from Node.js. */
+
+  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+  var _freeGlobal = freeGlobal;
+
+  /** Detect free variable `self`. */
+
+  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+  /** Used as a reference to the global object. */
+
+  var root = _freeGlobal || freeSelf || Function('return this')();
+  var _root = root;
+
+  /**
+   * Gets the timestamp of the number of milliseconds that have elapsed since
+   * the Unix epoch (1 January 1970 00:00:00 UTC).
+   *
+   * @static
+   * @memberOf _
+   * @since 2.4.0
+   * @category Date
+   * @returns {number} Returns the timestamp.
+   * @example
+   *
+   * _.defer(function(stamp) {
+   *   console.log(_.now() - stamp);
+   * }, _.now());
+   * // => Logs the number of milliseconds it took for the deferred invocation.
+   */
+
+  var now = function () {
+    return _root.Date.now();
+  };
+
+  var now_1 = now;
+
+  /** Built-in value references. */
+
+  var Symbol = _root.Symbol;
+  var _Symbol = Symbol;
+
+  /** Used for built-in method references. */
+
+  var objectProto = Object.prototype;
+  /** Used to check objects for own properties. */
+
+  var hasOwnProperty = objectProto.hasOwnProperty;
+  /**
+   * Used to resolve the
+   * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+   * of values.
+   */
+
+  var nativeObjectToString = objectProto.toString;
+  /** Built-in value references. */
+
+  var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+  /**
+   * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+   *
+   * @private
+   * @param {*} value The value to query.
+   * @returns {string} Returns the raw `toStringTag`.
+   */
+
+  function getRawTag(value) {
+    var isOwn = hasOwnProperty.call(value, symToStringTag),
+        tag = value[symToStringTag];
+
+    try {
+      value[symToStringTag] = undefined;
+      var unmasked = true;
+    } catch (e) {}
+
+    var result = nativeObjectToString.call(value);
+
+    if (unmasked) {
+      if (isOwn) {
+        value[symToStringTag] = tag;
+      } else {
+        delete value[symToStringTag];
+      }
+    }
+
+    return result;
+  }
+
+  var _getRawTag = getRawTag;
+
+  /** Used for built-in method references. */
+  var objectProto$1 = Object.prototype;
+  /**
+   * Used to resolve the
+   * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+   * of values.
+   */
+
+  var nativeObjectToString$1 = objectProto$1.toString;
+  /**
+   * Converts `value` to a string using `Object.prototype.toString`.
+   *
+   * @private
+   * @param {*} value The value to convert.
+   * @returns {string} Returns the converted string.
+   */
+
+  function objectToString(value) {
+    return nativeObjectToString$1.call(value);
+  }
+
+  var _objectToString = objectToString;
+
+  /** `Object#toString` result references. */
+
+  var nullTag = '[object Null]',
+      undefinedTag = '[object Undefined]';
+  /** Built-in value references. */
+
+  var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
+  /**
+   * The base implementation of `getTag` without fallbacks for buggy environments.
+   *
+   * @private
+   * @param {*} value The value to query.
+   * @returns {string} Returns the `toStringTag`.
+   */
+
+  function baseGetTag(value) {
+    if (value == null) {
+      return value === undefined ? undefinedTag : nullTag;
+    }
+
+    return symToStringTag$1 && symToStringTag$1 in Object(value) ? _getRawTag(value) : _objectToString(value);
+  }
+
+  var _baseGetTag = baseGetTag;
+
+  /**
+   * Checks if `value` is object-like. A value is object-like if it's not `null`
+   * and has a `typeof` result of "object".
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Lang
+   * @param {*} value The value to check.
+   * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+   * @example
+   *
+   * _.isObjectLike({});
+   * // => true
+   *
+   * _.isObjectLike([1, 2, 3]);
+   * // => true
+   *
+   * _.isObjectLike(_.noop);
+   * // => false
+   *
+   * _.isObjectLike(null);
+   * // => false
+   */
+  function isObjectLike(value) {
+    return value != null && typeof value == 'object';
+  }
+
+  var isObjectLike_1 = isObjectLike;
+
+  /** `Object#toString` result references. */
+
+  var symbolTag = '[object Symbol]';
+  /**
+   * Checks if `value` is classified as a `Symbol` primitive or object.
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Lang
+   * @param {*} value The value to check.
+   * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+   * @example
+   *
+   * _.isSymbol(Symbol.iterator);
+   * // => true
+   *
+   * _.isSymbol('abc');
+   * // => false
+   */
+
+  function isSymbol(value) {
+    return typeof value == 'symbol' || isObjectLike_1(value) && _baseGetTag(value) == symbolTag;
+  }
+
+  var isSymbol_1 = isSymbol;
+
+  /** Used as references for various `Number` constants. */
+
+  var NAN = 0 / 0;
+  /** Used to match leading and trailing whitespace. */
+
+  var reTrim = /^\s+|\s+$/g;
+  /** Used to detect bad signed hexadecimal string values. */
+
+  var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+  /** Used to detect binary string values. */
+
+  var reIsBinary = /^0b[01]+$/i;
+  /** Used to detect octal string values. */
+
+  var reIsOctal = /^0o[0-7]+$/i;
+  /** Built-in method references without a dependency on `root`. */
+
+  var freeParseInt = parseInt;
+  /**
+   * Converts `value` to a number.
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Lang
+   * @param {*} value The value to process.
+   * @returns {number} Returns the number.
+   * @example
+   *
+   * _.toNumber(3.2);
+   * // => 3.2
+   *
+   * _.toNumber(Number.MIN_VALUE);
+   * // => 5e-324
+   *
+   * _.toNumber(Infinity);
+   * // => Infinity
+   *
+   * _.toNumber('3.2');
+   * // => 3.2
+   */
+
+  function toNumber(value) {
+    if (typeof value == 'number') {
+      return value;
+    }
+
+    if (isSymbol_1(value)) {
+      return NAN;
+    }
+
+    if (isObject_1(value)) {
+      var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+      value = isObject_1(other) ? other + '' : other;
+    }
+
+    if (typeof value != 'string') {
+      return value === 0 ? value : +value;
+    }
+
+    value = value.replace(reTrim, '');
+    var isBinary = reIsBinary.test(value);
+    return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+  }
+
+  var toNumber_1 = toNumber;
+
+  /** Error message constants. */
+
+  var FUNC_ERROR_TEXT = 'Expected a function';
+  /* Built-in method references for those with the same name as other `lodash` methods. */
+
+  var nativeMax = Math.max,
+      nativeMin = Math.min;
+  /**
+   * Creates a debounced function that delays invoking `func` until after `wait`
+   * milliseconds have elapsed since the last time the debounced function was
+   * invoked. The debounced function comes with a `cancel` method to cancel
+   * delayed `func` invocations and a `flush` method to immediately invoke them.
+   * Provide `options` to indicate whether `func` should be invoked on the
+   * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+   * with the last arguments provided to the debounced function. Subsequent
+   * calls to the debounced function return the result of the last `func`
+   * invocation.
+   *
+   * **Note:** If `leading` and `trailing` options are `true`, `func` is
+   * invoked on the trailing edge of the timeout only if the debounced function
+   * is invoked more than once during the `wait` timeout.
+   *
+   * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+   * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+   *
+   * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+   * for details over the differences between `_.debounce` and `_.throttle`.
+   *
+   * @static
+   * @memberOf _
+   * @since 0.1.0
+   * @category Function
+   * @param {Function} func The function to debounce.
+   * @param {number} [wait=0] The number of milliseconds to delay.
+   * @param {Object} [options={}] The options object.
+   * @param {boolean} [options.leading=false]
+   *  Specify invoking on the leading edge of the timeout.
+   * @param {number} [options.maxWait]
+   *  The maximum time `func` is allowed to be delayed before it's invoked.
+   * @param {boolean} [options.trailing=true]
+   *  Specify invoking on the trailing edge of the timeout.
+   * @returns {Function} Returns the new debounced function.
+   * @example
+   *
+   * // Avoid costly calculations while the window size is in flux.
+   * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+   *
+   * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+   * jQuery(element).on('click', _.debounce(sendMail, 300, {
+   *   'leading': true,
+   *   'trailing': false
+   * }));
+   *
+   * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+   * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+   * var source = new EventSource('/stream');
+   * jQuery(source).on('message', debounced);
+   *
+   * // Cancel the trailing debounced invocation.
+   * jQuery(window).on('popstate', debounced.cancel);
+   */
+
+  function debounce(func, wait, options) {
+    var lastArgs,
+        lastThis,
+        maxWait,
+        result,
+        timerId,
+        lastCallTime,
+        lastInvokeTime = 0,
+        leading = false,
+        maxing = false,
+        trailing = true;
+
+    if (typeof func != 'function') {
+      throw new TypeError(FUNC_ERROR_TEXT);
+    }
+
+    wait = toNumber_1(wait) || 0;
+
+    if (isObject_1(options)) {
+      leading = !!options.leading;
+      maxing = 'maxWait' in options;
+      maxWait = maxing ? nativeMax(toNumber_1(options.maxWait) || 0, wait) : maxWait;
+      trailing = 'trailing' in options ? !!options.trailing : trailing;
+    }
+
+    function invokeFunc(time) {
+      var args = lastArgs,
+          thisArg = lastThis;
+      lastArgs = lastThis = undefined;
+      lastInvokeTime = time;
+      result = func.apply(thisArg, args);
+      return result;
+    }
+
+    function leadingEdge(time) {
+      // Reset any `maxWait` timer.
+      lastInvokeTime = time; // Start the timer for the trailing edge.
+
+      timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
+
+      return leading ? invokeFunc(time) : result;
+    }
+
+    function remainingWait(time) {
+      var timeSinceLastCall = time - lastCallTime,
+          timeSinceLastInvoke = time - lastInvokeTime,
+          timeWaiting = wait - timeSinceLastCall;
+      return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
+    }
+
+    function shouldInvoke(time) {
+      var timeSinceLastCall = time - lastCallTime,
+          timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
+      // trailing edge, the system time has gone backwards and we're treating
+      // it as the trailing edge, or we've hit the `maxWait` limit.
+
+      return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+    }
+
+    function timerExpired() {
+      var time = now_1();
+
+      if (shouldInvoke(time)) {
+        return trailingEdge(time);
+      } // Restart the timer.
+
+
+      timerId = setTimeout(timerExpired, remainingWait(time));
+    }
+
+    function trailingEdge(time) {
+      timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
+      // debounced at least once.
+
+      if (trailing && lastArgs) {
+        return invokeFunc(time);
+      }
+
+      lastArgs = lastThis = undefined;
+      return result;
+    }
+
+    function cancel() {
+      if (timerId !== undefined) {
+        clearTimeout(timerId);
+      }
+
+      lastInvokeTime = 0;
+      lastArgs = lastCallTime = lastThis = timerId = undefined;
+    }
+
+    function flush() {
+      return timerId === undefined ? result : trailingEdge(now_1());
+    }
+
+    function debounced() {
+      var time = now_1(),
+          isInvoking = shouldInvoke(time);
+      lastArgs = arguments;
+      lastThis = this;
+      lastCallTime = time;
+
+      if (isInvoking) {
+        if (timerId === undefined) {
+          return leadingEdge(lastCallTime);
+        }
+
+        if (maxing) {
+          // Handle invocations in a tight loop.
+          timerId = setTimeout(timerExpired, wait);
+          return invokeFunc(lastCallTime);
+        }
+      }
+
+      if (timerId === undefined) {
+        timerId = setTimeout(timerExpired, wait);
+      }
+
+      return result;
+    }
+
+    debounced.cancel = cancel;
+    debounced.flush = flush;
+    return debounced;
+  }
+
+  var debounce_1 = debounce;
+
+  var $ = window.jQuery || {};
+  var wp = window.wp || {};
+  var $win = jQuery(window);
+  var $doc = jQuery(document);
+  var vh = document.body.clientHeight;
+  var vw = document.body.clientWidth;
+  var fromTop = $win.scrollTop();
+  window.addEventListener('resize', debounce_1(function (event) {
+    vh = document.body.clientHeight;
+    vw = document.body.clientWidth;
+  }, 100));
+  document.addEventListener('scroll', debounce_1(function (event) {
+    fromTop = $win.scrollTop();
+  }, 100));
+
+  /** Primera theme */
+
+  var app = {
+    init: function init() {
+      app.cacheProps();
+      app.bindEvents();
+    },
+    cacheProps: function cacheProps() {},
+    bindEvents: function bindEvents() {
+      $doc.on('click', 'body', app.doSomething);
+    },
+    doSomething: function doSomething(e) {
+      e.preventDefault();
+      console.log(app);
+    }
+  };
+  app.init();
+
+}());
 //# sourceMappingURL=app.js.map
