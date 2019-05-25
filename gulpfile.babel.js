@@ -23,10 +23,23 @@ const easings        = require('postcss-easings');
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
 const rollupCommonjs = require('rollup-plugin-commonjs');
-const rollupUglify   = require('rollup-plugin-uglify-es');
+// const rollupUglify   = require('rollup-plugin-uglify-es');
 const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 
 let config = {};
+
+/**
+* Build.
+*/
+const build = done => {
+    // minify scripts
+    // make pot file
+    // shift off dev files
+    // zip build files
+};
+const deploy = done => {
+    // push to git branch that deploys to server
+};
 
 /**
 * Process JS.
@@ -44,7 +57,7 @@ const processJs = done => {
                 rollupResolveNodeModules(),
                 rollupCommonjs(),
                 rollupBabel(),
-                rollupUglify(),
+                // rollupUglify(),
             ]
         })
         .then(bundle => {
@@ -78,8 +91,8 @@ const processCss = done => {
             // tailwindcss('./tailwind.js'),
             tailwindcss(),
             autoprefixer(),
-            easings(),
-            cssnano({ zindex : false }),
+            // easings(),
+            // cssnano({ zindex : false }),
             // mqpacker(),
         ]))
         // .pipe(gulp.dest(config.destFolder))
@@ -142,7 +155,7 @@ const reloadBrowser = ( done ) => {
 * The paths must be absolute (not realtive ./) for newly added files to be recognized during watch.
 * https://github.com/sindresorhus/gulp-ruby-sass/issues/11#issuecomment-33660887
 */
-const doWatch = () => {
+const watchFiles = () => {
 
     watch('source/js/**/*.js', processJs);
     watch('source/scss/**/*.scss', processCss);
@@ -150,7 +163,7 @@ const doWatch = () => {
 
 exports.default = series(
     parallel(processCss, processJs),
-    parallel(initBrowserSync, doWatch)
+    parallel(initBrowserSync, watchFiles)
 );
 
 exports.js = series(
