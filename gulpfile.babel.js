@@ -76,6 +76,7 @@ const processCss = done => {
         .pipe(sass({ outputStyle: 'expanded' }))
         .pipe(postcss([
             // tailwindcss('./tailwind.js'),
+            tailwindcss(),
             autoprefixer(),
             easings(),
             cssnano({ zindex : false }),
