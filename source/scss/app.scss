@@ -1,3 +1,9 @@
 @charset "UTF-8";
 
-@import "shared/wp";
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+// @import "shared/wp";
