@@ -16,6 +16,7 @@ function asset( string $filePath ): string
 }
 endif;
 
+// Check if SSL is enabled.
 if (! function_exists('isSsl')) :
 function isSsl()
 {
