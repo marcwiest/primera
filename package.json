@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp --gulpfile config/gulp.js",
     "dev": "cross-env NODE_ENV=development npm run start -- dev",
-    "build": "cross-env NODE_ENV=build npm run start -- build",
-    "prod": "cross-env NODE_ENV=production npm run start -- build"
+    "build": "cross-env NODE_ENV=build npm run start -- build"
   },
   "repository": {
     "type": "git",
