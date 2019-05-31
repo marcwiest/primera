@@ -91,6 +91,7 @@ const processCss = done => {
             // tailwindcss('./tailwind.js'),
             tailwindcss(),
             autoprefixer(),
+            // github.com/ai/webp-in-css/
             // easings(),
             // cssnano({ zindex : false }),
             // mqpacker(),
