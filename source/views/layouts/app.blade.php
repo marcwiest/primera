@@ -3,34 +3,36 @@
 <head>
 	<meta charset="utf-8">
 	@php wp_head() @endphp
-    @stack('head')
+    {{-- @stack('head') --}}
 </head>
 <body @php body_class() @endphp>
 
 @php wp_body_open() @endphp
 
-<noscript id="primera-noscript">This app works best with JavaScript enabled.</noscript>
+@stack('before-app')
 
 <div class="app" role="document">
 
-    @include('partials.navbar')
+    @stack('app-open')
+    {{-- @include('components.navbar') --}}
 
     <div class="content">
         <main class="main" role="main">
-            @yield('content')
+            @stack('main-content')
         </main>
         {{-- @if (App\display_sidebar())
             <aside class="sidebar">
-                @include('partials.sidebar')
+                @include('components.sidebar')
             </aside>
         @endif --}}
     </div>
 
-    @include('partials.footer')
+    @stack('app-close')
+    {{-- @include('components.footer') --}}
 
 </div>
 
-@yield('offsite')
+@stack('after-app')
 
 @php wp_footer() @endphp
 
