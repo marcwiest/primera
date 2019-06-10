@@ -5,6 +5,6 @@
     <div class="auxiliary">
     </div>
     <div class="colophon">
-        <p><small>&copy; {{ date_i18n('Y') }} {{ $site['name'] }}</small></p>
+        <p><small>&copy; {{ $currentYear }} {{ $site['name'] }}</small></p>
     </div>
 </footer>

@@ -7,32 +7,39 @@ namespace App\Controllers;
 use Sober\Controller\Controller;
 
 // Exit if accessed directly.
-defined('ABSPATH') || exit;
+defined('WPINC') || exit;
 
 class App extends Controller
 {
-    public function site(): array
+    public function site_name(): string
     {
-        return [
-            'name'        => get_bloginfo( 'name', 'display' ),
-            'description' => get_bloginfo( 'description', 'display' ),
-            'charset'     => get_bloginfo( 'charset', 'display' ),
-        ];
+        return get_bloginfo( 'name', 'display' );
     }
 
-    public function header(): array
+    public function site_desc(): string
     {
-        return [
-            'logoUrl'         => '',
-            'primaryNavItems' => wp_get_nav_menu_items( 'primary', [
-                'order'       => 'ASC',
-                'orderby'     => 'menu_order',
-                'post_type'   => 'nav_menu_item',
-                'post_status' => 'publish',
-                'output'      => ARRAY_A,
-                'output_key'  => 'menu_order',
-                'nopaging'    => true,
-            ]),
-        ];
+        return get_bloginfo( 'description', 'display' );
+    }
+
+    public function logo_url(): string
+    {
+        return '';
+    }
+
+    public function current_year(): string
+    {
+        return date_i18n('Y');
+    }
+
+    public function primary_nav(): string
+    {
+        return wp_nav_menu([
+            'theme_location' => 'primary',
+            'depth'          => 1,
+            'container'      => false,
+            'fallback_cb'    => false,
+            'echo'           => false,
+            'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+        ]);
     }
 }

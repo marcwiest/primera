@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // Exit if accessed directly.
-defined('ABSPATH') || exit;
+defined('WPINC') || exit;
 
 /**
 * Handles frontend & theme setup.

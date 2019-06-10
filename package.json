@@ -2,7 +2,7 @@
   "name": "primera",
   "version": "1.0.0",
   "description": "Sophisticated WordPress theme boilerplate.",
-  "main": "index.js",
+  "main": "public/js/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp --gulpfile config/gulp.js",
@@ -28,6 +28,11 @@
     "url": "https://github.com/marcwiest/primera/issues"
   },
   "homepage": "https://github.com/marcwiest/primera#readme",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
@@ -61,10 +66,5 @@
     "rollup-plugin-uglify": "^6.0.2",
     "rollup-plugin-uglify-es": "0.0.1",
     "tailwindcss": "^1.0.1"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   }
 }

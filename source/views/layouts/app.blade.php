@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html class="no-js" {!! get_language_attributes() !!}>
 <head>
-	<meta charset="utf-8">
+	<meta charset="{!! get_bloginfo('charset') !!}">
 	@php wp_head() @endphp
-    {{-- @stack('head') --}}
 </head>
 <body @php body_class() @endphp>
 
@@ -11,13 +10,13 @@
 
 @stack('before-app')
 
-<div class="app" role="document">
+<div class="app @stack('app-class')" role="document">
 
     @stack('app-open')
     {{-- @include('components.navbar') --}}
 
-    <div class="content">
-        <main class="main" role="main">
+    <div class="@stack('content-class')">
+        <main class="@stack('main-class')" role="main">
             @stack('main-content')
         </main>
         {{-- @if (App\display_sidebar())

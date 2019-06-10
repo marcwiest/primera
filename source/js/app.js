@@ -21,7 +21,7 @@ const app = {
     },
 
     doSomething: e => {
-        e.preventDefault();
+        // e.preventDefault();
         console.log(app);
     }
 };
