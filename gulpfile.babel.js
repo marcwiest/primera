@@ -131,6 +131,7 @@ const initBrowserSync = done => {
         notify: false,
         open: false,
         files: [
+            "./app/**/*.php",
             "./source/views/**/*.blade.php",
             "./public/css/**/*.css",
             "./public/js/**/*.js",
