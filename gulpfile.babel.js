@@ -131,8 +131,8 @@ const initBrowserSync = done => {
         notify: false,
         open: false,
         files: [
-            "./app/**/*.php",
-            "./source/views/**/*.blade.php",
+            // "./app/**/*.php",
+            // "./source/views/**/*.blade.php",
             "./public/css/**/*.css",
             "./public/js/**/*.js",
             "./public/img/**/*",
@@ -161,6 +161,8 @@ const watchFiles = () => {
 
     watch('source/js/**/*.js', processJs);
     watch('source/scss/**/*.scss', processCss);
+    // NOTE: PHP files need a solid reload, for the styles to be accurate.
+    watch('**/**/*.php', reloadBrowser);
 };
 
 exports.default = series(
