@@ -1,31 +1,42 @@
-/*!* Primera theme */
-
 // import './vendor/fitvids';
 // import _ from './_lodash';
-import { $, $win, $doc, wp, vh, vw, fromTop } from './_globals';
+import debounce from 'lodash/debounce';
 import twConfig from '../../tailwind.config.js';
 // import util from './utils';
 
-const app = {
+'use strict';
 
-    init: () => {
-        app.cacheProps();
-        app.bindEvents();
-    },
+// Cache properties.
+const $ = window.jQuery || {};
+const wp = window.wp || {};
+const root = document.documentElement;
+const $window = $(window);
+const $document = $(document);
+const $body = $('body');
+const $wpadminbar = $('#wpadminbar');
+let wpadminbarHeight = $wpadminbar.outerHeight() || 0;
+let scrollTop = $window.scrollTop();
 
-    cacheProps: () => {
-    },
+// Init app.
+initCssProps();
 
-    bindEvents: () => {
-        $doc.on('click', app.doSomething);
-    },
+// Bind events.
+$window.on('scroll', doWindowScroll);
+$window.on('resize', doWindowResize);
 
-    doSomething: e => {
-        // e.preventDefault();
-        console.log(app);
-    }
+// Update CSS custom properties.
+let initCssProps = () => {
+    root.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
 };
 
-app.init();
+// Window scroll event handler.
+let doWindowScroll = debounce( e => {
+    scrollTop = $window.scrollTop();
+}, 10 );
 
-
+// Window resize event handler.
+let doWindowResize = debounce( e => {
+    scrollTop = $window.scrollTop();
+    wpadminbarHeight = $wpadminbar.outerHeight() || 0;
+    root.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+}, 10 );
