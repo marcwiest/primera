@@ -1,7 +1,7 @@
 // import './vendor/fitvids';
 // import _ from './_lodash';
 import debounce from 'lodash/debounce';
-import twConfig from '../../tailwind.config.js';
+import tailwind from '../../tailwind.config.js';
 // import util from './utils';
 
 'use strict';
@@ -9,34 +9,55 @@ import twConfig from '../../tailwind.config.js';
 // Cache properties.
 const $ = window.jQuery || {};
 const wp = window.wp || {};
-const root = document.documentElement;
+const docElem = document.documentElement; // :root in CSS
 const $window = $(window);
 const $document = $(document);
 const $body = $('body');
 const $wpadminbar = $('#wpadminbar');
-let wpadminbarHeight = $wpadminbar.outerHeight() || 0;
+const enquire = window.enquire || (() => {});
+const mq = {
+    // NOTE: These should match the `tailwind.config.js`.
+    // mobileOnly: `(screen and max-width:599px)`,
+    sm: `(screen and min-width:${tailwind.theme.screens.sm})`,
+    md: `(screen and min-width:${tailwind.theme.screens.md})`,
+    lg: `(screen and min-width:${tailwind.theme.screens.lg})`,
+};
+let wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
 let scrollTop = $window.scrollTop();
 
-// Init app.
-initCssProps();
+// Setup jQuery AJAX.
+$.ajaxSetup({
+    headers: {
+        // TODO: Add REST API token:
+        // Automates the passing of the CSRF token. No need to supply it to every AJAX call.
+        // 'X-CSRF-TOKEN': csrfToken
+    }
+});
 
-// Bind events.
-$window.on('scroll', doWindowScroll);
-$window.on('resize', doWindowResize);
+// Setup CSS custom properties.
+if (docElem.style && docElem.style.setProperty) {
+    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+}
 
-// Update CSS custom properties.
-let initCssProps = () => {
-    root.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-};
-
-// Window scroll event handler.
-let doWindowScroll = debounce( e => {
+// Listen to scroll event.
+$window.on('scroll', debounce(e => {
     scrollTop = $window.scrollTop();
-}, 10 );
+}, 25));
 
-// Window resize event handler.
-let doWindowResize = debounce( e => {
+// Listen to resize event.
+$window.on('resize', debounce(e => {
     scrollTop = $window.scrollTop();
-    wpadminbarHeight = $wpadminbar.outerHeight() || 0;
-    root.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-}, 10 );
+    wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
+    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+}, 25));
+
+// Listen to media queries.
+enquire.register(mq.sm, {
+    deferSetup: true, // defers setup callback until a match occurs
+    setup: () => {},
+    match: () => {},
+    unmatch: () => {},
+});
+
+// Bind application events.
+// ...

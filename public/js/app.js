@@ -486,40 +486,70 @@
 
   var debounce_1 = debounce;
 
-  var wp = window.wp || {};
-  var $ = window.jQuery || {};
-  var $win = jQuery(window);
-  var $doc = jQuery(document);
-  var vh = document.body.clientHeight;
-  var vw = document.body.clientWidth;
-  var fromTop = $win.scrollTop();
-  window.addEventListener('resize', debounce_1(function (event) {
-    vh = document.body.clientHeight;
-    vw = document.body.clientWidth;
-  }, 100));
-  document.addEventListener('scroll', debounce_1(function (event) {
-    fromTop = $win.scrollTop();
-  }, 100));
-
   // tailwindcss.com/docs/configuration
-
-  /** Primera theme */
-
-  var app = {
-    init: function init() {
-      app.cacheProps();
-      app.bindEvents();
-    },
-    cacheProps: function cacheProps() {},
-    bindEvents: function bindEvents() {
-      $doc.on('click', app.doSomething);
-    },
-    doSomething: function doSomething(e) {
-      e.preventDefault();
-      console.log(app);
+  var tailwind_config = {
+    theme: {
+      screens: {
+        sm: '600px',
+        md: '900px',
+        lg: '1200px'
+      }
     }
   };
-  app.init();
+
+  // import './vendor/fitvids';
+
+
+  var $ = window.jQuery || {};
+  var wp = window.wp || {};
+  var docElem = document.documentElement;
+  var $window = $(window);
+  var $document = $(document);
+  var $body = $('body');
+  var $wpadminbar = $('#wpadminbar');
+
+  var enquire = window.enquire || function () {};
+
+  var mq = {
+    // NOTE: These should match the `tailwind.config.js`.
+    // mobileOnly: `(screen and max-width:599px)`,
+    sm: "(screen and min-width:".concat(tailwind_config.theme.screens.sm, ")"),
+    md: "(screen and min-width:".concat(tailwind_config.theme.screens.md, ")"),
+    lg: "(screen and min-width:".concat(tailwind_config.theme.screens.lg, ")")
+  };
+  var wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
+  var scrollTop = $window.scrollTop(); // Setup jQuery AJAX.
+
+  $.ajaxSetup({
+    headers: {// TODO: Add REST API token:
+      // Automates the passing of the CSRF token. No need to supply it to every AJAX call.
+      // 'X-CSRF-TOKEN': csrfToken
+    }
+  }); // Setup CSS custom properties.
+
+  if (docElem.style && docElem.style.setProperty) {
+    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+  } // Listen to scroll event.
+
+
+  $window.on('scroll', debounce_1(function (e) {
+    scrollTop = $window.scrollTop();
+  }, 25)); // Listen to resize event.
+
+  $window.on('resize', debounce_1(function (e) {
+    scrollTop = $window.scrollTop();
+    wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
+    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+  }, 25)); // Listen to media queries.
+
+  enquire.register(mq.sm, {
+    deferSetup: true,
+    // defers setup callback until a match occurs
+    setup: function setup() {},
+    match: function match() {},
+    unmatch: function unmatch() {}
+  }); // Bind application events.
+  // ...
 
 }());
 //# sourceMappingURL=app.js.map
