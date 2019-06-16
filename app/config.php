@@ -247,14 +247,14 @@ function _registerScripts()
             'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js',
             'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fitvids.js' ),
             'deps'     => ['jquery'],
-            'attr'     => 'async',
+            'attr'     => 'defer',
         ],
 
         // fontawesome.com/
         'primeraFunctionPrefix-fontawesome' => [
             'cdnUrl'   => 'https://use.fontawesome.com/releases/v5.0.13/js/all.js',
             'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fontawesome.js' ),
-            'attr'     => 'async',
+            'attr'     => 'defer',
         ],
 
         // kenwheeler.github.io/slick/
@@ -262,7 +262,7 @@ function _registerScripts()
             'cdnUrl'   => 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js',
             'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/slickslider.js' ),
             'deps'     => ['jquery'],
-            'attr'     => 'async',
+            'attr'     => 'defer',
         ],
 
         // fancyapps.com/fancybox/3/
@@ -270,7 +270,7 @@ function _registerScripts()
             'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js',
             'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/fancybox.js' ),
             'deps'     => ['jquery'],
-            'attr'     => 'async',
+            'attr'     => 'defer',
         ],
 
         // formvalidator.net/
@@ -278,7 +278,15 @@ function _registerScripts()
             'cdnUrl'   => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
             'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/formvalidator.js' ),
             'deps'     => ['jquery'],
-            'attr'     => 'async',
+            'attr'     => 'defer',
+        ],
+
+        // github.com/WickyNilliams/enquire.js
+        'primeraFunctionPrefix-enquire' => [
+            'cdnUrl'   => 'https://cdn.jsdelivr.net/npm/enquire.js@2.1.6/dist/enquire.min.js',
+            'localUrl' => get_parent_theme_file_uri( 'public/js/vendor/enquire.js' ),
+            'deps'     => ['jquery'],
+            'attr'     => 'defer',
         ],
     ];
 
