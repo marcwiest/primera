@@ -68,6 +68,33 @@ function envName( $allowServerName=false )
 endif;
 
 /**
+* Get related posts by category example.
+*/
+function getRelatedPostsExample( $amount=4 )
+{
+    global $post;
+
+    if ( ! $post ) {
+        the_post();
+    }
+
+    if ( ! $cats = wp_get_post_categories( $post->ID ) ) {
+        return [];
+    }
+
+    $catIds = '';
+    foreach ( $cats as $cat ) {
+        $catIds .= "$cat,";
+    }
+
+    return get_posts([
+        'cat'          => $catIds,
+        'numberposts'  => $amount,
+        'post__not_in' => [$post->ID],
+    ]);
+}
+
+/**
 * Get yoast primary (or 1st found) category.
 */
 function getYoastPrimaryCategory( $postId=0 )
