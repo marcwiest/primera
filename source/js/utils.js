@@ -4,10 +4,27 @@ const $  = window.jQuery || {};
 const wp = window.wp || {};
 const localizedData = window.primeraFunctionPrefixLocalizedData || {};
 
+// gist.github.com/wesbos/8b9a22adc1f60336a699
+let supportsCssCustomProps = (function () {
+    var color = 'rgb(255, 198, 0)';
+    var el = document.createElement('span');
+
+    el.style.setProperty('--color', color);
+    el.style.setProperty('background', 'var(--color)');
+    document.body.appendChild(el);
+
+    var styles = getComputedStyle(el);
+    var doesSupport = styles.backgroundColor === color;
+    document.body.removeChild(el);
+
+    return doesSupport;
+})();
+
 // (function( $, wp, localizedData ) {
     // 'use strict';
 
     //window.primeraFunctionPrefixUtil =
+    export { supportsCssCustomProps };
     export default {
 
         rest : {
