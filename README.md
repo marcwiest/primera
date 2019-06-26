@@ -5,8 +5,6 @@
 
 See `./vendor/illuminate/support/helpers.php` for additional helper functions.
 
-https://wptavern.com/the-most-common-wordpress-theme-development-mistakes-and-how-to-fix-them
-
 ---
 
 
