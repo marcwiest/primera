@@ -8,5 +8,3 @@
         <p><small>&copy; {{ $currentYear }} {{ $site['name'] }}</small></p>
     </div>
 </footer>
-
-@php wp_footer(); @endphp
