@@ -3,7 +3,7 @@
 
 namespace App;
 
-// NOTE: Example code to load setups for only for specific templates.
+// NOTE: Example code to load setups only for specific templates.
 // use Brain\Hierarchy\Hierarchy;
 // global $wp_query;
 // $hierarchy = new Hierarchy;
