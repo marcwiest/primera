@@ -4,7 +4,7 @@
 * Helper function for prettying up errors.
 * @param string $message
 * @param string $subtitle
-* @param string $titlef
+* @param string $title
 */
 $primeraError = function( $message, $subtitle='', $title='' ) {
     $title = $title ?: __('Primera &raquo; Error', 'primeraTextdomain');
