@@ -1,11 +1,11 @@
 {
     "require": {
         "php": "^7.1.3",
-        "illuminate/support": "5.6.*",
-        "composer/installers": "~1.0",
+        "illuminate/support": "^5.8",
+        "composer/installers": "^1.0",
         "brain/hierarchy": "^2.4",
-        "soberwp/controller": "^2.1",
-        "eftec/bladeone": "^3.24",
+        "soberwp/controller": "2.1.*",
+        "eftec/bladeone": "^3.30",
         "wpackagist-plugin/wp-featherlight": "dev-trunk",
         "wpackagist-plugin/url-params": "dev-trunk",
         "wpackagist-plugin/duplicate-post": "dev-trunk",
