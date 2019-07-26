@@ -11,6 +11,11 @@ defined('WPINC') || exit;
 
 class App extends Controller
 {
+    // Runs after this->data is set up, but before the class methods are run.
+    // public function __before() {}
+    // Runs after all the class methods have run.
+    // public function __after() {}
+
     public function site_name(): string
     {
         return get_bloginfo( 'name', 'display' );
