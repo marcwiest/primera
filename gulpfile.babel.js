@@ -1,6 +1,8 @@
 
 const { src, dest, watch, series, parallel } = require('gulp');
 
+const fs             = require('fs');
+const path           = require('path');
 const autoprefixer   = require('autoprefixer');
 const browsersync    = require('browser-sync').create();
 const mqpacker       = require('css-mqpacker');
@@ -26,50 +28,42 @@ const rollupCommonjs = require('rollup-plugin-commonjs');
 // const rollupUglify   = require('rollup-plugin-uglify-es');
 const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 
-let config = {};
-
-/**
-* Build.
-*/
-const build = done => {
-    // minify scripts
-    // make pot file
-    // shift off dev files
-    // zip build files
-};
-const deploy = done => {
-    // push to git branch that deploys to server
-};
-
 /**
 * Process JS.
 */
 const processJs = done => {
 
-    config = {
-        sourceFiles: ['./source/js/app.js'],
-        destFolder: './public/js/app.js',
-    };
+    fs.readdirSync('./source/js').forEach(file => {
 
-    return rollup.rollup({
-            input: config.sourceFiles,
-            plugins: [
-                rollupResolveNodeModules(),
-                rollupCommonjs(),
-                rollupBabel(),
-                // rollupUglify(),
-            ]
-        })
-        .then(bundle => {
-            return bundle.write({
-                file: config.destFolder,
-                // format: 'umd',
-                // name: 'app',
-                format: 'iife',
-                sourcemap: true,
-            });
-        })
-        .then(browsersync.stream());
+        if ( file.indexOf('_') === 0 ) {
+            return;
+        }
+
+        let ext = path.extname(file)
+
+        if ( ext === '.jsx' || ext === '.js' || ext === '.es' ) {
+
+            rollup.rollup({
+                input: `./source/js/${file}`,
+                plugins: [
+                    rollupResolveNodeModules(),
+                    rollupCommonjs(),
+                    rollupBabel(),
+                    // rollupUglify(),
+                ],
+            })
+            .then(bundle => {
+                return bundle.write({
+                    file: `./public/js/${file}`,
+                    format: 'iife',
+                    sourcemap: true,
+                })
+            })
+        }
+
+        browsersync.stream()
+        done()
+    })
 };
 
 /**
@@ -77,8 +71,8 @@ const processJs = done => {
 */
 const processCss = done => {
 
-    config = {
-        sourceFiles : ['./source/scss/**/*.scss'],
+    const config = {
+        sourceFiles : ['./source/scss/*.scss'],
         destFolder: './public/css',
     };
 
@@ -109,7 +103,7 @@ const processCss = done => {
 */
 const processPot = done => {
 
-    config = {
+    const config = {
         textdomain: 'primera',
     };
 
@@ -124,10 +118,10 @@ const processPot = done => {
 const initBrowserSync = done => {
 
     // browsersync.io/docs/options
-    config = {
+    const config = {
         watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
         proxy: 'primera',
-        tunnel: false, // can be a string
+        tunnel: false, // string|bool
         notify: false,
         open: false,
         files: [
@@ -138,18 +132,17 @@ const initBrowserSync = done => {
             "./public/img/**/*",
         ],
     };
-
     browsersync.init( config );
     done();
-};
+}
 
 /**
 * Causes BrowserSync to do full window refresh.
 */
-const reloadBrowser = ( done ) => {
+const reloadBrowser = done => {
     browsersync.reload();
     done();
-};
+}
 
 /**
 * Watch task.
@@ -161,14 +154,35 @@ const watchFiles = () => {
 
     watch('source/js/**/*.js', processJs);
     watch('source/scss/**/*.scss', processCss);
-    // NOTE: PHP files need a solid reload, for the styles to be accurate.
+    // NOTE: PHP files need a solid reload, for CSS & JS to reflect the lastet changes.
     watch('**/**/*.php', reloadBrowser);
-};
+}
+
+const develop = done => {
+    return series(
+        parallel(processCss, processJs),
+        parallel(initBrowserSync, watchFiles)
+    )
+}
 
 exports.default = series(
     parallel(processCss, processJs),
-    parallel(initBrowserSync, watchFiles)
-);
+    parallel(initBrowserSync, watchFiles),
+    reloadBrowser
+)
+
+exports.develop = exports.default
+
+// exports.build = series(
+//     // minify scripts
+//     // make pot file
+//     // shift off dev files
+//     // zip build files?
+// )
+
+// exports.deploy = series(
+//     // push to git branch that deploys to server
+// )
 
 exports.js = series(
     processJs,
