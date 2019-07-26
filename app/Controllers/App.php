@@ -38,15 +38,13 @@ class App extends Controller
 
     public function primary_nav(): string
     {
-        $nav = wp_nav_menu([
+        return wp_nav_menu([
             'theme_location' => 'primary',
             'depth'          => 1,
             'container'      => false,
             'fallback_cb'    => false,
             'echo'           => false,
             'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-        ]);
-
-        return $nav ? $nav : '';
+        ]) ?: '';
     }
 }
