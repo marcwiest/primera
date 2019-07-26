@@ -349,6 +349,26 @@ function _enqueueFrontendScripts()
             'restNonce' => wp_create_nonce( 'wp_rest' ), // must be named: wp_rest
         ]
     );
+
+    // View Styles & Scripts
+    $viewName = str_replace(['.blade','.php'], '', basename($GLOBALS['template']));
+    if ( file_exists($path = get_theme_file_path("public/css/{$viewName}.css")) ) {
+        wp_enqueue_style(
+            $viewName,
+            get_theme_file_uri("public/css/{$viewName}.css"),
+            ['primeraFunctionPrefix'],
+            filemtime($path)
+        );
+    }
+    if ( file_exists($path = get_theme_file_path("public/js/{$viewName}.js")) ) {
+        wp_enqueue_script(
+            $viewName,
+            get_theme_file_uri("public/js/{$viewName}.js"),
+            ['primeraFunctionPrefix'],
+            filemtime($path)
+        );
+        wp_script_add_data( $viewName, 'defer', true );
+    }
 }
 
 /**
