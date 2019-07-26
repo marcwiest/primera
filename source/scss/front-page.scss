@@ -1,9 +1,12 @@
 @charset "UTF-8";
 
 @import
-    '../fonts',
-    '../variables',
-    '../keyframes';
+    'fonts',
+    'variables',
+    'keyframes';
+
+@import
+    "components/navbar";
 
 // @import
 //     '../vendor/family/family',
