@@ -1,5 +1,5 @@
 <?php
-// Looks for, and renders blade templates.
+// Makes WP to look for, and render blade templates.
 
 namespace App;
 
@@ -17,6 +17,7 @@ function _filterTemplates( $templates )
         'views',
         'source/views'
     ]);
+
     $paths_pattern = "#^(" . implode('|', $paths) . ")/#";
 
     return \collect($templates)
