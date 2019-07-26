@@ -1,8 +1,7 @@
 // import './vendor/fitvids';
-// import _ from './_lodash';
-import debounce from 'lodash/debounce';
-import tailwind from '../../tailwind.config.js';
-import { supportsCssCustomProps } from './utils';
+import debounce from 'lodash/debounce'
+import tailwind from '../../tailwind.config.js'
+import { supportsCssCustomProps } from './_utils'
 
 'use strict';
 

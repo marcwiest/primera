@@ -497,58 +497,81 @@
     }
   };
 
+  // export default 'test';
+  var $ = window.jQuery || {};
+  var wp = window.wp || {};
+  var localizedData = window.primeraFunctionPrefixLocalizedData || {}; // gist.github.com/wesbos/8b9a22adc1f60336a699
+
+  var supportsCssCustomProps = function () {
+    var color = 'rgb(255, 198, 0)';
+    var el = document.createElement('span');
+    el.style.setProperty('--color', color);
+    el.style.setProperty('background', 'var(--color)');
+    document.body.appendChild(el);
+    var styles = getComputedStyle(el);
+    var doesSupport = styles.backgroundColor === color;
+    document.body.removeChild(el);
+    return doesSupport;
+  }();
+
   // import './vendor/fitvids';
 
 
-  var $ = window.jQuery || {};
-  var wp = window.wp || {};
+  var localized = window.primeraFunctionPrefixLocalizedData;
+  var $$1 = window.jQuery;
+  var wp$1 = window.wp;
+  var enquire = window.enquire;
   var docElem = document.documentElement;
-  var $window = $(window);
-  var $document = $(document);
-  var $body = $('body');
-  var $wpadminbar = $('#wpadminbar');
-
-  var enquire = window.enquire || function () {};
-
-  var mq = {
-    // NOTE: These should match the `tailwind.config.js`.
-    // mobileOnly: `(screen and max-width:599px)`,
-    sm: "(screen and min-width:".concat(tailwind_config.theme.screens.sm, ")"),
-    md: "(screen and min-width:".concat(tailwind_config.theme.screens.md, ")"),
-    lg: "(screen and min-width:".concat(tailwind_config.theme.screens.lg, ")")
-  };
+  var $window = $$1(window);
+  var $document = $$1(document);
+  var $html = $$1('html');
+  var $body = $$1('body');
+  var $wpadminbar = $$1('#wpadminbar');
   var wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
-  var scrollTop = $window.scrollTop(); // Setup jQuery AJAX.
+  var scrollTop = $window.scrollTop(); // Indicate JS.
 
-  $.ajaxSetup({
-    headers: {// TODO: Add REST API token:
+  $html.removeClass('no-js').addClass('js'); // Setup jQuery AJAX.
+
+  $$1.ajaxSetup({
+    headers: {
       // Automates the passing of the CSRF token. No need to supply it to every AJAX call.
-      // 'X-CSRF-TOKEN': csrfToken
+      'X-CSRF-TOKEN': localized.restNonce
     }
-  }); // Setup CSS custom properties.
+  }); // Initialize plugins.
+  // ...
+  // Setup CSS custom properties.
 
-  if (docElem.style && docElem.style.setProperty) {
+  if (supportsCssCustomProps) {
     docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-  } // Listen to scroll event.
+  } // Bind media queries.
 
+
+  enquire.register("screen and (min-width:".concat(tailwind_config.theme.screens.sm, ")"), {
+    deferSetup: true,
+    // defers setup callback until a match occurs
+    setup: function setup() {
+      console.log('setup');
+    },
+    match: function match() {
+      console.log('match');
+    },
+    unmatch: function unmatch() {
+      console.log('unmatch');
+    }
+  }); // Bind scroll events.
 
   $window.on('scroll', debounce_1(function (e) {
     scrollTop = $window.scrollTop();
-  }, 25)); // Listen to resize event.
+  }, 25)); // Bind resize events.
 
   $window.on('resize', debounce_1(function (e) {
     scrollTop = $window.scrollTop();
     wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
-    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-  }, 25)); // Listen to media queries.
 
-  enquire.register(mq.sm, {
-    deferSetup: true,
-    // defers setup callback until a match occurs
-    setup: function setup() {},
-    match: function match() {},
-    unmatch: function unmatch() {}
-  }); // Bind application events.
+    if (supportsCssCustomProps) {
+      docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
+    }
+  }, 25)); // Bind events.
   // ...
 
 }());
