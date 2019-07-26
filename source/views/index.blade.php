@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('main-content')
     <h1>{{ $test }}</h1>

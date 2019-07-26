@@ -1,5 +1,9 @@
-@extends('layouts.app')
+@extends('app')
 
-@section('main-content')
+@push('app-open')
+    @include('components.navbar')
+@endpush
+
+@push('main-content')
     <h1>{{ $test }}</h1>
-@endsection
+@endpush
