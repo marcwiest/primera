@@ -21,6 +21,7 @@ const uglify         = require('gulp-uglify');
 const wppot          = require('gulp-wp-pot');
 const mozjpeg        = require('imagemin-mozjpeg');
 const pngquant       = require('imagemin-pngquant');
+const notifier       = require("node-notifier");
 const easings        = require('postcss-easings');
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
@@ -31,7 +32,7 @@ const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 /**
 * Process JS.
 */
-const processJs = done => {
+const bundleJs = done => {
 
     fs.readdirSync('./source/js').forEach(file => {
 
@@ -59,17 +60,24 @@ const processJs = done => {
                     sourcemap: true,
                 })
             })
+            .catch(error => {
+                let relativePath = path.relative(process.cwd(), error.loc.file)
+                notifier.notify({
+                    title: `JS Error`,
+                    message: `${relativePath} line ${error.raisedAt}`,
+                })
+                console.error(error)
+            })
         }
-
         browsersync.stream()
         done()
     })
-};
+}
 
 /**
 * Process CSS.
 */
-const processCss = done => {
+const bundleScss = done => {
 
     const config = {
         sourceFiles : ['./source/scss/*.scss'],
@@ -77,15 +85,24 @@ const processCss = done => {
     };
 
     return src(config.sourceFiles)
-        .pipe(plumber())
+        .pipe(plumber({
+            errorHandler: error => {
+                notifier.notify({
+                    title: `SCSS Error`,
+                    message: `${error.relativePath} line ${error.line}`,
+                })
+                console.error(error)
+            }
+        }))
         .pipe(sourcemaps.init())
         .pipe(sassglob())
-        .pipe(sass({ outputStyle: 'expanded' }))
+        .pipe(sass({
+            outputStyle: 'expanded'
+        }))
         .pipe(postcss([
             // tailwindcss('./tailwind.js'),
             tailwindcss(),
             autoprefixer(),
-            // github.com/ai/webp-in-css/
             // easings(),
             // cssnano({ zindex : false }),
             // mqpacker(),
@@ -94,14 +111,14 @@ const processCss = done => {
         // .pipe(rename({ extname : '.min.css' }))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(config.destFolder))
-        .pipe(browsersync.stream());
-};
+        .pipe(browsersync.stream())
+}
 
 
 /**
 * Create translation (POT) file for WordPress.
 */
-const processPot = done => {
+const createPotFile = done => {
 
     const config = {
         textdomain: 'primera',
@@ -132,7 +149,7 @@ const initBrowserSync = done => {
             "./public/img/**/*",
         ],
     };
-    browsersync.init( config );
+    browsersync.init(config);
     done();
 }
 
@@ -152,26 +169,17 @@ const reloadBrowser = done => {
 */
 const watchFiles = () => {
 
-    watch('source/js/**/*.js', processJs);
-    watch('source/scss/**/*.scss', processCss);
+    watch('source/js/**/*.js', series(bundleJs, reloadBrowser))
+    watch('source/scss/**/*.scss', series(bundleScss, reloadBrowser))
     // NOTE: PHP files need a solid reload, for CSS & JS to reflect the lastet changes.
-    watch('**/**/*.php', reloadBrowser);
+    watch('**/**/*.php', reloadBrowser)
 }
 
-const develop = done => {
-    return series(
-        parallel(processCss, processJs),
-        parallel(initBrowserSync, watchFiles)
-    )
-}
-
-exports.default = series(
-    parallel(processCss, processJs),
+exports.develop = series(
+    parallel(bundleScss, bundleJs),
     parallel(initBrowserSync, watchFiles),
     reloadBrowser
 )
-
-exports.develop = exports.default
 
 // exports.build = series(
 //     // minify scripts
@@ -184,8 +192,4 @@ exports.develop = exports.default
 //     // push to git branch that deploys to server
 // )
 
-exports.js = series(
-    processJs,
-    reloadBrowser
-);
-
+exports.default = exports.develop
