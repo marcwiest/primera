@@ -42,9 +42,9 @@ require_once $composer;
 * Ensure required files are loaded.
 * Add or remove files to the array as needed, locate_template supports child theme overrides.
 */
-foreach ( ['helpers','config','controllers','views'] as $file ) {
+foreach (['helpers', 'config', 'controllers', 'directives', 'views'] as $file) {
     $file = "app/{$file}.php";
-    if ( ! locate_template( $file, true, true ) ) {
+    if (! locate_template($file, true, true) ) {
         $message = __( "Error locating the following dependency for inclusion:", 'primeraTextdomain' );
         $message .= "<br><code><small>$file</small></code>";
         $primeraError( $message, __( 'File not found', 'primeraTextdomain' ) );
