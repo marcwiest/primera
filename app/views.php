@@ -91,7 +91,7 @@ function _renderTemplates( $template ) {
         $cacheDir = \trailingslashit( \wp_get_upload_dir()['basedir'] ).'blade-cache';
         $bladeone = new BladeOne( $viewsDir, $cacheDir, $bladeoneMode );
 
-        apply_filters('primera/bladeone', $bladeone);
+        $bladeone = apply_filters('primera/bladeone', $bladeone);
 
         echo $bladeone->run( $template, $data );
 
