@@ -1,5 +1,5 @@
 <?php
-// Makes WP to look for, and render blade templates.
+// Makes WP look for, and render blade templates.
 
 namespace App;
 
