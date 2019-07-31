@@ -3,7 +3,7 @@
 
 namespace App;
 
-use eftec\bladeone\BladeOne;
+use App\Classes\BladeOne;
 use Illuminate\Support\Collection;
 
 /**
