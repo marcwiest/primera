@@ -12,19 +12,8 @@ defined('WPINC') || exit;
 class TmplDisplayPdf extends Controller
 {
     // Runs after this->data is set up, but before the class methods are run.
-    public function __before()
-    {
-        wp_enqueue_style(
-            'font-page',
-            get_theme_file_uri('public/css/page.css')
-        );
-    }
+    // public function __before() {}
 
     // Runs after all the class methods have run.
     // public function __after() {}
-
-    public function test()
-    {
-        return "FRONT PAGE DATA TEST";
-    }
 }
