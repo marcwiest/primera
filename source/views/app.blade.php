@@ -10,25 +10,27 @@
 
 @stack('before-app')
 
-<div class="app @stack('app-class')" role="document">
+<div class="primeraCssPrefix-app @stack('app-class')" role="document">
+    <div class="primeraCssPrefix-app-inner">
 
-    @stack('app-open')
-    {{-- @include('components.navbar') --}}
+        @stack('app-open')
+        {{-- @include('components.navbar') --}}
 
-    <div class="@stack('content-class')">
-        <main class="@stack('main-class')" role="main">
-            @stack('main-content')
+        <main class="primeraCssPrefix-app-content" role="main">
+            <div class="primeraCssPrefix-app-content-inner">
+                @stack('main-content')
+            </div>
+            {{-- @if (App\display_sidebar())
+                <aside class="sidebar">
+                    @include('components.sidebar')
+                </aside>
+            @endif --}}
         </main>
-        {{-- @if (App\display_sidebar())
-            <aside class="sidebar">
-                @include('components.sidebar')
-            </aside>
-        @endif --}}
+
+        @stack('app-close')
+        {{-- @include('components.footer') --}}
+
     </div>
-
-    @stack('app-close')
-    {{-- @include('components.footer') --}}
-
 </div>
 
 @stack('after-app')

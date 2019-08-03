@@ -1,11 +1,10 @@
-// smashingmagazine.com/2011/10/essential-jquery-plugin-patterns/
-// jQuery.fn.navbar
-export default function( options ) {
+// import $ from "jquery"
 
+const $ = jQuery || {}
+
+export default options => {
     let opt = $.extend({
-        'animation' : 'slide',
-        'animationSpeed' : 250,
+        animation: "slide",
+        animationSpeed: 250,
     }, options )
-
 }
-
