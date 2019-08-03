@@ -91,8 +91,6 @@ function _renderTemplates( $template ) {
         $cacheDir = \trailingslashit( \wp_get_upload_dir()['basedir'] ).'blade-cache';
         $bladeone = new BladeOne( $viewsDir, $cacheDir, $bladeoneMode );
 
-        $bladeone = apply_filters('primera/bladeone', $bladeone);
-
         echo $bladeone->run( $template, $data );
 
         // Always returns the path to the theme's empty index file.
