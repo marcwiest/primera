@@ -1,7 +1,51 @@
 <?php
 
-// Backward compatibility.
+if ( ! function_exists('strtobool') ) :
+/**
+* Function for turning string booleans values into real booleans.
+*
+* @since  1.0
+* @param  mixed  $value  String to convert to a boolean.
+* @return  bool|string
+*/
+function strtobool($value): bool
+{
+    $value = strtolower( strval($value) );
+
+    if ( $value === 'true' || $value === '1' ) {
+        return true;
+    }
+    elseif ( $value === 'false' || $value === '0' ) {
+        return false;
+    }
+
+    return boolval($value);
+}
+endif;
+
+if ( ! function_exists('add_ajax_action') ) :
+/**
+* Add AJAX actions helper.
+* @param  $cb  callable|array  If array uses "priv" and "nopriv" keys the callbacks are split up (use false to disable either), else use callable for both.
+*/
+function add_ajax_action(string $action, $cb): void
+{
+    if (is_array($cb) && !wp_is_numeric_array($cb)) {
+
+        $nopriv = ($cb['nopriv'] ?? false) ? $cb['nopriv'] : false;
+        $priv = ($cb['priv'] ?? false) ? $cb['priv'] : $nopriv;
+    }
+    else {
+        $nopriv = $priv = $cb;
+    }
+
+    ($nopriv && is_callable($nopriv)) && add_action("wp_ajax_nopriv_{$action}", $nopriv);
+    ($priv && is_callable($priv)) && add_action("wp_ajax_{$action}", $priv);
+}
+endif;
+
 if ( ! function_exists( 'wp_body_open' ) ) :
+// Backward compatibility.
 function wp_body_open()
 {
     do_action( 'wp_body_open' );
@@ -67,8 +111,8 @@ function get_html_class( $class='' )
 }
 endif;
 
-// Get URL of an asset from within the public folder.
 if ( ! function_exists( 'asset' ) ) :
+// Get URL of an asset from within the public folder.
 function asset( string $filePath ): string
 {
     return get_theme_file_uri( "public/{$filePath}" );
