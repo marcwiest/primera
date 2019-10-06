@@ -2,8 +2,10 @@
 // export default 'test';
 const $  = window.jQuery || {};
 const wp = window.wp || {};
-const localizedData = window.primeraFunctionPrefixLocalizedData || {};
+const localized = window.primeraFunctionPrefixLocalizedData || {};
+const localizedData = localized;
 
+// TODO: https://developer.mozilla.org/en-US/docs/Web/API/CSS/supports
 // gist.github.com/wesbos/8b9a22adc1f60336a699
 let supportsCssCustomProps = (() => {
 
@@ -21,7 +23,23 @@ let supportsCssCustomProps = (() => {
     return doesSupport;
 })();
 
-export { supportsCssCustomProps };
+let wpAjaxPost = (action, data, settings) => {
+
+    if (!$.isPlainObject(data)) {
+        console.error('The "data" parameter must be a plain obejct!');
+        return {};
+    }
+
+    settings = settings || {};
+    settings.type = 'POST';
+    settings.url = localized.ajaxUrl;
+    settings.data = $.extend( data || {}, { action: action, nonce: localized.ajaxNonce });
+
+    return $.ajax(settings);
+};
+
+export { supportsCssCustomProps, wpAjaxPost };
+
 export default {
 
     rest : {
