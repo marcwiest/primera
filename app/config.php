@@ -1,6 +1,11 @@
 <?php
 // Theme setup actions & filters.
 
+
+// TODO:
+// https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
+
+
 namespace App;
 
 // NOTE: Example code to load setups only for specific templates.
@@ -13,13 +18,14 @@ namespace App;
 // }
 
 if ( ! isset( $content_width ) ) {
-	$content_width = 1600;
+	$content_width = 1200;
 }
 
 // Actions
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_loadThemeTextdomain' );
 add_action( 'wp_head'            , __NAMESPACE__ . '\\_addHeadMeta' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addThemeSupport' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_defineImageSizes' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addGutenbergSupport' );
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_registerNavMenus' );
 add_action( 'widgets_init'       , __NAMESPACE__ . '\\_registerSidebars' );
