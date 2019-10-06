@@ -69,6 +69,7 @@ const bundleJs = done => {
                 console.error(error)
             })
         }
+
         browsersync.stream()
         done()
     })
@@ -84,7 +85,7 @@ const bundleScss = done => {
         destFolder: './public/css',
     };
 
-    return src(config.sourceFiles)
+    src(config.sourceFiles)
         .pipe(plumber({
             errorHandler: error => {
                 notifier.notify({
@@ -112,6 +113,8 @@ const bundleScss = done => {
         .pipe(sourcemaps.write('./'))
         .pipe(dest(config.destFolder))
         .pipe(browsersync.stream())
+
+    done()
 }
 
 
