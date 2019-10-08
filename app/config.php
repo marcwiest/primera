@@ -1,12 +1,9 @@
 <?php
-// Theme setup actions & filters.
-
-
-// TODO:
-// https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
-
+// TODO: https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
 
 namespace App;
+
+defined('WPINC') || exit;
 
 // NOTE: Example code to load setups only for specific templates.
 // use Brain\Hierarchy\Hierarchy;
@@ -17,8 +14,8 @@ namespace App;
 //     return;
 // }
 
-if ( ! isset( $content_width ) ) {
-	$content_width = 1200;
+if (! isset($GLOBALS['content_width'])) {
+	$GLOBALS['content_width'] = 1200;
 }
 
 // Actions

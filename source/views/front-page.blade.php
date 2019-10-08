@@ -1,11 +1,16 @@
 @extends('app')
 
 @push('app-open')
-    @include('components.navbar')
+    @navbar
+    @endnavbar
+    {{-- @high
+    @endhigh --}}
 @endpush
 
 @push('app-close')
-    @include('components.footer')
+    {{-- @include('components.footer') --}}
+    @footer
+    @endfooter
 @endpush
 
 @push('main-content')
