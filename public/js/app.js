@@ -500,7 +500,8 @@
   // export default 'test';
   var $ = window.jQuery || {};
   var wp = window.wp || {};
-  var localizedData = window.primeraFunctionPrefixLocalizedData || {}; // gist.github.com/wesbos/8b9a22adc1f60336a699
+  var localized = window.primeraFunctionPrefixLocalizedData || {};
+  // gist.github.com/wesbos/8b9a22adc1f60336a699
 
   var supportsCssCustomProps = function () {
     var color = 'rgb(255, 198, 0)';
@@ -517,7 +518,7 @@
   // import './vendor/fitvids';
 
 
-  var localized = window.primeraFunctionPrefixLocalizedData;
+  var localized$1 = window.primeraFunctionPrefixLocalizedData;
   var $$1 = window.jQuery;
   var wp$1 = window.wp;
   var enquire = window.enquire;
@@ -535,7 +536,7 @@
   $$1.ajaxSetup({
     headers: {
       // Automates the passing of the CSRF token. No need to supply it to every AJAX call.
-      'X-CSRF-TOKEN': localized.restNonce
+      'X-CSRF-TOKEN': localized$1.restNonce
     }
   }); // Initialize plugins.
   // ...

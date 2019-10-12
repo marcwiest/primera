@@ -1,7 +1,6 @@
 (function () {
     'use strict';
 
-    // import $ from "jquery"
     var $ = jQuery || {};
     var navbar = (function (options) {
       var opt = $.extend({

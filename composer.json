@@ -1,8 +1,16 @@
 {
     "require": {
         "php": "^7.2",
-        "marcwiest/primera-package": "dev-master",
-        "spatie/laravel-blade-x": "^2.3"
+        "marcwiest/primera-package": "@dev"
+    },
+    "repositories": {
+        "dev-package": {
+            "type": "path",
+            "url": "~/code/primera-package",
+            "options": {
+                "symlink": true
+            }
+        }
     },
     "autoload": {
         "psr-4": {
