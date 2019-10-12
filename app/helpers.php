@@ -24,6 +24,7 @@ function strtobool($value): bool
 endif;
 
 if ( ! function_exists('add_ajax_action') ) :
+// TODO: Add function `add_priv_ajax_action()` vs. approach below.
 /**
 * Add AJAX actions helper.
 * @param  $cb  callable|array  If array uses "priv" and "nopriv" keys the callbacks are split up (use false to disable either), else use callable for both.
