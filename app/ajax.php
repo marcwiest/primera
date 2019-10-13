@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Ajax;
+namespace App\AJAX;
 
 defined('WPINC') || exit;
 
 // Usage example:
-// add_ajax_action('do-something', ['\App\Controllers\App', 'do_something']);
+// add_ajax_action('do-something', __NAMESPACE__ . '\\do_something');
 // add_ajax_action('do-something', [
 //     'nopriv' => flase,
-//     'priv' => ['\App\Controllers\App', 'do_something'],
+//     'priv' => __NAMESPACE__ . '\\do_something',
 // ]);
+// function do_something() {}
