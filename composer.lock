@@ -612,7 +612,7 @@
             "dist": {
                 "type": "path",
                 "url": "/Users/marcwiest/code/primera-package",
-                "reference": "6251499fd696de14172968429f6c4802198bbbd1",
+                "reference": "5aa8c8735d293f1de36b35d3c803d7c4e7a2dcb1",
                 "shasum": null
             },
             "require": {
