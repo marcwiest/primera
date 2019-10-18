@@ -82,7 +82,16 @@ function _addHeadMeta()
 function _addThemeSupport()
 {
     # WordPress
-    add_theme_support( 'html5', array('search-form','comment-form','comment-list','gallery','caption') );
+    add_theme_support( 'html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        // Since WP 5.3
+        'script',
+        'style',
+    ]);
     add_theme_support( 'automatic-feed-links' ); // adds posts and comments RSS feed links
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
