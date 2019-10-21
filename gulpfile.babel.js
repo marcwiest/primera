@@ -11,6 +11,7 @@ const gulpif         = require('gulp-if');
 const imagemin       = require('gulp-imagemin');
 const plumber        = require('gulp-plumber');
 const postcss        = require('gulp-postcss');
+const customProps    = require('postcss-custom-properties');
 const rename         = require('gulp-rename');
 const replace        = require('gulp-replace');
 const sass           = require('gulp-sass');
@@ -40,7 +41,7 @@ const bundleJs = done => {
             return;
         }
 
-        let ext = path.extname(file)
+        let ext = path.extname(file);
 
         if ( ext === '.jsx' || ext === '.js' || ext === '.es' ) {
 
@@ -67,11 +68,11 @@ const bundleJs = done => {
                     message: `${relativePath} line ${error.raisedAt}`,
                 })
                 console.error(error)
-            })
+            });
         }
 
-        browsersync.stream()
-        done()
+        browsersync.stream();
+        done();
     })
 }
 
@@ -103,6 +104,7 @@ const bundleScss = done => {
         .pipe(postcss([
             // tailwindcss('./tailwind.js'),
             tailwindcss(),
+            customProps(), // adds fallback for custom props
             autoprefixer(),
             // easings(),
             // cssnano({ zindex : false }),
@@ -112,9 +114,9 @@ const bundleScss = done => {
         // .pipe(rename({ extname : '.min.css' }))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(config.destFolder))
-        .pipe(browsersync.stream())
+        .pipe(browsersync.stream());
 
-    done()
+    done();
 }
 
 
@@ -127,9 +129,11 @@ const createPotFile = done => {
         textdomain: 'primera',
     };
 
-    return src('**/*.php')
+    src('**/*.php')
         .pipe(wppot({ domain : config.textdomain }))
         .pipe(dest('./languages/' + config.textdomain + '.pot'));
+
+    done();
 };
 
 /**
@@ -146,7 +150,7 @@ const initBrowserSync = done => {
         open: false,
         files: [
             // "./app/**/*.php",
-            // "./source/views/**/*.blade.php",
+            // "./source/views/**/*.php",
             "./public/css/**/*.css",
             "./public/js/**/*.js",
             "./public/img/**/*",
