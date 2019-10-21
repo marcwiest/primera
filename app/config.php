@@ -97,6 +97,11 @@ function _addThemeSupport()
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'customize-selective-refresh-widgets' );
 
+    # Editor styles.
+    # developer.wordpress.org/block-editor/developers/themes/theme-support/#dark-backgrounds
+    // add_theme_support( 'editor-styles' );
+    // add_theme_support( 'dark-editor-style' );
+
     # Gutenberg feature. Replaces Fitvids?
     # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
     add_theme_support( 'responsive-embeds' );
