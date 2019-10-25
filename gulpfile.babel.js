@@ -37,6 +37,7 @@ const bundleJs = done => {
 
     fs.readdirSync('./source/js').forEach(file => {
 
+        // Skip files begining with underscores.
         if ( file.indexOf('_') === 0 ) {
             return;
         }
