@@ -3,6 +3,7 @@
 @push('app-open')
     @navbar
     @endnavbar
+    @dump('hellow', $test)
     {{-- @high
     @endhigh --}}
 @endpush

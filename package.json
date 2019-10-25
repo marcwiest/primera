@@ -1,13 +1,14 @@
 {
   "name": "primera",
   "version": "1.0.0",
-  "description": "Sophisticated WordPress theme boilerplate.",
-  "main": "public/js/app.js",
+  "description": "A sophisticated WordPress theme boilerplate.",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp --gulpfile config/gulp.js",
-    "dev": "cross-env NODE_ENV=development npm run start -- dev",
-    "build": "cross-env NODE_ENV=build npm run start -- build"
+    "olddev": "cross-env NODE_ENV=development npm run start -- dev",
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch"
   },
   "repository": {
     "type": "git",
@@ -38,9 +39,10 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "autoprefixer": "^9.5.1",
+    "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.5",
     "cross-env": "^5.2.0",
-    "css-mqpacker": "^7.0.0",
+    "css-loader": "^3.2.0",
     "cssnano": "^4.1.10",
     "gulp": "^4.0.2",
     "gulp-if": "^2.0.2",
@@ -56,6 +58,7 @@
     "gulp-wp-pot": "^2.3.5",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^7.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-notifier": "^5.4.0",
     "postcss": "^7.0.16",
     "postcss-custom-properties": "^9.0.2",
@@ -67,6 +70,12 @@
     "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-uglify": "^6.0.2",
     "rollup-plugin-uglify-es": "0.0.1",
-    "tailwindcss": "^1.0.5"
+    "style-loader": "^1.0.0",
+    "tailwindcss": "^1.0.5",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "sass-loader": "^8.0.0"
   }
 }
