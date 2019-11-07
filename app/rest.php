@@ -1,8 +1,8 @@
 <?php
 
-namespace App\REST;
+namespace App\rest;
 
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
 add_action('rest_api_init', function() {
 

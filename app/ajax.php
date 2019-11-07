@@ -1,8 +1,8 @@
 <?php
 
-namespace App\AJAX;
+namespace App\ajax;
 
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
 // Usage example:
 // add_ajax_action('do-something', __NAMESPACE__ . '\\do_something');

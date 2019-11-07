@@ -1,21 +1,21 @@
 <?php
 // TODO: https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
 
-namespace App;
+namespace App\config;
 
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
 // NOTE: Example code to load setups only for specific templates.
 // use Brain\Hierarchy\Hierarchy;
 // global $wp_query;
 // $hierarchy = new Hierarchy;
 // $templates = $hierarchy->getTemplates( $wp_query );
-// if ( ! in_array( 'index', $templates ) ) {
+// if (! in_array('index', $templates)) {
 //     return;
 // }
 
 if (! isset($GLOBALS['content_width'])) {
-	$GLOBALS['content_width'] = 1200;
+    $GLOBALS['content_width'] = 1200;
 }
 
 // Actions
@@ -36,7 +36,8 @@ add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\_filterNavMenuListI
 add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\_filterNavMenuLinkAtts', 10, 4 );
 add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\_filterLoginUrl' );
 add_filter( 'login_headertext'          , __NAMESPACE__ . '\\_filterLoginHeaderText' );
-add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filterScriptLoaderTag', 10, 2 );
+// TODO: Remove this filter. This filter is now provided via primera-package.
+// add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filterScriptLoaderTag', 10, 2 );
 add_filter( 'use_default_gallery_style' , '__return_false' );
 
 /**
