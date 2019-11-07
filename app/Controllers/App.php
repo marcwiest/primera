@@ -43,25 +43,14 @@ class App extends Controller
         ]) ?: '';
     }
 
-    public static function html_class(string $class=''): string
-    {
-        $class_names = self::html_class_names($class);
-        return 'class="' . join(' ',  $class_names) . '"';
-    }
-
-    public static function html_class_names(string $class=''): array
+    public function html_class_names(string $class=''): string
     {
         $classes = [];
-
-        if (! $GLOBALS['is_IE']) {
-            $classes[] = 'css-vars';
-        }
 
         if (wp_is_mobile()) {
             $classes[] = 'is-mobile-device';
         }
 
-        // In order of market share 2019.
         if ( $GLOBALS['is_chrome'] ) {
             $classes[] = 'is-chrome';
         } elseif ( $GLOBALS['is_safari'] ) {
@@ -71,9 +60,9 @@ class App extends Controller
             $classes[] = 'is-firefox';
         } elseif ( $GLOBALS['is_edge'] ) {
             $classes[] = 'is-ms-edge';
-        } elseif ( $GLOBALS['is_IE'] ) {
-            $classes[] = 'is-ms-ie';
         }
+
+        $classes[] = $GLOBALS['is_IE'] ? 'is-ms-ie no-css-vars' : 'css-vars';
 
         if (! empty($class)) {
             if (! is_array($class)) {
@@ -95,6 +84,6 @@ class App extends Controller
          */
         $classes = apply_filters('html_class', $classes, $class);
 
-        return array_unique($classes);
+        return join(' ',  array_unique($classes));
     }
 }
