@@ -5,7 +5,6 @@ const fs             = require('fs');
 const path           = require('path');
 const autoprefixer   = require('autoprefixer');
 const browsersync    = require('browser-sync').create();
-const mqpacker       = require('css-mqpacker');
 const cssnano        = require('cssnano');
 const gulpif         = require('gulp-if');
 const imagemin       = require('gulp-imagemin');
@@ -27,7 +26,7 @@ const easings        = require('postcss-easings');
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
 const rollupCommonjs = require('rollup-plugin-commonjs');
-// const rollupUglify   = require('rollup-plugin-uglify-es');
+const rollupUglify   = require('rollup-plugin-uglify-es');
 const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 
 /**
@@ -44,7 +43,7 @@ const bundleJs = done => {
 
         let ext = path.extname(file);
 
-        if ( ext === '.jsx' || ext === '.js' || ext === '.es' ) {
+        if ( ext === '.js' || ext === '.jsx' || ext === '.es' ) {
 
             rollup.rollup({
                 input: `./source/js/${file}`,
@@ -108,8 +107,7 @@ const bundleScss = done => {
             customProps(), // adds fallback for custom props
             autoprefixer(),
             // easings(),
-            // cssnano({ zindex : false }),
-            // mqpacker(),
+            // cssnano({ zindex : false })
         ]))
         // .pipe(gulp.dest(config.destFolder))
         // .pipe(rename({ extname : '.min.css' }))
@@ -149,9 +147,11 @@ const initBrowserSync = done => {
         tunnel: false, // string|bool
         notify: false,
         open: false,
+        // reloadDelay: 500, // discourse.roots.io/t/sage-9-browsersync-not-updating-right/10648/9
+        // injectChanges: false, // issues a full refresh
         files: [
-            // "./app/**/*.php",
-            // "./source/views/**/*.php",
+            "./app/**/*.php",
+            "./source/views/**/**/*.php",
             "./public/css/**/*.css",
             "./public/js/**/*.js",
             "./public/img/**/*",
@@ -177,10 +177,11 @@ const reloadBrowser = done => {
 */
 const watchFiles = () => {
 
-    watch('source/js/**/*.js', series(bundleJs, reloadBrowser))
-    watch('source/scss/**/*.scss', series(bundleScss, reloadBrowser))
+    watch('source/js/**/*.js', bundleJs)
+    watch('source/scss/**/*.scss', bundleScss)
     // NOTE: PHP files need a solid reload, for CSS & JS to reflect the lastet changes.
-    watch('**/**/*.php', reloadBrowser)
+    // NOTE: PHP reload seams not needed.
+    // watch(['source/views/**/**/*.php'], reloadBrowser)
 }
 
 exports.develop = series(
@@ -191,9 +192,8 @@ exports.develop = series(
 
 // exports.build = series(
 //     // minify scripts
-//     // make pot file
 //     // shift off dev files
-//     // zip build files?
+//     // bundle zip files
 // )
 
 // exports.deploy = series(
