@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html @php html_class('no-js') @endphp {!! get_language_attributes() !!}>
+<html {{ App::html_class('no-js') }} {!! get_language_attributes() !!}>
 <head>
 	<meta charset="{!! get_bloginfo('charset') !!}">
 	@php wp_head() @endphp
