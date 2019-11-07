@@ -17,7 +17,6 @@ class MailchimpApi
     */
     private $apiKey = '';
 
-
     /**
     * Set Mailchimp subscriber status.
     *
@@ -26,7 +25,7 @@ class MailchimpApi
     * @link http://rudrastyh.com/mailchimp-api/subscription.html
     * @return json string
     */
-    public static function setSubscriberStatus(array $args=[])
+    public function setSubscriberStatus(array $args=[])
     {
         $args = wp_parse_args($args, [
             'email_address' => '', // subscriber email address
