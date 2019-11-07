@@ -43,7 +43,7 @@ class App extends Controller
         ]) ?: '';
     }
 
-    public function html_class_names(string $class=''): string
+    public function html_class_names(): string
     {
         $classes = [];
 
@@ -51,38 +51,20 @@ class App extends Controller
             $classes[] = 'is-mobile-device';
         }
 
-        if ( $GLOBALS['is_chrome'] ) {
+        if ($GLOBALS['is_chrome']) {
             $classes[] = 'is-chrome';
-        } elseif ( $GLOBALS['is_safari'] ) {
+        } elseif ($GLOBALS['is_safari']) {
             $classes[] = 'is-safari';
-        } elseif ( $GLOBALS['is_gecko'] ) {
+        } elseif ($GLOBALS['is_gecko']) {
             $classes[] = 'is-gecko';
             $classes[] = 'is-firefox';
-        } elseif ( $GLOBALS['is_edge'] ) {
+        } elseif ($GLOBALS['is_edge']) {
             $classes[] = 'is-ms-edge';
         }
 
         $classes[] = $GLOBALS['is_IE'] ? 'is-ms-ie no-css-vars' : 'css-vars';
 
-        if (! empty($class)) {
-            if (! is_array($class)) {
-                $class = preg_split('#\s+#', $class);
-            }
-            $classes = array_merge($classes, $class);
-        } else {
-            // Ensure that we always coerce class to being an array.
-            $class = [];
-        }
-
         $classes = array_map('esc_attr', $classes);
-
-        /**
-         * Filters the list of CSS html class names.
-         *
-         * @param string[] $classes An array of body class names.
-         * @param string[] $class   An array of additional class names added to the html element.
-         */
-        $classes = apply_filters('html_class', $classes, $class);
 
         return join(' ',  array_unique($classes));
     }
