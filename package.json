@@ -29,20 +29,13 @@
     "url": "https://github.com/marcwiest/primera/issues"
   },
   "homepage": "https://github.com/marcwiest/primera#readme",
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "autoprefixer": "^9.5.1",
-    "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.5",
     "cross-env": "^5.2.0",
-    "css-loader": "^3.2.0",
     "cssnano": "^4.1.10",
     "gulp": "^4.0.2",
     "gulp-if": "^2.0.2",
@@ -58,7 +51,6 @@
     "gulp-wp-pot": "^2.3.5",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^7.0.0",
-    "mini-css-extract-plugin": "^0.8.0",
     "node-notifier": "^5.4.0",
     "postcss": "^7.0.16",
     "postcss-custom-properties": "^9.0.2",
@@ -70,12 +62,6 @@
     "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-uglify": "^6.0.2",
     "rollup-plugin-uglify-es": "0.0.1",
-    "style-loader": "^1.0.0",
-    "tailwindcss": "^1.0.5",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
-  },
-  "dependencies": {
-    "sass-loader": "^8.0.0"
+    "tailwindcss": "^1.0.5"
   }
 }
