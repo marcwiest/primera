@@ -15,25 +15,25 @@ defined('ABSPATH') || exit;
 // }
 
 // Actions
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_loadThemeTextdomain' );
-add_action( 'wp_head'            , __NAMESPACE__ . '\\_addHeadMeta' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addThemeSupport' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_defineImageSizes' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_addGutenbergSupport' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_registerNavMenus' );
-add_action( 'widgets_init'       , __NAMESPACE__ . '\\_registerSidebars' );
-add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\_registerScripts' );
-add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\_enqueueFrontendScripts' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\loadThemeTextdomain' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\addThemeSupport' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\defineImageSizes' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\addGutenbergSupport' );
+add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\registerNavMenus' );
+add_action( 'widgets_init'       , __NAMESPACE__ . '\\registerSidebars' );
+add_action( 'wp_head'            , __NAMESPACE__ . '\\addHeadMeta' );
+add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\registerScripts' );
+add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\enqueueFrontendScripts' );
 
 // Filters
-add_filter( 'body_class'                , __NAMESPACE__ . '\\_filterBodyClasses' );
-add_filter( 'widget_tag_cloud_args'     , __NAMESPACE__ . '\\_filterTagCloudArgs' );
-add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\_filterNavMenuListItemClasses', 10, 4 );
-add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\_filterNavMenuLinkAtts', 10, 4 );
-add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\_filterLoginUrl' );
-add_filter( 'login_headertext'          , __NAMESPACE__ . '\\_filterLoginHeaderText' );
+add_filter( 'body_class'                , __NAMESPACE__ . '\\filterBodyClasses' );
+add_filter( 'widget_tag_cloud_args'     , __NAMESPACE__ . '\\filterTagCloudArgs' );
+add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\filterNavMenuListItemClasses', 10, 4 );
+add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\filterNavMenuLinkAtts', 10, 4 );
+add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\filterLoginUrl' );
+add_filter( 'login_headertext'          , __NAMESPACE__ . '\\filterLoginHeaderText' );
 // TODO: Remove this filter. This filter is now provided via primera-package.
-// add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\_filterScriptLoaderTag', 10, 2 );
+// add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\filterScriptLoaderTag', 10, 2 );
 add_filter( 'use_default_gallery_style' , '__return_false' );
 
 /**
@@ -41,42 +41,16 @@ add_filter( 'use_default_gallery_style' , '__return_false' );
 * Text domain should match theme folder name.
 * @since 1.0
 */
-function _loadThemeTextdomain()
+function loadThemeTextdomain()
 {
     load_theme_textdomain( 'primeraTextDomain', get_theme_file_path('languages') );
-}
-
-/**
-* Add head data.
-* @since 1.0
-*/
-function _addHeadMeta()
-{
-    $meta = array(
-        'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">',
-    );
-
-    if ( $GLOBALS['is_IE'] ) {
-        $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-    }
-
-    // Add a pingback url auto-discovery header for singularly identifiable articles.
-    if ( is_singular() && pings_open() ) {
-        $meta = '<link rel="pingback" href="' . esc_url( get_bloginfo('pingback_url') ) . '">';
-    }
-
-    $meta = apply_filters( 'primera/head/meta', $meta );
-
-    foreach ( $meta as $m ) {
-        echo $m;
-    }
 }
 
 /**
 * Add theme support.
 * @since  1.0
 */
-function _addThemeSupport()
+function addThemeSupport()
 {
     // Set global content width.
     $GLOBALS['content_width'] = 1200;
@@ -119,7 +93,7 @@ function _addThemeSupport()
 * @link  wordpress.org/gutenberg/handbook/extensibility/theme-support/
 * @since  1.0
 */
-function _addGutenbergSupport()
+function addGutenbergSupport()
 {
     // Wide aligned images.
     // add_theme_support( 'align-wide' );
@@ -206,7 +180,7 @@ function _addGutenbergSupport()
 * Define thumbnail image size and register custom image sizes.
 * @since 1.0
 */
-function _defineImageSizes()
+function defineImageSizes()
 {
     // Override "post-thumbnail" default size (150x150).
     set_post_thumbnail_size( 300, 300, true );
@@ -225,7 +199,7 @@ function _defineImageSizes()
 * Register nav menus.
 * @since 1.0
 */
-function _registerNavMenus()
+function registerNavMenus()
 {
     register_nav_menus( array(
         'primary' => esc_html__('Primary Menu','primeraTextDomain'),
@@ -235,7 +209,7 @@ function _registerNavMenus()
 /**
 * Register Sidebars
 */
-function _registerSidebars()
+function registerSidebars()
 {
     $config = [
         'before_widget' => '<section class="widget %1$s %2$s">',
@@ -251,11 +225,37 @@ function _registerSidebars()
 }
 
 /**
+* Add head data.
+* @since 1.0
+*/
+function addHeadMeta()
+{
+    $meta = array(
+        'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">',
+    );
+
+    if ( $GLOBALS['is_IE'] ) {
+        $meta['ie_edge'] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+    }
+
+    // Add a pingback url auto-discovery header for singularly identifiable articles.
+    if ( is_singular() && pings_open() ) {
+        $meta = '<link rel="pingback" href="' . esc_url( get_bloginfo('pingback_url') ) . '">';
+    }
+
+    $meta = apply_filters( 'primera/head/meta', $meta );
+
+    foreach ( $meta as $m ) {
+        echo $m;
+    }
+}
+
+/**
 * Register scripts for later use.
 *
 * @since 1.0
 */
-function _registerScripts()
+function registerScripts()
 {
     $vendorScripts = [
 
@@ -321,7 +321,7 @@ function _registerScripts()
 * Enqueue frontend scripts.
 * @since 1.0
 */
-function _enqueueFrontendScripts()
+function enqueueFrontendScripts()
 {
     // WP Comments
     if ( is_singular() && comments_open() && get_option('thread_comments') ) {
@@ -395,7 +395,7 @@ function _enqueueFrontendScripts()
 * @link  https://wptavern.com/wordpress-4-8-will-end-support-for-internet-explorer-versions-8-9-and-10
 * @since  1.0
 */
-function _filterBodyClasses( $classes )
+function filterBodyClasses( $classes )
 {
     if ( ! is_singular() ) {
         $classes[] = 'hfeed';
@@ -427,7 +427,7 @@ function _filterBodyClasses( $classes )
 *
 * @since  1.0
 */
-function _filterTagCloudArgs( $args )
+function filterTagCloudArgs( $args )
 {
     $args['number']    = 18;
     $args['smallest']  = 1;
@@ -449,7 +449,7 @@ function _filterTagCloudArgs( $args )
 * @since  1.0
 * @return  array  Numeric array of list item classes.
 */
-function _filterNavMenuListItemClasses( $classes, $item, $args, $depth )
+function filterNavMenuListItemClasses( $classes, $item, $args, $depth )
 {
     if ( 'primary' == $args->theme_location ) {
         array_push( $classes, 'menu-item--primary' );
@@ -466,7 +466,7 @@ function _filterNavMenuListItemClasses( $classes, $item, $args, $depth )
 * @since  1.0
 * @return  array  Asccociative array of anchor attributes.
 */
-function _filterNavMenuLinkAtts( $atts, $item, $args, $depth )
+function filterNavMenuLinkAtts( $atts, $item, $args, $depth )
 {
     $atts['class'] = 'menu-link';
 
@@ -512,7 +512,7 @@ function _filterNavMenuLinkAtts( $atts, $item, $args, $depth )
 *
 * @since  1.0
 */
-function _filterLoginUrl()
+function filterLoginUrl()
 {
     return esc_url( home_url('/') );
 }
@@ -522,7 +522,7 @@ function _filterLoginUrl()
 *
 * @since  1.0
 */
-function _filterLoginHeaderText()
+function filterLoginHeaderText()
 {
     return esc_attr( get_bloginfo('name') );
 }
@@ -540,7 +540,7 @@ function _filterLoginHeaderText()
 * @param string $handle The script handle.
 * @return array
 */
-function _filterScriptLoaderTag( $tag, $handle )
+function filterScriptLoaderTag( $tag, $handle )
 {
     foreach ( array( 'async', 'defer' ) as $attr ) {
 
