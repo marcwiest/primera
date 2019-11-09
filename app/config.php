@@ -81,8 +81,13 @@ function addThemeSupport()
     # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
     add_theme_support( 'responsive-embeds' );
 
-    # Add logo support. Usage: the_custom_logo();
-    // add_theme_support( 'custom-logo' );
+    // Add custom logo support. Usage: the_custom_logo(); https://codex.wordpress.org/Theme_Logo
+	// add_theme_support('custom-logo', [
+    //     'height'      => 190,
+    //     'width'       => 190,
+    //     'flex-width'  => true,
+    //     'flex-height' => true,
+    // ]);
 
     # Add WooCommerce support.
     // add_theme_support( 'woocommerce' );
