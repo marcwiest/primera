@@ -15,15 +15,16 @@ defined('ABSPATH') || exit;
 // }
 
 // Actions
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\loadThemeTextdomain' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\addThemeSupport' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\defineImageSizes' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\addGutenbergSupport' );
-add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\registerNavMenus' );
-add_action( 'widgets_init'       , __NAMESPACE__ . '\\registerSidebars' );
-add_action( 'wp_head'            , __NAMESPACE__ . '\\addHeadMeta' );
-add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\registerScripts' );
-add_action( 'wp_enqueue_scripts' , __NAMESPACE__ . '\\enqueueFrontendScripts' );
+add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\loadThemeTextdomain' );
+add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\addThemeSupport' );
+add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\defineImageSizes' );
+add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\addGutenbergSupport' );
+add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\registerNavMenus' );
+add_action( 'widgets_init'            , __NAMESPACE__ . '\\registerSidebars' );
+add_action( 'wp_head'                 , __NAMESPACE__ . '\\addHeadMeta' );
+add_action( 'wp_enqueue_scripts'      , __NAMESPACE__ . '\\registerScripts' );
+add_action( 'wp_enqueue_scripts'      , __NAMESPACE__ . '\\enqueueFrontendScripts' );
+add_action( 'wp_print_footer_scripts' , __NAMESPACE__ . '\\skip_link_focus_fix' );
 
 // Filters
 add_filter( 'body_class'                , __NAMESPACE__ . '\\filterBodyClasses' );
@@ -386,6 +387,27 @@ function enqueueFrontendScripts()
         );
         wp_script_add_data( $viewName, 'defer', true );
     }
+}
+
+/**
+* Fix skip link focus in IE11.
+*
+* This does not enqueue the script because it is tiny and because it is only for IE11,
+* thus it does not warrant having an entire dedicated blocking script being loaded.
+*
+* @link https://git.io/vWdr2
+*/
+function skip_link_focus_fix()
+{
+    if ( ! $GLOBALS['is_IE'] ) {
+        return;
+    }
+	// The following is minified via `terser --compress --mangle -- js/skip-link-focus-fix.js`.
+	?>
+	<script>
+	/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+	</script>
+	<?php
 }
 
 /**
