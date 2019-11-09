@@ -424,7 +424,9 @@ function skip_link_focus_fix()
 */
 function filterBodyClasses( $classes )
 {
-    if ( ! is_singular() ) {
+	if ( is_singular() ) {
+		$classes[] = 'singular';
+	} else {
         $classes[] = 'hfeed';
     }
 
