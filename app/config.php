@@ -53,10 +53,13 @@ function loadThemeTextdomain()
 */
 function addThemeSupport()
 {
-    // Set global content width.
+	// Filter theme content width global.
     $GLOBALS['content_width'] = 1200;
 
-    # WordPress
+    // Add default posts and comments RSS feed links to head.
+	add_theme_support( 'automatic-feed-links' );
+
+    // Tell WordPress to use HTML5 markup.
     add_theme_support( 'html5', [
         'search-form',
         'comment-form',
@@ -67,7 +70,7 @@ function addThemeSupport()
         'script',
         'style',
     ]);
-    add_theme_support( 'automatic-feed-links' ); // adds posts and comments RSS feed links
+
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'customize-selective-refresh-widgets' );
@@ -91,6 +94,8 @@ function addThemeSupport()
 
     # Add WooCommerce support.
     // add_theme_support( 'woocommerce' );
+
+    // TODO: https://github.com/godaddy-wordpress/go/blob/master/includes/core.php#L120-L203
 }
 
 /**
@@ -427,8 +432,8 @@ function filterBodyClasses( $classes )
 	if ( is_singular() ) {
 		$classes[] = 'singular';
 	} else {
-        $classes[] = 'hfeed';
-    }
+		$classes[] = 'hfeed';
+	}
 
     if ( wp_is_mobile() ) {
         $classes[] = 'is-mobile-device';
@@ -447,6 +452,8 @@ function filterBodyClasses( $classes )
     } elseif ( $GLOBALS['is_IE'] ) {
         $classes[] = 'is-ms-ie';
     }
+
+    // TODO: https://github.com/godaddy-wordpress/go/blob/master/includes/core.php#L515-L527
 
     return array_unique( $classes );
 }
