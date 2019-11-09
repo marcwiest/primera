@@ -14,10 +14,6 @@ defined('ABSPATH') || exit;
 //     return;
 // }
 
-if (! isset($GLOBALS['content_width'])) {
-    $GLOBALS['content_width'] = 1200;
-}
-
 // Actions
 add_action( 'after_setup_theme'  , __NAMESPACE__ . '\\_loadThemeTextdomain' );
 add_action( 'wp_head'            , __NAMESPACE__ . '\\_addHeadMeta' );
@@ -82,6 +78,9 @@ function _addHeadMeta()
 */
 function _addThemeSupport()
 {
+    // Set global content width.
+    $GLOBALS['content_width'] = 1200;
+
     # WordPress
     add_theme_support( 'html5', [
         'search-form',
