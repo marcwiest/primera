@@ -20,7 +20,7 @@ if ( ! function_exists('strtobool') ) :
 */
 function strtobool($value): bool
 {
-    $value = strtolower( strval($value) );
+    $value = strtolower(strval($value));
 
     if ( $value === 'true' || $value === '1' ) {
         return true;
@@ -29,7 +29,7 @@ function strtobool($value): bool
         return false;
     }
 
-    return boolval($value);
+    return $value;
 }
 endif;
 
@@ -37,13 +37,13 @@ if (! function_exists('is_ssl')) :
 // Check if SSL is enabled.
 function is_ssl()
 {
-    if ( is_ssl() ) {
+    if (is_ssl()) {
         return true;
     }
-    else if ( 0 === stripos( get_option('siteurl'), 'https://' ) ) {
+    elseif (0 === stripos(get_option('siteurl'), 'https://')) {
         return true;
     }
-    else if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+    elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) {
         return true;
     }
 
@@ -90,4 +90,3 @@ function env_name(bool $allowServerName=false)
     return 'production';
 }
 endif;
-
