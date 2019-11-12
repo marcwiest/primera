@@ -33,28 +33,6 @@ function strtobool($value): bool
 }
 endif;
 
-if ( ! function_exists('add_ajax_action') ) :
-// TODO: Add function `add_priv_ajax_action()` vs. approach below.
-/**
-* Add AJAX actions helper.
-* @param  $cb  callable|array  If array uses "priv" and "nopriv" keys the callbacks are split up (use false to disable either), else use callable for both.
-*/
-function add_ajax_action(string $action, $cb): void
-{
-    if (is_array($cb) && ! wp_is_numeric_array($cb)) {
-
-        $nopriv = ($cb['nopriv'] ?? false) ? $cb['nopriv'] : false;
-        $priv = ($cb['priv'] ?? false) ? $cb['priv'] : $nopriv;
-    }
-    else {
-        $nopriv = $priv = $cb;
-    }
-
-    ($nopriv && is_callable($nopriv)) && add_action("wp_ajax_nopriv_{$action}", $nopriv);
-    ($priv && is_callable($priv)) && add_action("wp_ajax_{$action}", $priv);
-}
-endif;
-
 if (! function_exists('is_ssl')) :
 // Check if SSL is enabled.
 function is_ssl()
