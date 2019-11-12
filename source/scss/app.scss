@@ -5,7 +5,7 @@
 // @tailwind utilities;
 
 @import
-    "utils/import",
-    "vendor/import",
-    "shared/import",
-    "components/import";
+    "includes/includes",
+    "vendor/vendor",
+    "shared/shared",
+    "components/components";
