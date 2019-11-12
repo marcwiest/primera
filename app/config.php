@@ -1,18 +1,21 @@
 <?php
-// TODO: https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
 
 namespace App\config;
 
 defined('ABSPATH') || exit;
 
-// NOTE: Example code to load setups only for specific templates.
+// NOTE: Example code to load configurations only for specific templates.
 // use Brain\Hierarchy\Hierarchy;
-// global $wp_query;
-// $hierarchy = new Hierarchy;
-// $templates = $hierarchy->getTemplates( $wp_query );
+// $templates = (new Hierarchy)->getTemplates( $GLOBALS['wp_query'] );
 // if (! in_array('index', $templates)) {
 //     return;
 // }
+
+// TODO:
+// https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
+
+// TODO:
+// primera([]);
 
 // Actions
 add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\loadThemeTextdomain' );
