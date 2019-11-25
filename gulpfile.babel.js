@@ -3,6 +3,7 @@ const { src, dest, watch, series, parallel } = require('gulp');
 
 const fs             = require('fs');
 const path           = require('path');
+const archiver       = require('archiver');
 const autoprefixer   = require('autoprefixer');
 const browsersync    = require('browser-sync').create();
 const cssnano        = require('cssnano');
@@ -10,7 +11,6 @@ const gulpif         = require('gulp-if');
 const imagemin       = require('gulp-imagemin');
 const plumber        = require('gulp-plumber');
 const postcss        = require('gulp-postcss');
-const customProps    = require('postcss-custom-properties');
 const rename         = require('gulp-rename');
 const replace        = require('gulp-replace');
 const sass           = require('gulp-sass');
@@ -22,6 +22,8 @@ const wppot          = require('gulp-wp-pot');
 const mozjpeg        = require('imagemin-mozjpeg');
 const pngquant       = require('imagemin-pngquant');
 const notifier       = require("node-notifier");
+const ora            = require('ora');
+const customProps    = require('postcss-custom-properties');
 const easings        = require('postcss-easings');
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
@@ -73,8 +75,8 @@ const bundleJs = done => {
 
         browsersync.stream();
         done();
-    })
-}
+    });
+};
 
 /**
 * Process CSS.
@@ -116,8 +118,55 @@ const bundleScss = done => {
         .pipe(browsersync.stream());
 
     done();
-}
+};
 
+const minifyJs = done => {
+
+    let config = {
+        sourceFiles : [
+            './public/js/*.js',
+            '!./public/js/*.min.js',
+        ],
+        destFolder: 'public/js/',
+        uglifyOpt: {},
+        renameOpt: {
+            extname: '.min.js'
+        },
+    };
+
+    src(config.sourceFiles)
+        .pipe(uglify(config.uglifyOpt))
+        .pipe(rename(config.renameOpt))
+        .pipe(dest(config.destFolder));
+
+    done();
+};
+
+const minifyCss = done => {
+
+    let config = {
+        sourceFiles : [
+            './public/css/*.css',
+            '!./public/css/*.min.css',
+        ],
+        destFolder: 'public/css/',
+        cssnanoOpt: {
+            zindex: false
+        },
+        renameOpt: {
+            extname: '.min.css'
+        },
+    };
+
+    src(config.sourceFiles)
+        .pipe(postcss([
+            cssnano(config.cssnanoOpt)
+        ]))
+        .pipe(rename(config.renameOpt))
+        .pipe(dest(config.destFolder));
+
+    done();
+};
 
 /**
 * Create translation (POT) file for WordPress.
@@ -133,6 +182,67 @@ const createPotFile = done => {
         .pipe(dest('./languages/' + config.textdomain + '.pot'));
 
     done();
+};
+
+/**
+* Create zip file of theme.
+*
+* TODO: Add version param: https://www.sitepoint.com/pass-parameters-gulp-tasks/
+*/
+const createZipFile = done => {
+
+    let config = {
+        zipFilePath: __dirname + '/builds',
+        zipFileName: 'primera',
+        ignoreFiles: [
+            '.git/**',
+            'node_modules/**',
+            'source/scss/**',
+            'source/js/**',
+            '**/*.zip',
+            '**/*.md',
+            '**/*.map',
+            '.babelrc',
+            '.gitignore',
+            'gulpfile.babel.js',
+            'package.json',
+            'package-lock.json',
+            'tailwind.config.js',
+        ],
+    };
+
+    if (! fs.existsSync(config.zipFilePath)) {
+        fs.mkdirSync(config.zipFilePath);
+    }
+
+    let output  = fs.createWriteStream(config.zipFilePath + `/${config.zipFileName}.zip`),
+        archive = archiver('zip'),
+        spinner = ora();
+
+    output.on('pipe', function() {
+        spinner.text = 'Please wait while the project is being zipped.';
+        spinner.start();
+    });
+
+    output.on('close', function () {
+        spinner.stop();
+        console.log('The file "firstbank.zip" is now ready.');
+        done();
+    });
+
+    archive.on('error', function(err) {
+        throw err;
+    });
+
+    archive.pipe(output);
+    archive.glob('**', {
+        dot: true, // include dot files like .htaccess
+        ignore: config.ignoreFiles,
+    });
+
+    archive.finalize();
+
+    // NOTE: `done()` called via `output.on('close', …)`.
 };
 
 /**
@@ -190,11 +300,11 @@ exports.develop = series(
     reloadBrowser
 )
 
-// exports.build = series(
-//     // minify scripts
-//     // shift off dev files
-//     // bundle zip files
-// )
+exports.build = series(
+    parallel(bundleScss, bundleJs),
+    parallel(minifyCss, minifyJs),
+    createZipFile
+)
 
 // exports.deploy = series(
 //     // push to git branch that deploys to server
