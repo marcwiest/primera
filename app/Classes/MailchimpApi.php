@@ -95,21 +95,20 @@ class MailchimpApi
             'apikey'        => $args['api_key'],
             'email_address' => $args['email_address'],
             'status'        => $args['status'],
-            'merge_fields'  => $args['merge_fields'],
+            'merge_fields'  => $args['merge_fields'] ?: new stdClass, // if array is empty, needs to convert to objet type
         ]));
 
-        $result = curl_exec($mailchimp_api);
+        // Execute Mailchimp API and decode result into an array.
+        $result = json_decode(curl_exec($mailchimp_api), true);
 
-        if ($result->status == 400) {
+        if ($result['status'] == 400) {
             return [
                 'success' => false,
-                'errors' => $result->errors,
+                'errors' => $result['errors'],
             ];
         }
 
-        $r = json_decode($result, true);
-
-        return wp_parse_args($r, [
+        return wp_parse_args($result, [
             'success' => true,
         ]);
     }
