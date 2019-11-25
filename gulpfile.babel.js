@@ -7,28 +7,29 @@ const archiver       = require('archiver');
 const autoprefixer   = require('autoprefixer');
 const browsersync    = require('browser-sync').create();
 const cssnano        = require('cssnano');
-const gulpif         = require('gulp-if');
-const imagemin       = require('gulp-imagemin');
+// const gulpif         = require('gulp-if');
+// const imagemin       = require('gulp-imagemin');
 const plumber        = require('gulp-plumber');
 const postcss        = require('gulp-postcss');
 const rename         = require('gulp-rename');
-const replace        = require('gulp-replace');
+// const replace        = require('gulp-replace');
 const sass           = require('gulp-sass');
 const sassglob       = require('gulp-sass-glob');
 const sourcemaps     = require('gulp-sourcemaps');
 const tailwindcss    = require('tailwindcss');
 const uglify         = require('gulp-uglify');
 const wppot          = require('gulp-wp-pot');
-const mozjpeg        = require('imagemin-mozjpeg');
-const pngquant       = require('imagemin-pngquant');
+// const mozjpeg        = require('imagemin-mozjpeg');
+// const pngquant       = require('imagemin-pngquant');
 const notifier       = require("node-notifier");
 const ora            = require('ora');
 const customProps    = require('postcss-custom-properties');
-const easings        = require('postcss-easings');
+// const easings        = require('postcss-easings');
+const rimraf         = require("rimraf");
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
 const rollupCommonjs = require('rollup-plugin-commonjs');
-const rollupUglify   = require('rollup-plugin-uglify-es');
+// const rollupUglify   = require('rollup-plugin-uglify-es');
 const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
 
 /**
@@ -53,7 +54,6 @@ const bundleJs = done => {
                     rollupResolveNodeModules(),
                     rollupCommonjs(),
                     rollupBabel(),
-                    // rollupUglify(),
                 ],
             })
             .then(bundle => {
@@ -104,15 +104,11 @@ const bundleScss = done => {
             outputStyle: 'expanded'
         }))
         .pipe(postcss([
-            // tailwindcss('./tailwind.js'),
-            tailwindcss(),
+            tailwindcss(), // tailwindcss('./tailwind.js'),
             customProps(), // adds fallback for custom props
             autoprefixer(),
             // easings(),
-            // cssnano({ zindex : false })
         ]))
-        // .pipe(gulp.dest(config.destFolder))
-        // .pipe(rename({ extname : '.min.css' }))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(config.destFolder))
         .pipe(browsersync.stream());
@@ -120,7 +116,7 @@ const bundleScss = done => {
     done();
 };
 
-const minifyJs = done => {
+const minifyJs = () => {
 
     let config = {
         sourceFiles : [
@@ -134,12 +130,11 @@ const minifyJs = done => {
         },
     };
 
-    src(config.sourceFiles)
+    // NOTE: This stream needs to return so that tasks that follow know when this task is done.
+    return src(config.sourceFiles)
         .pipe(uglify(config.uglifyOpt))
         .pipe(rename(config.renameOpt))
         .pipe(dest(config.destFolder));
-
-    done();
 };
 
 const minifyCss = done => {
@@ -158,30 +153,33 @@ const minifyCss = done => {
         },
     };
 
-    src(config.sourceFiles)
+    // NOTE: This stream needs to return so that tasks that follow know when this task is done.
+    return src(config.sourceFiles)
         .pipe(postcss([
             cssnano(config.cssnanoOpt)
         ]))
         .pipe(rename(config.renameOpt))
         .pipe(dest(config.destFolder));
-
-    done();
 };
 
 /**
 * Create translation (POT) file for WordPress.
 */
-const createPotFile = done => {
+const createPotFile = () => {
 
     const config = {
+        sourceFiles: [
+            "./app/**/*.php",
+            "./source/views/**/**/*.php",
+        ],
+        destFolder: './languages',
         textdomain: 'primera',
     };
 
-    src('**/*.php')
-        .pipe(wppot({ domain : config.textdomain }))
-        .pipe(dest('./languages/' + config.textdomain + '.pot'));
-
-    done();
+    // NOTE: This stream needs to return so that tasks that follow know when this task is done.
+    return src(config.sourceFiles)
+        .pipe(wppot({ domain: config.textdomain }))
+        .pipe(dest(config.destFolder + '/' + config.textdomain + '.pot'));
 };
 
 /**
@@ -200,13 +198,12 @@ const createZipFile = done => {
             'source/scss/**',
             'source/js/**',
             '**/*.zip',
-            '**/*.md',
             '**/*.map',
             '.babelrc',
             '.gitignore',
             'gulpfile.babel.js',
-            'package.json',
             'package-lock.json',
+            'package.json',
             'tailwind.config.js',
         ],
     };
@@ -225,8 +222,18 @@ const createZipFile = done => {
     });
 
     output.on('close', function () {
+
         spinner.stop();
-        console.log('The file "firstbank.zip" is now ready.');
+        console.log(`The file "${config.zipFileName}.zip" is now ready.`);
+
+        if (fs.existsSync('./languages/')) {
+            rimraf.sync('./languages/');
+            // NOTE: Remove rimraf in favor of the below starting with node version 12.10.
+            // fs.rmdirSync('./languages/', {
+            //     recursive: true,
+            // });
+        }
+
         done();
     });
 
@@ -260,6 +267,8 @@ const initBrowserSync = done => {
         // reloadDelay: 500, // discourse.roots.io/t/sage-9-browsersync-not-updating-right/10648/9
         // injectChanges: false, // issues a full refresh
         files: [
+            // TODO: Check if excluding src maps is solving the CSS injection issue. https://stackoverflow.com/a/36003566
+            // "!**/*.maps.css",
             "./app/**/*.php",
             "./source/views/**/**/*.php",
             "./public/css/**/*.css",
@@ -290,7 +299,7 @@ const watchFiles = () => {
     watch('source/js/**/*.js', bundleJs)
     watch('source/scss/**/*.scss', bundleScss)
     // NOTE: PHP files need a solid reload, for CSS & JS to reflect the lastet changes.
-    // NOTE: PHP reload seams not needed.
+    // NOTE: PHP reload seems not needed.
     // watch(['source/views/**/**/*.php'], reloadBrowser)
 }
 
@@ -303,6 +312,7 @@ exports.develop = series(
 exports.build = series(
     parallel(bundleScss, bundleJs),
     parallel(minifyCss, minifyJs),
+    createPotFile,
     createZipFile
 )
 
