@@ -193,6 +193,7 @@ const createZipFile = done => {
         zipFilePath: __dirname + '/builds',
         zipFileName: 'primera',
         ignoreFiles: [
+            'builds/**', // exclude self
             '.git/**',
             'node_modules/**',
             'source/scss/**',
@@ -226,13 +227,11 @@ const createZipFile = done => {
         spinner.stop();
         console.log(`The file "${config.zipFileName}.zip" is now ready.`);
 
-        if (fs.existsSync('./languages/')) {
-            rimraf.sync('./languages/');
-            // NOTE: Remove rimraf in favor of the below starting with node version 12.10.
-            // fs.rmdirSync('./languages/', {
-            //     recursive: true,
-            // });
-        }
+        rimraf.sync('./languages/');
+        // NOTE: Remove rimraf in favor of the below starting with node version 12.10.
+        // fs.rmdirSync('./languages/', {
+        //     recursive: true,
+        // });
 
         done();
     });
