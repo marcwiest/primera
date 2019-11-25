@@ -22,11 +22,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-## Twig, Node, Gulp & Composer Files
-public/twig/*
+## Node, Gulp & Composer
 *.map
 node_modules
 vendor
+public/css
+public/js
 
 ## Local Project Files
 ROADMAP.md
