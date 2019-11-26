@@ -373,11 +373,13 @@ function enqueueFrontendScripts()
         'primeraFunctionPrefix',
         'primeraFunctionPrefixLocalizedData', // js handle
         [
-            'imgUrl'    => esc_url( get_theme_file_uri('public/img/') ),
-            'ajaxUrl'   => esc_url_raw( admin_url('admin-ajax.php') ),
-            'restUrl'   => esc_url_raw( rest_url('/primeraTextDomain/v1/') ),
-            'ajaxNonce' => wp_create_nonce( 'wp_ajax' ),
-            'restNonce' => wp_create_nonce( 'wp_rest' ), // must be named: wp_rest
+            'imgUrl'         => esc_url( get_theme_file_uri('public/img/') ),
+            'ajaxUrl'        => esc_url_raw( admin_url('admin-ajax.php') ),
+            'restUrl'        => esc_url_raw( rest_url('/primeraTextDomain/v1/') ),
+            'wpRestUrl'      => esc_url_raw( rest_url() ),
+            'ajaxNonce'      => wp_create_nonce( 'wp_ajax' ),
+            'restNonce'      => wp_create_nonce( 'wp_rest' ), // must be named: wp_rest
+            'isUserLoggedIn' => is_user_logged_in(),
         ]
     );
 
