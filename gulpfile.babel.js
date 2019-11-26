@@ -121,12 +121,12 @@ const minifyJs = () => {
     let config = {
         sourceFiles : [
             './public/js/*.js',
-            '!./public/js/*.min.js',
+            // '!./public/js/*.min.js',
         ],
         destFolder: 'public/js/',
         uglifyOpt: {},
         renameOpt: {
-            extname: '.min.js'
+            // extname: '.min.js'
         },
     };
 
@@ -137,19 +137,19 @@ const minifyJs = () => {
         .pipe(dest(config.destFolder));
 };
 
-const minifyCss = done => {
+const minifyCss = () => {
 
     let config = {
         sourceFiles : [
             './public/css/*.css',
-            '!./public/css/*.min.css',
+            // '!./public/css/*.min.css',
         ],
         destFolder: 'public/css/',
         cssnanoOpt: {
             zindex: false
         },
         renameOpt: {
-            extname: '.min.css'
+            // extname: '.min.css'
         },
     };
 
