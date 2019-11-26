@@ -383,25 +383,26 @@ function enqueueFrontendScripts()
         ]
     );
 
+    // TODO: Remove? It's now handled via the primera package.
     // View Styles & Scripts
-    $viewName = str_replace(['.blade','.php'], '', basename($GLOBALS['template']));
-    if ( file_exists($path = get_theme_file_path("public/css/{$viewName}.css")) ) {
-        wp_enqueue_style(
-            $viewName,
-            get_theme_file_uri("public/css/{$viewName}.css"),
-            ['primeraFunctionPrefix'],
-            filemtime($path)
-        );
-    }
-    if ( file_exists($path = get_theme_file_path("public/js/{$viewName}.js")) ) {
-        wp_enqueue_script(
-            $viewName,
-            get_theme_file_uri("public/js/{$viewName}.js"),
-            ['primeraFunctionPrefix'],
-            filemtime($path)
-        );
-        wp_script_add_data( $viewName, 'defer', true );
-    }
+    // $viewName = str_replace(['.blade','.php'], '', basename($GLOBALS['template']));
+    // if ( file_exists($path = get_theme_file_path("public/css/{$viewName}.css")) ) {
+    //     wp_enqueue_style(
+    //         $viewName,
+    //         get_theme_file_uri("public/css/{$viewName}.css"),
+    //         ['primeraFunctionPrefix'],
+    //         filemtime($path)
+    //     );
+    // }
+    // if ( file_exists($path = get_theme_file_path("public/js/{$viewName}.js")) ) {
+    //     wp_enqueue_script(
+    //         $viewName,
+    //         get_theme_file_uri("public/js/{$viewName}.js"),
+    //         ['primeraFunctionPrefix'],
+    //         filemtime($path)
+    //     );
+    //     wp_script_add_data( $viewName, 'defer', true );
+    // }
 }
 
 /**
@@ -414,7 +415,7 @@ function enqueueFrontendScripts()
 */
 function skip_link_focus_fix()
 {
-    if ( ! $GLOBALS['is_IE'] ) {
+    if (! $GLOBALS['is_IE']) {
         return;
     }
 	// The following is minified via `terser --compress --mangle -- js/skip-link-focus-fix.js`.
