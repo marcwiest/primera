@@ -263,11 +263,10 @@ const initBrowserSync = done => {
         tunnel: false, // string|bool
         notify: false,
         open: false,
-        // reloadDelay: 500, // discourse.roots.io/t/sage-9-browsersync-not-updating-right/10648/9
-        // injectChanges: false, // issues a full refresh
         files: [
-            // TODO: Check if excluding src maps is solving the CSS injection issue. https://stackoverflow.com/a/36003566
-            // "!**/*.maps.css",
+            // NOTE: Excluding CSS maps seems to solve the CSS injection issue.
+            // Source: https://stackoverflow.com/a/36003566
+            "!/public/css/*.maps.css",
             "./app/**/*.php",
             "./source/views/**/**/*.php",
             "./public/css/**/*.css",
