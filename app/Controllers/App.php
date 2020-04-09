@@ -49,6 +49,17 @@ class App extends Controller
 
         if (wp_is_mobile()) {
             $classes[] = 'is-mobile-device';
+
+            preg_match("/iPhone|Android|iPad|iPod|webOS/", $_SERVER['HTTP_USER_AGENT'], $matches);
+            $os = current($matches);
+
+            switch ($os) {
+                case 'Android' : $classes[] = 'is-android'; break;
+                case 'iPhone'  : $classes[] = 'is-iphone'; break;
+                case 'iPad'    : $classes[] = 'is-ipad'; break;
+                case 'iPod'    : $classes[] = 'is-ipod'; break;
+                case 'webOS'   : $classes[] = 'is-webos'; break;
+            }
         }
 
         if ($GLOBALS['is_chrome']) {
