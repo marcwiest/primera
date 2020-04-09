@@ -1,6 +1,6 @@
 <?php
 
-namespace App\config;
+namespace App\theme;
 
 defined('ABSPATH') || exit;
 
@@ -14,9 +14,6 @@ defined('ABSPATH') || exit;
 // TODO:
 // https://laternastudio.com/blog/automatically-sending-nonces-with-wordpress-ajax-requests/
 
-// TODO:
-// primera([]);
-
 // Actions
 add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\loadThemeTextdomain' );
 add_action( 'after_setup_theme'       , __NAMESPACE__ . '\\addThemeSupport' );
@@ -27,7 +24,7 @@ add_action( 'widgets_init'            , __NAMESPACE__ . '\\registerSidebars' );
 add_action( 'wp_head'                 , __NAMESPACE__ . '\\addHeadMeta' );
 add_action( 'wp_enqueue_scripts'      , __NAMESPACE__ . '\\registerScripts' );
 add_action( 'wp_enqueue_scripts'      , __NAMESPACE__ . '\\enqueueFrontendScripts' );
-add_action( 'wp_print_footer_scripts' , __NAMESPACE__ . '\\skip_link_focus_fix' );
+add_action( 'wp_print_footer_scripts' , __NAMESPACE__ . '\\skipLinkFocusFix' );
 
 // Filters
 add_filter( 'body_class'                , __NAMESPACE__ . '\\filterBodyClasses' );
@@ -36,13 +33,17 @@ add_filter( 'nav_menu_css_class'        , __NAMESPACE__ . '\\filterNavMenuListIt
 add_filter( 'nav_menu_link_attributes'  , __NAMESPACE__ . '\\filterNavMenuLinkAtts', 10, 4 );
 add_filter( 'login_headerurl'           , __NAMESPACE__ . '\\filterLoginUrl' );
 add_filter( 'login_headertext'          , __NAMESPACE__ . '\\filterLoginHeaderText' );
-// TODO: Remove this filter. This filter is now provided via primera-package.
-// add_filter( 'script_loader_tag'         , __NAMESPACE__ . '\\filterScriptLoaderTag', 10, 2 );
 add_filter( 'use_default_gallery_style' , '__return_false' );
+
+// Primera Filters
+add_filter( 'primera/template/script-file-url'     , __NAMESPACE__ . '\\filterPrimeraTemplateScriptFileUrl', 10, 3 );
+add_filter( 'primera/template/script-file-version' , '__return_null' );
+
 
 /**
 * Load text domain.
 * Text domain should match theme folder name.
+*
 * @since 1.0
 */
 function loadThemeTextdomain()
@@ -78,14 +79,14 @@ function addThemeSupport()
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'customize-selective-refresh-widgets' );
 
+    # Gutenberg feature. Replaces Fitvids?
+    # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
+    add_theme_support( 'responsive-embeds' );
+
     # Editor styles.
     # developer.wordpress.org/block-editor/developers/themes/theme-support/#dark-backgrounds
     // add_theme_support( 'editor-styles' );
     // add_theme_support( 'dark-editor-style' );
-
-    # Gutenberg feature. Replaces Fitvids?
-    # wordpress.org/gutenberg/handbook/extensibility/theme-support/#responsive-embedded-content
-    add_theme_support( 'responsive-embeds' );
 
     // Add custom logo support. Usage: the_custom_logo(); https://codex.wordpress.org/Theme_Logo
 	// add_theme_support('custom-logo', [
@@ -95,10 +96,30 @@ function addThemeSupport()
     //     'flex-height' => true,
     // ]);
 
-    # Add WooCommerce support.
-    // add_theme_support( 'woocommerce' );
+    // Add support for WooCommerce.
+	// add_theme_support( 'woocommerce' );
+	// add_theme_support( 'wc-product-gallery-slider' );
+	// add_theme_support( 'wc-product-gallery-lightbox' );
+	// add_theme_support( 'wc-product-gallery-zoom' );
+}
 
-    // TODO: https://github.com/godaddy-wordpress/go/blob/master/includes/core.php#L120-L203
+/**
+* Define thumbnail image size and register custom image sizes.
+* @since 1.0
+*/
+function defineImageSizes()
+{
+    // Override "post-thumbnail" default size (150x150).
+    set_post_thumbnail_size( 300, 300, true );
+
+    // Uncomment to register custom image sizes.
+    // $imageSizes = [
+    //     '100vw' => [2000],
+    //     '16:9'  => [1600, (1600/16*9), true],
+    // ];
+    // foreach ( $imageSizes as $name => $size ) {
+    //     add_image_size( $name, $size[0], $size[1] ?? 9999, $size[2] ?? false );
+    // }
 }
 
 /**
@@ -109,14 +130,14 @@ function addThemeSupport()
 */
 function addGutenbergSupport()
 {
-    // Wide aligned images.
-    // add_theme_support( 'align-wide' );
-
-    // Add editor styles.
-    // add_theme_support( 'wp-block-styles' );
+	// Add support for full and wide align images.
+	// add_theme_support( 'align-wide' );
 
     // Disable custom color picker.
     // add_theme_support( 'disable-custom-colors' );
+
+	// Add support for core block styles.
+    // add_theme_support( 'wp-block-styles' );
 
     // Color palette.
     add_theme_support( 'editor-color-palette', array(
@@ -173,40 +194,21 @@ function addGutenbergSupport()
             'name' => __( 'small', 'primeraTextDomain' ),
             'shortName' => __( 'S', 'primeraTextDomain' ),
             'size' => 12,
-            'slug' => 'small'
+            'slug' => 'small',
         ),
         array(
             'name' => __( 'regular', 'primeraTextDomain' ),
             'shortName' => __( 'M', 'primeraTextDomain' ),
             'size' => 16,
-            'slug' => 'regular'
+            'slug' => 'regular',
         ),
         array(
             'name' => __( 'large', 'primeraTextDomain' ),
             'shortName' => __( 'L', 'primeraTextDomain' ),
-            'size' => 36,
-            'slug' => 'large'
+            'size' => 32,
+            'slug' => 'large',
         ),
     ) );
-}
-
-/**
-* Define thumbnail image size and register custom image sizes.
-* @since 1.0
-*/
-function defineImageSizes()
-{
-    // Override "post-thumbnail" default size (150x150).
-    set_post_thumbnail_size( 300, 300, true );
-
-    // Uncomment to register custom image sizes.
-    // $imageSizes = [
-    //     '100vw' => [2000],
-    //     '16:9'  => [1600, (1600/16*9), true],
-    // ];
-    // foreach ( $imageSizes as $name => $size ) {
-    //     add_image_size( $name, $size[0], $size[1] ?? 9999, $size[2] ?? false );
-    // }
 }
 
 /**
@@ -323,7 +325,8 @@ function registerScripts()
 
     foreach ( $vendorScripts as $handle => $script ) {
 
-        $url  = 'local' == envName() ? ($script['localUrl'] ?? $script['cdnUrl']) : ($script['cdnUrl'] ?? $script['localUrl']);
+        // $url  = 'local' == envName() ? ($script['localUrl'] ?? $script['cdnUrl']) : ($script['cdnUrl'] ?? $script['localUrl']);
+        $url = $script['localUrl'];
         $deps = $script['deps'] ?? [];
 
         wp_register_script( $handle, $url, $deps, null, false );
@@ -345,17 +348,17 @@ function enqueueFrontendScripts()
     // App CSS
     wp_enqueue_style(
         'primeraFunctionPrefix',
-        get_parent_theme_file_uri( 'public/css/app.css' ), // alt: get_stylesheet_uri(),
+        mix('css/app.css'),
         [],
-        filemtime( get_parent_theme_file_path('public/css/app.css') )
+        null
     );
 
     // App JS
     wp_enqueue_script(
         'primeraFunctionPrefix',
-        get_parent_theme_file_uri( 'public/js/app.js' ),
+        mix('js/app.js'),
         [
-            'wp-util' ,        // loads jQuery, UndescoreJS, wp.ajax & wp.template
+            'wp-util' ,     // loads jQuery, UndescoreJS, wp.ajax & wp.template
             // 'hoverIntent',  // briancherne.github.io/jquery-hoverIntent/
             // 'imagesloaded', // imagesloaded.desandro.com/
             // 'jquery-form',  // malsup.com/jquery/form/
@@ -364,7 +367,7 @@ function enqueueFrontendScripts()
             // 'backbone',
             // 'jquery',
         ],
-        filemtime( get_parent_theme_file_path('public/js/app.js') )
+        null
     );
     wp_script_add_data( 'primeraFunctionPrefix', 'defer', true );
 
@@ -380,29 +383,9 @@ function enqueueFrontendScripts()
             'ajaxNonce'      => wp_create_nonce( 'wp_ajax' ),
             'restNonce'      => wp_create_nonce( 'wp_rest' ), // must be named: wp_rest
             'isUserLoggedIn' => is_user_logged_in(),
+            'isUserAdmin'    => current_user_can( 'manage_options' ),
         ]
     );
-
-    // TODO: Remove? It's now handled via the primera package.
-    // View Styles & Scripts
-    // $viewName = str_replace(['.blade','.php'], '', basename($GLOBALS['template']));
-    // if ( file_exists($path = get_theme_file_path("public/css/{$viewName}.css")) ) {
-    //     wp_enqueue_style(
-    //         $viewName,
-    //         get_theme_file_uri("public/css/{$viewName}.css"),
-    //         ['primeraFunctionPrefix'],
-    //         filemtime($path)
-    //     );
-    // }
-    // if ( file_exists($path = get_theme_file_path("public/js/{$viewName}.js")) ) {
-    //     wp_enqueue_script(
-    //         $viewName,
-    //         get_theme_file_uri("public/js/{$viewName}.js"),
-    //         ['primeraFunctionPrefix'],
-    //         filemtime($path)
-    //     );
-    //     wp_script_add_data( $viewName, 'defer', true );
-    // }
 }
 
 /**
@@ -413,17 +396,13 @@ function enqueueFrontendScripts()
 *
 * @link https://git.io/vWdr2
 */
-function skip_link_focus_fix()
+function skipLinkFocusFix()
 {
     if (! $GLOBALS['is_IE']) {
         return;
     }
 	// The following is minified via `terser --compress --mangle -- js/skip-link-focus-fix.js`.
-	?>
-	<script>
-	/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
-	</script>
-	<?php
+    ?><script>/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);</script><?php
 }
 
 /**
@@ -441,25 +420,19 @@ function filterBodyClasses( $classes )
 		$classes[] = 'hfeed';
 	}
 
-    if ( wp_is_mobile() ) {
-        $classes[] = 'is-mobile-device';
-    }
-
-    // In order of market share.
-    if ( $GLOBALS['is_chrome'] ) {
-        $classes[] = 'is-chrome';
-    } elseif ( $GLOBALS['is_safari'] ) {
-        $classes[] = 'is-safari';
-    } elseif ( $GLOBALS['is_gecko'] ) {
-        $classes[] = 'is-gecko';
-        $classes[] = 'is-firefox';
-    } elseif ( $GLOBALS['is_edge'] ) {
-        $classes[] = 'is-ms-edge';
-    } elseif ( $GLOBALS['is_IE'] ) {
-        $classes[] = 'is-ms-ie';
-    }
-
-    // TODO: https://github.com/godaddy-wordpress/go/blob/master/includes/core.php#L515-L527
+    $woocommerce_blocks = array(
+		'woocommerce/featured-product',
+		'woocommerce/handpicked-products',
+		'woocommerce/product-best-sellers',
+		'woocommerce/product-category',
+		'woocommerce/product-new',
+		'woocommerce/product-on-sale',
+		'woocommerce/product-top-rated',
+		'woocommerce/products-by-attribute',
+	);
+	if ( array_filter( array_map( 'has_block', $woocommerce_blocks ) ) ) {
+		$classes[] = 'woocommerce-page';
+	}
 
     return array_unique( $classes );
 }
@@ -570,34 +543,11 @@ function filterLoginHeaderText()
 }
 
 /**
-* Adds async/defer attributes to enqueued / registered scripts.
+* Filter Primera template script (JS/CSS) file enqueue URL using mix.
 *
-* If #12009 lands in WordPress, this function can no-op since it would be handled in core.
-*
-* Source: https://github.com/wprig/wprig/blob/master/dev/inc/template-functions.php#L41
-*
-* @since 1.0
-* @link https://core.trac.wordpress.org/ticket/12009
-* @param string $tag The script tag.
-* @param string $handle The script handle.
-* @return array
+* @since  1.0
 */
-function filterScriptLoaderTag( $tag, $handle )
+function filterPrimeraTemplateScriptFileUrl($url, $file_name, $file_type)
 {
-    foreach ( array( 'async', 'defer' ) as $attr ) {
-
-        if ( ! wp_scripts()->get_data( $handle, $attr ) ) {
-            continue;
-        }
-
-        // Prevent adding attribute when already added in #12009.
-        if ( ! preg_match( ":\s$attr(=|>|\s):", $tag ) ) {
-            $tag = preg_replace( ':(?=></script>):', " $attr", $tag, 1 );
-        }
-
-        // Only allow async or defer, not both.
-        break;
-    }
-
-    return $tag;
+    return mix("{$file_type}/{$file_name}.{$file_type}");
 }
