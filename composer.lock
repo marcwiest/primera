@@ -190,7 +190,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -234,7 +234,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -278,7 +278,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -323,7 +323,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -375,7 +375,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -436,7 +436,7 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v6.18.5",
+            "version": "v6.18.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
@@ -489,7 +489,7 @@
             "dist": {
                 "type": "path",
                 "url": "/Users/marcwiest/code/primera-package",
-                "reference": "8848de02d859e1e544f326066919414865ca6a03",
+                "reference": "ea8cee4e9c226decaca175f529a91c302fcc4580",
                 "shasum": null
             },
             "require": {
