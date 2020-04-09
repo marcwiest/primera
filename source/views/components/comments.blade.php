@@ -19,7 +19,7 @@ if ( post_password_required() ) {
 * @param  int  $depth  Unsure whether is the current comment depth or the maximum comment depth.
 * @return  void
 */
-function primeraFunctionPrefix_comment_layout( $comment, $args, $depth )
+function primeraFunctionPrefix_comment_layout($comment, $args, $depth)
 {
 	$GLOBALS['comment'] = $comment;
 
@@ -34,29 +34,29 @@ function primeraFunctionPrefix_comment_layout( $comment, $args, $depth )
 	$edit_comment_link = apply_filters( 'edit_comment_link', $link, $comment->comment_ID, $text );
 
 	?>
-	<li id="primeraCssPrefix-comment-<?php comment_ID() ?>" <?php comment_class('primeraCssPrefix-comment'); ?>>
-		<div class="primeraCssPrefix-comment-inner">
+	<li id="comment-<?php comment_ID() ?>" <?php comment_class('comment'); ?>>
+		<div class="comment-inner">
 
 			<?php
 				if ( $avatar_size = absint($args['avatar_size']) ) {
-					echo '<div class="primeraCssPrefix-comment-avatar">';
+					echo '<div class="comment-avatar">';
 					echo get_avatar( $comment, min( $avatar_size, 512 ) );
 					echo '</div>';
 				}
 			?>
 
-			<div class="primeraCssPrefix-comment-main">
-				<div class="primeraCssPrefix-comment-meta">
-					<span class="primeraCssPrefix-comment-author"><?php comment_author_link(); ?></span>
-					<span class='primeraCssPrefix-comment-author-date-divider'> – </span>
-					<span class="primeraCssPrefix-comment-date"><span class="date"><?php comment_date(); ?></span></span>
-					<span class='primeraCssPrefix-comment-date-time-divider'> <?php _ex('at','Comment date and time divider','primeraTextDomain'); ?> </span>
-					<span class="primeraCssPrefix-comment-time"><span class="time"><?php comment_time(); ?></span></span>
+			<div class="comment-main">
+				<div class="comment-meta">
+					<span class="comment-author"><?php comment_author_link(); ?></span>
+					<span class='comment-author-date-divider'> – </span>
+					<span class="comment-date"><span class="date"><?php comment_date(); ?></span></span>
+					<span class='comment-date-time-divider'> <?php _ex('at','Comment date and time divider','primeraTextDomain'); ?> </span>
+					<span class="comment-time"><span class="time"><?php comment_time(); ?></span></span>
 				</div>
-				<div class="primeraCssPrefix-comment-content">
+				<div class="comment-content">
 					<?php
 						if( ! boolval($comment->comment_approved) ) {
-							echo '<p class="primeraCssPrefix-comment-moderation">'.esc_html__('Your comment is awaiting moderation.','primeraTextDomain').'</p>';
+							echo '<p class="comment-moderation">'.esc_html__('Your comment is awaiting moderation.','primeraTextDomain').'</p>';
 						} else {
 							comment_text();
 						}
@@ -64,7 +64,7 @@ function primeraFunctionPrefix_comment_layout( $comment, $args, $depth )
 				</div>
 				<?php
 					if ( $edit_comment_link || $comment_reply_link ) {
-						echo '<div class="primeraCssPrefix-comment-reply">';
+						echo '<div class="comment-reply">';
 						if ( $edit_comment_link ) echo $edit_comment_link;
 						if ( $edit_comment_link && $comment_reply_link ) echo ' / ';
 						if ( $comment_reply_link ) echo $comment_reply_link;
@@ -78,12 +78,12 @@ function primeraFunctionPrefix_comment_layout( $comment, $args, $depth )
 }
 ?>
 
-<div class="primeraCssPrefix-comments">
+<div class="comments">
 <?php
 
 	if ( have_comments() ) {
 
-		echo '<ol class="primeraCssPrefix-comment-list">';
+		echo '<ol class="comment-list">';
 		wp_list_comments( array(
 			'type'        => 'all',
 			'style'       => 'ol',
@@ -98,7 +98,7 @@ function primeraFunctionPrefix_comment_layout( $comment, $args, $depth )
 
 	if ( ! comments_open() ) {
 
-		echo '<p class="primeraCssPrefix-comments-closed-note">';
+		echo '<p class="comments-closed-note">';
 		echo esc_html_x( 'Comments are closed.', 'Comments closed note', 'primeraTextDomain' );
 		echo '</p>';
 	}

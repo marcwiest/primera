@@ -2,4 +2,4 @@
     do_action('get_header')
 @endphp
 
-<h1 class="nav">NAVBAR</h1>
+<nav class="navbar">Navbar</nav>

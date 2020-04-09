@@ -1,19 +1,15 @@
 @extends('app')
 
-@push('app-open')
-    @navbar
-    @endnavbar
-    @dump('hellow', $test)
-    {{-- @high
-    @endhigh --}}
+@push('app-header')
+    @include('components.navbar')
 @endpush
 
-@push('app-close')
-    {{-- @include('components.footer') --}}
-    @footer
-    @endfooter
+@push('app-footer')
+    @include('components.footer')
 @endpush
 
-@push('main-content')
-    <h1>{{ $test }}</h1>
+@push('app-main')
+    @component('components.main')
+        <h1>{{ $test }}</h1>
+    @endcomponent
 @endpush
