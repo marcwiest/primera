@@ -1,7 +1,16 @@
 {
+    "name": "primera",
+    "description": "A MVC started theme for WordPress using Laravel Blade templating.",
+    "version": "1.0.0",
+    "type": "project",
     "require": {
-        "php": "^7.2",
-        "marcwiest/primera-package": "@dev"
+        "marcwiest/primera-package": "@dev",
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
     },
     "repositories": {
         "dev-package": {
@@ -12,9 +21,7 @@
             }
         }
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
+    "config": {
+        "sort-packages": true
     }
 }
