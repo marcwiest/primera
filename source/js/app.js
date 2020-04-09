@@ -2,7 +2,6 @@
 
 // import './vendor/fitvids';
 import debounce from 'lodash/debounce'
-import tailwind from '../../tailwind.config.js'
 import { supportsCssCustomProps } from './utils/_utils'
 
 'use strict';
@@ -65,12 +64,12 @@ const app = {
 
     bindMediaQueries : function() {
 
-        enquire.register(`screen and (min-width:${breakpoints.sm})`, {
-            deferSetup: true, // defers setup callback until a match occurs
-            setup: () => { console.log('setup'); },
-            match: () => { console.log('match'); },
-            unmatch: () => { console.log('unmatch'); },
-        });
+        // enquire.register(`screen and (min-width:${breakpoints.sm})`, {
+        //     deferSetup: true, // defers setup callback until a match occurs
+        //     setup: () => { console.log('setup'); },
+        //     match: () => { console.log('match'); },
+        //     unmatch: () => { console.log('unmatch'); },
+        // });
     },
 
     bindEvents : function() {
