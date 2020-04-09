@@ -2,11 +2,74 @@
 
 defined('ABSPATH') || exit;
 
-if ( ! function_exists( 'asset' ) ) :
+if (! function_exists('asset')) :
 // Get URL of an asset from within the public folder.
-function asset( string $filePath ): string
+function asset(string $filePath): string
 {
     return get_theme_file_uri( "public/{$filePath}" );
+}
+endif;
+
+if (! function_exists('add_ajax_action')) :
+/**
+* Ajax action wrapper to simplify action creation for both, logged-in and logged-out users.
+* Note: You can check whether a user is logged-in via `is_user_logged_in()`.
+*/
+function add_ajax_action(string $action, callable $callback): void
+{
+    add_action("wp_ajax_{$action}", $callback);
+    add_action("wp_ajax_nopriv_{$action}", $callback);
+}
+endif;
+
+if (! function_exists('log_report')) :
+/**
+* Log message inside `debug.log`.
+*/
+function log_report(string $msg): void
+{
+    $logPath = WP_CONTENT_DIR . '/debug.log';
+    if (defined('WP_DEBUG_LOG') && is_string(WP_DEBUG_LOG) && ! empty(WP_DEBUG_LOG)) {
+        $logPath = trim(WP_DEBUG_LOG);
+    }
+    @error_log($msg, 3, $logPath);
+}
+endif;
+
+if (! function_exists('mix')) :
+/**
+* Gets the versioned JS or CSS file from the `mix-manifest.json`.
+*/
+function mix(string $path): string
+{
+    static $manifests = [];
+
+    $path = '/' . ltrim($path, '/');
+
+    $manifestPath = get_parent_theme_file_path('public/mix-manifest.json');
+
+    if (! isset($manifests[$manifestPath])) {
+        if (! file_exists($manifestPath)) {
+            throw new Exception('The Mix manifest does not exist.');
+        }
+
+        $manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
+    }
+
+    $manifest = $manifests[$manifestPath];
+
+    if (! isset($manifest[$path])) {
+        $exception = new Exception("Unable to locate Mix file: {$path}.");
+
+        if (defined('WP_DEBUG') && true == WP_DEBUG) {
+            throw $exception;
+        } else {
+            log_report($exception);
+            return $path;
+        }
+    }
+
+    return esc_url(get_parent_theme_file_uri("public{$manifest[$path]}"));
 }
 endif;
 
@@ -55,38 +118,20 @@ if ( ! function_exists( 'env_name' ) ) :
 /**
 * Get current environment.
 * @since 1.0
-* @return string
 */
-function env_name(bool $allowServerName=false)
+function env_name()
 {
-    static $env = '';
-
-    if ( '' != $env ) {
-        return $env;
+    if (defined('PRIMERA_ENV') && is_string(PRIMERA_ENV)) {
+        switch (PRIMERA_ENV) {
+            case 'production': return 'production';
+            case 'staging':    return 'staging';
+            case 'dev':        return 'dev';
+            case 'local':      return 'local';
+        }
     }
-
-    $server = [
-        $_SERVER['HTTP_HOST']
-    ];
-
-    // NOTE: SERVER_NAME is less reliable but can function as a 2nd test if HTTP_HOST fails.
-    if ( $allowServerName ) {
-        $server[] = $_SERVER['SERVER_NAME'];
+    else if (in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
+        return 'local';
     }
-
-    if ( in_array( '%production-url%', $server ) ) {
-        return $env = 'production';
-    }
-    else if ( in_array( '%staging-url%', $server ) ) {
-        return $env = 'staging';
-    }
-    else if ( in_array( '%development-url%', $server ) ) {
-        return $env = 'development';
-    }
-    else if ( in_array( $_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'] ) ) {
-        return $env = 'local';
-    }
-
     return 'production';
 }
 endif;
