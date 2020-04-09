@@ -13,15 +13,9 @@ mix.setPublicPath(publicPath)
 // https://laravel-mix.com/docs/5.0/options
 mix.options({
     processCssUrls: false,
-    // terser: {},
-    // purifyCss: false,
-    //purifyCss: {},
     postCss: [
         autoprefixer,
     ],
-    cssNano: {
-    // discardComments: {removeAll: true},
-    },
 });
 
 // https://browsersync.io/docs/options/
