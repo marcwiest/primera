@@ -29,8 +29,8 @@ const rimraf         = require("rimraf");
 const rollup         = require('rollup');
 const rollupBabel    = require('rollup-plugin-babel');
 const rollupCommonjs = require('rollup-plugin-commonjs');
-// const rollupUglify   = require('rollup-plugin-uglify-es');
 const rollupResolveNodeModules = require('rollup-plugin-node-resolve');
+import { terser } from "rollup-plugin-terser";
 
 /**
 * Process JS.
@@ -54,6 +54,7 @@ const bundleJs = done => {
                     rollupResolveNodeModules(),
                     rollupCommonjs(),
                     rollupBabel(),
+                    terser(),
                 ],
             })
             .then(bundle => {
