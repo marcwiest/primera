@@ -1,13 +1,18 @@
 <?php
 
-namespace App;
+namespace App\rest;
 
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
-add_action('rest_api_init', function() {
-
-    register_rest_route( 'primera/v1', '/get-pdf-from-post/', [
-        'methods'  => 'POST',
-        'callback' => '\App\Controllers\App::get_pdf_from_post',
-    ], true );
-});
+// Code example:
+// add_action('rest_api_init', function() {
+//     register_rest_route('primera/v1', '/do-something/', [
+//         'methods'  => 'POST',
+//         'callback' => __NAMESPACE__ . '\\do_something',
+//     ], true);
+// });
+// function do_something(\WP_REST_Request $req)
+// {
+//     $resp = ['success' => true];
+//     return \rest_ensure_response($resp);
+// }

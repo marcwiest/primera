@@ -1,12 +1,12 @@
-## General
+# General
 *.DS_Store
 .AppleDouble
 .LSOverride
 
-## Thumbnails
+# Thumbnails
 ._*
 
-## Files that might appear in the root of a volume
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -15,20 +15,27 @@
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
-## Directories potentially created on remote AFP share
+# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-## Twig, Node, Gulp & Composer Files
-public/twig/*
+# IDEs
+.idea
+.vscode
+
+# Node, Gulp & Composer
 *.map
 node_modules
 vendor
+public/css
+public/js
 
-## Local Project Files
+# Local Project Files
 ROADMAP.md
 screenshot.afdesign
+composer.local.json
+package-backup.json
 

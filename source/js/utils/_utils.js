@@ -5,6 +5,7 @@ const wp = window.wp || {};
 const localized = window.primeraFunctionPrefixLocalizedData || {};
 const localizedData = localized;
 
+// TODO: Fn is unnecessary since PostCSS offers a fallback: https://github.com/postcss/postcss-custom-properties
 // TODO: https://developer.mozilla.org/en-US/docs/Web/API/CSS/supports
 // gist.github.com/wesbos/8b9a22adc1f60336a699
 let supportsCssCustomProps = (() => {
@@ -25,7 +26,7 @@ let supportsCssCustomProps = (() => {
 
 let wpAjaxPost = (action, data, settings) => {
 
-    if (!$.isPlainObject(data)) {
+    if (! $.isPlainObject(data)) {
         console.error('The "data" parameter must be a plain obejct!');
         return {};
     }

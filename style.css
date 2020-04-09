@@ -1,12 +1,14 @@
 /*
-Theme Name: 	  Primera
-Theme URI:        https://github.com/marcwiest/primera
-Description:      A WordPress starter theme.
-Version:          1.0.0
-Author:        	  Marc Wiest
-Author URI:       https://marcwiest.com
-Domain Path:   	  languages
-Text Domain:      primeraTextDomain
-License:       	  GPL-3.0
-License URI:   	  LICENSE.md
+Theme Name: 	    Primera
+Theme URI:          https://github.com/marcwiest/primera
+Description:        A WordPress starter theme.
+Requires at least:  5.4
+Requires PHP:       7.2
+Version:            1.0.0
+Text Domain:        primeraTextDomain
+Author:        	    Marc Wiest
+Author URI:         https://marcwiest.com
+Domain Path:   	    languages
+License:       	    GPL-3.0
+License URI:   	    LICENSE.md
 */

@@ -1,12 +1,13 @@
 
 **Primera Theme**
 
----
+- PRIMERA_ENV
+- See `./vendor/illuminate/support/helpers.php` for additional helper functions.
 
-See `./vendor/illuminate/support/helpers.php` for additional helper functions.
-
----
-
+Learning about changelog:
+- https://keepachangelog.com/en/1.0.0/
+- https://changelogfy.com/
+- https://semver.org/
 
 
 

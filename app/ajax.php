@@ -1,12 +1,14 @@
 <?php
 
-namespace App;
+namespace App\ajax;
 
-defined('WPINC') || exit;
+// Exit if accessed directly.
+defined('ABSPATH') || exit;
 
-// Usage example:
-// add_action('do-something', ['\App\Controllers\App', 'do_something']);
-// add_action('do-something', [
-//     'nopriv' => flase,
-//     'priv' => ['\App\Controllers\App', 'do_something'],
-// ]);
+// Example code:
+// add_ajax_action('action-name', __NAMESPACE__ . '\\do_something');
+// function do_something() {
+//     // Validate a nonce, other $_POST data elements and execute some code.
+//     // It's possible to check if a user is logged-in or not via `is_user_logged_in()`.
+//     // Use `wp_json_send`, or `wp_send_json_success`, or `wp_send_json_error to return data to JS.
+// }

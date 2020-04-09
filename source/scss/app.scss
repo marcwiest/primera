@@ -4,4 +4,8 @@
 // @tailwind components;
 // @tailwind utilities;
 
-// @import "shared/wp";
+@import
+    "includes/includes",
+    "vendor/vendor",
+    "shared/shared",
+    "components/components";

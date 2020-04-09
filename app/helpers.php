@@ -1,5 +1,78 @@
 <?php
 
+defined('ABSPATH') || exit;
+
+if (! function_exists('asset')) :
+// Get URL of an asset from within the public folder.
+function asset(string $filePath): string
+{
+    return get_theme_file_uri( "public/{$filePath}" );
+}
+endif;
+
+if (! function_exists('add_ajax_action')) :
+/**
+* Ajax action wrapper to simplify action creation for both, logged-in and logged-out users.
+* Note: You can check whether a user is logged-in via `is_user_logged_in()`.
+*/
+function add_ajax_action(string $action, callable $callback): void
+{
+    add_action("wp_ajax_{$action}", $callback);
+    add_action("wp_ajax_nopriv_{$action}", $callback);
+}
+endif;
+
+if (! function_exists('log_report')) :
+/**
+* Log message inside `debug.log`.
+*/
+function log_report(string $msg): void
+{
+    $logPath = WP_CONTENT_DIR . '/debug.log';
+    if (defined('WP_DEBUG_LOG') && is_string(WP_DEBUG_LOG) && ! empty(WP_DEBUG_LOG)) {
+        $logPath = trim(WP_DEBUG_LOG);
+    }
+    @error_log($msg, 3, $logPath);
+}
+endif;
+
+if (! function_exists('mix')) :
+/**
+* Gets the versioned JS or CSS file from the `mix-manifest.json`.
+*/
+function mix(string $path): string
+{
+    static $manifests = [];
+
+    $path = '/' . ltrim($path, '/');
+
+    $manifestPath = get_parent_theme_file_path('public/mix-manifest.json');
+
+    if (! isset($manifests[$manifestPath])) {
+        if (! file_exists($manifestPath)) {
+            throw new Exception('The Mix manifest does not exist.');
+        }
+
+        $manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
+    }
+
+    $manifest = $manifests[$manifestPath];
+
+    if (! isset($manifest[$path])) {
+        $exception = new Exception("Unable to locate Mix file: {$path}.");
+
+        if (defined('WP_DEBUG') && true == WP_DEBUG) {
+            throw $exception;
+        } else {
+            log_report($exception);
+            return $path;
+        }
+    }
+
+    return esc_url(get_parent_theme_file_uri("public{$manifest[$path]}"));
+}
+endif;
+
 if ( ! function_exists('strtobool') ) :
 /**
 * Function for turning string booleans values into real booleans.
@@ -10,7 +83,7 @@ if ( ! function_exists('strtobool') ) :
 */
 function strtobool($value): bool
 {
-    $value = strtolower( strval($value) );
+    $value = strtolower(strval($value));
 
     if ( $value === 'true' || $value === '1' ) {
         return true;
@@ -19,117 +92,21 @@ function strtobool($value): bool
         return false;
     }
 
-    return boolval($value);
+    return $value;
 }
 endif;
 
-if ( ! function_exists('add_ajax_action') ) :
-/**
-* Add AJAX actions helper.
-* @param  $cb  callable|array  If array uses "priv" and "nopriv" keys the callbacks are split up (use false to disable either), else use callable for both.
-*/
-function add_ajax_action(string $action, $cb): void
-{
-    if (is_array($cb) && !wp_is_numeric_array($cb)) {
-
-        $nopriv = ($cb['nopriv'] ?? false) ? $cb['nopriv'] : false;
-        $priv = ($cb['priv'] ?? false) ? $cb['priv'] : $nopriv;
-    }
-    else {
-        $nopriv = $priv = $cb;
-    }
-
-    ($nopriv && is_callable($nopriv)) && add_action("wp_ajax_nopriv_{$action}", $nopriv);
-    ($priv && is_callable($priv)) && add_action("wp_ajax_{$action}", $priv);
-}
-endif;
-
-if ( ! function_exists( 'wp_body_open' ) ) :
-// Backward compatibility.
-function wp_body_open()
-{
-    do_action( 'wp_body_open' );
-}
-endif;
-
-if ( ! function_exists( 'html_class' ) ) :
-function html_class( $class='' )
-{
-	// Separates class names with a single space, collates class names for body element
-	echo 'class="' . join( ' ', get_html_class( $class ) ) . '"';
-}
-endif;
-
-if ( ! function_exists( 'get_html_class' ) ) :
-function get_html_class( $class='' )
-{
-    $classes = [];
-
-    if ( ! $GLOBALS['is_IE'] ) {
-        $classes[] = 'css-vars';
-    }
-
-    if ( wp_is_mobile() ) {
-        $classes[] = 'is-mobile-device';
-    }
-
-    // In order of market share.
-    if ( $GLOBALS['is_chrome'] ) {
-        $classes[] = 'is-chrome';
-    } elseif ( $GLOBALS['is_safari'] ) {
-        $classes[] = 'is-safari';
-    } elseif ( $GLOBALS['is_gecko'] ) {
-        $classes[] = 'is-gecko';
-        $classes[] = 'is-firefox';
-    } elseif ( $GLOBALS['is_edge'] ) {
-        $classes[] = 'is-ms-edge';
-    } elseif ( $GLOBALS['is_IE'] ) {
-        $classes[] = 'is-ms-ie';
-    }
-
-    if ( ! empty( $class ) ) {
-		if ( ! is_array( $class ) ) {
-			$class = preg_split( '#\s+#', $class );
-		}
-		$classes = array_merge( $classes, $class );
-	} else {
-		// Ensure that we always coerce class to being an array.
-		$class = array();
-	}
-
-	$classes = array_map( 'esc_attr', $classes );
-
-	/**
-	 * Filters the list of CSS html class names.
-	 *
-	 * @param string[] $classes An array of body class names.
-	 * @param string[] $class   An array of additional class names added to the html element.
-	 */
-	$classes = apply_filters( 'html_class', $classes, $class );
-
-	return array_unique( $classes );
-}
-endif;
-
-if ( ! function_exists( 'asset' ) ) :
-// Get URL of an asset from within the public folder.
-function asset( string $filePath ): string
-{
-    return get_theme_file_uri( "public/{$filePath}" );
-}
-endif;
-
+if (! function_exists('is_ssl')) :
 // Check if SSL is enabled.
-if (! function_exists('isSsl')) :
-function isSsl()
+function is_ssl()
 {
-    if ( is_ssl() ) {
+    if (is_ssl()) {
         return true;
     }
-    else if ( 0 === stripos( get_option('siteurl'), 'https://' ) ) {
+    elseif (0 === stripos(get_option('siteurl'), 'https://')) {
         return true;
     }
-    else if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+    elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) {
         return true;
     }
 
@@ -137,112 +114,24 @@ function isSsl()
 }
 endif;
 
-if ( ! function_exists( 'envName' ) ) :
+if ( ! function_exists( 'env_name' ) ) :
 /**
 * Get current environment.
 * @since 1.0
-* @return string
 */
-function envName( $allowServerName=false )
+function env_name()
 {
-    static $env = '';
-
-    if ( '' != $env ) {
-        return $env;
+    if (defined('PRIMERA_ENV') && is_string(PRIMERA_ENV)) {
+        switch (PRIMERA_ENV) {
+            case 'production': return 'production';
+            case 'staging':    return 'staging';
+            case 'dev':        return 'dev';
+            case 'local':      return 'local';
+        }
     }
-
-    $server = [
-        $_SERVER['HTTP_HOST']
-    ];
-
-    if ( $allowServerName ) {
-        $server[] = $_SERVER['SERVER_NAME'];
+    else if (in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
+        return 'local';
     }
-
-    if ( in_array( '%production-url%', $server ) ) {
-        return $env = 'production';
-    }
-    else if ( in_array( '%staging-url%', $server ) ) {
-        return $env = 'staging';
-    }
-    else if ( in_array( '%development-url%', $server ) ) {
-        return $env = 'development';
-    }
-    else if ( in_array( $_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'] ) ) {
-        return $env = 'local';
-    }
-
     return 'production';
 }
 endif;
-
-/**
-* Get related posts by category example.
-*/
-function getRelatedPostsExample( $amount=4 )
-{
-    global $post;
-
-    if ( ! $post ) {
-        the_post();
-    }
-
-    if ( ! $cats = wp_get_post_categories( $post->ID ) ) {
-        return [];
-    }
-
-    $catIds = '';
-    foreach ( $cats as $cat ) {
-        $catIds .= "$cat,";
-    }
-
-    return get_posts([
-        'cat'          => $catIds,
-        'numberposts'  => $amount,
-        'post__not_in' => [$post->ID],
-    ]);
-}
-
-/**
-* Get yoast primary (or 1st found) category.
-*/
-function getYoastPrimaryCategory( $postId=0 )
-{
-    // If no category is set, return fasle.
-	if ( ! $category = get_the_category( $postId ?: get_the_ID() ) ) {
-        return false;
-    }
-
-    // Get first category.
-    $firstCategory = [
-        'title' => $category[0]->name,
-        'slug' => $category[0]->slug,
-        'url' => get_category_link( $category[0]->term_id ),
-    ];
-
-    // If Yoast primary term does not exist, return the first category.
-    if ( ! class_exists('WPSEO_Primary_Term') ) {
-        return $firstCategory;
-    }
-
-    $wpseo_primary_term = new WPSEO_Primary_Term( 'category', get_the_id($postId) );
-
-    // If method does not exsits, return the first category.
-    if ( ! method_exists($wpseo_primary_term,'get_primary_term') ) {
-        return $firstCategory;
-    }
-
-    $term = get_term( $wpseo_primary_term->get_primary_term() );
-
-    // If post doesn't have a primary term set, return first category.
-    if ( is_wp_error($term) ) {
-        return $firstCategory;
-    }
-
-    // Yoast primary category is available.
-    return [
-        'title' => $term->name,
-        'slug' => $term->slug,
-        'url' => get_category_link( $term->term_id ),
-    ];
-}

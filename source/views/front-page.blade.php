@@ -1,13 +1,15 @@
 @extends('app')
 
-@push('app-open')
+@push('app-header')
     @include('components.navbar')
 @endpush
 
-@push('app-close')
+@push('app-footer')
     @include('components.footer')
 @endpush
 
-@push('main-content')
-    <h1>{{ $test }}</h1>
+@push('app-main')
+    @component('components.main')
+        <h1>{{ $test }}</h1>
+    @endcomponent
 @endpush
