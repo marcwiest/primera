@@ -1,578 +1,303 @@
-(function () {
-  'use strict';
-
-  /**
-   * Checks if `value` is the
-   * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-   * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-   *
-   * @static
-   * @memberOf _
-   * @since 0.1.0
-   * @category Lang
-   * @param {*} value The value to check.
-   * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-   * @example
-   *
-   * _.isObject({});
-   * // => true
-   *
-   * _.isObject([1, 2, 3]);
-   * // => true
-   *
-   * _.isObject(_.noop);
-   * // => true
-   *
-   * _.isObject(null);
-   * // => false
-   */
-  function isObject(value) {
-    var type = typeof value;
-    return value != null && (type == 'object' || type == 'function');
-  }
-
-  var isObject_1 = isObject;
-
-  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-  /** Detect free variable `global` from Node.js. */
-
-  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
-  var _freeGlobal = freeGlobal;
-
-  /** Detect free variable `self`. */
-
-  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-  /** Used as a reference to the global object. */
-
-  var root = _freeGlobal || freeSelf || Function('return this')();
-  var _root = root;
-
-  /**
-   * Gets the timestamp of the number of milliseconds that have elapsed since
-   * the Unix epoch (1 January 1970 00:00:00 UTC).
-   *
-   * @static
-   * @memberOf _
-   * @since 2.4.0
-   * @category Date
-   * @returns {number} Returns the timestamp.
-   * @example
-   *
-   * _.defer(function(stamp) {
-   *   console.log(_.now() - stamp);
-   * }, _.now());
-   * // => Logs the number of milliseconds it took for the deferred invocation.
-   */
-
-  var now = function () {
-    return _root.Date.now();
-  };
-
-  var now_1 = now;
-
-  /** Built-in value references. */
-
-  var Symbol = _root.Symbol;
-  var _Symbol = Symbol;
-
-  /** Used for built-in method references. */
-
-  var objectProto = Object.prototype;
-  /** Used to check objects for own properties. */
-
-  var hasOwnProperty = objectProto.hasOwnProperty;
-  /**
-   * Used to resolve the
-   * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-   * of values.
-   */
-
-  var nativeObjectToString = objectProto.toString;
-  /** Built-in value references. */
-
-  var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
-  /**
-   * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
-   *
-   * @private
-   * @param {*} value The value to query.
-   * @returns {string} Returns the raw `toStringTag`.
-   */
-
-  function getRawTag(value) {
-    var isOwn = hasOwnProperty.call(value, symToStringTag),
-        tag = value[symToStringTag];
-
-    try {
-      value[symToStringTag] = undefined;
-      var unmasked = true;
-    } catch (e) {}
-
-    var result = nativeObjectToString.call(value);
-
-    if (unmasked) {
-      if (isOwn) {
-        value[symToStringTag] = tag;
-      } else {
-        delete value[symToStringTag];
-      }
-    }
-
-    return result;
-  }
-
-  var _getRawTag = getRawTag;
-
-  /** Used for built-in method references. */
-  var objectProto$1 = Object.prototype;
-  /**
-   * Used to resolve the
-   * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-   * of values.
-   */
-
-  var nativeObjectToString$1 = objectProto$1.toString;
-  /**
-   * Converts `value` to a string using `Object.prototype.toString`.
-   *
-   * @private
-   * @param {*} value The value to convert.
-   * @returns {string} Returns the converted string.
-   */
-
-  function objectToString(value) {
-    return nativeObjectToString$1.call(value);
-  }
-
-  var _objectToString = objectToString;
-
-  /** `Object#toString` result references. */
-
-  var nullTag = '[object Null]',
-      undefinedTag = '[object Undefined]';
-  /** Built-in value references. */
-
-  var symToStringTag$1 = _Symbol ? _Symbol.toStringTag : undefined;
-  /**
-   * The base implementation of `getTag` without fallbacks for buggy environments.
-   *
-   * @private
-   * @param {*} value The value to query.
-   * @returns {string} Returns the `toStringTag`.
-   */
-
-  function baseGetTag(value) {
-    if (value == null) {
-      return value === undefined ? undefinedTag : nullTag;
-    }
-
-    return symToStringTag$1 && symToStringTag$1 in Object(value) ? _getRawTag(value) : _objectToString(value);
-  }
-
-  var _baseGetTag = baseGetTag;
-
-  /**
-   * Checks if `value` is object-like. A value is object-like if it's not `null`
-   * and has a `typeof` result of "object".
-   *
-   * @static
-   * @memberOf _
-   * @since 4.0.0
-   * @category Lang
-   * @param {*} value The value to check.
-   * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-   * @example
-   *
-   * _.isObjectLike({});
-   * // => true
-   *
-   * _.isObjectLike([1, 2, 3]);
-   * // => true
-   *
-   * _.isObjectLike(_.noop);
-   * // => false
-   *
-   * _.isObjectLike(null);
-   * // => false
-   */
-  function isObjectLike(value) {
-    return value != null && typeof value == 'object';
-  }
-
-  var isObjectLike_1 = isObjectLike;
-
-  /** `Object#toString` result references. */
-
-  var symbolTag = '[object Symbol]';
-  /**
-   * Checks if `value` is classified as a `Symbol` primitive or object.
-   *
-   * @static
-   * @memberOf _
-   * @since 4.0.0
-   * @category Lang
-   * @param {*} value The value to check.
-   * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
-   * @example
-   *
-   * _.isSymbol(Symbol.iterator);
-   * // => true
-   *
-   * _.isSymbol('abc');
-   * // => false
-   */
-
-  function isSymbol(value) {
-    return typeof value == 'symbol' || isObjectLike_1(value) && _baseGetTag(value) == symbolTag;
-  }
-
-  var isSymbol_1 = isSymbol;
-
-  /** Used as references for various `Number` constants. */
-
-  var NAN = 0 / 0;
-  /** Used to match leading and trailing whitespace. */
-
-  var reTrim = /^\s+|\s+$/g;
-  /** Used to detect bad signed hexadecimal string values. */
-
-  var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-  /** Used to detect binary string values. */
-
-  var reIsBinary = /^0b[01]+$/i;
-  /** Used to detect octal string values. */
-
-  var reIsOctal = /^0o[0-7]+$/i;
-  /** Built-in method references without a dependency on `root`. */
-
-  var freeParseInt = parseInt;
-  /**
-   * Converts `value` to a number.
-   *
-   * @static
-   * @memberOf _
-   * @since 4.0.0
-   * @category Lang
-   * @param {*} value The value to process.
-   * @returns {number} Returns the number.
-   * @example
-   *
-   * _.toNumber(3.2);
-   * // => 3.2
-   *
-   * _.toNumber(Number.MIN_VALUE);
-   * // => 5e-324
-   *
-   * _.toNumber(Infinity);
-   * // => Infinity
-   *
-   * _.toNumber('3.2');
-   * // => 3.2
-   */
-
-  function toNumber(value) {
-    if (typeof value == 'number') {
-      return value;
-    }
-
-    if (isSymbol_1(value)) {
-      return NAN;
-    }
-
-    if (isObject_1(value)) {
-      var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-      value = isObject_1(other) ? other + '' : other;
-    }
-
-    if (typeof value != 'string') {
-      return value === 0 ? value : +value;
-    }
-
-    value = value.replace(reTrim, '');
-    var isBinary = reIsBinary.test(value);
-    return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-  }
-
-  var toNumber_1 = toNumber;
-
-  /** Error message constants. */
-
-  var FUNC_ERROR_TEXT = 'Expected a function';
-  /* Built-in method references for those with the same name as other `lodash` methods. */
-
-  var nativeMax = Math.max,
-      nativeMin = Math.min;
-  /**
-   * Creates a debounced function that delays invoking `func` until after `wait`
-   * milliseconds have elapsed since the last time the debounced function was
-   * invoked. The debounced function comes with a `cancel` method to cancel
-   * delayed `func` invocations and a `flush` method to immediately invoke them.
-   * Provide `options` to indicate whether `func` should be invoked on the
-   * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
-   * with the last arguments provided to the debounced function. Subsequent
-   * calls to the debounced function return the result of the last `func`
-   * invocation.
-   *
-   * **Note:** If `leading` and `trailing` options are `true`, `func` is
-   * invoked on the trailing edge of the timeout only if the debounced function
-   * is invoked more than once during the `wait` timeout.
-   *
-   * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
-   * until to the next tick, similar to `setTimeout` with a timeout of `0`.
-   *
-   * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
-   * for details over the differences between `_.debounce` and `_.throttle`.
-   *
-   * @static
-   * @memberOf _
-   * @since 0.1.0
-   * @category Function
-   * @param {Function} func The function to debounce.
-   * @param {number} [wait=0] The number of milliseconds to delay.
-   * @param {Object} [options={}] The options object.
-   * @param {boolean} [options.leading=false]
-   *  Specify invoking on the leading edge of the timeout.
-   * @param {number} [options.maxWait]
-   *  The maximum time `func` is allowed to be delayed before it's invoked.
-   * @param {boolean} [options.trailing=true]
-   *  Specify invoking on the trailing edge of the timeout.
-   * @returns {Function} Returns the new debounced function.
-   * @example
-   *
-   * // Avoid costly calculations while the window size is in flux.
-   * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
-   *
-   * // Invoke `sendMail` when clicked, debouncing subsequent calls.
-   * jQuery(element).on('click', _.debounce(sendMail, 300, {
-   *   'leading': true,
-   *   'trailing': false
-   * }));
-   *
-   * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
-   * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
-   * var source = new EventSource('/stream');
-   * jQuery(source).on('message', debounced);
-   *
-   * // Cancel the trailing debounced invocation.
-   * jQuery(window).on('popstate', debounced.cancel);
-   */
-
-  function debounce(func, wait, options) {
-    var lastArgs,
-        lastThis,
-        maxWait,
-        result,
-        timerId,
-        lastCallTime,
-        lastInvokeTime = 0,
-        leading = false,
-        maxing = false,
-        trailing = true;
-
-    if (typeof func != 'function') {
-      throw new TypeError(FUNC_ERROR_TEXT);
-    }
-
-    wait = toNumber_1(wait) || 0;
-
-    if (isObject_1(options)) {
-      leading = !!options.leading;
-      maxing = 'maxWait' in options;
-      maxWait = maxing ? nativeMax(toNumber_1(options.maxWait) || 0, wait) : maxWait;
-      trailing = 'trailing' in options ? !!options.trailing : trailing;
-    }
-
-    function invokeFunc(time) {
-      var args = lastArgs,
-          thisArg = lastThis;
-      lastArgs = lastThis = undefined;
-      lastInvokeTime = time;
-      result = func.apply(thisArg, args);
-      return result;
-    }
-
-    function leadingEdge(time) {
-      // Reset any `maxWait` timer.
-      lastInvokeTime = time; // Start the timer for the trailing edge.
-
-      timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
-
-      return leading ? invokeFunc(time) : result;
-    }
-
-    function remainingWait(time) {
-      var timeSinceLastCall = time - lastCallTime,
-          timeSinceLastInvoke = time - lastInvokeTime,
-          timeWaiting = wait - timeSinceLastCall;
-      return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
-    }
-
-    function shouldInvoke(time) {
-      var timeSinceLastCall = time - lastCallTime,
-          timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
-      // trailing edge, the system time has gone backwards and we're treating
-      // it as the trailing edge, or we've hit the `maxWait` limit.
-
-      return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-    }
-
-    function timerExpired() {
-      var time = now_1();
-
-      if (shouldInvoke(time)) {
-        return trailingEdge(time);
-      } // Restart the timer.
-
-
-      timerId = setTimeout(timerExpired, remainingWait(time));
-    }
-
-    function trailingEdge(time) {
-      timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
-      // debounced at least once.
-
-      if (trailing && lastArgs) {
-        return invokeFunc(time);
-      }
-
-      lastArgs = lastThis = undefined;
-      return result;
-    }
-
-    function cancel() {
-      if (timerId !== undefined) {
-        clearTimeout(timerId);
-      }
-
-      lastInvokeTime = 0;
-      lastArgs = lastCallTime = lastThis = timerId = undefined;
-    }
-
-    function flush() {
-      return timerId === undefined ? result : trailingEdge(now_1());
-    }
-
-    function debounced() {
-      var time = now_1(),
-          isInvoking = shouldInvoke(time);
-      lastArgs = arguments;
-      lastThis = this;
-      lastCallTime = time;
-
-      if (isInvoking) {
-        if (timerId === undefined) {
-          return leadingEdge(lastCallTime);
-        }
-
-        if (maxing) {
-          // Handle invocations in a tight loop.
-          timerId = setTimeout(timerExpired, wait);
-          return invokeFunc(lastCallTime);
-        }
-      }
-
-      if (timerId === undefined) {
-        timerId = setTimeout(timerExpired, wait);
-      }
-
-      return result;
-    }
-
-    debounced.cancel = cancel;
-    debounced.flush = flush;
-    return debounced;
-  }
-
-  var debounce_1 = debounce;
-
-  // tailwindcss.com/docs/configuration
-  var tailwind_config = {
-    theme: {
-      screens: {
-        sm: '600px',
-        md: '900px',
-        lg: '1200px'
-      }
-    }
-  };
-
-  // export default 'test';
-  var $ = window.jQuery || {};
-  var wp = window.wp || {};
-  var localizedData = window.primeraFunctionPrefixLocalizedData || {}; // gist.github.com/wesbos/8b9a22adc1f60336a699
-
-  var supportsCssCustomProps = function () {
-    var color = 'rgb(255, 198, 0)';
-    var el = document.createElement('span');
-    el.style.setProperty('--color', color);
-    el.style.setProperty('background', 'var(--color)');
-    document.body.appendChild(el);
-    var styles = getComputedStyle(el);
-    var doesSupport = styles.backgroundColor === color;
-    document.body.removeChild(el);
-    return doesSupport;
-  }();
-
-  // import './vendor/fitvids';
-
-
-  var localized = window.primeraFunctionPrefixLocalizedData;
-  var $$1 = window.jQuery;
-  var wp$1 = window.wp;
-  var enquire = window.enquire;
-  var docElem = document.documentElement;
-  var $window = $$1(window);
-  var $document = $$1(document);
-  var $html = $$1('html');
-  var $body = $$1('body');
-  var $wpadminbar = $$1('#wpadminbar');
-  var wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
-  var scrollTop = $window.scrollTop(); // Indicate JS.
-
-  $html.removeClass('no-js').addClass('js'); // Setup jQuery AJAX.
-
-  $$1.ajaxSetup({
-    headers: {
-      // Automates the passing of the CSRF token. No need to supply it to every AJAX call.
-      'X-CSRF-TOKEN': localized.restNonce
-    }
-  }); // Initialize plugins.
-  // ...
-  // Setup CSS custom properties.
-
-  if (supportsCssCustomProps) {
-    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-  } // Bind media queries.
-
-
-  enquire.register("screen and (min-width:".concat(tailwind_config.theme.screens.sm, ")"), {
-    deferSetup: true,
-    // defers setup callback until a match occurs
-    setup: function setup() {
-      console.log('setup');
-    },
-    match: function match() {
-      console.log('match');
-    },
-    unmatch: function unmatch() {
-      console.log('unmatch');
-    }
-  }); // Bind scroll events.
-
-  $window.on('scroll', debounce_1(function (e) {
-    scrollTop = $window.scrollTop();
-  }, 25)); // Bind resize events.
-
-  $window.on('resize', debounce_1(function (e) {
-    scrollTop = $window.scrollTop();
-    wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;
-
-    if (supportsCssCustomProps) {
-      docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');
-    }
-  }, 25)); // Bind events.
-  // ...
-
-}());
-//# sourceMappingURL=app.js.map
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var root = __webpack_require__(/*! ./_root */ \"./node_modules/lodash/_root.js\");\n\n/** Built-in value references. */\nvar Symbol = root.Symbol;\n\nmodule.exports = Symbol;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19TeW1ib2wuanM/OWU2OSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxXQUFXLG1CQUFPLENBQUMsK0NBQVM7O0FBRTVCO0FBQ0E7O0FBRUEiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvbG9kYXNoL19TeW1ib2wuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgcm9vdCA9IHJlcXVpcmUoJy4vX3Jvb3QnKTtcblxuLyoqIEJ1aWx0LWluIHZhbHVlIHJlZmVyZW5jZXMuICovXG52YXIgU3ltYm9sID0gcm9vdC5TeW1ib2w7XG5cbm1vZHVsZS5leHBvcnRzID0gU3ltYm9sO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/lodash/_Symbol.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Symbol = __webpack_require__(/*! ./_Symbol */ \"./node_modules/lodash/_Symbol.js\"),\n    getRawTag = __webpack_require__(/*! ./_getRawTag */ \"./node_modules/lodash/_getRawTag.js\"),\n    objectToString = __webpack_require__(/*! ./_objectToString */ \"./node_modules/lodash/_objectToString.js\");\n\n/** `Object#toString` result references. */\nvar nullTag = '[object Null]',\n    undefinedTag = '[object Undefined]';\n\n/** Built-in value references. */\nvar symToStringTag = Symbol ? Symbol.toStringTag : undefined;\n\n/**\n * The base implementation of `getTag` without fallbacks for buggy environments.\n *\n * @private\n * @param {*} value The value to query.\n * @returns {string} Returns the `toStringTag`.\n */\nfunction baseGetTag(value) {\n  if (value == null) {\n    return value === undefined ? undefinedTag : nullTag;\n  }\n  return (symToStringTag && symToStringTag in Object(value))\n    ? getRawTag(value)\n    : objectToString(value);\n}\n\nmodule.exports = baseGetTag;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19iYXNlR2V0VGFnLmpzPzM3MjkiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsYUFBYSxtQkFBTyxDQUFDLG1EQUFXO0FBQ2hDLGdCQUFnQixtQkFBTyxDQUFDLHlEQUFjO0FBQ3RDLHFCQUFxQixtQkFBTyxDQUFDLG1FQUFtQjs7QUFFaEQ7QUFDQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQSxXQUFXLEVBQUU7QUFDYixhQUFhLE9BQU87QUFDcEI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2xvZGFzaC9fYmFzZUdldFRhZy5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbInZhciBTeW1ib2wgPSByZXF1aXJlKCcuL19TeW1ib2wnKSxcbiAgICBnZXRSYXdUYWcgPSByZXF1aXJlKCcuL19nZXRSYXdUYWcnKSxcbiAgICBvYmplY3RUb1N0cmluZyA9IHJlcXVpcmUoJy4vX29iamVjdFRvU3RyaW5nJyk7XG5cbi8qKiBgT2JqZWN0I3RvU3RyaW5nYCByZXN1bHQgcmVmZXJlbmNlcy4gKi9cbnZhciBudWxsVGFnID0gJ1tvYmplY3QgTnVsbF0nLFxuICAgIHVuZGVmaW5lZFRhZyA9ICdbb2JqZWN0IFVuZGVmaW5lZF0nO1xuXG4vKiogQnVpbHQtaW4gdmFsdWUgcmVmZXJlbmNlcy4gKi9cbnZhciBzeW1Ub1N0cmluZ1RhZyA9IFN5bWJvbCA/IFN5bWJvbC50b1N0cmluZ1RhZyA6IHVuZGVmaW5lZDtcblxuLyoqXG4gKiBUaGUgYmFzZSBpbXBsZW1lbnRhdGlvbiBvZiBgZ2V0VGFnYCB3aXRob3V0IGZhbGxiYWNrcyBmb3IgYnVnZ3kgZW52aXJvbm1lbnRzLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0geyp9IHZhbHVlIFRoZSB2YWx1ZSB0byBxdWVyeS5cbiAqIEByZXR1cm5zIHtzdHJpbmd9IFJldHVybnMgdGhlIGB0b1N0cmluZ1RhZ2AuXG4gKi9cbmZ1bmN0aW9uIGJhc2VHZXRUYWcodmFsdWUpIHtcbiAgaWYgKHZhbHVlID09IG51bGwpIHtcbiAgICByZXR1cm4gdmFsdWUgPT09IHVuZGVmaW5lZCA/IHVuZGVmaW5lZFRhZyA6IG51bGxUYWc7XG4gIH1cbiAgcmV0dXJuIChzeW1Ub1N0cmluZ1RhZyAmJiBzeW1Ub1N0cmluZ1RhZyBpbiBPYmplY3QodmFsdWUpKVxuICAgID8gZ2V0UmF3VGFnKHZhbHVlKVxuICAgIDogb2JqZWN0VG9TdHJpbmcodmFsdWUpO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGJhc2VHZXRUYWc7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/_baseGetTag.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */\nvar freeGlobal = typeof global == 'object' && global && global.Object === Object && global;\n\nmodule.exports = freeGlobal;\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19mcmVlR2xvYmFsLmpzPzU4NWEiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTs7QUFFQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy9sb2Rhc2gvX2ZyZWVHbG9iYWwuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiogRGV0ZWN0IGZyZWUgdmFyaWFibGUgYGdsb2JhbGAgZnJvbSBOb2RlLmpzLiAqL1xudmFyIGZyZWVHbG9iYWwgPSB0eXBlb2YgZ2xvYmFsID09ICdvYmplY3QnICYmIGdsb2JhbCAmJiBnbG9iYWwuT2JqZWN0ID09PSBPYmplY3QgJiYgZ2xvYmFsO1xuXG5tb2R1bGUuZXhwb3J0cyA9IGZyZWVHbG9iYWw7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/_freeGlobal.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Symbol = __webpack_require__(/*! ./_Symbol */ \"./node_modules/lodash/_Symbol.js\");\n\n/** Used for built-in method references. */\nvar objectProto = Object.prototype;\n\n/** Used to check objects for own properties. */\nvar hasOwnProperty = objectProto.hasOwnProperty;\n\n/**\n * Used to resolve the\n * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)\n * of values.\n */\nvar nativeObjectToString = objectProto.toString;\n\n/** Built-in value references. */\nvar symToStringTag = Symbol ? Symbol.toStringTag : undefined;\n\n/**\n * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.\n *\n * @private\n * @param {*} value The value to query.\n * @returns {string} Returns the raw `toStringTag`.\n */\nfunction getRawTag(value) {\n  var isOwn = hasOwnProperty.call(value, symToStringTag),\n      tag = value[symToStringTag];\n\n  try {\n    value[symToStringTag] = undefined;\n    var unmasked = true;\n  } catch (e) {}\n\n  var result = nativeObjectToString.call(value);\n  if (unmasked) {\n    if (isOwn) {\n      value[symToStringTag] = tag;\n    } else {\n      delete value[symToStringTag];\n    }\n  }\n  return result;\n}\n\nmodule.exports = getRawTag;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19nZXRSYXdUYWcuanM/MDBmZCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxhQUFhLG1CQUFPLENBQUMsbURBQVc7O0FBRWhDO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLFdBQVcsRUFBRTtBQUNiLGFBQWEsT0FBTztBQUNwQjtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQSxHQUFHOztBQUVIO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsS0FBSztBQUNMO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvbG9kYXNoL19nZXRSYXdUYWcuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgU3ltYm9sID0gcmVxdWlyZSgnLi9fU3ltYm9sJyk7XG5cbi8qKiBVc2VkIGZvciBidWlsdC1pbiBtZXRob2QgcmVmZXJlbmNlcy4gKi9cbnZhciBvYmplY3RQcm90byA9IE9iamVjdC5wcm90b3R5cGU7XG5cbi8qKiBVc2VkIHRvIGNoZWNrIG9iamVjdHMgZm9yIG93biBwcm9wZXJ0aWVzLiAqL1xudmFyIGhhc093blByb3BlcnR5ID0gb2JqZWN0UHJvdG8uaGFzT3duUHJvcGVydHk7XG5cbi8qKlxuICogVXNlZCB0byByZXNvbHZlIHRoZVxuICogW2B0b1N0cmluZ1RhZ2BdKGh0dHA6Ly9lY21hLWludGVybmF0aW9uYWwub3JnL2VjbWEtMjYyLzcuMC8jc2VjLW9iamVjdC5wcm90b3R5cGUudG9zdHJpbmcpXG4gKiBvZiB2YWx1ZXMuXG4gKi9cbnZhciBuYXRpdmVPYmplY3RUb1N0cmluZyA9IG9iamVjdFByb3RvLnRvU3RyaW5nO1xuXG4vKiogQnVpbHQtaW4gdmFsdWUgcmVmZXJlbmNlcy4gKi9cbnZhciBzeW1Ub1N0cmluZ1RhZyA9IFN5bWJvbCA/IFN5bWJvbC50b1N0cmluZ1RhZyA6IHVuZGVmaW5lZDtcblxuLyoqXG4gKiBBIHNwZWNpYWxpemVkIHZlcnNpb24gb2YgYGJhc2VHZXRUYWdgIHdoaWNoIGlnbm9yZXMgYFN5bWJvbC50b1N0cmluZ1RhZ2AgdmFsdWVzLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0geyp9IHZhbHVlIFRoZSB2YWx1ZSB0byBxdWVyeS5cbiAqIEByZXR1cm5zIHtzdHJpbmd9IFJldHVybnMgdGhlIHJhdyBgdG9TdHJpbmdUYWdgLlxuICovXG5mdW5jdGlvbiBnZXRSYXdUYWcodmFsdWUpIHtcbiAgdmFyIGlzT3duID0gaGFzT3duUHJvcGVydHkuY2FsbCh2YWx1ZSwgc3ltVG9TdHJpbmdUYWcpLFxuICAgICAgdGFnID0gdmFsdWVbc3ltVG9TdHJpbmdUYWddO1xuXG4gIHRyeSB7XG4gICAgdmFsdWVbc3ltVG9TdHJpbmdUYWddID0gdW5kZWZpbmVkO1xuICAgIHZhciB1bm1hc2tlZCA9IHRydWU7XG4gIH0gY2F0Y2ggKGUpIHt9XG5cbiAgdmFyIHJlc3VsdCA9IG5hdGl2ZU9iamVjdFRvU3RyaW5nLmNhbGwodmFsdWUpO1xuICBpZiAodW5tYXNrZWQpIHtcbiAgICBpZiAoaXNPd24pIHtcbiAgICAgIHZhbHVlW3N5bVRvU3RyaW5nVGFnXSA9IHRhZztcbiAgICB9IGVsc2Uge1xuICAgICAgZGVsZXRlIHZhbHVlW3N5bVRvU3RyaW5nVGFnXTtcbiAgICB9XG4gIH1cbiAgcmV0dXJuIHJlc3VsdDtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBnZXRSYXdUYWc7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/_getRawTag.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/** Used for built-in method references. */\nvar objectProto = Object.prototype;\n\n/**\n * Used to resolve the\n * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)\n * of values.\n */\nvar nativeObjectToString = objectProto.toString;\n\n/**\n * Converts `value` to a string using `Object.prototype.toString`.\n *\n * @private\n * @param {*} value The value to convert.\n * @returns {string} Returns the converted string.\n */\nfunction objectToString(value) {\n  return nativeObjectToString.call(value);\n}\n\nmodule.exports = objectToString;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19vYmplY3RUb1N0cmluZy5qcz8yOWYzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsV0FBVyxFQUFFO0FBQ2IsYUFBYSxPQUFPO0FBQ3BCO0FBQ0E7QUFDQTtBQUNBOztBQUVBIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2xvZGFzaC9fb2JqZWN0VG9TdHJpbmcuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiogVXNlZCBmb3IgYnVpbHQtaW4gbWV0aG9kIHJlZmVyZW5jZXMuICovXG52YXIgb2JqZWN0UHJvdG8gPSBPYmplY3QucHJvdG90eXBlO1xuXG4vKipcbiAqIFVzZWQgdG8gcmVzb2x2ZSB0aGVcbiAqIFtgdG9TdHJpbmdUYWdgXShodHRwOi8vZWNtYS1pbnRlcm5hdGlvbmFsLm9yZy9lY21hLTI2Mi83LjAvI3NlYy1vYmplY3QucHJvdG90eXBlLnRvc3RyaW5nKVxuICogb2YgdmFsdWVzLlxuICovXG52YXIgbmF0aXZlT2JqZWN0VG9TdHJpbmcgPSBvYmplY3RQcm90by50b1N0cmluZztcblxuLyoqXG4gKiBDb252ZXJ0cyBgdmFsdWVgIHRvIGEgc3RyaW5nIHVzaW5nIGBPYmplY3QucHJvdG90eXBlLnRvU3RyaW5nYC5cbiAqXG4gKiBAcHJpdmF0ZVxuICogQHBhcmFtIHsqfSB2YWx1ZSBUaGUgdmFsdWUgdG8gY29udmVydC5cbiAqIEByZXR1cm5zIHtzdHJpbmd9IFJldHVybnMgdGhlIGNvbnZlcnRlZCBzdHJpbmcuXG4gKi9cbmZ1bmN0aW9uIG9iamVjdFRvU3RyaW5nKHZhbHVlKSB7XG4gIHJldHVybiBuYXRpdmVPYmplY3RUb1N0cmluZy5jYWxsKHZhbHVlKTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBvYmplY3RUb1N0cmluZztcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./node_modules/lodash/_objectToString.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ \"./node_modules/lodash/_freeGlobal.js\");\n\n/** Detect free variable `self`. */\nvar freeSelf = typeof self == 'object' && self && self.Object === Object && self;\n\n/** Used as a reference to the global object. */\nvar root = freeGlobal || freeSelf || Function('return this')();\n\nmodule.exports = root;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL19yb290LmpzPzJiM2UiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsaUJBQWlCLG1CQUFPLENBQUMsMkRBQWU7O0FBRXhDO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy9sb2Rhc2gvX3Jvb3QuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgZnJlZUdsb2JhbCA9IHJlcXVpcmUoJy4vX2ZyZWVHbG9iYWwnKTtcblxuLyoqIERldGVjdCBmcmVlIHZhcmlhYmxlIGBzZWxmYC4gKi9cbnZhciBmcmVlU2VsZiA9IHR5cGVvZiBzZWxmID09ICdvYmplY3QnICYmIHNlbGYgJiYgc2VsZi5PYmplY3QgPT09IE9iamVjdCAmJiBzZWxmO1xuXG4vKiogVXNlZCBhcyBhIHJlZmVyZW5jZSB0byB0aGUgZ2xvYmFsIG9iamVjdC4gKi9cbnZhciByb290ID0gZnJlZUdsb2JhbCB8fCBmcmVlU2VsZiB8fCBGdW5jdGlvbigncmV0dXJuIHRoaXMnKSgpO1xuXG5tb2R1bGUuZXhwb3J0cyA9IHJvb3Q7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/_root.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/debounce.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/debounce.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var isObject = __webpack_require__(/*! ./isObject */ \"./node_modules/lodash/isObject.js\"),\n    now = __webpack_require__(/*! ./now */ \"./node_modules/lodash/now.js\"),\n    toNumber = __webpack_require__(/*! ./toNumber */ \"./node_modules/lodash/toNumber.js\");\n\n/** Error message constants. */\nvar FUNC_ERROR_TEXT = 'Expected a function';\n\n/* Built-in method references for those with the same name as other `lodash` methods. */\nvar nativeMax = Math.max,\n    nativeMin = Math.min;\n\n/**\n * Creates a debounced function that delays invoking `func` until after `wait`\n * milliseconds have elapsed since the last time the debounced function was\n * invoked. The debounced function comes with a `cancel` method to cancel\n * delayed `func` invocations and a `flush` method to immediately invoke them.\n * Provide `options` to indicate whether `func` should be invoked on the\n * leading and/or trailing edge of the `wait` timeout. The `func` is invoked\n * with the last arguments provided to the debounced function. Subsequent\n * calls to the debounced function return the result of the last `func`\n * invocation.\n *\n * **Note:** If `leading` and `trailing` options are `true`, `func` is\n * invoked on the trailing edge of the timeout only if the debounced function\n * is invoked more than once during the `wait` timeout.\n *\n * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred\n * until to the next tick, similar to `setTimeout` with a timeout of `0`.\n *\n * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)\n * for details over the differences between `_.debounce` and `_.throttle`.\n *\n * @static\n * @memberOf _\n * @since 0.1.0\n * @category Function\n * @param {Function} func The function to debounce.\n * @param {number} [wait=0] The number of milliseconds to delay.\n * @param {Object} [options={}] The options object.\n * @param {boolean} [options.leading=false]\n *  Specify invoking on the leading edge of the timeout.\n * @param {number} [options.maxWait]\n *  The maximum time `func` is allowed to be delayed before it's invoked.\n * @param {boolean} [options.trailing=true]\n *  Specify invoking on the trailing edge of the timeout.\n * @returns {Function} Returns the new debounced function.\n * @example\n *\n * // Avoid costly calculations while the window size is in flux.\n * jQuery(window).on('resize', _.debounce(calculateLayout, 150));\n *\n * // Invoke `sendMail` when clicked, debouncing subsequent calls.\n * jQuery(element).on('click', _.debounce(sendMail, 300, {\n *   'leading': true,\n *   'trailing': false\n * }));\n *\n * // Ensure `batchLog` is invoked once after 1 second of debounced calls.\n * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });\n * var source = new EventSource('/stream');\n * jQuery(source).on('message', debounced);\n *\n * // Cancel the trailing debounced invocation.\n * jQuery(window).on('popstate', debounced.cancel);\n */\nfunction debounce(func, wait, options) {\n  var lastArgs,\n      lastThis,\n      maxWait,\n      result,\n      timerId,\n      lastCallTime,\n      lastInvokeTime = 0,\n      leading = false,\n      maxing = false,\n      trailing = true;\n\n  if (typeof func != 'function') {\n    throw new TypeError(FUNC_ERROR_TEXT);\n  }\n  wait = toNumber(wait) || 0;\n  if (isObject(options)) {\n    leading = !!options.leading;\n    maxing = 'maxWait' in options;\n    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;\n    trailing = 'trailing' in options ? !!options.trailing : trailing;\n  }\n\n  function invokeFunc(time) {\n    var args = lastArgs,\n        thisArg = lastThis;\n\n    lastArgs = lastThis = undefined;\n    lastInvokeTime = time;\n    result = func.apply(thisArg, args);\n    return result;\n  }\n\n  function leadingEdge(time) {\n    // Reset any `maxWait` timer.\n    lastInvokeTime = time;\n    // Start the timer for the trailing edge.\n    timerId = setTimeout(timerExpired, wait);\n    // Invoke the leading edge.\n    return leading ? invokeFunc(time) : result;\n  }\n\n  function remainingWait(time) {\n    var timeSinceLastCall = time - lastCallTime,\n        timeSinceLastInvoke = time - lastInvokeTime,\n        timeWaiting = wait - timeSinceLastCall;\n\n    return maxing\n      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)\n      : timeWaiting;\n  }\n\n  function shouldInvoke(time) {\n    var timeSinceLastCall = time - lastCallTime,\n        timeSinceLastInvoke = time - lastInvokeTime;\n\n    // Either this is the first call, activity has stopped and we're at the\n    // trailing edge, the system time has gone backwards and we're treating\n    // it as the trailing edge, or we've hit the `maxWait` limit.\n    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||\n      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));\n  }\n\n  function timerExpired() {\n    var time = now();\n    if (shouldInvoke(time)) {\n      return trailingEdge(time);\n    }\n    // Restart the timer.\n    timerId = setTimeout(timerExpired, remainingWait(time));\n  }\n\n  function trailingEdge(time) {\n    timerId = undefined;\n\n    // Only invoke if we have `lastArgs` which means `func` has been\n    // debounced at least once.\n    if (trailing && lastArgs) {\n      return invokeFunc(time);\n    }\n    lastArgs = lastThis = undefined;\n    return result;\n  }\n\n  function cancel() {\n    if (timerId !== undefined) {\n      clearTimeout(timerId);\n    }\n    lastInvokeTime = 0;\n    lastArgs = lastCallTime = lastThis = timerId = undefined;\n  }\n\n  function flush() {\n    return timerId === undefined ? result : trailingEdge(now());\n  }\n\n  function debounced() {\n    var time = now(),\n        isInvoking = shouldInvoke(time);\n\n    lastArgs = arguments;\n    lastThis = this;\n    lastCallTime = time;\n\n    if (isInvoking) {\n      if (timerId === undefined) {\n        return leadingEdge(lastCallTime);\n      }\n      if (maxing) {\n        // Handle invocations in a tight loop.\n        clearTimeout(timerId);\n        timerId = setTimeout(timerExpired, wait);\n        return invokeFunc(lastCallTime);\n      }\n    }\n    if (timerId === undefined) {\n      timerId = setTimeout(timerExpired, wait);\n    }\n    return result;\n  }\n  debounced.cancel = cancel;\n  debounced.flush = flush;\n  return debounced;\n}\n\nmodule.exports = debounce;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL2RlYm91bmNlLmpzP2IwNDciXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsZUFBZSxtQkFBTyxDQUFDLHFEQUFZO0FBQ25DLFVBQVUsbUJBQU8sQ0FBQywyQ0FBTztBQUN6QixlQUFlLG1CQUFPLENBQUMscURBQVk7O0FBRW5DO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsV0FBVyxTQUFTO0FBQ3BCLFdBQVcsT0FBTztBQUNsQixXQUFXLE9BQU8sWUFBWTtBQUM5QixXQUFXLFFBQVE7QUFDbkI7QUFDQSxXQUFXLE9BQU87QUFDbEI7QUFDQSxXQUFXLFFBQVE7QUFDbkI7QUFDQSxhQUFhLFNBQVM7QUFDdEI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsSUFBSTtBQUNKO0FBQ0E7QUFDQSw4Q0FBOEMsa0JBQWtCO0FBQ2hFO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvbG9kYXNoL2RlYm91bmNlLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzT2JqZWN0ID0gcmVxdWlyZSgnLi9pc09iamVjdCcpLFxuICAgIG5vdyA9IHJlcXVpcmUoJy4vbm93JyksXG4gICAgdG9OdW1iZXIgPSByZXF1aXJlKCcuL3RvTnVtYmVyJyk7XG5cbi8qKiBFcnJvciBtZXNzYWdlIGNvbnN0YW50cy4gKi9cbnZhciBGVU5DX0VSUk9SX1RFWFQgPSAnRXhwZWN0ZWQgYSBmdW5jdGlvbic7XG5cbi8qIEJ1aWx0LWluIG1ldGhvZCByZWZlcmVuY2VzIGZvciB0aG9zZSB3aXRoIHRoZSBzYW1lIG5hbWUgYXMgb3RoZXIgYGxvZGFzaGAgbWV0aG9kcy4gKi9cbnZhciBuYXRpdmVNYXggPSBNYXRoLm1heCxcbiAgICBuYXRpdmVNaW4gPSBNYXRoLm1pbjtcblxuLyoqXG4gKiBDcmVhdGVzIGEgZGVib3VuY2VkIGZ1bmN0aW9uIHRoYXQgZGVsYXlzIGludm9raW5nIGBmdW5jYCB1bnRpbCBhZnRlciBgd2FpdGBcbiAqIG1pbGxpc2Vjb25kcyBoYXZlIGVsYXBzZWQgc2luY2UgdGhlIGxhc3QgdGltZSB0aGUgZGVib3VuY2VkIGZ1bmN0aW9uIHdhc1xuICogaW52b2tlZC4gVGhlIGRlYm91bmNlZCBmdW5jdGlvbiBjb21lcyB3aXRoIGEgYGNhbmNlbGAgbWV0aG9kIHRvIGNhbmNlbFxuICogZGVsYXllZCBgZnVuY2AgaW52b2NhdGlvbnMgYW5kIGEgYGZsdXNoYCBtZXRob2QgdG8gaW1tZWRpYXRlbHkgaW52b2tlIHRoZW0uXG4gKiBQcm92aWRlIGBvcHRpb25zYCB0byBpbmRpY2F0ZSB3aGV0aGVyIGBmdW5jYCBzaG91bGQgYmUgaW52b2tlZCBvbiB0aGVcbiAqIGxlYWRpbmcgYW5kL29yIHRyYWlsaW5nIGVkZ2Ugb2YgdGhlIGB3YWl0YCB0aW1lb3V0LiBUaGUgYGZ1bmNgIGlzIGludm9rZWRcbiAqIHdpdGggdGhlIGxhc3QgYXJndW1lbnRzIHByb3ZpZGVkIHRvIHRoZSBkZWJvdW5jZWQgZnVuY3Rpb24uIFN1YnNlcXVlbnRcbiAqIGNhbGxzIHRvIHRoZSBkZWJvdW5jZWQgZnVuY3Rpb24gcmV0dXJuIHRoZSByZXN1bHQgb2YgdGhlIGxhc3QgYGZ1bmNgXG4gKiBpbnZvY2F0aW9uLlxuICpcbiAqICoqTm90ZToqKiBJZiBgbGVhZGluZ2AgYW5kIGB0cmFpbGluZ2Agb3B0aW9ucyBhcmUgYHRydWVgLCBgZnVuY2AgaXNcbiAqIGludm9rZWQgb24gdGhlIHRyYWlsaW5nIGVkZ2Ugb2YgdGhlIHRpbWVvdXQgb25seSBpZiB0aGUgZGVib3VuY2VkIGZ1bmN0aW9uXG4gKiBpcyBpbnZva2VkIG1vcmUgdGhhbiBvbmNlIGR1cmluZyB0aGUgYHdhaXRgIHRpbWVvdXQuXG4gKlxuICogSWYgYHdhaXRgIGlzIGAwYCBhbmQgYGxlYWRpbmdgIGlzIGBmYWxzZWAsIGBmdW5jYCBpbnZvY2F0aW9uIGlzIGRlZmVycmVkXG4gKiB1bnRpbCB0byB0aGUgbmV4dCB0aWNrLCBzaW1pbGFyIHRvIGBzZXRUaW1lb3V0YCB3aXRoIGEgdGltZW91dCBvZiBgMGAuXG4gKlxuICogU2VlIFtEYXZpZCBDb3JiYWNobydzIGFydGljbGVdKGh0dHBzOi8vY3NzLXRyaWNrcy5jb20vZGVib3VuY2luZy10aHJvdHRsaW5nLWV4cGxhaW5lZC1leGFtcGxlcy8pXG4gKiBmb3IgZGV0YWlscyBvdmVyIHRoZSBkaWZmZXJlbmNlcyBiZXR3ZWVuIGBfLmRlYm91bmNlYCBhbmQgYF8udGhyb3R0bGVgLlxuICpcbiAqIEBzdGF0aWNcbiAqIEBtZW1iZXJPZiBfXG4gKiBAc2luY2UgMC4xLjBcbiAqIEBjYXRlZ29yeSBGdW5jdGlvblxuICogQHBhcmFtIHtGdW5jdGlvbn0gZnVuYyBUaGUgZnVuY3Rpb24gdG8gZGVib3VuY2UuXG4gKiBAcGFyYW0ge251bWJlcn0gW3dhaXQ9MF0gVGhlIG51bWJlciBvZiBtaWxsaXNlY29uZHMgdG8gZGVsYXkuXG4gKiBAcGFyYW0ge09iamVjdH0gW29wdGlvbnM9e31dIFRoZSBvcHRpb25zIG9iamVjdC5cbiAqIEBwYXJhbSB7Ym9vbGVhbn0gW29wdGlvbnMubGVhZGluZz1mYWxzZV1cbiAqICBTcGVjaWZ5IGludm9raW5nIG9uIHRoZSBsZWFkaW5nIGVkZ2Ugb2YgdGhlIHRpbWVvdXQuXG4gKiBAcGFyYW0ge251bWJlcn0gW29wdGlvbnMubWF4V2FpdF1cbiAqICBUaGUgbWF4aW11bSB0aW1lIGBmdW5jYCBpcyBhbGxvd2VkIHRvIGJlIGRlbGF5ZWQgYmVmb3JlIGl0J3MgaW52b2tlZC5cbiAqIEBwYXJhbSB7Ym9vbGVhbn0gW29wdGlvbnMudHJhaWxpbmc9dHJ1ZV1cbiAqICBTcGVjaWZ5IGludm9raW5nIG9uIHRoZSB0cmFpbGluZyBlZGdlIG9mIHRoZSB0aW1lb3V0LlxuICogQHJldHVybnMge0Z1bmN0aW9ufSBSZXR1cm5zIHRoZSBuZXcgZGVib3VuY2VkIGZ1bmN0aW9uLlxuICogQGV4YW1wbGVcbiAqXG4gKiAvLyBBdm9pZCBjb3N0bHkgY2FsY3VsYXRpb25zIHdoaWxlIHRoZSB3aW5kb3cgc2l6ZSBpcyBpbiBmbHV4LlxuICogalF1ZXJ5KHdpbmRvdykub24oJ3Jlc2l6ZScsIF8uZGVib3VuY2UoY2FsY3VsYXRlTGF5b3V0LCAxNTApKTtcbiAqXG4gKiAvLyBJbnZva2UgYHNlbmRNYWlsYCB3aGVuIGNsaWNrZWQsIGRlYm91bmNpbmcgc3Vic2VxdWVudCBjYWxscy5cbiAqIGpRdWVyeShlbGVtZW50KS5vbignY2xpY2snLCBfLmRlYm91bmNlKHNlbmRNYWlsLCAzMDAsIHtcbiAqICAgJ2xlYWRpbmcnOiB0cnVlLFxuICogICAndHJhaWxpbmcnOiBmYWxzZVxuICogfSkpO1xuICpcbiAqIC8vIEVuc3VyZSBgYmF0Y2hMb2dgIGlzIGludm9rZWQgb25jZSBhZnRlciAxIHNlY29uZCBvZiBkZWJvdW5jZWQgY2FsbHMuXG4gKiB2YXIgZGVib3VuY2VkID0gXy5kZWJvdW5jZShiYXRjaExvZywgMjUwLCB7ICdtYXhXYWl0JzogMTAwMCB9KTtcbiAqIHZhciBzb3VyY2UgPSBuZXcgRXZlbnRTb3VyY2UoJy9zdHJlYW0nKTtcbiAqIGpRdWVyeShzb3VyY2UpLm9uKCdtZXNzYWdlJywgZGVib3VuY2VkKTtcbiAqXG4gKiAvLyBDYW5jZWwgdGhlIHRyYWlsaW5nIGRlYm91bmNlZCBpbnZvY2F0aW9uLlxuICogalF1ZXJ5KHdpbmRvdykub24oJ3BvcHN0YXRlJywgZGVib3VuY2VkLmNhbmNlbCk7XG4gKi9cbmZ1bmN0aW9uIGRlYm91bmNlKGZ1bmMsIHdhaXQsIG9wdGlvbnMpIHtcbiAgdmFyIGxhc3RBcmdzLFxuICAgICAgbGFzdFRoaXMsXG4gICAgICBtYXhXYWl0LFxuICAgICAgcmVzdWx0LFxuICAgICAgdGltZXJJZCxcbiAgICAgIGxhc3RDYWxsVGltZSxcbiAgICAgIGxhc3RJbnZva2VUaW1lID0gMCxcbiAgICAgIGxlYWRpbmcgPSBmYWxzZSxcbiAgICAgIG1heGluZyA9IGZhbHNlLFxuICAgICAgdHJhaWxpbmcgPSB0cnVlO1xuXG4gIGlmICh0eXBlb2YgZnVuYyAhPSAnZnVuY3Rpb24nKSB7XG4gICAgdGhyb3cgbmV3IFR5cGVFcnJvcihGVU5DX0VSUk9SX1RFWFQpO1xuICB9XG4gIHdhaXQgPSB0b051bWJlcih3YWl0KSB8fCAwO1xuICBpZiAoaXNPYmplY3Qob3B0aW9ucykpIHtcbiAgICBsZWFkaW5nID0gISFvcHRpb25zLmxlYWRpbmc7XG4gICAgbWF4aW5nID0gJ21heFdhaXQnIGluIG9wdGlvbnM7XG4gICAgbWF4V2FpdCA9IG1heGluZyA/IG5hdGl2ZU1heCh0b051bWJlcihvcHRpb25zLm1heFdhaXQpIHx8IDAsIHdhaXQpIDogbWF4V2FpdDtcbiAgICB0cmFpbGluZyA9ICd0cmFpbGluZycgaW4gb3B0aW9ucyA/ICEhb3B0aW9ucy50cmFpbGluZyA6IHRyYWlsaW5nO1xuICB9XG5cbiAgZnVuY3Rpb24gaW52b2tlRnVuYyh0aW1lKSB7XG4gICAgdmFyIGFyZ3MgPSBsYXN0QXJncyxcbiAgICAgICAgdGhpc0FyZyA9IGxhc3RUaGlzO1xuXG4gICAgbGFzdEFyZ3MgPSBsYXN0VGhpcyA9IHVuZGVmaW5lZDtcbiAgICBsYXN0SW52b2tlVGltZSA9IHRpbWU7XG4gICAgcmVzdWx0ID0gZnVuYy5hcHBseSh0aGlzQXJnLCBhcmdzKTtcbiAgICByZXR1cm4gcmVzdWx0O1xuICB9XG5cbiAgZnVuY3Rpb24gbGVhZGluZ0VkZ2UodGltZSkge1xuICAgIC8vIFJlc2V0IGFueSBgbWF4V2FpdGAgdGltZXIuXG4gICAgbGFzdEludm9rZVRpbWUgPSB0aW1lO1xuICAgIC8vIFN0YXJ0IHRoZSB0aW1lciBmb3IgdGhlIHRyYWlsaW5nIGVkZ2UuXG4gICAgdGltZXJJZCA9IHNldFRpbWVvdXQodGltZXJFeHBpcmVkLCB3YWl0KTtcbiAgICAvLyBJbnZva2UgdGhlIGxlYWRpbmcgZWRnZS5cbiAgICByZXR1cm4gbGVhZGluZyA/IGludm9rZUZ1bmModGltZSkgOiByZXN1bHQ7XG4gIH1cblxuICBmdW5jdGlvbiByZW1haW5pbmdXYWl0KHRpbWUpIHtcbiAgICB2YXIgdGltZVNpbmNlTGFzdENhbGwgPSB0aW1lIC0gbGFzdENhbGxUaW1lLFxuICAgICAgICB0aW1lU2luY2VMYXN0SW52b2tlID0gdGltZSAtIGxhc3RJbnZva2VUaW1lLFxuICAgICAgICB0aW1lV2FpdGluZyA9IHdhaXQgLSB0aW1lU2luY2VMYXN0Q2FsbDtcblxuICAgIHJldHVybiBtYXhpbmdcbiAgICAgID8gbmF0aXZlTWluKHRpbWVXYWl0aW5nLCBtYXhXYWl0IC0gdGltZVNpbmNlTGFzdEludm9rZSlcbiAgICAgIDogdGltZVdhaXRpbmc7XG4gIH1cblxuICBmdW5jdGlvbiBzaG91bGRJbnZva2UodGltZSkge1xuICAgIHZhciB0aW1lU2luY2VMYXN0Q2FsbCA9IHRpbWUgLSBsYXN0Q2FsbFRpbWUsXG4gICAgICAgIHRpbWVTaW5jZUxhc3RJbnZva2UgPSB0aW1lIC0gbGFzdEludm9rZVRpbWU7XG5cbiAgICAvLyBFaXRoZXIgdGhpcyBpcyB0aGUgZmlyc3QgY2FsbCwgYWN0aXZpdHkgaGFzIHN0b3BwZWQgYW5kIHdlJ3JlIGF0IHRoZVxuICAgIC8vIHRyYWlsaW5nIGVkZ2UsIHRoZSBzeXN0ZW0gdGltZSBoYXMgZ29uZSBiYWNrd2FyZHMgYW5kIHdlJ3JlIHRyZWF0aW5nXG4gICAgLy8gaXQgYXMgdGhlIHRyYWlsaW5nIGVkZ2UsIG9yIHdlJ3ZlIGhpdCB0aGUgYG1heFdhaXRgIGxpbWl0LlxuICAgIHJldHVybiAobGFzdENhbGxUaW1lID09PSB1bmRlZmluZWQgfHwgKHRpbWVTaW5jZUxhc3RDYWxsID49IHdhaXQpIHx8XG4gICAgICAodGltZVNpbmNlTGFzdENhbGwgPCAwKSB8fCAobWF4aW5nICYmIHRpbWVTaW5jZUxhc3RJbnZva2UgPj0gbWF4V2FpdCkpO1xuICB9XG5cbiAgZnVuY3Rpb24gdGltZXJFeHBpcmVkKCkge1xuICAgIHZhciB0aW1lID0gbm93KCk7XG4gICAgaWYgKHNob3VsZEludm9rZSh0aW1lKSkge1xuICAgICAgcmV0dXJuIHRyYWlsaW5nRWRnZSh0aW1lKTtcbiAgICB9XG4gICAgLy8gUmVzdGFydCB0aGUgdGltZXIuXG4gICAgdGltZXJJZCA9IHNldFRpbWVvdXQodGltZXJFeHBpcmVkLCByZW1haW5pbmdXYWl0KHRpbWUpKTtcbiAgfVxuXG4gIGZ1bmN0aW9uIHRyYWlsaW5nRWRnZSh0aW1lKSB7XG4gICAgdGltZXJJZCA9IHVuZGVmaW5lZDtcblxuICAgIC8vIE9ubHkgaW52b2tlIGlmIHdlIGhhdmUgYGxhc3RBcmdzYCB3aGljaCBtZWFucyBgZnVuY2AgaGFzIGJlZW5cbiAgICAvLyBkZWJvdW5jZWQgYXQgbGVhc3Qgb25jZS5cbiAgICBpZiAodHJhaWxpbmcgJiYgbGFzdEFyZ3MpIHtcbiAgICAgIHJldHVybiBpbnZva2VGdW5jKHRpbWUpO1xuICAgIH1cbiAgICBsYXN0QXJncyA9IGxhc3RUaGlzID0gdW5kZWZpbmVkO1xuICAgIHJldHVybiByZXN1bHQ7XG4gIH1cblxuICBmdW5jdGlvbiBjYW5jZWwoKSB7XG4gICAgaWYgKHRpbWVySWQgIT09IHVuZGVmaW5lZCkge1xuICAgICAgY2xlYXJUaW1lb3V0KHRpbWVySWQpO1xuICAgIH1cbiAgICBsYXN0SW52b2tlVGltZSA9IDA7XG4gICAgbGFzdEFyZ3MgPSBsYXN0Q2FsbFRpbWUgPSBsYXN0VGhpcyA9IHRpbWVySWQgPSB1bmRlZmluZWQ7XG4gIH1cblxuICBmdW5jdGlvbiBmbHVzaCgpIHtcbiAgICByZXR1cm4gdGltZXJJZCA9PT0gdW5kZWZpbmVkID8gcmVzdWx0IDogdHJhaWxpbmdFZGdlKG5vdygpKTtcbiAgfVxuXG4gIGZ1bmN0aW9uIGRlYm91bmNlZCgpIHtcbiAgICB2YXIgdGltZSA9IG5vdygpLFxuICAgICAgICBpc0ludm9raW5nID0gc2hvdWxkSW52b2tlKHRpbWUpO1xuXG4gICAgbGFzdEFyZ3MgPSBhcmd1bWVudHM7XG4gICAgbGFzdFRoaXMgPSB0aGlzO1xuICAgIGxhc3RDYWxsVGltZSA9IHRpbWU7XG5cbiAgICBpZiAoaXNJbnZva2luZykge1xuICAgICAgaWYgKHRpbWVySWQgPT09IHVuZGVmaW5lZCkge1xuICAgICAgICByZXR1cm4gbGVhZGluZ0VkZ2UobGFzdENhbGxUaW1lKTtcbiAgICAgIH1cbiAgICAgIGlmIChtYXhpbmcpIHtcbiAgICAgICAgLy8gSGFuZGxlIGludm9jYXRpb25zIGluIGEgdGlnaHQgbG9vcC5cbiAgICAgICAgY2xlYXJUaW1lb3V0KHRpbWVySWQpO1xuICAgICAgICB0aW1lcklkID0gc2V0VGltZW91dCh0aW1lckV4cGlyZWQsIHdhaXQpO1xuICAgICAgICByZXR1cm4gaW52b2tlRnVuYyhsYXN0Q2FsbFRpbWUpO1xuICAgICAgfVxuICAgIH1cbiAgICBpZiAodGltZXJJZCA9PT0gdW5kZWZpbmVkKSB7XG4gICAgICB0aW1lcklkID0gc2V0VGltZW91dCh0aW1lckV4cGlyZWQsIHdhaXQpO1xuICAgIH1cbiAgICByZXR1cm4gcmVzdWx0O1xuICB9XG4gIGRlYm91bmNlZC5jYW5jZWwgPSBjYW5jZWw7XG4gIGRlYm91bmNlZC5mbHVzaCA9IGZsdXNoO1xuICByZXR1cm4gZGVib3VuY2VkO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGRlYm91bmNlO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/lodash/debounce.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/**\n * Checks if `value` is the\n * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)\n * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)\n *\n * @static\n * @memberOf _\n * @since 0.1.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is an object, else `false`.\n * @example\n *\n * _.isObject({});\n * // => true\n *\n * _.isObject([1, 2, 3]);\n * // => true\n *\n * _.isObject(_.noop);\n * // => true\n *\n * _.isObject(null);\n * // => false\n */\nfunction isObject(value) {\n  var type = typeof value;\n  return value != null && (type == 'object' || type == 'function');\n}\n\nmodule.exports = isObject;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL2lzT2JqZWN0LmpzPzFhOGMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsV0FBVyxFQUFFO0FBQ2IsYUFBYSxRQUFRO0FBQ3JCO0FBQ0E7QUFDQSxnQkFBZ0I7QUFDaEI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2xvZGFzaC9pc09iamVjdC5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ2hlY2tzIGlmIGB2YWx1ZWAgaXMgdGhlXG4gKiBbbGFuZ3VhZ2UgdHlwZV0oaHR0cDovL3d3dy5lY21hLWludGVybmF0aW9uYWwub3JnL2VjbWEtMjYyLzcuMC8jc2VjLWVjbWFzY3JpcHQtbGFuZ3VhZ2UtdHlwZXMpXG4gKiBvZiBgT2JqZWN0YC4gKGUuZy4gYXJyYXlzLCBmdW5jdGlvbnMsIG9iamVjdHMsIHJlZ2V4ZXMsIGBuZXcgTnVtYmVyKDApYCwgYW5kIGBuZXcgU3RyaW5nKCcnKWApXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSAwLjEuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgYW4gb2JqZWN0LCBlbHNlIGBmYWxzZWAuXG4gKiBAZXhhbXBsZVxuICpcbiAqIF8uaXNPYmplY3Qoe30pO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNPYmplY3QoWzEsIDIsIDNdKTtcbiAqIC8vID0+IHRydWVcbiAqXG4gKiBfLmlzT2JqZWN0KF8ubm9vcCk7XG4gKiAvLyA9PiB0cnVlXG4gKlxuICogXy5pc09iamVjdChudWxsKTtcbiAqIC8vID0+IGZhbHNlXG4gKi9cbmZ1bmN0aW9uIGlzT2JqZWN0KHZhbHVlKSB7XG4gIHZhciB0eXBlID0gdHlwZW9mIHZhbHVlO1xuICByZXR1cm4gdmFsdWUgIT0gbnVsbCAmJiAodHlwZSA9PSAnb2JqZWN0JyB8fCB0eXBlID09ICdmdW5jdGlvbicpO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGlzT2JqZWN0O1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/lodash/isObject.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/**\n * Checks if `value` is object-like. A value is object-like if it's not `null`\n * and has a `typeof` result of \"object\".\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is object-like, else `false`.\n * @example\n *\n * _.isObjectLike({});\n * // => true\n *\n * _.isObjectLike([1, 2, 3]);\n * // => true\n *\n * _.isObjectLike(_.noop);\n * // => false\n *\n * _.isObjectLike(null);\n * // => false\n */\nfunction isObjectLike(value) {\n  return value != null && typeof value == 'object';\n}\n\nmodule.exports = isObjectLike;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL2lzT2JqZWN0TGlrZS5qcz8xMzEwIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxXQUFXLEVBQUU7QUFDYixhQUFhLFFBQVE7QUFDckI7QUFDQTtBQUNBLG9CQUFvQjtBQUNwQjtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2xvZGFzaC9pc09iamVjdExpa2UuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIENoZWNrcyBpZiBgdmFsdWVgIGlzIG9iamVjdC1saWtlLiBBIHZhbHVlIGlzIG9iamVjdC1saWtlIGlmIGl0J3Mgbm90IGBudWxsYFxuICogYW5kIGhhcyBhIGB0eXBlb2ZgIHJlc3VsdCBvZiBcIm9iamVjdFwiLlxuICpcbiAqIEBzdGF0aWNcbiAqIEBtZW1iZXJPZiBfXG4gKiBAc2luY2UgNC4wLjBcbiAqIEBjYXRlZ29yeSBMYW5nXG4gKiBAcGFyYW0geyp9IHZhbHVlIFRoZSB2YWx1ZSB0byBjaGVjay5cbiAqIEByZXR1cm5zIHtib29sZWFufSBSZXR1cm5zIGB0cnVlYCBpZiBgdmFsdWVgIGlzIG9iamVjdC1saWtlLCBlbHNlIGBmYWxzZWAuXG4gKiBAZXhhbXBsZVxuICpcbiAqIF8uaXNPYmplY3RMaWtlKHt9KTtcbiAqIC8vID0+IHRydWVcbiAqXG4gKiBfLmlzT2JqZWN0TGlrZShbMSwgMiwgM10pO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNPYmplY3RMaWtlKF8ubm9vcCk7XG4gKiAvLyA9PiBmYWxzZVxuICpcbiAqIF8uaXNPYmplY3RMaWtlKG51bGwpO1xuICogLy8gPT4gZmFsc2VcbiAqL1xuZnVuY3Rpb24gaXNPYmplY3RMaWtlKHZhbHVlKSB7XG4gIHJldHVybiB2YWx1ZSAhPSBudWxsICYmIHR5cGVvZiB2YWx1ZSA9PSAnb2JqZWN0Jztcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBpc09iamVjdExpa2U7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/isObjectLike.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSymbol.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ \"./node_modules/lodash/_baseGetTag.js\"),\n    isObjectLike = __webpack_require__(/*! ./isObjectLike */ \"./node_modules/lodash/isObjectLike.js\");\n\n/** `Object#toString` result references. */\nvar symbolTag = '[object Symbol]';\n\n/**\n * Checks if `value` is classified as a `Symbol` primitive or object.\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to check.\n * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.\n * @example\n *\n * _.isSymbol(Symbol.iterator);\n * // => true\n *\n * _.isSymbol('abc');\n * // => false\n */\nfunction isSymbol(value) {\n  return typeof value == 'symbol' ||\n    (isObjectLike(value) && baseGetTag(value) == symbolTag);\n}\n\nmodule.exports = isSymbol;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL2lzU3ltYm9sLmpzP2ZmZDYiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsaUJBQWlCLG1CQUFPLENBQUMsMkRBQWU7QUFDeEMsbUJBQW1CLG1CQUFPLENBQUMsNkRBQWdCOztBQUUzQztBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsV0FBVyxFQUFFO0FBQ2IsYUFBYSxRQUFRO0FBQ3JCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQSIsImZpbGUiOiIuL25vZGVfbW9kdWxlcy9sb2Rhc2gvaXNTeW1ib2wuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgYmFzZUdldFRhZyA9IHJlcXVpcmUoJy4vX2Jhc2VHZXRUYWcnKSxcbiAgICBpc09iamVjdExpa2UgPSByZXF1aXJlKCcuL2lzT2JqZWN0TGlrZScpO1xuXG4vKiogYE9iamVjdCN0b1N0cmluZ2AgcmVzdWx0IHJlZmVyZW5jZXMuICovXG52YXIgc3ltYm9sVGFnID0gJ1tvYmplY3QgU3ltYm9sXSc7XG5cbi8qKlxuICogQ2hlY2tzIGlmIGB2YWx1ZWAgaXMgY2xhc3NpZmllZCBhcyBhIGBTeW1ib2xgIHByaW1pdGl2ZSBvciBvYmplY3QuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSA0LjAuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgYSBzeW1ib2wsIGVsc2UgYGZhbHNlYC5cbiAqIEBleGFtcGxlXG4gKlxuICogXy5pc1N5bWJvbChTeW1ib2wuaXRlcmF0b3IpO1xuICogLy8gPT4gdHJ1ZVxuICpcbiAqIF8uaXNTeW1ib2woJ2FiYycpO1xuICogLy8gPT4gZmFsc2VcbiAqL1xuZnVuY3Rpb24gaXNTeW1ib2wodmFsdWUpIHtcbiAgcmV0dXJuIHR5cGVvZiB2YWx1ZSA9PSAnc3ltYm9sJyB8fFxuICAgIChpc09iamVjdExpa2UodmFsdWUpICYmIGJhc2VHZXRUYWcodmFsdWUpID09IHN5bWJvbFRhZyk7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gaXNTeW1ib2w7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/isSymbol.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/now.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/now.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var root = __webpack_require__(/*! ./_root */ \"./node_modules/lodash/_root.js\");\n\n/**\n * Gets the timestamp of the number of milliseconds that have elapsed since\n * the Unix epoch (1 January 1970 00:00:00 UTC).\n *\n * @static\n * @memberOf _\n * @since 2.4.0\n * @category Date\n * @returns {number} Returns the timestamp.\n * @example\n *\n * _.defer(function(stamp) {\n *   console.log(_.now() - stamp);\n * }, _.now());\n * // => Logs the number of milliseconds it took for the deferred invocation.\n */\nvar now = function() {\n  return root.Date.now();\n};\n\nmodule.exports = now;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL25vdy5qcz80MDhjIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFdBQVcsbUJBQU8sQ0FBQywrQ0FBUzs7QUFFNUI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLGFBQWEsT0FBTztBQUNwQjtBQUNBO0FBQ0E7QUFDQTtBQUNBLElBQUk7QUFDSjtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL2xvZGFzaC9ub3cuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgcm9vdCA9IHJlcXVpcmUoJy4vX3Jvb3QnKTtcblxuLyoqXG4gKiBHZXRzIHRoZSB0aW1lc3RhbXAgb2YgdGhlIG51bWJlciBvZiBtaWxsaXNlY29uZHMgdGhhdCBoYXZlIGVsYXBzZWQgc2luY2VcbiAqIHRoZSBVbml4IGVwb2NoICgxIEphbnVhcnkgMTk3MCAwMDowMDowMCBVVEMpLlxuICpcbiAqIEBzdGF0aWNcbiAqIEBtZW1iZXJPZiBfXG4gKiBAc2luY2UgMi40LjBcbiAqIEBjYXRlZ29yeSBEYXRlXG4gKiBAcmV0dXJucyB7bnVtYmVyfSBSZXR1cm5zIHRoZSB0aW1lc3RhbXAuXG4gKiBAZXhhbXBsZVxuICpcbiAqIF8uZGVmZXIoZnVuY3Rpb24oc3RhbXApIHtcbiAqICAgY29uc29sZS5sb2coXy5ub3coKSAtIHN0YW1wKTtcbiAqIH0sIF8ubm93KCkpO1xuICogLy8gPT4gTG9ncyB0aGUgbnVtYmVyIG9mIG1pbGxpc2Vjb25kcyBpdCB0b29rIGZvciB0aGUgZGVmZXJyZWQgaW52b2NhdGlvbi5cbiAqL1xudmFyIG5vdyA9IGZ1bmN0aW9uKCkge1xuICByZXR1cm4gcm9vdC5EYXRlLm5vdygpO1xufTtcblxubW9kdWxlLmV4cG9ydHMgPSBub3c7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/now.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var isObject = __webpack_require__(/*! ./isObject */ \"./node_modules/lodash/isObject.js\"),\n    isSymbol = __webpack_require__(/*! ./isSymbol */ \"./node_modules/lodash/isSymbol.js\");\n\n/** Used as references for various `Number` constants. */\nvar NAN = 0 / 0;\n\n/** Used to match leading and trailing whitespace. */\nvar reTrim = /^\\s+|\\s+$/g;\n\n/** Used to detect bad signed hexadecimal string values. */\nvar reIsBadHex = /^[-+]0x[0-9a-f]+$/i;\n\n/** Used to detect binary string values. */\nvar reIsBinary = /^0b[01]+$/i;\n\n/** Used to detect octal string values. */\nvar reIsOctal = /^0o[0-7]+$/i;\n\n/** Built-in method references without a dependency on `root`. */\nvar freeParseInt = parseInt;\n\n/**\n * Converts `value` to a number.\n *\n * @static\n * @memberOf _\n * @since 4.0.0\n * @category Lang\n * @param {*} value The value to process.\n * @returns {number} Returns the number.\n * @example\n *\n * _.toNumber(3.2);\n * // => 3.2\n *\n * _.toNumber(Number.MIN_VALUE);\n * // => 5e-324\n *\n * _.toNumber(Infinity);\n * // => Infinity\n *\n * _.toNumber('3.2');\n * // => 3.2\n */\nfunction toNumber(value) {\n  if (typeof value == 'number') {\n    return value;\n  }\n  if (isSymbol(value)) {\n    return NAN;\n  }\n  if (isObject(value)) {\n    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;\n    value = isObject(other) ? (other + '') : other;\n  }\n  if (typeof value != 'string') {\n    return value === 0 ? value : +value;\n  }\n  value = value.replace(reTrim, '');\n  var isBinary = reIsBinary.test(value);\n  return (isBinary || reIsOctal.test(value))\n    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)\n    : (reIsBadHex.test(value) ? NAN : +value);\n}\n\nmodule.exports = toNumber;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvbG9kYXNoL3RvTnVtYmVyLmpzP2I0YjAiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsZUFBZSxtQkFBTyxDQUFDLHFEQUFZO0FBQ25DLGVBQWUsbUJBQU8sQ0FBQyxxREFBWTs7QUFFbkM7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxXQUFXLEVBQUU7QUFDYixhQUFhLE9BQU87QUFDcEI7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUEiLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvbG9kYXNoL3RvTnVtYmVyLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIGlzT2JqZWN0ID0gcmVxdWlyZSgnLi9pc09iamVjdCcpLFxuICAgIGlzU3ltYm9sID0gcmVxdWlyZSgnLi9pc1N5bWJvbCcpO1xuXG4vKiogVXNlZCBhcyByZWZlcmVuY2VzIGZvciB2YXJpb3VzIGBOdW1iZXJgIGNvbnN0YW50cy4gKi9cbnZhciBOQU4gPSAwIC8gMDtcblxuLyoqIFVzZWQgdG8gbWF0Y2ggbGVhZGluZyBhbmQgdHJhaWxpbmcgd2hpdGVzcGFjZS4gKi9cbnZhciByZVRyaW0gPSAvXlxccyt8XFxzKyQvZztcblxuLyoqIFVzZWQgdG8gZGV0ZWN0IGJhZCBzaWduZWQgaGV4YWRlY2ltYWwgc3RyaW5nIHZhbHVlcy4gKi9cbnZhciByZUlzQmFkSGV4ID0gL15bLStdMHhbMC05YS1mXSskL2k7XG5cbi8qKiBVc2VkIHRvIGRldGVjdCBiaW5hcnkgc3RyaW5nIHZhbHVlcy4gKi9cbnZhciByZUlzQmluYXJ5ID0gL14wYlswMV0rJC9pO1xuXG4vKiogVXNlZCB0byBkZXRlY3Qgb2N0YWwgc3RyaW5nIHZhbHVlcy4gKi9cbnZhciByZUlzT2N0YWwgPSAvXjBvWzAtN10rJC9pO1xuXG4vKiogQnVpbHQtaW4gbWV0aG9kIHJlZmVyZW5jZXMgd2l0aG91dCBhIGRlcGVuZGVuY3kgb24gYHJvb3RgLiAqL1xudmFyIGZyZWVQYXJzZUludCA9IHBhcnNlSW50O1xuXG4vKipcbiAqIENvbnZlcnRzIGB2YWx1ZWAgdG8gYSBudW1iZXIuXG4gKlxuICogQHN0YXRpY1xuICogQG1lbWJlck9mIF9cbiAqIEBzaW5jZSA0LjAuMFxuICogQGNhdGVnb3J5IExhbmdcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIHByb2Nlc3MuXG4gKiBAcmV0dXJucyB7bnVtYmVyfSBSZXR1cm5zIHRoZSBudW1iZXIuXG4gKiBAZXhhbXBsZVxuICpcbiAqIF8udG9OdW1iZXIoMy4yKTtcbiAqIC8vID0+IDMuMlxuICpcbiAqIF8udG9OdW1iZXIoTnVtYmVyLk1JTl9WQUxVRSk7XG4gKiAvLyA9PiA1ZS0zMjRcbiAqXG4gKiBfLnRvTnVtYmVyKEluZmluaXR5KTtcbiAqIC8vID0+IEluZmluaXR5XG4gKlxuICogXy50b051bWJlcignMy4yJyk7XG4gKiAvLyA9PiAzLjJcbiAqL1xuZnVuY3Rpb24gdG9OdW1iZXIodmFsdWUpIHtcbiAgaWYgKHR5cGVvZiB2YWx1ZSA9PSAnbnVtYmVyJykge1xuICAgIHJldHVybiB2YWx1ZTtcbiAgfVxuICBpZiAoaXNTeW1ib2wodmFsdWUpKSB7XG4gICAgcmV0dXJuIE5BTjtcbiAgfVxuICBpZiAoaXNPYmplY3QodmFsdWUpKSB7XG4gICAgdmFyIG90aGVyID0gdHlwZW9mIHZhbHVlLnZhbHVlT2YgPT0gJ2Z1bmN0aW9uJyA/IHZhbHVlLnZhbHVlT2YoKSA6IHZhbHVlO1xuICAgIHZhbHVlID0gaXNPYmplY3Qob3RoZXIpID8gKG90aGVyICsgJycpIDogb3RoZXI7XG4gIH1cbiAgaWYgKHR5cGVvZiB2YWx1ZSAhPSAnc3RyaW5nJykge1xuICAgIHJldHVybiB2YWx1ZSA9PT0gMCA/IHZhbHVlIDogK3ZhbHVlO1xuICB9XG4gIHZhbHVlID0gdmFsdWUucmVwbGFjZShyZVRyaW0sICcnKTtcbiAgdmFyIGlzQmluYXJ5ID0gcmVJc0JpbmFyeS50ZXN0KHZhbHVlKTtcbiAgcmV0dXJuIChpc0JpbmFyeSB8fCByZUlzT2N0YWwudGVzdCh2YWx1ZSkpXG4gICAgPyBmcmVlUGFyc2VJbnQodmFsdWUuc2xpY2UoMiksIGlzQmluYXJ5ID8gMiA6IDgpXG4gICAgOiAocmVJc0JhZEhleC50ZXN0KHZhbHVlKSA/IE5BTiA6ICt2YWx1ZSk7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gdG9OdW1iZXI7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/lodash/toNumber.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn this;\n})();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || new Function(\"return this\")();\n} catch (e) {\n\t// This works if the window reference is available\n\tif (typeof window === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vKHdlYnBhY2spL2J1aWxkaW4vZ2xvYmFsLmpzP2NkMDAiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0FBRUE7QUFDQTtBQUNBO0FBQ0EsQ0FBQzs7QUFFRDtBQUNBO0FBQ0E7QUFDQSxDQUFDO0FBQ0Q7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQSw0Q0FBNEM7O0FBRTVDIiwiZmlsZSI6Ii4vbm9kZV9tb2R1bGVzL3dlYnBhY2svYnVpbGRpbi9nbG9iYWwuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgZztcblxuLy8gVGhpcyB3b3JrcyBpbiBub24tc3RyaWN0IG1vZGVcbmcgPSAoZnVuY3Rpb24oKSB7XG5cdHJldHVybiB0aGlzO1xufSkoKTtcblxudHJ5IHtcblx0Ly8gVGhpcyB3b3JrcyBpZiBldmFsIGlzIGFsbG93ZWQgKHNlZSBDU1ApXG5cdGcgPSBnIHx8IG5ldyBGdW5jdGlvbihcInJldHVybiB0aGlzXCIpKCk7XG59IGNhdGNoIChlKSB7XG5cdC8vIFRoaXMgd29ya3MgaWYgdGhlIHdpbmRvdyByZWZlcmVuY2UgaXMgYXZhaWxhYmxlXG5cdGlmICh0eXBlb2Ygd2luZG93ID09PSBcIm9iamVjdFwiKSBnID0gd2luZG93O1xufVxuXG4vLyBnIGNhbiBzdGlsbCBiZSB1bmRlZmluZWQsIGJ1dCBub3RoaW5nIHRvIGRvIGFib3V0IGl0Li4uXG4vLyBXZSByZXR1cm4gdW5kZWZpbmVkLCBpbnN0ZWFkIG9mIG5vdGhpbmcgaGVyZSwgc28gaXQnc1xuLy8gZWFzaWVyIHRvIGhhbmRsZSB0aGlzIGNhc2UuIGlmKCFnbG9iYWwpIHsgLi4ufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGc7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/webpack/buildin/global.js\n");
+
+/***/ }),
+
+/***/ "./source/js/_utils.js":
+/*!*****************************!*\
+  !*** ./source/js/_utils.js ***!
+  \*****************************/
+/*! exports provided: supportsCssCustomProps, wpAjaxPost, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"supportsCssCustomProps\", function() { return supportsCssCustomProps; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"wpAjaxPost\", function() { return wpAjaxPost; });\n// export default 'test';\nvar $ = window.jQuery || {};\nvar wp = window.wp || {};\nvar localized = window.primeraFunctionPrefixLocalizedData || {};\nvar localizedData = localized; // TODO: https://developer.mozilla.org/en-US/docs/Web/API/CSS/supports\n// gist.github.com/wesbos/8b9a22adc1f60336a699\n\nvar supportsCssCustomProps = function () {\n  var color = 'rgb(255, 198, 0)';\n  var el = document.createElement('span');\n  el.style.setProperty('--color', color);\n  el.style.setProperty('background', 'var(--color)');\n  document.body.appendChild(el);\n  var styles = getComputedStyle(el);\n  var doesSupport = styles.backgroundColor === color;\n  document.body.removeChild(el);\n  return doesSupport;\n}();\n\nvar wpAjaxPost = function wpAjaxPost(action, data, settings) {\n  if (!$.isPlainObject(data)) {\n    console.error('The \"data\" parameter must be a plain obejct!');\n    return {};\n  }\n\n  settings = settings || {};\n  settings.type = 'POST';\n  settings.url = localized.ajaxUrl;\n  settings.data = $.extend(data || {}, {\n    action: action,\n    nonce: localized.ajaxNonce\n  });\n  return $.ajax(settings);\n};\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  rest: {\n    /**\n    * Sends a POST request to a REST endpoint.\n    *\n    * @since  1.0\n    * @param  {(string|object)}  action  The route to send the request to (e.g. 'do-stuff').\n    * @param  {object}  data  Optional. The data to populate $_POST with.\n    */\n    post: function post(route, data) {\n      var options;\n\n      if (_.isObject(route)) {\n        options = route;\n      } else {\n        options = {\n          data: data || {}\n        };\n      }\n\n      options = _.defaults(options, {\n        type: 'POST',\n        url: localizedData.restUrl + route,\n        beforeSend: function beforeSend(xhr) {\n          xhr.setRequestHeader('X-WP-Nonce', localizedData.restNonce);\n        }\n      });\n      return $.ajax(options);\n    }\n  },\n  isAndroid: function isAndroid() {\n    return navigator.userAgent.match(/Android/i);\n  },\n  isBlackBerry: function isBlackBerry() {\n    return navigator.userAgent.match(/BlackBerry/i);\n  },\n  isIOS: function isIOS() {\n    return navigator.userAgent.match(/iPhone|iPad|iPod/i);\n  },\n  isOperaMini: function isOperaMini() {\n    return navigator.userAgent.match(/Opera Mini/i);\n  },\n  isIEMobile: function isIEMobile() {\n    return navigator.userAgent.match(/IEMobile/i);\n  },\n  isMobile: function isMobile() {\n    return this.isAndroid() || this.isIOS() || this.isOperaMini() || this.isBlackBerry() || this.isIEMobile();\n  },\n\n  /**\n  * Check if browser is MS IE.\n  */\n  isIE: function isIE() {\n    var ua = window.navigator.userAgent,\n        msie = ua.indexOf(\"MSIE \");\n\n    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\\:11\\./)) {\n      return true;\n    }\n\n    return false;\n  },\n\n  /**\n  * Check if browser is MS Edge.\n  */\n  isEdge: function isEdge() {\n    if (document.documentMode || /Edge/.test(navigator.userAgent)) {\n      return true;\n    }\n\n    return false;\n  },\n\n  /**\n  * Gets the viewport width, excluding the scrollbars.\n  *\n  * @since  1.0\n  */\n  getViewportWidth: function getViewportWidth() {\n    return document.body.clientWidth;\n  },\n\n  /**\n  * Gets the viewport height, excluding the scrollbars.\n  *\n  * @since  1.0\n  */\n  getViewportHeight: function getViewportHeight() {\n    return document.body.clientHeight;\n  },\n\n  /**\n  * Gets the distance of an element to the viewport's edge.\n  *\n  * @param  jQuery  jQuery element of which to get the viewport offset.\n  * @since  1.0\n  */\n  getViewportOffset: function getViewportOffset($elem) {\n    var $window = jQuery(window),\n        scrollLeft = $window.scrollLeft(),\n        scrollTop = $window.scrollTop(),\n        offset = $elem.offset();\n    return {\n      left: offset.left - scrollLeft,\n      top: offset.top - scrollTop\n    };\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zb3VyY2UvanMvX3V0aWxzLmpzPzJiNmQiXSwibmFtZXMiOlsiJCIsIndpbmRvdyIsImpRdWVyeSIsIndwIiwibG9jYWxpemVkIiwicHJpbWVyYUZ1bmN0aW9uUHJlZml4TG9jYWxpemVkRGF0YSIsImxvY2FsaXplZERhdGEiLCJzdXBwb3J0c0Nzc0N1c3RvbVByb3BzIiwiY29sb3IiLCJlbCIsImRvY3VtZW50IiwiY3JlYXRlRWxlbWVudCIsInN0eWxlIiwic2V0UHJvcGVydHkiLCJib2R5IiwiYXBwZW5kQ2hpbGQiLCJzdHlsZXMiLCJnZXRDb21wdXRlZFN0eWxlIiwiZG9lc1N1cHBvcnQiLCJiYWNrZ3JvdW5kQ29sb3IiLCJyZW1vdmVDaGlsZCIsIndwQWpheFBvc3QiLCJhY3Rpb24iLCJkYXRhIiwic2V0dGluZ3MiLCJpc1BsYWluT2JqZWN0IiwiY29uc29sZSIsImVycm9yIiwidHlwZSIsInVybCIsImFqYXhVcmwiLCJleHRlbmQiLCJub25jZSIsImFqYXhOb25jZSIsImFqYXgiLCJyZXN0IiwicG9zdCIsInJvdXRlIiwib3B0aW9ucyIsIl8iLCJpc09iamVjdCIsImRlZmF1bHRzIiwicmVzdFVybCIsImJlZm9yZVNlbmQiLCJ4aHIiLCJzZXRSZXF1ZXN0SGVhZGVyIiwicmVzdE5vbmNlIiwiaXNBbmRyb2lkIiwibmF2aWdhdG9yIiwidXNlckFnZW50IiwibWF0Y2giLCJpc0JsYWNrQmVycnkiLCJpc0lPUyIsImlzT3BlcmFNaW5pIiwiaXNJRU1vYmlsZSIsImlzTW9iaWxlIiwiaXNJRSIsInVhIiwibXNpZSIsImluZGV4T2YiLCJpc0VkZ2UiLCJkb2N1bWVudE1vZGUiLCJ0ZXN0IiwiZ2V0Vmlld3BvcnRXaWR0aCIsImNsaWVudFdpZHRoIiwiZ2V0Vmlld3BvcnRIZWlnaHQiLCJjbGllbnRIZWlnaHQiLCJnZXRWaWV3cG9ydE9mZnNldCIsIiRlbGVtIiwiJHdpbmRvdyIsInNjcm9sbExlZnQiLCJzY3JvbGxUb3AiLCJvZmZzZXQiLCJsZWZ0IiwidG9wIl0sIm1hcHBpbmdzIjoiQUFDQTtBQUFBO0FBQUE7QUFBQTtBQUNBLElBQU1BLENBQUMsR0FBSUMsTUFBTSxDQUFDQyxNQUFQLElBQWlCLEVBQTVCO0FBQ0EsSUFBTUMsRUFBRSxHQUFHRixNQUFNLENBQUNFLEVBQVAsSUFBYSxFQUF4QjtBQUNBLElBQU1DLFNBQVMsR0FBR0gsTUFBTSxDQUFDSSxrQ0FBUCxJQUE2QyxFQUEvRDtBQUNBLElBQU1DLGFBQWEsR0FBR0YsU0FBdEIsQyxDQUVBO0FBQ0E7O0FBQ0EsSUFBSUcsc0JBQXNCLEdBQUksWUFBTTtBQUVoQyxNQUFJQyxLQUFLLEdBQUcsa0JBQVo7QUFDQSxNQUFJQyxFQUFFLEdBQUdDLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixNQUF2QixDQUFUO0FBRUFGLElBQUUsQ0FBQ0csS0FBSCxDQUFTQyxXQUFULENBQXFCLFNBQXJCLEVBQWdDTCxLQUFoQztBQUNBQyxJQUFFLENBQUNHLEtBQUgsQ0FBU0MsV0FBVCxDQUFxQixZQUFyQixFQUFtQyxjQUFuQztBQUNBSCxVQUFRLENBQUNJLElBQVQsQ0FBY0MsV0FBZCxDQUEwQk4sRUFBMUI7QUFFQSxNQUFJTyxNQUFNLEdBQUdDLGdCQUFnQixDQUFDUixFQUFELENBQTdCO0FBQ0EsTUFBSVMsV0FBVyxHQUFHRixNQUFNLENBQUNHLGVBQVAsS0FBMkJYLEtBQTdDO0FBQ0FFLFVBQVEsQ0FBQ0ksSUFBVCxDQUFjTSxXQUFkLENBQTBCWCxFQUExQjtBQUVBLFNBQU9TLFdBQVA7QUFDSCxDQWQ0QixFQUE3Qjs7QUFnQkEsSUFBSUcsVUFBVSxHQUFHLFNBQWJBLFVBQWEsQ0FBQ0MsTUFBRCxFQUFTQyxJQUFULEVBQWVDLFFBQWYsRUFBNEI7QUFFekMsTUFBSSxDQUFDeEIsQ0FBQyxDQUFDeUIsYUFBRixDQUFnQkYsSUFBaEIsQ0FBTCxFQUE0QjtBQUN4QkcsV0FBTyxDQUFDQyxLQUFSLENBQWMsOENBQWQ7QUFDQSxXQUFPLEVBQVA7QUFDSDs7QUFFREgsVUFBUSxHQUFHQSxRQUFRLElBQUksRUFBdkI7QUFDQUEsVUFBUSxDQUFDSSxJQUFULEdBQWdCLE1BQWhCO0FBQ0FKLFVBQVEsQ0FBQ0ssR0FBVCxHQUFlekIsU0FBUyxDQUFDMEIsT0FBekI7QUFDQU4sVUFBUSxDQUFDRCxJQUFULEdBQWdCdkIsQ0FBQyxDQUFDK0IsTUFBRixDQUFVUixJQUFJLElBQUksRUFBbEIsRUFBc0I7QUFBRUQsVUFBTSxFQUFFQSxNQUFWO0FBQWtCVSxTQUFLLEVBQUU1QixTQUFTLENBQUM2QjtBQUFuQyxHQUF0QixDQUFoQjtBQUVBLFNBQU9qQyxDQUFDLENBQUNrQyxJQUFGLENBQU9WLFFBQVAsQ0FBUDtBQUNILENBYkQ7O0FBZUE7QUFFZTtBQUVYVyxNQUFJLEVBQUc7QUFFSDs7Ozs7OztBQU9BQyxRQUFJLEVBQUcsY0FBVUMsS0FBVixFQUFpQmQsSUFBakIsRUFBd0I7QUFFM0IsVUFBSWUsT0FBSjs7QUFFQSxVQUFLQyxDQUFDLENBQUNDLFFBQUYsQ0FBV0gsS0FBWCxDQUFMLEVBQXlCO0FBQ3JCQyxlQUFPLEdBQUdELEtBQVY7QUFDSCxPQUZELE1BR0s7QUFDREMsZUFBTyxHQUFHO0FBQ05mLGNBQUksRUFBR0EsSUFBSSxJQUFJO0FBRFQsU0FBVjtBQUdIOztBQUVEZSxhQUFPLEdBQUdDLENBQUMsQ0FBQ0UsUUFBRixDQUFZSCxPQUFaLEVBQXFCO0FBQzNCVixZQUFJLEVBQVMsTUFEYztBQUUzQkMsV0FBRyxFQUFVdkIsYUFBYSxDQUFDb0MsT0FBZCxHQUF3QkwsS0FGVjtBQUczQk0sa0JBQVUsRUFBRyxvQkFBVUMsR0FBVixFQUFnQjtBQUN6QkEsYUFBRyxDQUFDQyxnQkFBSixDQUFzQixZQUF0QixFQUFvQ3ZDLGFBQWEsQ0FBQ3dDLFNBQWxEO0FBQ0g7QUFMMEIsT0FBckIsQ0FBVjtBQVFBLGFBQU85QyxDQUFDLENBQUNrQyxJQUFGLENBQVFJLE9BQVIsQ0FBUDtBQUNIO0FBL0JFLEdBRkk7QUFxQ1hTLFdBQVMsRUFBRyxxQkFBVztBQUNuQixXQUFPQyxTQUFTLENBQUNDLFNBQVYsQ0FBb0JDLEtBQXBCLENBQTBCLFVBQTFCLENBQVA7QUFDSCxHQXZDVTtBQXlDWEMsY0FBWSxFQUFHLHdCQUFXO0FBQ3RCLFdBQU9ILFNBQVMsQ0FBQ0MsU0FBVixDQUFvQkMsS0FBcEIsQ0FBMEIsYUFBMUIsQ0FBUDtBQUNILEdBM0NVO0FBNkNYRSxPQUFLLEVBQUcsaUJBQVc7QUFDZixXQUFPSixTQUFTLENBQUNDLFNBQVYsQ0FBb0JDLEtBQXBCLENBQTBCLG1CQUExQixDQUFQO0FBQ0gsR0EvQ1U7QUFpRFhHLGFBQVcsRUFBRyx1QkFBVztBQUNyQixXQUFPTCxTQUFTLENBQUNDLFNBQVYsQ0FBb0JDLEtBQXBCLENBQTBCLGFBQTFCLENBQVA7QUFDSCxHQW5EVTtBQXFEWEksWUFBVSxFQUFHLHNCQUFXO0FBQ3BCLFdBQU9OLFNBQVMsQ0FBQ0MsU0FBVixDQUFvQkMsS0FBcEIsQ0FBMEIsV0FBMUIsQ0FBUDtBQUNILEdBdkRVO0FBeURYSyxVQUFRLEVBQUcsb0JBQVc7QUFDbEIsV0FDSSxLQUFLUixTQUFMLE1BQ0EsS0FBS0ssS0FBTCxFQURBLElBRUEsS0FBS0MsV0FBTCxFQUZBLElBR0EsS0FBS0YsWUFBTCxFQUhBLElBSUEsS0FBS0csVUFBTCxFQUxKO0FBT0gsR0FqRVU7O0FBbUVYOzs7QUFHQUUsTUFBSSxFQUFHLGdCQUFXO0FBRWQsUUFBSUMsRUFBRSxHQUFLeEQsTUFBTSxDQUFDK0MsU0FBUCxDQUFpQkMsU0FBNUI7QUFBQSxRQUNJUyxJQUFJLEdBQUdELEVBQUUsQ0FBQ0UsT0FBSCxDQUFXLE9BQVgsQ0FEWDs7QUFHQSxRQUFLRCxJQUFJLEdBQUcsQ0FBUCxJQUFZLENBQUMsQ0FBQ1YsU0FBUyxDQUFDQyxTQUFWLENBQW9CQyxLQUFwQixDQUEwQixtQkFBMUIsQ0FBbkIsRUFBb0U7QUFDaEUsYUFBTyxJQUFQO0FBQ0g7O0FBQ0QsV0FBTyxLQUFQO0FBQ0gsR0EvRVU7O0FBaUZYOzs7QUFHQVUsUUFBTSxFQUFHLGtCQUFXO0FBRWhCLFFBQUtsRCxRQUFRLENBQUNtRCxZQUFULElBQXlCLE9BQU9DLElBQVAsQ0FBWWQsU0FBUyxDQUFDQyxTQUF0QixDQUE5QixFQUFpRTtBQUM3RCxhQUFPLElBQVA7QUFDSDs7QUFDRCxXQUFPLEtBQVA7QUFDSCxHQTFGVTs7QUE0Rlg7Ozs7O0FBS0FjLGtCQUFnQixFQUFHLDRCQUFXO0FBQzFCLFdBQU9yRCxRQUFRLENBQUNJLElBQVQsQ0FBY2tELFdBQXJCO0FBQ0gsR0FuR1U7O0FBcUdYOzs7OztBQUtBQyxtQkFBaUIsRUFBRyw2QkFBVztBQUMzQixXQUFPdkQsUUFBUSxDQUFDSSxJQUFULENBQWNvRCxZQUFyQjtBQUNILEdBNUdVOztBQThHWDs7Ozs7O0FBTUFDLG1CQUFpQixFQUFHLDJCQUFXQyxLQUFYLEVBQW1CO0FBRW5DLFFBQUlDLE9BQU8sR0FBTW5FLE1BQU0sQ0FBQ0QsTUFBRCxDQUF2QjtBQUFBLFFBQ0lxRSxVQUFVLEdBQUdELE9BQU8sQ0FBQ0MsVUFBUixFQURqQjtBQUFBLFFBRUlDLFNBQVMsR0FBSUYsT0FBTyxDQUFDRSxTQUFSLEVBRmpCO0FBQUEsUUFHSUMsTUFBTSxHQUFPSixLQUFLLENBQUNJLE1BQU4sRUFIakI7QUFLQSxXQUFPO0FBQ0hDLFVBQUksRUFBR0QsTUFBTSxDQUFDQyxJQUFQLEdBQWNILFVBRGxCO0FBRUhJLFNBQUcsRUFBSUYsTUFBTSxDQUFDRSxHQUFQLEdBQWFIO0FBRmpCLEtBQVA7QUFJSDtBQS9IVSxDQUFmIiwiZmlsZSI6Ii4vc291cmNlL2pzL191dGlscy5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLy8gZXhwb3J0IGRlZmF1bHQgJ3Rlc3QnO1xuY29uc3QgJCAgPSB3aW5kb3cualF1ZXJ5IHx8IHt9O1xuY29uc3Qgd3AgPSB3aW5kb3cud3AgfHwge307XG5jb25zdCBsb2NhbGl6ZWQgPSB3aW5kb3cucHJpbWVyYUZ1bmN0aW9uUHJlZml4TG9jYWxpemVkRGF0YSB8fCB7fTtcbmNvbnN0IGxvY2FsaXplZERhdGEgPSBsb2NhbGl6ZWQ7XG5cbi8vIFRPRE86IGh0dHBzOi8vZGV2ZWxvcGVyLm1vemlsbGEub3JnL2VuLVVTL2RvY3MvV2ViL0FQSS9DU1Mvc3VwcG9ydHNcbi8vIGdpc3QuZ2l0aHViLmNvbS93ZXNib3MvOGI5YTIyYWRjMWY2MDMzNmE2OTlcbmxldCBzdXBwb3J0c0Nzc0N1c3RvbVByb3BzID0gKCgpID0+IHtcblxuICAgIHZhciBjb2xvciA9ICdyZ2IoMjU1LCAxOTgsIDApJztcbiAgICB2YXIgZWwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzcGFuJyk7XG5cbiAgICBlbC5zdHlsZS5zZXRQcm9wZXJ0eSgnLS1jb2xvcicsIGNvbG9yKTtcbiAgICBlbC5zdHlsZS5zZXRQcm9wZXJ0eSgnYmFja2dyb3VuZCcsICd2YXIoLS1jb2xvciknKTtcbiAgICBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGVsKTtcblxuICAgIHZhciBzdHlsZXMgPSBnZXRDb21wdXRlZFN0eWxlKGVsKTtcbiAgICB2YXIgZG9lc1N1cHBvcnQgPSBzdHlsZXMuYmFja2dyb3VuZENvbG9yID09PSBjb2xvcjtcbiAgICBkb2N1bWVudC5ib2R5LnJlbW92ZUNoaWxkKGVsKTtcblxuICAgIHJldHVybiBkb2VzU3VwcG9ydDtcbn0pKCk7XG5cbmxldCB3cEFqYXhQb3N0ID0gKGFjdGlvbiwgZGF0YSwgc2V0dGluZ3MpID0+IHtcblxuICAgIGlmICghJC5pc1BsYWluT2JqZWN0KGRhdGEpKSB7XG4gICAgICAgIGNvbnNvbGUuZXJyb3IoJ1RoZSBcImRhdGFcIiBwYXJhbWV0ZXIgbXVzdCBiZSBhIHBsYWluIG9iZWpjdCEnKTtcbiAgICAgICAgcmV0dXJuIHt9O1xuICAgIH1cblxuICAgIHNldHRpbmdzID0gc2V0dGluZ3MgfHwge307XG4gICAgc2V0dGluZ3MudHlwZSA9ICdQT1NUJztcbiAgICBzZXR0aW5ncy51cmwgPSBsb2NhbGl6ZWQuYWpheFVybDtcbiAgICBzZXR0aW5ncy5kYXRhID0gJC5leHRlbmQoIGRhdGEgfHwge30sIHsgYWN0aW9uOiBhY3Rpb24sIG5vbmNlOiBsb2NhbGl6ZWQuYWpheE5vbmNlIH0pO1xuXG4gICAgcmV0dXJuICQuYWpheChzZXR0aW5ncyk7XG59O1xuXG5leHBvcnQgeyBzdXBwb3J0c0Nzc0N1c3RvbVByb3BzLCB3cEFqYXhQb3N0IH07XG5cbmV4cG9ydCBkZWZhdWx0IHtcblxuICAgIHJlc3QgOiB7XG5cbiAgICAgICAgLyoqXG4gICAgICAgICogU2VuZHMgYSBQT1NUIHJlcXVlc3QgdG8gYSBSRVNUIGVuZHBvaW50LlxuICAgICAgICAqXG4gICAgICAgICogQHNpbmNlICAxLjBcbiAgICAgICAgKiBAcGFyYW0gIHsoc3RyaW5nfG9iamVjdCl9ICBhY3Rpb24gIFRoZSByb3V0ZSB0byBzZW5kIHRoZSByZXF1ZXN0IHRvIChlLmcuICdkby1zdHVmZicpLlxuICAgICAgICAqIEBwYXJhbSAge29iamVjdH0gIGRhdGEgIE9wdGlvbmFsLiBUaGUgZGF0YSB0byBwb3B1bGF0ZSAkX1BPU1Qgd2l0aC5cbiAgICAgICAgKi9cbiAgICAgICAgcG9zdCA6IGZ1bmN0aW9uKCByb3V0ZSwgZGF0YSApIHtcblxuICAgICAgICAgICAgdmFyIG9wdGlvbnM7XG5cbiAgICAgICAgICAgIGlmICggXy5pc09iamVjdChyb3V0ZSkgKSB7XG4gICAgICAgICAgICAgICAgb3B0aW9ucyA9IHJvdXRlO1xuICAgICAgICAgICAgfVxuICAgICAgICAgICAgZWxzZSB7XG4gICAgICAgICAgICAgICAgb3B0aW9ucyA9IHtcbiAgICAgICAgICAgICAgICAgICAgZGF0YSA6IGRhdGEgfHwge31cbiAgICAgICAgICAgICAgICB9O1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICBvcHRpb25zID0gXy5kZWZhdWx0cyggb3B0aW9ucywge1xuICAgICAgICAgICAgICAgIHR5cGUgICAgICAgOiAnUE9TVCcsXG4gICAgICAgICAgICAgICAgdXJsICAgICAgICA6IGxvY2FsaXplZERhdGEucmVzdFVybCArIHJvdXRlLFxuICAgICAgICAgICAgICAgIGJlZm9yZVNlbmQgOiBmdW5jdGlvbiggeGhyICkge1xuICAgICAgICAgICAgICAgICAgICB4aHIuc2V0UmVxdWVzdEhlYWRlciggJ1gtV1AtTm9uY2UnLCBsb2NhbGl6ZWREYXRhLnJlc3ROb25jZSApO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICByZXR1cm4gJC5hamF4KCBvcHRpb25zICk7XG4gICAgICAgIH1cblxuICAgIH0sXG5cbiAgICBpc0FuZHJvaWQgOiBmdW5jdGlvbigpIHtcbiAgICAgICAgcmV0dXJuIG5hdmlnYXRvci51c2VyQWdlbnQubWF0Y2goL0FuZHJvaWQvaSk7XG4gICAgfSxcblxuICAgIGlzQmxhY2tCZXJyeSA6IGZ1bmN0aW9uKCkge1xuICAgICAgICByZXR1cm4gbmF2aWdhdG9yLnVzZXJBZ2VudC5tYXRjaCgvQmxhY2tCZXJyeS9pKTtcbiAgICB9LFxuXG4gICAgaXNJT1MgOiBmdW5jdGlvbigpIHtcbiAgICAgICAgcmV0dXJuIG5hdmlnYXRvci51c2VyQWdlbnQubWF0Y2goL2lQaG9uZXxpUGFkfGlQb2QvaSk7XG4gICAgfSxcblxuICAgIGlzT3BlcmFNaW5pIDogZnVuY3Rpb24oKSB7XG4gICAgICAgIHJldHVybiBuYXZpZ2F0b3IudXNlckFnZW50Lm1hdGNoKC9PcGVyYSBNaW5pL2kpO1xuICAgIH0sXG5cbiAgICBpc0lFTW9iaWxlIDogZnVuY3Rpb24oKSB7XG4gICAgICAgIHJldHVybiBuYXZpZ2F0b3IudXNlckFnZW50Lm1hdGNoKC9JRU1vYmlsZS9pKTtcbiAgICB9LFxuXG4gICAgaXNNb2JpbGUgOiBmdW5jdGlvbigpIHtcbiAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICAgIHRoaXMuaXNBbmRyb2lkKCkgfHxcbiAgICAgICAgICAgIHRoaXMuaXNJT1MoKSB8fFxuICAgICAgICAgICAgdGhpcy5pc09wZXJhTWluaSgpIHx8XG4gICAgICAgICAgICB0aGlzLmlzQmxhY2tCZXJyeSgpIHx8XG4gICAgICAgICAgICB0aGlzLmlzSUVNb2JpbGUoKVxuICAgICAgICApO1xuICAgIH0sXG5cbiAgICAvKipcbiAgICAqIENoZWNrIGlmIGJyb3dzZXIgaXMgTVMgSUUuXG4gICAgKi9cbiAgICBpc0lFIDogZnVuY3Rpb24oKSB7XG5cbiAgICAgICAgdmFyIHVhICAgPSB3aW5kb3cubmF2aWdhdG9yLnVzZXJBZ2VudCxcbiAgICAgICAgICAgIG1zaWUgPSB1YS5pbmRleE9mKFwiTVNJRSBcIik7XG5cbiAgICAgICAgaWYgKCBtc2llID4gMCB8fCAhIW5hdmlnYXRvci51c2VyQWdlbnQubWF0Y2goL1RyaWRlbnQuKnJ2XFw6MTFcXC4vKSApIHtcbiAgICAgICAgICAgIHJldHVybiB0cnVlO1xuICAgICAgICB9XG4gICAgICAgIHJldHVybiBmYWxzZTtcbiAgICB9LFxuXG4gICAgLyoqXG4gICAgKiBDaGVjayBpZiBicm93c2VyIGlzIE1TIEVkZ2UuXG4gICAgKi9cbiAgICBpc0VkZ2UgOiBmdW5jdGlvbigpIHtcblxuICAgICAgICBpZiAoIGRvY3VtZW50LmRvY3VtZW50TW9kZSB8fCAvRWRnZS8udGVzdChuYXZpZ2F0b3IudXNlckFnZW50KSApIHtcbiAgICAgICAgICAgIHJldHVybiB0cnVlO1xuICAgICAgICB9XG4gICAgICAgIHJldHVybiBmYWxzZTtcbiAgICB9LFxuXG4gICAgLyoqXG4gICAgKiBHZXRzIHRoZSB2aWV3cG9ydCB3aWR0aCwgZXhjbHVkaW5nIHRoZSBzY3JvbGxiYXJzLlxuICAgICpcbiAgICAqIEBzaW5jZSAgMS4wXG4gICAgKi9cbiAgICBnZXRWaWV3cG9ydFdpZHRoIDogZnVuY3Rpb24oKSB7XG4gICAgICAgIHJldHVybiBkb2N1bWVudC5ib2R5LmNsaWVudFdpZHRoO1xuICAgIH0sXG5cbiAgICAvKipcbiAgICAqIEdldHMgdGhlIHZpZXdwb3J0IGhlaWdodCwgZXhjbHVkaW5nIHRoZSBzY3JvbGxiYXJzLlxuICAgICpcbiAgICAqIEBzaW5jZSAgMS4wXG4gICAgKi9cbiAgICBnZXRWaWV3cG9ydEhlaWdodCA6IGZ1bmN0aW9uKCkge1xuICAgICAgICByZXR1cm4gZG9jdW1lbnQuYm9keS5jbGllbnRIZWlnaHQ7XG4gICAgfSxcblxuICAgIC8qKlxuICAgICogR2V0cyB0aGUgZGlzdGFuY2Ugb2YgYW4gZWxlbWVudCB0byB0aGUgdmlld3BvcnQncyBlZGdlLlxuICAgICpcbiAgICAqIEBwYXJhbSAgalF1ZXJ5ICBqUXVlcnkgZWxlbWVudCBvZiB3aGljaCB0byBnZXQgdGhlIHZpZXdwb3J0IG9mZnNldC5cbiAgICAqIEBzaW5jZSAgMS4wXG4gICAgKi9cbiAgICBnZXRWaWV3cG9ydE9mZnNldCA6IGZ1bmN0aW9uICggJGVsZW0gKSB7XG5cbiAgICAgICAgdmFyICR3aW5kb3cgICAgPSBqUXVlcnkod2luZG93KSxcbiAgICAgICAgICAgIHNjcm9sbExlZnQgPSAkd2luZG93LnNjcm9sbExlZnQoKSxcbiAgICAgICAgICAgIHNjcm9sbFRvcCAgPSAkd2luZG93LnNjcm9sbFRvcCgpLFxuICAgICAgICAgICAgb2Zmc2V0ICAgICA9ICRlbGVtLm9mZnNldCgpO1xuXG4gICAgICAgIHJldHVybiB7XG4gICAgICAgICAgICBsZWZ0IDogb2Zmc2V0LmxlZnQgLSBzY3JvbGxMZWZ0LFxuICAgICAgICAgICAgdG9wICA6IG9mZnNldC50b3AgLSBzY3JvbGxUb3BcbiAgICAgICAgfTtcbiAgICB9XG5cbn07XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./source/js/_utils.js\n");
+
+/***/ }),
+
+/***/ "./source/js/app.js":
+/*!**************************!*\
+  !*** ./source/js/app.js ***!
+  \**************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/debounce */ \"./node_modules/lodash/debounce.js\");\n/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _tailwind_config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tailwind.config.js */ \"./tailwind.config.js\");\n/* harmony import */ var _tailwind_config_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_tailwind_config_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_utils */ \"./source/js/_utils.js\");\n// import './vendor/fitvids';\n\n\n\n'use strict'; // Cache properties.\n\n\nvar localized = window.primeraFunctionPrefixLocalizedData;\nvar $ = window.jQuery;\nvar wp = window.wp;\nvar enquire = window.enquire;\nvar docElem = document.documentElement;\nvar $window = $(window);\nvar $document = $(document);\nvar $html = $('html');\nvar $body = $('body');\nvar $wpadminbar = $('#wpadminbar');\nvar wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;\nvar scrollTop = $window.scrollTop(); // Indicate JS.\n\n$html.removeClass('no-js').addClass('js'); // Setup jQuery AJAX.\n\n$.ajaxSetup({\n  headers: {\n    // Automates the passing of the CSRF token. No need to supply it to every AJAX call.\n    'X-CSRF-TOKEN': localized.restNonce\n  }\n}); // Initialize plugins.\n// ...\n// Setup CSS custom properties.\n\nif (_utils__WEBPACK_IMPORTED_MODULE_2__[\"supportsCssCustomProps\"]) {\n  docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');\n} // Bind media queries.\n\n\nenquire.register(\"screen and (min-width:\".concat(_tailwind_config_js__WEBPACK_IMPORTED_MODULE_1___default.a.theme.screens.sm, \")\"), {\n  deferSetup: true,\n  // defers setup callback until a match occurs\n  setup: function setup() {\n    console.log('setup');\n  },\n  match: function match() {\n    console.log('match');\n  },\n  unmatch: function unmatch() {\n    console.log('unmatch');\n  }\n}); // Bind scroll events.\n\n$window.on('scroll', lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default()(function (e) {\n  scrollTop = $window.scrollTop();\n}, 25)); // Bind resize events.\n\n$window.on('resize', lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default()(function (e) {\n  scrollTop = $window.scrollTop();\n  wpadminbarHeight = $wpadminbar.length ? $wpadminbar.outerHeight() : 0;\n\n  if (_utils__WEBPACK_IMPORTED_MODULE_2__[\"supportsCssCustomProps\"]) {\n    docElem.style.setProperty('--wpadminbar-height', wpadminbarHeight + 'px');\n  }\n}, 25)); // Bind events.\n// ...//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zb3VyY2UvanMvYXBwLmpzPzQ1MzUiXSwibmFtZXMiOlsibG9jYWxpemVkIiwid2luZG93IiwicHJpbWVyYUZ1bmN0aW9uUHJlZml4TG9jYWxpemVkRGF0YSIsIiQiLCJqUXVlcnkiLCJ3cCIsImVucXVpcmUiLCJkb2NFbGVtIiwiZG9jdW1lbnQiLCJkb2N1bWVudEVsZW1lbnQiLCIkd2luZG93IiwiJGRvY3VtZW50IiwiJGh0bWwiLCIkYm9keSIsIiR3cGFkbWluYmFyIiwid3BhZG1pbmJhckhlaWdodCIsImxlbmd0aCIsIm91dGVySGVpZ2h0Iiwic2Nyb2xsVG9wIiwicmVtb3ZlQ2xhc3MiLCJhZGRDbGFzcyIsImFqYXhTZXR1cCIsImhlYWRlcnMiLCJyZXN0Tm9uY2UiLCJzdXBwb3J0c0Nzc0N1c3RvbVByb3BzIiwic3R5bGUiLCJzZXRQcm9wZXJ0eSIsInJlZ2lzdGVyIiwidGFpbHdpbmQiLCJ0aGVtZSIsInNjcmVlbnMiLCJzbSIsImRlZmVyU2V0dXAiLCJzZXR1cCIsImNvbnNvbGUiLCJsb2ciLCJtYXRjaCIsInVubWF0Y2giLCJvbiIsImRlYm91bmNlIiwiZSJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFFQSxhLENBRUE7OztBQUNBLElBQU1BLFNBQVMsR0FBR0MsTUFBTSxDQUFDQyxrQ0FBekI7QUFDQSxJQUFNQyxDQUFDLEdBQUdGLE1BQU0sQ0FBQ0csTUFBakI7QUFDQSxJQUFNQyxFQUFFLEdBQUdKLE1BQU0sQ0FBQ0ksRUFBbEI7QUFDQSxJQUFNQyxPQUFPLEdBQUdMLE1BQU0sQ0FBQ0ssT0FBdkI7QUFDQSxJQUFNQyxPQUFPLEdBQUdDLFFBQVEsQ0FBQ0MsZUFBekI7QUFDQSxJQUFNQyxPQUFPLEdBQUdQLENBQUMsQ0FBQ0YsTUFBRCxDQUFqQjtBQUNBLElBQU1VLFNBQVMsR0FBR1IsQ0FBQyxDQUFDSyxRQUFELENBQW5CO0FBQ0EsSUFBTUksS0FBSyxHQUFHVCxDQUFDLENBQUMsTUFBRCxDQUFmO0FBQ0EsSUFBTVUsS0FBSyxHQUFHVixDQUFDLENBQUMsTUFBRCxDQUFmO0FBQ0EsSUFBTVcsV0FBVyxHQUFHWCxDQUFDLENBQUMsYUFBRCxDQUFyQjtBQUNBLElBQUlZLGdCQUFnQixHQUFHRCxXQUFXLENBQUNFLE1BQVosR0FBcUJGLFdBQVcsQ0FBQ0csV0FBWixFQUFyQixHQUFpRCxDQUF4RTtBQUNBLElBQUlDLFNBQVMsR0FBR1IsT0FBTyxDQUFDUSxTQUFSLEVBQWhCLEMsQ0FFQTs7QUFDQU4sS0FBSyxDQUFDTyxXQUFOLENBQWtCLE9BQWxCLEVBQTJCQyxRQUEzQixDQUFvQyxJQUFwQyxFLENBRUE7O0FBQ0FqQixDQUFDLENBQUNrQixTQUFGLENBQVk7QUFDUkMsU0FBTyxFQUFFO0FBQ0w7QUFDQSxvQkFBZ0J0QixTQUFTLENBQUN1QjtBQUZyQjtBQURELENBQVosRSxDQU9BO0FBQ0E7QUFFQTs7QUFDQSxJQUFJQyw2REFBSixFQUE0QjtBQUN4QmpCLFNBQU8sQ0FBQ2tCLEtBQVIsQ0FBY0MsV0FBZCxDQUEwQixxQkFBMUIsRUFBaURYLGdCQUFnQixHQUFHLElBQXBFO0FBQ0gsQyxDQUVEOzs7QUFDQVQsT0FBTyxDQUFDcUIsUUFBUixpQ0FBMENDLDBEQUFRLENBQUNDLEtBQVQsQ0FBZUMsT0FBZixDQUF1QkMsRUFBakUsUUFBd0U7QUFDcEVDLFlBQVUsRUFBRSxJQUR3RDtBQUNsRDtBQUNsQkMsT0FBSyxFQUFFLGlCQUFNO0FBQUVDLFdBQU8sQ0FBQ0MsR0FBUixDQUFZLE9BQVo7QUFBdUIsR0FGOEI7QUFHcEVDLE9BQUssRUFBRSxpQkFBTTtBQUFFRixXQUFPLENBQUNDLEdBQVIsQ0FBWSxPQUFaO0FBQXVCLEdBSDhCO0FBSXBFRSxTQUFPLEVBQUUsbUJBQU07QUFBRUgsV0FBTyxDQUFDQyxHQUFSLENBQVksU0FBWjtBQUF5QjtBQUowQixDQUF4RSxFLENBT0E7O0FBQ0F6QixPQUFPLENBQUM0QixFQUFSLENBQVcsUUFBWCxFQUFxQkMsc0RBQVEsQ0FBQyxVQUFBQyxDQUFDLEVBQUk7QUFDL0J0QixXQUFTLEdBQUdSLE9BQU8sQ0FBQ1EsU0FBUixFQUFaO0FBQ0gsQ0FGNEIsRUFFMUIsRUFGMEIsQ0FBN0IsRSxDQUlBOztBQUNBUixPQUFPLENBQUM0QixFQUFSLENBQVcsUUFBWCxFQUFxQkMsc0RBQVEsQ0FBQyxVQUFBQyxDQUFDLEVBQUk7QUFFL0J0QixXQUFTLEdBQUdSLE9BQU8sQ0FBQ1EsU0FBUixFQUFaO0FBRUFILGtCQUFnQixHQUFHRCxXQUFXLENBQUNFLE1BQVosR0FBcUJGLFdBQVcsQ0FBQ0csV0FBWixFQUFyQixHQUFpRCxDQUFwRTs7QUFFQSxNQUFJTyw2REFBSixFQUE0QjtBQUN4QmpCLFdBQU8sQ0FBQ2tCLEtBQVIsQ0FBY0MsV0FBZCxDQUEwQixxQkFBMUIsRUFBaURYLGdCQUFnQixHQUFHLElBQXBFO0FBQ0g7QUFDSixDQVQ0QixFQVMxQixFQVQwQixDQUE3QixFLENBV0E7QUFDQSIsImZpbGUiOiIuL3NvdXJjZS9qcy9hcHAuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBpbXBvcnQgJy4vdmVuZG9yL2ZpdHZpZHMnO1xuaW1wb3J0IGRlYm91bmNlIGZyb20gJ2xvZGFzaC9kZWJvdW5jZSdcbmltcG9ydCB0YWlsd2luZCBmcm9tICcuLi8uLi90YWlsd2luZC5jb25maWcuanMnXG5pbXBvcnQgeyBzdXBwb3J0c0Nzc0N1c3RvbVByb3BzIH0gZnJvbSAnLi9fdXRpbHMnXG5cbid1c2Ugc3RyaWN0JztcblxuLy8gQ2FjaGUgcHJvcGVydGllcy5cbmNvbnN0IGxvY2FsaXplZCA9IHdpbmRvdy5wcmltZXJhRnVuY3Rpb25QcmVmaXhMb2NhbGl6ZWREYXRhO1xuY29uc3QgJCA9IHdpbmRvdy5qUXVlcnk7XG5jb25zdCB3cCA9IHdpbmRvdy53cDtcbmNvbnN0IGVucXVpcmUgPSB3aW5kb3cuZW5xdWlyZTtcbmNvbnN0IGRvY0VsZW0gPSBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQ7XG5jb25zdCAkd2luZG93ID0gJCh3aW5kb3cpO1xuY29uc3QgJGRvY3VtZW50ID0gJChkb2N1bWVudCk7XG5jb25zdCAkaHRtbCA9ICQoJ2h0bWwnKTtcbmNvbnN0ICRib2R5ID0gJCgnYm9keScpO1xuY29uc3QgJHdwYWRtaW5iYXIgPSAkKCcjd3BhZG1pbmJhcicpO1xubGV0IHdwYWRtaW5iYXJIZWlnaHQgPSAkd3BhZG1pbmJhci5sZW5ndGggPyAkd3BhZG1pbmJhci5vdXRlckhlaWdodCgpIDogMDtcbmxldCBzY3JvbGxUb3AgPSAkd2luZG93LnNjcm9sbFRvcCgpO1xuXG4vLyBJbmRpY2F0ZSBKUy5cbiRodG1sLnJlbW92ZUNsYXNzKCduby1qcycpLmFkZENsYXNzKCdqcycpO1xuXG4vLyBTZXR1cCBqUXVlcnkgQUpBWC5cbiQuYWpheFNldHVwKHtcbiAgICBoZWFkZXJzOiB7XG4gICAgICAgIC8vIEF1dG9tYXRlcyB0aGUgcGFzc2luZyBvZiB0aGUgQ1NSRiB0b2tlbi4gTm8gbmVlZCB0byBzdXBwbHkgaXQgdG8gZXZlcnkgQUpBWCBjYWxsLlxuICAgICAgICAnWC1DU1JGLVRPS0VOJzogbG9jYWxpemVkLnJlc3ROb25jZVxuICAgIH1cbn0pO1xuXG4vLyBJbml0aWFsaXplIHBsdWdpbnMuXG4vLyAuLi5cblxuLy8gU2V0dXAgQ1NTIGN1c3RvbSBwcm9wZXJ0aWVzLlxuaWYgKHN1cHBvcnRzQ3NzQ3VzdG9tUHJvcHMpIHtcbiAgICBkb2NFbGVtLnN0eWxlLnNldFByb3BlcnR5KCctLXdwYWRtaW5iYXItaGVpZ2h0Jywgd3BhZG1pbmJhckhlaWdodCArICdweCcpO1xufVxuXG4vLyBCaW5kIG1lZGlhIHF1ZXJpZXMuXG5lbnF1aXJlLnJlZ2lzdGVyKGBzY3JlZW4gYW5kIChtaW4td2lkdGg6JHt0YWlsd2luZC50aGVtZS5zY3JlZW5zLnNtfSlgLCB7XG4gICAgZGVmZXJTZXR1cDogdHJ1ZSwgLy8gZGVmZXJzIHNldHVwIGNhbGxiYWNrIHVudGlsIGEgbWF0Y2ggb2NjdXJzXG4gICAgc2V0dXA6ICgpID0+IHsgY29uc29sZS5sb2coJ3NldHVwJyk7IH0sXG4gICAgbWF0Y2g6ICgpID0+IHsgY29uc29sZS5sb2coJ21hdGNoJyk7IH0sXG4gICAgdW5tYXRjaDogKCkgPT4geyBjb25zb2xlLmxvZygndW5tYXRjaCcpOyB9LFxufSk7XG5cbi8vIEJpbmQgc2Nyb2xsIGV2ZW50cy5cbiR3aW5kb3cub24oJ3Njcm9sbCcsIGRlYm91bmNlKGUgPT4ge1xuICAgIHNjcm9sbFRvcCA9ICR3aW5kb3cuc2Nyb2xsVG9wKCk7XG59LCAyNSkpO1xuXG4vLyBCaW5kIHJlc2l6ZSBldmVudHMuXG4kd2luZG93Lm9uKCdyZXNpemUnLCBkZWJvdW5jZShlID0+IHtcblxuICAgIHNjcm9sbFRvcCA9ICR3aW5kb3cuc2Nyb2xsVG9wKCk7XG5cbiAgICB3cGFkbWluYmFySGVpZ2h0ID0gJHdwYWRtaW5iYXIubGVuZ3RoID8gJHdwYWRtaW5iYXIub3V0ZXJIZWlnaHQoKSA6IDA7XG5cbiAgICBpZiAoc3VwcG9ydHNDc3NDdXN0b21Qcm9wcykge1xuICAgICAgICBkb2NFbGVtLnN0eWxlLnNldFByb3BlcnR5KCctLXdwYWRtaW5iYXItaGVpZ2h0Jywgd3BhZG1pbmJhckhlaWdodCArICdweCcpO1xuICAgIH1cbn0sIDI1KSk7XG5cbi8vIEJpbmQgZXZlbnRzLlxuLy8gLi4uXG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./source/js/app.js\n");
+
+/***/ }),
+
+/***/ "./source/scss/app.scss":
+/*!******************************!*\
+  !*** ./source/scss/app.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zb3VyY2Uvc2Nzcy9hcHAuc2Nzcz9hOGU5Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vc291cmNlL3Njc3MvYXBwLnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./source/scss/app.scss\n");
+
+/***/ }),
+
+/***/ "./source/scss/front-page.scss":
+/*!*************************************!*\
+  !*** ./source/scss/front-page.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zb3VyY2Uvc2Nzcy9mcm9udC1wYWdlLnNjc3M/MDkyMyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiIuL3NvdXJjZS9zY3NzL2Zyb250LXBhZ2Uuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./source/scss/front-page.scss\n");
+
+/***/ }),
+
+/***/ "./tailwind.config.js":
+/*!****************************!*\
+  !*** ./tailwind.config.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// tailwindcss.com/docs/configuration\nmodule.exports = {\n  theme: {\n    screens: {\n      sm: '600px',\n      md: '900px',\n      lg: '1200px'\n    }\n  }\n};//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi90YWlsd2luZC5jb25maWcuanM/ZDI2YyJdLCJuYW1lcyI6WyJtb2R1bGUiLCJleHBvcnRzIiwidGhlbWUiLCJzY3JlZW5zIiwic20iLCJtZCIsImxnIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUVBQSxNQUFNLENBQUNDLE9BQVAsR0FBaUI7QUFDYkMsT0FBSyxFQUFFO0FBQ0hDLFdBQU8sRUFBRTtBQUNMQyxRQUFFLEVBQUUsT0FEQztBQUVMQyxRQUFFLEVBQUUsT0FGQztBQUdMQyxRQUFFLEVBQUU7QUFIQztBQUROO0FBRE0sQ0FBakIiLCJmaWxlIjoiLi90YWlsd2luZC5jb25maWcuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyB0YWlsd2luZGNzcy5jb20vZG9jcy9jb25maWd1cmF0aW9uXG5cbm1vZHVsZS5leHBvcnRzID0ge1xuICAgIHRoZW1lOiB7XG4gICAgICAgIHNjcmVlbnM6IHtcbiAgICAgICAgICAgIHNtOiAnNjAwcHgnLFxuICAgICAgICAgICAgbWQ6ICc5MDBweCcsXG4gICAgICAgICAgICBsZzogJzEyMDBweCcsXG4gICAgICAgIH0sXG4gICAgfSxcbn07XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./tailwind.config.js\n");
+
+/***/ }),
+
+/***/ 0:
+/*!*************************************************************************************!*\
+  !*** multi ./source/js/app.js ./source/scss/app.scss ./source/scss/front-page.scss ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! /Users/marcwiest/Code/primera/wp-content/themes/primera/source/js/app.js */"./source/js/app.js");
+__webpack_require__(/*! /Users/marcwiest/Code/primera/wp-content/themes/primera/source/scss/app.scss */"./source/scss/app.scss");
+module.exports = __webpack_require__(/*! /Users/marcwiest/Code/primera/wp-content/themes/primera/source/scss/front-page.scss */"./source/scss/front-page.scss");
+
+
+/***/ })
+
+/******/ });
