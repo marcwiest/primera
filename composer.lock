@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a84f353f9166030e4597610aa95ea54",
+    "content-hash": "ebe4fe93bd2765c5ea5318cbb4e00595",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -1226,7 +1226,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "marcwiest/primera-package": 20
+        "marcwiest/primera-package": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
