@@ -4,6 +4,9 @@
 - PRIMERA_ENV
 - See `./vendor/illuminate/support/helpers.php` for additional helper functions.
 
+Learing about CSS in Primera:
+- https://9elements.com/bem-cheat-sheet/
+
 Learning about changelog:
 - https://keepachangelog.com/en/1.0.0/
 - https://changelogfy.com/
