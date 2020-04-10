@@ -32,9 +32,9 @@ const makeTag = {
     },
 
     questionExistingTagOverwrite: function() {
-        rl.question("This version already exists! Do you wish to overwrite it? (yes/no) ", answer => {
+        rl.question("This version already exists! Do you wish to overwrite it? (y/n) ", answer => {
 
-            if ('yes' === answer.toLocaleLowerCase()) {
+            if ('y' === answer.toLocaleLowerCase()) {
                 rimraf.sync(`tags/${this.version}`)
                 // TODO: Remove rimraf in favor of the below, starting with node version 12.10.
                 // fs.rmdirSync('./languages/', {
@@ -51,20 +51,24 @@ const makeTag = {
     makeTag: function() {
         rl.close()
 
-        const destName = `tags/${this.version}`,
-            callback = err => {
-                if (err) return console.error(err)
-            }
+        const files = config.tagFiles.filter(fileName => {
+                if (fileName === 'tags') return false
+                return fs.existsSync(fileName)
+            }),
+            filesCount = files.length,
+            destName = `tags/${this.version}`
 
-        fs.mkdirSync(destName)
+        let mapIteration = 1
 
-        config.tagFiles
-            .filter(fileName => fs.existsSync(fileName))
-            .map(fileName => {
-                fs.copy(fileName, `${destName}/${fileName}`, err => err && console.error(err))
+        fs.ensureDirSync(destName)
+
+        files.map(fileName => {
+            fs.copy(fileName, `${destName}/${fileName}`, err => {
+                err && console.error(err)
+                mapIteration === filesCount && console.log(`Tag "${this.version}" was successfully created.`)
+                mapIteration++
             })
-
-        console.log('Tag was successfully created.')
+        })
     },
 }
 
