@@ -1,7 +1,7 @@
 {
   "name": "primera",
   "version": "1.0.0",
-  "description": "A sophisticated WordPress theme boilerplate.",
+  "description": "A sophisticated WordPress theme boilerplate using Laravel's Blade templating engine.",
   "private": true,
   "scripts": {
     "start": "npm run watch",
