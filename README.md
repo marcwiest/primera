@@ -3,6 +3,7 @@
 
 - PRIMERA_ENV
 - See `./vendor/illuminate/support/helpers.php` for additional helper functions.
+- Translateble strings need to be defined in the controllers due to how wp-pot node module works. It cannot read blade files because it doesn't recognize blade as PHP.
 
 Learing about CSS in Primera:
 - https://9elements.com/bem-cheat-sheet/
