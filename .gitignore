@@ -30,7 +30,7 @@ Temporary Items
 *.map
 node_modules
 vendor
-!tags/*/vendor
+!dist/**/vendor
 public/css
 public/js
 
