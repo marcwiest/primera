@@ -235,7 +235,7 @@ function registerSidebars()
     ];
     register_sidebar([
         'id'          => 'primary',
-        'name'        => __('Primary', 'primeraTextdomain'),
+        'name'        => __('Primary', 'primeraTextDomain'),
         'description' => '',
     ] + $config);
 }

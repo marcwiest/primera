@@ -7,7 +7,7 @@
 * @param string $title
 */
 $primeraError = function( $message, $subtitle='', $title='' ) {
-    $title = $title ?: __('Error', 'primeraTextdomain');
+    $title = $title ?: __('Error', 'primeraTextDomain');
     $footer = '<a href="http://gooddaywp.com/primera/docs/">https://gooddaywp.com/primera/docs/</a>';
     $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
     wp_die( $message, $title );
@@ -18,8 +18,8 @@ $primeraError = function( $message, $subtitle='', $title='' ) {
 */
 if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php' ) ) ) {
     $primeraError(
-        __( 'You must run <code>composer install</code> from the theme directory.', 'primeraTextdomain' ),
-        __( 'Autoloader not found', 'primeraTextdomain' )
+        __( 'You must run <code>composer install</code> from the theme directory.', 'primeraTextDomain' ),
+        __( 'Autoloader not found', 'primeraTextDomain' )
     );
 }
 require_once $composer;
