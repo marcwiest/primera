@@ -34,17 +34,19 @@
   },
   "homepage": "https://github.com/marcwiest/primera#readme",
   "devDependencies": {
+    "archiver": "^3.1.1",
     "browser-sync": "^2.26.7",
-    "browser-sync-webpack-plugin": "^2.0.1",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^7.0.2",
     "fs-extra": "^9.0.0",
     "glob": "^7.1.6",
     "laravel-mix": "^5.0.4",
+    "ora": "^4.0.3",
     "replace-in-file": "^5.0.2",
     "rimraf": "^3.0.2",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
-    "wp-pot": "^1.9.0"
+    "wp-pot": "^1.9.1"
   }
 }
