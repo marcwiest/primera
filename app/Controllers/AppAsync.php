@@ -8,11 +8,12 @@ defined('ABSPATH') || exit;
 
 trait AppAsync
 {
+    // Add AJAX actions here. Runs before all other lifecycle hooks.
     public static function __ajax_actions()
     {
         add_ajax_action('do-something', __CLASS__ . '::ajax_do_something');
     }
-
+    // Register REST routes here. Runs before all other lifecycle hooks.
     public static function __rest_routes()
     {
         register_rest_route('primera/v1', '/do-something/', [
