@@ -50,7 +50,7 @@ foreach ([
     'theme',
     'woocommerce',
 ] as $file) {
-    locate_template("app/{$file}.php", true, true);
+    locate_template("config/{$file}.php", true, true);
 }
 
 
