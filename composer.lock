@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85161ad9b4a7ae243cb67fac5fe16656",
+    "content-hash": "97598dbc3390f86c0fbe2077c02ec29b",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -187,6 +187,52 @@
                 "views"
             ],
             "time": "2019-10-12T17:57:19+00:00"
+        },
+        {
+            "name": "gooddaywp/primera-lib",
+            "version": "1.0.0-beta",
+            "dist": {
+                "type": "path",
+                "url": "/Users/marcwiest/code/primera-lib",
+                "reference": "ae29d90affb77b273edead09cb31e05a38bc69f5"
+            },
+            "require": {
+                "brain/hierarchy": "^2.4",
+                "duncan3dc/blade": "^4.8",
+                "php": "^7.2",
+                "soberwp/controller": "^2.1.2",
+                "symfony/var-dumper": "^4.3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Primera\\": "src/"
+                },
+                "files": [
+                    "index.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Wiest",
+                    "email": "marc@marcwiest.com"
+                }
+            ],
+            "description": "The package of the Primera WordPress theme.",
+            "keywords": [
+                "MVC",
+                "blade",
+                "woocommerce",
+                "wordpress",
+                "wp"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "illuminate/container",
@@ -482,52 +528,6 @@
             "description": "The Illuminate View package.",
             "homepage": "https://laravel.com",
             "time": "2020-01-21T20:50:14+00:00"
-        },
-        {
-            "name": "marcwiest/primera-package",
-            "version": "1.0.0-beta",
-            "dist": {
-                "type": "path",
-                "url": "/Users/marcwiest/code/primera-package",
-                "reference": "ea8cee4e9c226decaca175f529a91c302fcc4580",
-                "shasum": null
-            },
-            "require": {
-                "brain/hierarchy": "^2.4",
-                "duncan3dc/blade": "^4.8",
-                "php": "^7.2",
-                "soberwp/controller": "^2.1.1",
-                "symfony/var-dumper": "^4.3.5"
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "Primera\\": "src/"
-                },
-                "files": [
-                    "index.php"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Wiest",
-                    "email": "marc@marcwiest.com"
-                }
-            ],
-            "description": "The package of the Primera WordPress theme.",
-            "keywords": [
-                "MVC",
-                "blade",
-                "woocommerce",
-                "wordpress",
-                "wp"
-            ],
-            "transport-options": {
-                "symlink": true
-            }
         },
         {
             "name": "nesbot/carbon",
@@ -1226,12 +1226,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "marcwiest/primera-package": 20
+        "gooddaywp/primera-lib": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": "^7.2"
-    },
-    "platform-dev": []
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
