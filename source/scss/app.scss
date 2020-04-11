@@ -1,11 +1,4 @@
-@charset "UTF-8";
-
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
-
 @import
-    "includes/includes",
-    "vendor/vendor",
+    "tools/tools",
     "shared/shared",
     "components/components";
