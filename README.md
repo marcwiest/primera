@@ -5,6 +5,12 @@
 - See `./vendor/illuminate/support/helpers.php` for additional helper functions.
 - Translateble strings need to be defined in the controllers due to how wp-pot node module works. It cannot read blade files because it doesn't recognize blade as PHP.
 
+Async controllers:
+If the ajax/rest callback were defined as a normal public function, the die() statement would break the page, since all public functions are automatically exposed to the respective view. Defining the function as static circumvents this, while still allowing the function to run.
+
+Local development using `wp-env`:
+https://make.wordpress.org/core/2020/03/03/wp-env-simple-local-environments-for-wordpress/
+
 Learing about CSS in Primera:
 - https://9elements.com/bem-cheat-sheet/
 
@@ -13,9 +19,15 @@ Learning about changelog:
 - https://changelogfy.com/
 - https://semver.org/
 
-
-
-
+Example code to load config only for specific templates:
+```php
+use Brain\Hierarchy\Hierarchy;
+$templates = (new Hierarchy)->getTemplates( $GLOBALS['wp_query'] );
+if (! in_array('index', $templates)) {
+    return;
+}
+// Add code for all template files but `index.php` here.
+```
 
 
 
