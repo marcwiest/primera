@@ -1,7 +1,6 @@
 {
     "name": "primera",
     "description": "A MVC started theme for WordPress using Laravel Blade templating.",
-    "version": "1.0.0",
     "type": "project",
     "require": {
         "marcwiest/primera-package": "@dev",
