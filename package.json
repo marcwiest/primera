@@ -1,6 +1,6 @@
 {
   "name": "primera",
-  "description": "A MVC started theme for WordPress using Laravel Blade templating.",
+  "description": "A MVC starter theme for WordPress using Laravel's Blade templating engine.",
   "private": true,
   "scripts": {
     "start": "npm run watch",
