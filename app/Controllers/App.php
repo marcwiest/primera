@@ -10,18 +10,12 @@ defined('ABSPATH') || exit;
 
 class App extends Controller
 {
-    use App\Controllers\AppAsync;
+    use AppAsync;
 
     // Runs after this->data is set up, but before the class methods are run.
     // public function __before() {}
     // Runs after all the class methods have run.
     // public function __after() {}
-
-    public function __construct()
-    {
-        add_action('after_setup_theme', [$this, 'add_ajax_actions']);
-        add_action('rest_api_init', [$this, 'register_rest_routes']);
-    }
 
     public function site_name(): string
     {
@@ -62,10 +56,10 @@ class App extends Controller
 
             switch ($os) {
                 case 'Android' : $classes[] = 'is-android'; break;
-                case 'iPhone'  : $classes[] = 'is-iphone'; break;
-                case 'iPad'    : $classes[] = 'is-ipad'; break;
-                case 'iPod'    : $classes[] = 'is-ipod'; break;
-                case 'webOS'   : $classes[] = 'is-webos'; break;
+                case 'iPhone'  : $classes[] = 'is-iphone';  break;
+                case 'iPad'    : $classes[] = 'is-ipad';    break;
+                case 'iPod'    : $classes[] = 'is-ipod';    break;
+                case 'webOS'   : $classes[] = 'is-webos';   break;
             }
         }
 

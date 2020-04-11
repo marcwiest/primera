@@ -8,16 +8,16 @@ defined('ABSPATH') || exit;
 
 trait AppAsync
 {
-    final public function add_ajax_actions()
+    public static function __ajax_actions()
     {
-        add_ajax_action('do-something', [$this, 'ajax_do_something']);
+        add_ajax_action('do-something', __CLASS__ . '::ajax_do_something');
     }
 
-    final public function register_rest_routes()
+    public static function __rest_routes()
     {
         register_rest_route('primera/v1', '/do-something/', [
             'methods'  => 'POST',
-            'callback' => [$this, 'rest_do_something'],
+            'callback' => __CLASS__ . '::rest_do_something',
         ], true);
     }
 
@@ -29,12 +29,12 @@ trait AppAsync
         // You can use PHP's `parse_str` function to decode jQuery's `form.serialize`.
         // Use `wp_json_send`, or `wp_send_json_success`, or `wp_send_json_error to return data to JS.
 
-        // wp_send_json_success();
+        wp_send_json_success([]);
     }
 
     public static function rest_do_something(\WP_REST_Request $request)
     {
-        // $response = ['success' => true];
-        // return \rest_ensure_response($response);
+        $response = ['success' => true];
+        return rest_ensure_response($response);
     }
 }
