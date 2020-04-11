@@ -2,7 +2,7 @@
 
 const fs = require('fs-extra'),
     rimraf = require('rimraf'),
-    {buildFiles, buildDirPath, archiveDirPath} = require('../primera-config'),
+    {buildFiles, buildDirPath, archiveDirPath} = require('../tasks-config'),
     files = buildFiles.filter(fileName => {
         if (fileName === buildDirPath || fileName === archiveDirPath) return false
         return fs.existsSync(fileName)

@@ -4,7 +4,7 @@ const fs = require('fs-extra'),
     archiver = require('archiver')('zip'),
     spinner = require('ora')(),
     {execSync} = require('child_process'),
-    {name, version, buildDirPath, archiveDirPath} = require('../primera-config'),
+    {name, version, buildDirPath, archiveDirPath} = require('../tasks-config'),
     rl = require('readline').createInterface({
         input: process.stdin,
         output: process.stdout,
