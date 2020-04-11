@@ -6,8 +6,7 @@ namespace App\Controllers;
 
 use Sober\Controller\Controller;
 
-// Exit if accessed directly.
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
 class FrontPage extends Controller
 {

@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use Sober\Controller\Controller;
 
-defined('WPINC') || exit;
+defined('ABSPATH') || exit;
 
 class TmplBlankPage extends Controller
 {
