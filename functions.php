@@ -26,15 +26,29 @@ require_once $composer;
 
 /**
 * Ensure app files are loaded.
+*
 * Add or remove files to the array as needed, locate_template supports child theme overrides.
 */
 foreach ([
     'helpers',
     'backcompat',
-    'theme',
+] as $file) {
+    locate_template("app/{$file}.php", true, true);
+}
+
+/**
+* Ensure config files are loaded.
+*
+* Add or remove files to the array as needed, locate_template supports child theme overrides.
+*/
+foreach ([
+    'admin',
+    'editor',
+    'frontend',
     'primera',
-    'rest',
-    'ajax'
+    'scripts',
+    'theme',
+    'woocommerce',
 ] as $file) {
     locate_template("app/{$file}.php", true, true);
 }
