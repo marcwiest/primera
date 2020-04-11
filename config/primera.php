@@ -1,9 +1,10 @@
 <?php
 
-namespace App\primera;
+namespace App\config\primera;
 
 defined('ABSPATH') || exit;
 
+// Actions
 add_action( 'after_setup_theme' , __NAMESPACE__ . '\\initPrimera' );
 // add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addBladeComponentAliases' );
 // add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addExampleBladeDirective' );
