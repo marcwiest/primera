@@ -19,6 +19,20 @@ Learning about changelog:
 - https://changelogfy.com/
 - https://semver.org/
 
+
+
+# Requirements
+
+Make sure all dependencies have been installed before moving on:
+
+- [WordPress](https://wordpress.org/) >= 5.4
+- [PHP](https://www.php.net/manual/en/install.php) >= 7.2
+- [Composer](https://getcomposer.org/download/)
+- [Node.js](https://nodejs.org/en/) >= 12.0.0
+
+
+
+
 Example code to load config only for specific templates:
 ```php
 use Brain\Hierarchy\Hierarchy;
