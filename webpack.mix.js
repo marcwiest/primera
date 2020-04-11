@@ -10,6 +10,8 @@ const sourcePath = 'source/',
 // https://laravel-mix.com/docs/5.0/faq#my-mix-manifestjson-file-shouldnt-be-in-the-project-root
 mix.setPublicPath(publicPath)
 
+mix.disableNotifications()
+
 // https://laravel-mix.com/docs/5.0/options
 mix.options({
     processCssUrls: false,
