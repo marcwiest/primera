@@ -14,15 +14,16 @@ module.exports = {
     *
     * This should match versions inside `CHANGELOG.md`, `package.json`, and `style.css`.
     */
-    version: pkg.version || '1.0.0',
+    version: '1.0.0',
 
     /**
     * The files to be included for CLI command `$ npm run build`.
     */
     buildFiles: [
         'vendor',
-        'app',
         'source/views',
+        'app',
+        'config',
         'public',
         'templates',
         'languages',
