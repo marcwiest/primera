@@ -6,15 +6,22 @@ namespace App\Controllers;
 
 use Sober\Controller\Controller;
 
-// Exit if accessed directly.
 defined('ABSPATH') || exit;
 
 class App extends Controller
 {
+    use App\Controllers\AppAsync;
+
     // Runs after this->data is set up, but before the class methods are run.
     // public function __before() {}
     // Runs after all the class methods have run.
     // public function __after() {}
+
+    public function __construct()
+    {
+        add_action('after_setup_theme', [$this, 'add_ajax_actions']);
+        add_action('rest_api_init', [$this, 'register_rest_routes']);
+    }
 
     public function site_name(): string
     {
