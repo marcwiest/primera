@@ -19,6 +19,9 @@ Learning about changelog:
 - https://changelogfy.com/
 - https://semver.org/
 
+Async traits:
+- Example for asyncronous code eg: AJAX/REST.
+- The trait's name can ne freely chosen and does not need to end with "Async".
 
 
 # Requirements
