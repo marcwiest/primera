@@ -23,6 +23,9 @@ Async traits:
 - Example for asyncronous code eg: AJAX/REST.
 - The trait's name can ne freely chosen and does not need to end with "Async".
 
+Laravel's Mix:
+- Just delete the folder of whichever style processors you don't wish to use.
+
 
 # Requirements
 
