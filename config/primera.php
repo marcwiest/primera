@@ -15,9 +15,14 @@ add_action( 'after_setup_theme' , __NAMESPACE__ . '\\initPrimera' );
 */
 function initPrimera()
 {
+    $envFile = defined('PRIMERA_ENV_FILE') && ! empty(PRIMERA_ENV_FILE)
+        ? (string) PRIMERA_ENV_FILE
+        : null;
+
     primera([
         'viewsDir' => get_theme_file_path('source/views/'),
         'cacheDir' => trailingslashit(wp_get_upload_dir()['basedir']).'blade-cache',
+        'envFile'  => $envFile,
     ]);
 }
 

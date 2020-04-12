@@ -14,6 +14,20 @@ $primeraError = function( $message, $subtitle='', $title='' ) {
 };
 
 /**
+* Ensure app files are loaded.
+*
+* Add or remove files to the array as needed, locate_template supports child theme overrides.
+* Including these files before the `venodr/autoload.php` allows us to overwrite Laravel's
+* pluggable helper functions.
+*/
+foreach ([
+    'helpers',
+    'backcompat',
+] as $file) {
+    locate_template("app/{$file}.php", true, true);
+}
+
+/**
 * Ensure composer dependencies are loaded.
 */
 if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php' ) ) ) {
@@ -23,18 +37,6 @@ if ( ! file_exists( $composer = get_parent_theme_file_path( 'vendor/autoload.php
     );
 }
 require_once $composer;
-
-/**
-* Ensure app files are loaded.
-*
-* Add or remove files to the array as needed, locate_template supports child theme overrides.
-*/
-foreach ([
-    'helpers',
-    'backcompat',
-] as $file) {
-    locate_template("app/{$file}.php", true, true);
-}
 
 /**
 * Ensure config files are loaded.

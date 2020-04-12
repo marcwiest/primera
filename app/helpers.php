@@ -3,10 +3,18 @@
 defined('ABSPATH') || exit;
 
 if (! function_exists('asset')) :
-// Get URL of an asset from within the public folder.
-function asset(string $filePath): string
+    // Get URL of an asset from within the public folder.
+    function asset(string $filePath): string
+    {
+        return get_theme_file_uri( "public/{$filePath}" );
+    }
+endif;
+
+if (! function_exists('env')) :
+// Overwrites Laravel's `env` helper function to allow for array like values in `.env`.
+function env(string $key, $default=null)
 {
-    return get_theme_file_uri( "public/{$filePath}" );
+    return primera('env')->get($key, $default);
 }
 endif;
 
