@@ -4,11 +4,11 @@ defined('ABSPATH') || exit;
 
 
 if (! function_exists('asset')) :
-    // Get URL of an asset from within the public folder.
-    function asset(string $filePath): string
-    {
-        return get_theme_file_uri( "public/{$filePath}" );
-    }
+// Get URL of an asset from within the public folder.
+function asset(string $filePath): string
+{
+    return get_theme_file_uri( "public/{$filePath}" );
+}
 endif;
 
 
