@@ -2,29 +2,55 @@
 
 const fs = require('fs-extra'),
     rimraf = require('rimraf'),
-    {buildFiles, buildDirPath, archiveDirPath} = require('../tasks-config'),
-    files = buildFiles.filter(fileName => {
-        if (fileName === buildDirPath || fileName === archiveDirPath) return false
-        return fs.existsSync(fileName)
-    }),
-    filesCount = files.length
+    dotenv = require('dotenv').config(),
+    replace = require('replace-in-file')
 
-let buildPath = buildDirPath || 'dist/primera',
-    archivePath = archiveDirPath || 'dist/archive'
+if (dotenv.error) {
+    throw dotenv.error
+}
+
+const env = dotenv.parsed,
+    name = env.THEME_SLUG || 'primera',
+    version = env.VERSION || 0,
+    buildPath = env.BUILD_DIR_PATH || 'dist/primera',
+    archivePath = env.ARCHIVE_DIR_PATH || 'dist/archive'
+
+let files
+if (env.BUILD_FILES && env.BUILD_FILES.indexOf(',')) {
+    files = env.BUILD_FILES.trim().split(',')
+    files.length && (
+        files = files.map(fileName => fileName.trim())
+    )
+}
+
+let filesCount = files.length
+
+if (! filesCount) {
+    console.log('Your `.env` file is missing "BUILD_FILES".')
+    return
+}
 
 fs.ensureDirSync(buildPath)
 fs.ensureDirSync(archivePath)
 
-if (! filesCount) {
-    console.log('The file `primera-config.js` is missing the "buildFiles".')
-    return
-}
+// Delete all existing build files.
+rimraf.sync(buildPath + '/*')
 
-// Delete all files.
-rimraf.sync(buildDirPath + '/*')
-
+// Copy files to build folder.
 for (let i = 0; i < filesCount; i++) {
-    fs.copySync(files[i], `${buildDirPath}/${files[i]}`)
+
+    if (fs.existsSync(files[i])) {
+        // let options = {
+        //     files: files[i],
+        //     from: [/\%\%td\%\%/gi, /\%\%v\%\%/gi],
+        //     to: [name, version],
+        // }
+        // replace(options, (error, results) => {
+        //     error && console.error(error)
+        //     fs.copySync(files[i], `${buildPath}/${files[i]}`)
+        // })
+        fs.copySync(files[i], `${buildPath}/${files[i]}`)
+    }
 }
 
-console.log(`Build folder "${buildDirPath}" created.`)
+console.log(`Build folder "${buildPath}" created.`)
