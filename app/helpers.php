@@ -2,6 +2,7 @@
 
 defined('ABSPATH') || exit;
 
+
 if (! function_exists('asset')) :
     // Get URL of an asset from within the public folder.
     function asset(string $filePath): string
@@ -10,6 +11,7 @@ if (! function_exists('asset')) :
     }
 endif;
 
+
 if (! function_exists('env')) :
 // Overwrites Laravel's `env` helper function to allow for array like values in `.env`.
 function env(string $key, $default=null)
@@ -17,6 +19,7 @@ function env(string $key, $default=null)
     return primera('env')->get($key, $default);
 }
 endif;
+
 
 if (! function_exists('add_ajax_action')) :
 /**
@@ -29,6 +32,7 @@ function add_ajax_action(string $action, callable $callback): void
     add_action("wp_ajax_nopriv_{$action}", $callback);
 }
 endif;
+
 
 if (! function_exists('log_report')) :
 /**
@@ -43,6 +47,7 @@ function log_report(string $msg): void
     @error_log($msg, 3, $logPath);
 }
 endif;
+
 
 if (! function_exists('mix')) :
 /**
@@ -81,6 +86,7 @@ function mix(string $path): string
 }
 endif;
 
+
 if ( ! function_exists('strtobool') ) :
 /**
 * Function for turning string booleans values into real booleans.
@@ -99,10 +105,10 @@ function strtobool($value): bool
     elseif ( $value === 'false' || $value === '0' ) {
         return false;
     }
-
     return $value;
 }
 endif;
+
 
 if (! function_exists('is_ssl')) :
 // Check if SSL is enabled.
@@ -117,7 +123,6 @@ function is_ssl()
     elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) {
         return true;
     }
-
     return false;
 }
 endif;
