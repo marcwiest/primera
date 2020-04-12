@@ -25,6 +25,7 @@ Temporary Items
 # IDEs
 .idea
 .vscode
+.favorites.json
 
 # Node, Gulp & Composer
 *.map
