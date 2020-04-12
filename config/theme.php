@@ -22,7 +22,10 @@ add_filter( 'widget_tag_cloud_args' , __NAMESPACE__ . '\\filterTagCloudArgs' );
 */
 function loadThemeTextdomain()
 {
-    load_theme_textdomain( 'primeraTextDomain', get_theme_file_path('languages') );
+    load_theme_textdomain(
+        env('TEXT_DOMAIN', 'text-domain'),
+        get_theme_file_path('languages')
+    );
 }
 
 /**
