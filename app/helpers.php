@@ -121,25 +121,3 @@ function is_ssl()
     return false;
 }
 endif;
-
-if ( ! function_exists( 'env_name' ) ) :
-/**
-* Get current environment.
-* @since 1.0
-*/
-function env_name()
-{
-    if (defined('PRIMERA_ENV') && is_string(PRIMERA_ENV)) {
-        switch (PRIMERA_ENV) {
-            case 'production': return 'production';
-            case 'staging':    return 'staging';
-            case 'dev':        return 'dev';
-            case 'local':      return 'local';
-        }
-    }
-    else if (in_array($_SERVER['REMOTE_ADDR'], ['::1', '127.0.0.1'])) {
-        return 'local';
-    }
-    return 'production';
-}
-endif;
