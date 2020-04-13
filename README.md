@@ -43,6 +43,45 @@ composer create-project gooddaywp/primera my-theme-name
 
 This will install all PHP and NPM dependencies for you. It will also copy the **.env.example** file to **.env**.
 
+## Quick Start
+
+To take Primera for a spin, take the following steps after the installation is complete.
+
+- Open the `.env` file and change the values
+- Run `npm start` in the terminal (from within this folder)
+- Visit the localhost URL display in the terminal
+
+## CSS Vendor Prefixes and ES6
+
+Due to the Autoprefixer PostCSS plugin, there's no need for vendor prefixes in CSS. Browserlist is used to let you adjust which browsers you wish to support by modifying the `.browserlistrc` file.
+
+Babel.js enables you to write modern JavaScript.
+
+## Mix & NPM Build Scripts
+
+Primera uses Laravel Mix, which is a wrapper around webpack. Mix makes it really easy to setup your module bundling and asset compilation. It's configuration file can be found at `./webpack.mix.js`. The NPM command `run` allow you to run any of the commands that are with the `"script"` section of you `package.json` file. Use the following commands to build, translate and develop your theme.
+
+**`npm start`** <br>
+Shortcut to run `npm run watch`.
+
+**`dev`** or **`development`** <br>
+Renders all assets uncompressed and without watching for changes.
+
+**`prod`** or **`production`**<br>
+Renders all assets compressed and without watching for changes.
+
+**`watch`** <br>
+Starts browsersync and renders all assets uncompressed. This task will keep watching for changes to your assets and refresh you browser window when changes are detected. The task can be exited via the keyboard shortcut `ctrl+c`.
+
+**`pot`** <br>
+Will create a `.pot` file with your languages directory. This file is used by WordPress to allow for translation.
+
+**`zip`** <br>
+Will run `build` before it can create a Zip file of your theme and place it within the directory you specified within the `.env` file.
+
+**`build`** <br>
+This will first run `npm prod`, then `npm pot` and then copy the files you specified with the `.env` to the directory you specified within the `.env` file. Thereafter this task will also create a Zip file of the current build.
+
 ## Folder Structure
 
 **/app** <br>
@@ -131,13 +170,35 @@ Dotenv files are often used for safe keeping of sensitive informaiton like API k
 
 Within this project `.env` files represent a singular point to set *not environment*, but **project specific** data that can be accessed via Node.js and PHP alike. The `.env` file can and should therefor also be commited to your version control system.
 
-There are a couple important things to note regaring `.env` files within Primera.
+There are a couple important things to note regarding `.env` files within Primera.
 
 - Please do **not** put sensitive information (e.g. API keys) into it
 - Due to the dotenv NPM package, the following does not currently work
-  - Each value must be writen on one line, line breaks are not supported
+  - Line breaks are not supported, each value must be writen in one line
   - [Nesting variables](https://github.com/vlucas/phpdotenv#nesting-variables) is currently not possible
-- Primera converts comma separated strings to arrays (e.g. `"one, two, there"`)
+- Primera converts comma separated strings to arrays in PHP (e.g. `"one, two, there"` becomes `["one", "two", "three"]`)
+
+## Config Folder & Hierarchy
+
+Primera uses the composer package [`Brain\Hierarchy`](https://github.com/Brain-WP/Hierarchy). This package allows you check the template hierarchy within your theme's config (`/config`) and load different configurations for different templates. Below is an example of how to set this up.
+
+```php
+use Brain\Hierarchy\Hierarchy;
+$templates = (new Hierarchy)->getTemplates($GLOBALS['wp_query']);
+if (in_array('archive', $templates)) {
+    // code for archive.php
+}
+```
+
+## Helper Functions
+
+Primera comes with a couple of helper functions to make your life a bit easier. These functions can be found with the `/app` folder.
+
+Most of Laravel's helpers functions are also available within Primera. To learn more about them, please visit the [documentation](https://laravel.com/docs/6.x/helpers) or have a look at the source code (`./vendor/illuminate/support/helpers.php`).
+
+## Translation
+
+Translateble strings need to be defined in the controllers due to how wp-pot node module works. It cannot read blade files because it doesn't recognize blade as PHP.
 
 ## Getting Up To Speed With Modern PHP
 
