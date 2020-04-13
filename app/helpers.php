@@ -103,21 +103,3 @@ function validate_boolean($value): bool
     return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 }
 endif;
-
-
-if (! function_exists('is_ssl')) :
-// Check if SSL is enabled.
-function is_ssl()
-{
-    if (is_ssl()) {
-        return true;
-    }
-    elseif (0 === stripos(get_option('siteurl'), 'https://')) {
-        return true;
-    }
-    elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) {
-        return true;
-    }
-    return false;
-}
-endif;
