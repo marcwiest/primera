@@ -13,7 +13,7 @@ endif;
 
 
 if (! function_exists('env')) :
-// Overwrites Laravel's `env` helper function to allow for array like values in `.env`.
+// Overwrites Laravel's `env` helper function to allow for array like values in `.env` file.
 function env(string $key, $default=null)
 {
     return primera('env')->get($key, $default);
@@ -87,25 +87,19 @@ function mix(string $path): string
 endif;
 
 
-if ( ! function_exists('strtobool') ) :
+if ( ! function_exists('validate_boolean') ) :
 /**
-* Function for turning string booleans values into real booleans.
+* Function for turning values into booleans.
+*
+* Only returns true for: true, 'true', 1, '1', 'on', 'yes'.
 *
 * @since  1.0
-* @param  mixed  $value  String to convert to a boolean.
-* @return  bool|string
+* @param  mixed  $value  Value to convert to a boolean.
+* @return  bool
 */
-function strtobool($value): bool
+function validate_boolean($value): bool
 {
-    $value = strtolower(strval($value));
-
-    if ( $value === 'true' || $value === '1' ) {
-        return true;
-    }
-    elseif ( $value === 'false' || $value === '0' ) {
-        return false;
-    }
-    return $value;
+    return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 }
 endif;
 
