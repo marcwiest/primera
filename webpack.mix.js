@@ -5,7 +5,8 @@ const mix = require('laravel-mix'),
 const sourcePath = 'source/',
     publicPath = 'public/',
     jsFiles = glob.sync(`${sourcePath}/js/*.js`),
-    sassFiles = glob.sync(`${sourcePath}/scss/*.scss`)
+    // sassFiles = glob.sync(`${sourcePath}/scss/*.scss`),
+    postCssFiles = glob.sync(`${sourcePath}/css/*.css`)
 
 // https://laravel-mix.com/docs/5.0/faq#my-mix-manifestjson-file-shouldnt-be-in-the-project-root
 mix.setPublicPath(publicPath)
@@ -35,7 +36,8 @@ mix.browserSync({
 });
 
 jsFiles.forEach(filename => mix.js(filename, publicPath + 'js'))
-sassFiles.forEach(filename => mix.sass(filename, publicPath + 'css'))
+// sassFiles.forEach(filename => mix.sass(filename, publicPath + 'css'))
+postCssFiles.forEach(filename => mix.postCss(filename, publicPath + 'css'))
 
 if (! mix.inProduction()) {
     mix.sourceMaps()
