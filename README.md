@@ -35,6 +35,7 @@ Primera is an WordPress theme with a modern development workflow.
 - Composer PSR-4 autoloader
 - Build scripts for zip and pot files
 - Single point Dotenv configuration
+- GPL Licensed
 
 ## Requirements
 
@@ -47,6 +48,8 @@ Make sure all dependencies have been installed before moving on.
 
 
 ## Installation
+
+    NOTE: Not yet published on packagist.org. Please manually download for now.
 
 1. Download WordPress, either manually or via WP CLI, if installed.
 ```shell
