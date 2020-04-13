@@ -21,7 +21,6 @@ Primera is an WordPress theme with a modern development workflow.
   - [Config Folder & Hierarchy](#config-folder--hierarchy)
   - [Helper Functions](#helper-functions)
   - [Translation](#translation)
-  - [Getting Up To Speed With Modern PHP](#getting-up-to-speed-with-modern-php)
 
 ## Features
 
@@ -220,10 +219,3 @@ Most of Laravel's helpers functions are also available within Primera. To learn 
 ## Translation
 
 Translateble strings need to be defined in the controllers due to how wp-pot node module works. It cannot read blade files because it doesn't recognize blade as PHP.
-
-## Getting Up To Speed With Modern PHP
-
-https://www.smashingmagazine.com/2019/02/wordpress-modern-php/
-
-
-
