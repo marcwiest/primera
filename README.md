@@ -1,10 +1,27 @@
-
-# Primera
+Primera
+=======
 
 Primera is an WordPress theme with a modern development workflow.
 
 **Table of Contents** <br>
-- [Features](#features)
+- [Primera](#primera)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [Autoprefixer & ES6](#autoprefixer--es6)
+  - [Mix & NPM Scripts](#mix--npm-scripts)
+  - [Folder Structure](#folder-structure)
+  - [App Files](#app-files)
+  - [Controllers, Views & View Scripts](#controllers-views--view-scripts)
+  - [AJAX Actions & REST Routes](#ajax-actions--rest-routes)
+  - [Blade Templating](#blade-templating)
+  - [Custom Blade Directives](#custom-blade-directives)
+  - [Dotenv Configuration](#dotenv-configuration)
+  - [Config Folder & Hierarchy](#config-folder--hierarchy)
+  - [Helper Functions](#helper-functions)
+  - [Translation](#translation)
+  - [Getting Up To Speed With Modern PHP](#getting-up-to-speed-with-modern-php)
 
 ## Features
 
@@ -28,6 +45,7 @@ Make sure all dependencies have been installed before moving on.
 - [PHP](https://www.php.net/manual/en/install.php) >= 7.3
 - [Composer](https://getcomposer.org/download/)
 - [Node.js](https://nodejs.org/en/) >= 12.0.0
+
 
 ## Installation
 
@@ -54,13 +72,13 @@ To take Primera for a spin, take the following steps after the installation is c
 - Run `npm start` in the terminal (from within this folder)
 - Visit the localhost URL display in the terminal
 
-## CSS Vendor Prefixes and ES6
+## Autoprefixer & ES6
 
 Due to the Autoprefixer PostCSS plugin, there's no need for vendor prefixes in CSS. Browserlist is used to let you adjust which browsers you wish to support by modifying the `.browserlistrc` file.
 
 Babel.js enables you to write modern JavaScript.
 
-## Mix & NPM Build Scripts
+## Mix & NPM Scripts
 
 Primera uses Laravel Mix, which is a wrapper around webpack. Mix makes it really easy to setup your module bundling and asset compilation. It's configuration file can be found at `./webpack.mix.js`. The NPM command `run` allow you to run any of the commands that are with the `"script"` section of you `package.json` file. Use the following commands to build, translate and develop your theme.
 
