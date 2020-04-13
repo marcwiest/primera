@@ -92,11 +92,11 @@ Please have a look at the [soberwp/controller documentation](https://github.com/
 
 ## AJAX Actions & REST Routes
 
-You are free to handle AJAX and REST any which way you like. However, Primera does offer a confient way to enqueue your REST routes and AJAX actions. In addition to [lifecycle methods](https://github.com/soberwp/controller/blob/master/README.md#lifecycles) of the Controllers, Primera adds two more lifecycle methods (`__ajax_actions` & `__rest_routes`) to ease including REST and AJAX callbacks.
+You are free to handle AJAX & REST any which way you like. However, Primera does offer a confient way to enqueue your REST routes and AJAX actions. In addition to [lifecycle methods](https://github.com/soberwp/controller/blob/master/README.md#lifecycles) of the Controllers, Primera adds two more lifecycle methods (`__ajax_actions` & `__rest_routes`) to ease including REST and AJAX callbacks.
 
 Because the Controllers are loaded via WP's `init` action hook, these methods are also load via this hook. The `__rest_routes` method is then hooked via  `rest_api_init`. To separate asynchronous code from the rest of the Controller, an example using a [PHP trait](https://www.php.net/manual/en/language.oop5.traits.php) is supplied. However, you could also write the code directly into the Controller if you prefer.
 
-Please note that all AJAX & REST callbacks are static. Controllers will not reveal static methods as data to your views.
+Please note that all AJAX & REST callbacks are static. Controllers will not reveal static methods as data to your views. If the ajax/rest callback were defined as a normal public function, the `die()` statement would break the page, since all public functions are automatically exposed to the respective view. Defining the function as static circumvents this, while still allowing the function to run.
 
 ## Blade Templating
 
@@ -118,12 +118,26 @@ Displays the contents of the variable and exits the script via `die()`.
 Displays all Controller data on the page.
 
 **@code** <br>
-Display all available variables wrapped with currly braces. Useful to grab all data supplied to your view and drop to that into your template.
+Displays all available variables wrapped with currly braces. Useful to grab all data supplied to your view and drop to that into your template.
 
 **@codeif** <br>
 Same as `@code` but with `@if` statements around the data.
 
 ## Dotenv Configuration
+
+In Primera the `.env` file works a bit differently.
+
+Dotenv files are often used for safe keeping of sensitive informaiton like API keys and are also *not* commited to version control (e.g. Github). Usually, these `.env` files hold information specific to the environment where your app or site lives.
+
+Within this project `.env` files represent a singular point to set *not environment*, but **project specific** data that can be accessed via Node.js and PHP alike. The `.env` file can and should therefor also be commited to your version control system.
+
+There are a couple important things to note regaring `.env` files within Primera.
+
+- Please do **not** put sensitive information (e.g. API keys) into it
+- Due to the dotenv NPM package, the following does not currently work
+  - Each value must be writen on one line, line breaks are not supported
+  - [Nesting variables](https://github.com/vlucas/phpdotenv#nesting-variables) is currently not possible
+- Primera converts comma separated strings to arrays (e.g. `"one, two, there"`)
 
 ## Getting Up To Speed With Modern PHP
 
