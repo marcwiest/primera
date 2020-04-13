@@ -23,8 +23,10 @@ endif;
 
 if (! function_exists('add_ajax_action')) :
 /**
+* Add AJAX action for both, logged-in and logged-out users.
+*
 * Ajax action wrapper to simplify action creation for both, logged-in and logged-out users.
-* Note: You can check whether a user is logged-in via `is_user_logged_in()`.
+* Note, you can check whether a user is logged-in via `is_user_logged_in()`.
 */
 function add_ajax_action(string $action, callable $callback): void
 {
