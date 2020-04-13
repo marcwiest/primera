@@ -3,6 +3,9 @@
 
 Primera is an WordPress theme with a modern development workflow.
 
+**Table of Contents** <br>
+- [Features](#features)
+
 ## Features
 
 - Laravel's Blade templating engine
