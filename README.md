@@ -1,8 +1,6 @@
 
 # Primera
 
-![](https://flat.badgen.net/packagist/v/monolog/monolog) ![](https://flat.badgen.net/badge/become/a%20patron/F96854)
-
 Primera is an WordPress theme with a modern development workflow.
 
 ## Features
@@ -47,35 +45,35 @@ This will install all PHP and NPM dependencies for you. It will also copy the **
 
 ## Folder Structure
 
-**/app**
+**/app** <br>
 This folder holds the template Controllers and theme helpers functions. This folder maps to the autoload PSR-4 setting within composer.
 
-**/config**
+**/config** <br>
 The config holds the theme and plugin configuration.
 
-**/public**
+**/public** <br>
 This folder holds assets such as images, fonts as well as compiled asset (CSS & JS) coming from the source folder.
 
-**/source**
+**/source** <br>
 The source folder holds assets that need compiling i.e. CSS, JS and the Blade template files inside of the views folder.
 
-**/tasks**
+**/tasks** <br>
 This folder holds build scripts written in Node.js. They are placed into theme so you can modify them suit your project's needs.
 
-**/templates**
+**/templates** <br>
 The template folder holds custom WordPress page tempaltes.
 
 ## App Files
 
 Throughout the theme, "app" files are used to handle data that's ment to be applied to the theme globally.
 
-**/app/Controllers/App.php**
+**/app/Controllers/App.php** <br>
 This file supplies values globally to all templates.
 
-**/source/css/app.css** & **/source/js/app.js**
+**/source/css/app.css** & **/source/js/app.js** <br>
 These files compile global JS & CSS.
 
-**/source/views/app.blade.php**
+**/source/views/app.blade.php** <br>
 This is the main template file that other view are extending.
 
 ## Controllers, Views & View Scripts
