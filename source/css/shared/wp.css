@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+$mb: 24px !default;
+
+//richtabor.com/gutenberg-image-alignments/
+//www.billerickson.net/full-and-wide-alignment-in-gutenberg/
+
+/*
+WordPress Styles
+https://codex.wordpress.org/CSS
+*/
+
+/*
+Adminbar Sticky-Header Fix
+*/
+
+.admin-bar .sticky-header {
+    top: 46px;
+}
+@media (min-width: 783px) {
+    .admin-bar .sticky-header {
+        top: 32px;
+    }
+}
+
+/*
+Screen Reader Text
+*/
+
+.screen-reader-text {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    overflow: hidden;
+	height: 1px;
+	width: 1px;
+    border: 0;
+    padding: 0;
+    margin: -1px;
+	word-wrap: normal !important;
+    &:focus {
+        display: block;
+    	clip: auto !important;
+        clip-path: none !important;
+    	color: #212121;
+    	background-color: #f1f1f1;
+    	// border-radius: 3px;
+    	box-shadow: 0 0 2px 2px rgba(0, 0, 0, .6);
+        text-decoration: none;
+    	font-size: 1.5rem;
+    	font-weight: bold;
+        line-height: normal;
+    	height: auto;
+        width: auto;
+        top: 5px;
+    	left: 5px;
+        z-index: 999999;
+    	padding: 15px 23px 14px;
+        margin: 0;
+    }
+}
+
+/*
+Widgets
+*/
+
+.widget {
+
+    margin-bottom: $mb;
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        display: table;
+    }
+    &::after {
+        clear: both;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        ul {
+            padding-left: $mb / 2;
+        }
+    }
+}
+
+/*
+Calendar Widget
+*/
+
+#wp-calendar {
+    caption {
+        margin-bottom: 0;
+    }
+}
+
+/*
+Tag Cloud Widget
+*/
+
+.wp-tag-cloud {
+    padding-left: 0;
+    li {
+        display: inline-block;
+    }
+}
+
+/*
+RSS Widget
+*/
+
+.widget_rss {
+
+    .widget-title .rsswidget {
+        display: block;
+        &:first-child { display: none; }
+    }
+
+    ul {
+        .rsswidget,
+        .rss-date,
+        .rssSummary {
+            display: block;
+        }
+    }
+
+}
+
+/*
+WP Gallery
+*/
+
+.gallery {
+    &::before,
+    &::after {
+        content: '';
+        display: table;
+    }
+    &::after {
+        clear: both;
+    }
+}
+
+.gallery-caption {
+    display: block;
+    text-align: center;
+}
+
+.gallery-item {
+    display: block;
+    float: left;
+    vertical-align: top;
+    text-align: center;
+}
+
+.gallery-columns-1 .gallery-item { width: 100%; }
+.gallery-columns-2 .gallery-item { width: 50%;    &:nth-child(2n+3){clear:both;}  }
+.gallery-columns-3 .gallery-item { width: 33.33%; &:nth-child(3n+4){clear:both;}  }
+.gallery-columns-4 .gallery-item { width: 25%;    &:nth-child(4n+5){clear:both;}  }
+.gallery-columns-5 .gallery-item { width: 20%;    &:nth-child(5n+6){clear:both;}  }
+.gallery-columns-6 .gallery-item { width: 16.66%; &:nth-child(6n+7){clear:both;}  }
+.gallery-columns-7 .gallery-item { width: 14.28%; &:nth-child(7n+8){clear:both;}  }
+.gallery-columns-8 .gallery-item { width: 12.5%;  &:nth-child(8n+9){clear:both;}  }
+.gallery-columns-9 .gallery-item { width: 11.11%; &:nth-child(9n+10){clear:both;} }
+
+/*
+WP Images
+*/
+
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+	max-width: 100%;
+	height: auto;
+}
+
+.alignleft {
+    display: inline;
+    float: left;
+    margin-right: $mb;
+    margin-bottom: $mb;
+}
+
+.alignright {
+    display: inline;
+    float: right;
+    margin-left: $mb;
+    margin-bottom: $mb;
+}
+
+.aligncenter {
+    clear: both;
+    display: block;
+    margin-left: auto;
+	margin-right: auto;
+    margin-bottom: $mb;
+}
+
+.alignnone {
+    clear: both;
+    margin-bottom: $mb;
+}
+
+.wp-caption-text {
+    margin-bottom: 0;
+}
+
+.wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
