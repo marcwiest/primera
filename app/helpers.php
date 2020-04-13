@@ -92,6 +92,7 @@ if ( ! function_exists('validate_boolean') ) :
 * Function for turning values into booleans.
 *
 * Only returns true for: true, 'true', 1, '1', 'on', 'yes'.
+* Note, all other values (e.g. 'asdf') will return false.
 *
 * @since  1.0
 * @param  mixed  $value  Value to convert to a boolean.
