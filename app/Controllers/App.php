@@ -107,48 +107,4 @@ class App extends Controller
             'post__not_in' => [$post->ID],
         ]);
     }
-
-    /**
-    * Get yoast primary (or 1st found) category.
-    */
-    public function get_yoast_primary_category($post_id=0)
-    {
-        // If no category is set, return fasle.
-        if ( ! $category = get_the_category( $post_id ?: get_the_ID() ) ) {
-            return false;
-        }
-
-        // Get first category.
-        $first_category = [
-            'title' => $category[0]->name,
-            'slug' => $category[0]->slug,
-            'url' => get_category_link( $category[0]->term_id ),
-        ];
-
-        // If Yoast primary term does not exist, return the first category.
-        if ( ! class_exists('WPSEO_Primary_Term') ) {
-            return $first_category;
-        }
-
-        $wpseo_primary_term = new WPSEO_Primary_Term( 'category', get_the_id($post_id) );
-
-        // If method does not exsits, return the first category.
-        if ( ! method_exists($wpseo_primary_term,'get_primary_term') ) {
-            return $first_category;
-        }
-
-        $term = get_term( $wpseo_primary_term->get_primary_term() );
-
-        // If post doesn't have a primary term set, return first category.
-        if ( is_wp_error($term) ) {
-            return $first_category;
-        }
-
-        // Yoast primary category is available.
-        return [
-            'title' => $term->name,
-            'slug' => $term->slug,
-            'url' => get_category_link($term->term_id),
-        ];
-    }
 }
