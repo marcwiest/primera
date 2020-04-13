@@ -49,7 +49,7 @@ Make sure all dependencies have been installed before moving on.
 
 ## Installation
 
-    NOTE: Not yet published on packagist.org. Please manually download for now.
+    **NOTE: Not yet published on packagist.org. Please manually download for now.**
 
 1. Download WordPress, either manually or via WP CLI, if installed.
 ```shell
