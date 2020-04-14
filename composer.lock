@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47d86cb6a66a751691e8deb45b4ffa0c",
+    "content-hash": "8f2ce165b1d7bab76061e3a54b6a9c89",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -190,18 +190,25 @@
         },
         {
             "name": "gooddaywp/primera-lib",
-            "version": "1.0.0-beta",
+            "version": "0.1.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gooddaywp/primera-lib.git",
+                "reference": "fdc2792b51b7459cc56b42bad63a1831ceda3a52"
+            },
             "dist": {
-                "type": "path",
-                "url": "/Users/marcwiest/code/primera-lib",
-                "reference": "95ab442f579a37db008b5f4139dac1c3803e1133"
+                "type": "zip",
+                "url": "https://api.github.com/repos/gooddaywp/primera-lib/zipball/fdc2792b51b7459cc56b42bad63a1831ceda3a52",
+                "reference": "fdc2792b51b7459cc56b42bad63a1831ceda3a52",
+                "shasum": ""
             },
             "require": {
                 "brain/hierarchy": "^2.4",
                 "duncan3dc/blade": "^4.8",
-                "php": "^7.2",
+                "php": ">=7.3",
                 "soberwp/controller": "^2.1.2",
-                "symfony/var-dumper": "^4.3.5"
+                "symfony/var-dumper": "^4.3.5",
+                "vlucas/phpdotenv": "^3.3.3"
             },
             "type": "library",
             "autoload": {
@@ -212,27 +219,36 @@
                     "index.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
+                    "name": "Good Day WP",
+                    "email": "dev@gooddaywp.com",
+                    "homepage": "https://gooddaywp.com",
+                    "role": "Publisher"
+                },
+                {
                     "name": "Marc Wiest",
-                    "email": "marc@marcwiest.com"
+                    "email": "marc@marcwiest.com",
+                    "homepage": "https://marcwiest.com",
+                    "role": "Developer"
                 }
             ],
-            "description": "The package of the Primera WordPress theme.",
+            "description": "Primera-lib adds Laravel's Blade templating and view controllers to WordPress themes.",
             "keywords": [
-                "MVC",
+                "babel",
                 "blade",
+                "laravel",
+                "mix",
+                "theme",
                 "woocommerce",
                 "wordpress",
                 "wp"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
+            "time": "2020-04-14T09:43:05+00:00"
         },
         {
             "name": "illuminate/container",
@@ -1472,7 +1488,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gooddaywp/primera-lib": 20
+        "gooddaywp/primera-lib": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
