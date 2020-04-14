@@ -19,7 +19,7 @@ if ( post_password_required() ) {
 * @param  int  $depth  Unsure whether is the current comment depth or the maximum comment depth.
 * @return  void
 */
-function primeraFunctionPrefix_comment_layout($comment, $args, $depth)
+function primera_comment_layout($comment, $args, $depth)
 {
 	$GLOBALS['comment'] = $comment;
 
@@ -87,7 +87,7 @@ function primeraFunctionPrefix_comment_layout($comment, $args, $depth)
 		wp_list_comments( array(
 			'type'        => 'all',
 			'style'       => 'ol',
-			'callback'    => 'primeraFunctionPrefix_comment_layout',
+			'callback'    => 'primera_comment_layout',
 			'short_ping'  => true,
 			'avatar_size' => 40,
 		) );
