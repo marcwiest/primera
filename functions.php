@@ -22,7 +22,6 @@ $primeraError = function( $message, $subtitle='', $title='' ) {
 */
 foreach ([
     'helpers',
-    'backcompat',
 ] as $file) {
     locate_template("app/{$file}.php", true, true);
 }
