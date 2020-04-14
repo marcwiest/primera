@@ -49,19 +49,22 @@ Make sure all dependencies have been installed before moving on.
 
 ## Installation
 
-**NOTE:** Not yet published on packagist.org. Please manually download & install for now.
+Download WordPress, either manually or via the terminal using [WP CLI](https://wp-cli.org/).
 
-1. Download WordPress, either manually or via WP CLI, if installed.
 ```shell
-wp core download
+$ wp core download --path=my-project
 ```
-2. Open the themes directory inside your WordPress installation.
+
+Then open the themes directory in your terminal.
+
 ```shell
-cd wp-content/themes
+$ cd my-project/wp-content/themes
 ```
-3. If you don't have [Composer](https://getcomposer.org/doc/00-intro.md) installed, go ahead and do that now. Then run the following command in your terminal.
+
+If you don't have [Composer](https://getcomposer.org/doc/00-intro.md) installed, go ahead and do that now. Then run the following command in your terminal.
+
 ```shell
-composer create-project gooddaywp/primera my-theme-name
+$ composer create-project gooddaywp/primera my-theme-name
 ```
 
 This will install all PHP and NPM dependencies for you. It will also copy the **.env.example** file to **.env**.
