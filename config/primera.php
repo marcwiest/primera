@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 // Actions
 add_action( 'after_setup_theme' , __NAMESPACE__ . '\\initPrimera' );
-// add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addBladeComponentAliases' );
+// add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addExampleBladeComponentAliases' );
 // add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addExampleBladeDirective' );
 // add_action( 'after_setup_theme' , __NAMESPACE__ . '\\addExampleIfBladeDirective' );
 
@@ -29,7 +29,7 @@ function initPrimera()
 /**
 * Add Example Blade Component.
 */
-function addBladeComponentAliases()
+function addExampleBladeComponentAliases()
 {
     // Usage example:
     // @xmpl

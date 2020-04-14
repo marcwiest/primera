@@ -21,7 +21,7 @@ add_filter( 'use_default_gallery_style' , '__return_false' );
 function addHeadMeta()
 {
     $meta = [
-        'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">', // , shrink-to-fit=no
+        'viewport' => '<meta name="viewport" content="width=device-width, initial-scale=1">', // optionally: shrink-to-fit=no
     ];
 
     if ($GLOBALS['is_IE']) {
@@ -78,9 +78,10 @@ function filterBodyClasses( $classes )
 */
 function filterNavMenuListItemClasses( $classes, $item, $args, $depth )
 {
-    if ( 'primary' == $args->theme_location ) {
-        array_push( $classes, 'menu-item--primary' );
-    }
+    // Example:
+    // if ( 'primary' == $args->theme_location ) {
+    //     array_push( $classes, 'menu-item--primary' );
+    // }
 
     return $classes;
 }
@@ -100,6 +101,7 @@ function filterNavMenuLinkAtts( $atts, $item, $args, $depth )
     if ( 'primary' == $args->theme_location ) {
         $atts['class'] .= ' menu-link--primary';
 
+        // Example:
         // if ( 'category' === $item->object ) {
         //     $atts['data-category-id'] = absint( $item->object_id );
         // }
@@ -108,11 +110,11 @@ function filterNavMenuLinkAtts( $atts, $item, $args, $depth )
     if ( $item->current ) {
         $atts['class'] .= ' menu-link--active';
     }
-    elseif ( $item->current_item_parent ) {
+    else if ( $item->current_item_parent ) {
         $atts['class'] .= ' menu-link--active-parent';
         $atts['class'] .= ' menu-link--parent';
     }
-    elseif ( $item->current_item_ancestor ) {
+    else if ( $item->current_item_ancestor ) {
         $atts['class'] .= ' menu-link--active-ancestor';
         $atts['class'] .= ' menu-link--ancestor';
     }
@@ -124,7 +126,7 @@ function filterNavMenuLinkAtts( $atts, $item, $args, $depth )
         }
     }
     // Otherwise, it's a post item, so check if the item is the current post.
-    elseif ( ! empty( $item->ID ) ) {
+    else if ( ! empty( $item->ID ) ) {
         global $post;
         if ( ! empty( $post->ID ) && $post->ID == $item->ID ) {
             $atts['aria-current'] = 'page';

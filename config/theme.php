@@ -102,8 +102,8 @@ function registerSidebars()
     $config = [
         'before_widget' => '<section class="widget %1$s %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => apply_filters( 'primeraFunctionPrefix/before_widget_title', '<h4 class="widgettitle">' ),
-        'after_title'   => apply_filters( 'primeraFunctionPrefix/after_widget_title', '</h4>' ),
+        'before_title'  => '<h4 class="widgettitle">',
+        'after_title'   => '</h4>',
     ];
     register_sidebar([
         'id'          => 'primary',
