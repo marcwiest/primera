@@ -1,6 +1,6 @@
 {
   "name": "primera",
-  "description": "A MVC starter theme for WordPress using Laravel's Blade templating engine.",
+  "description": "A modern starter theme for WordPress using Laravel's Blade templating engine.",
   "private": true,
   "scripts": {
     "start": "npm run watch",
@@ -19,20 +19,14 @@
     "url": "git+https://github.com/marcwiest/primera.git"
   },
   "keywords": [
-    "wp",
-    "wordpress",
-    "theme",
-    "laravel",
-    "blade",
-    "mix",
-    "babel"
+    "wp", "wordpress", "theme", "woocommerce", "laravel", "blade", "mix", "babel"
   ],
   "author": "Marc Wiest",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/marcwiest/primera/issues"
+    "url": "https://github.com/gooddaywp/primera/issues"
   },
-  "homepage": "https://github.com/marcwiest/primera#readme",
+  "homepage": "https://github.com/gooddaywp/primera#readme",
   "devDependencies": {
     "archiver": "^3.1.1",
     "browser-sync": "^2.26.7",
