@@ -1,5 +1,5 @@
 
-### Unreleased
+### 1.0.4 - Unreleased
 - Improved documentation URL in composer.json
 - Started changelog
 
