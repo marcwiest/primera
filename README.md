@@ -1,7 +1,7 @@
 Primera
 =======
 
-Primera is an WordPress theme with a modern development workflow.
+Primera is a WordPress theme with a modern development workflow.
 
 **Table of Contents** <br>
 - [Primera](#primera)
