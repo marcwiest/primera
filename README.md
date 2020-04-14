@@ -9,7 +9,8 @@ Primera is a WordPress theme with a modern development workflow.
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Quick Start](#quick-start)
-  - [Autoprefixer & ES6](#autoprefixer--es6)
+  - [Autoprefixer & CSS](#autoprefixer--css)
+  - [Webpack & ES6](#webpack--es6)
   - [Mix & NPM Scripts](#mix--npm-scripts)
   - [Folder Structure](#folder-structure)
   - [App Files](#app-files)
@@ -78,11 +79,18 @@ To take Primera for a spin, take the following steps after the installation is c
 3. Run `npm start` in the terminal (from within this folder)
 4. Visit the localhost URL displayed in the terminal
 
-## Autoprefixer & ES6
+## Autoprefixer & CSS
 
-Due to the Autoprefixer PostCSS plugin, there's no need for vendor prefixes in CSS. Browserlist is used to let you adjust which browsers you wish to support by modifying the `.browserlistrc` file.
+Due to the Autoprefixer PostCSS plugin, there's no need for writing vendor prefixes in CSS. Browserlist is used to let you adjust which browsers you wish to support by modifying the `.browserlistrc` file using [this guide](https://github.com/ai/browserslist).
 
-Babel.js enables you to write modern JavaScript.
+Please also remember that [Autoprefixer](https://autoprefixer.github.io/) can't help older browsers understand CSS properties which they simply do not support. For a great place to check which browser supports what, visit [caniuse.com](http://caniuse.com/).
+
+## Webpack & ES6
+
+Primera enables you to use all ES6 features via Laravel Mix and Webpack. If you are new to ES6, below are helpful links to get you started.
+
+- https://github.com/mbeaudru/modern-js-cheatsheet
+- https://babeljs.io/learn-es2015/
 
 ## Mix & NPM Scripts
 
