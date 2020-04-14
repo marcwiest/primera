@@ -13,7 +13,7 @@ endif;
 
 
 if (! function_exists('env')) :
-// Overwrites Laravel's `env` helper function to allow for array like values in `.env` file.
+// Overwrites Laravel's `env` helper function to allow Primera to add some additional features like comma separated array strings.
 function env(string $key, $default=null)
 {
     return primera('env')->get($key, $default);
