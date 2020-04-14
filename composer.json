@@ -3,6 +3,7 @@
     "type": "project",
     "description": "A MVC starter theme for WordPress using Laravel's Blade templating engine.",
     "require": {
+        "php": ">=7.3",
         "gooddaywp/primera-lib": "@dev"
     },
     "repositories": {
