@@ -226,10 +226,10 @@ Translateble strings need to be defined in the controllers due to how wp-pot nod
 
 ## Still To-Do
 
-[] Create proper comments example at `/source/views/components/comments.blade.php`
-[] Add config code to prevent theme updates from WP.org
-[] Zip task must first run build task if no build exists
-[] Add `composer validate --no-check-all --strict` to build script to ensure composer json and lock file are identical
-[] Create more useful starting setup for views
-[] Find better solution for shared config file than .env, or [make .env more secure](https://github.com/wecodemore/wpstarter/issues/64)
-[] Add replace-in-file node module to repalce certain strings like text-domain (useful for install or build process)
+- [ ] Create proper comments example at `/source/views/components/comments.blade.php`
+- [ ] Add config code to prevent theme updates from WP.org
+- [ ] Zip task must first run build task if no build exists
+- [ ] Add `composer validate --no-check-all --strict` to build script to ensure composer json and lock file are identical
+- [ ] Create more useful starting setup for views
+- [ ] Find better solution for shared config file than .env, or [make .env more secure](https://github.com/wecodemore/wpstarter/issues/64)
+- [ ] Add replace-in-file node module to repalce certain strings like text-domain (useful for install or build process)
