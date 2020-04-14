@@ -1,7 +1,28 @@
 {
     "name": "gooddaywp/primera",
     "type": "project",
-    "description": "A MVC starter theme for WordPress using Laravel's Blade templating engine.",
+    "description": "A modern starter theme for WordPress using Laravel's Blade templating engine.",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Good Day WP",
+            "email": "marc@gooddaywp.com",
+            "homepage": "https://gooddaywp.com",
+            "role": "Publisher"
+        },
+        {
+            "name": "Marc Wiest",
+            "email": "marc@marcwiest.com",
+            "homepage": "https://marcwiest.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "docs": "https://github.com"
+    },
+    "keywords": [
+        "wp", "wordpress", "theme", "woocommerce", "laravel", "blade", "mix", "babel"
+    ],
     "require": {
         "php": ">=7.3",
         "gooddaywp/primera-lib": "@dev"
