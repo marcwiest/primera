@@ -25,16 +25,7 @@
     ],
     "require": {
         "php": ">=7.3",
-        "gooddaywp/primera-lib": "@dev"
-    },
-    "repositories": {
-        "dev-package": {
-            "type": "path",
-            "url": "~/code/primera-lib",
-            "options": {
-                "symlink": true
-            }
-        }
+        "gooddaywp/primera-lib": "0.1.0-beta"
     },
     "autoload": {
         "psr-4": {
