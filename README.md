@@ -21,6 +21,7 @@ Primera is an WordPress theme with a modern development workflow.
   - [Config Folder & Hierarchy](#config-folder--hierarchy)
   - [Helper Functions](#helper-functions)
   - [Translation](#translation)
+  - [Still To-Do](#still-to-do)
 
 ## Features
 
@@ -46,10 +47,9 @@ Make sure all dependencies have been installed before moving on.
 - [Composer](https://getcomposer.org/download/)
 - [Node.js](https://nodejs.org/en/) >= 12.0.0
 
-
 ## Installation
 
-    **NOTE: Not yet published on packagist.org. Please manually download for now.**
+**NOTE:** Not yet published on packagist.org. Please manually download & install for now.
 
 1. Download WordPress, either manually or via WP CLI, if installed.
 ```shell
@@ -70,9 +70,10 @@ This will install all PHP and NPM dependencies for you. It will also copy the **
 
 To take Primera for a spin, take the following steps after the installation is complete.
 
-- Open the `.env` file and change the values
-- Run `npm start` in the terminal (from within this folder)
-- Visit the localhost URL display in the terminal
+1. Search and replace `primeraTextDomain` with your preferred text domain
+2. Open the `.env` file and adjust the values to fit your project
+3. Run `npm start` in the terminal (from within this folder)
+4. Visit the localhost URL displayed in the terminal
 
 ## Autoprefixer & ES6
 
@@ -111,16 +112,16 @@ This will first run `npm prod`, then `npm pot` and then copy the files you speci
 This folder holds the template Controllers and theme helpers functions. This folder maps to the autoload PSR-4 setting within composer.
 
 **/config** <br>
-The config holds the theme and plugin configuration.
+The config folder gives theme and plugin configuration examples as a staring point. Feel free to modify, remove or add as you please.
 
 **/public** <br>
-This folder holds assets such as images, fonts as well as compiled asset (CSS & JS) coming from the source folder.
+This folder holds assets such as images, fonts as well as compiled asset (CSS & JS) coming from the source folder. You can store other static assets in here as well.
 
 **/source** <br>
-The source folder holds assets that need compiling i.e. CSS, JS and the Blade template files inside of the views folder.
+The source folder holds assets that need compiling i.e. CSS, JS. The views folder holds the Blade template files which are also compiled/cached and are place in the directory specified via `/config/primera.php`.
 
 **/tasks** <br>
-This folder holds build scripts written in Node.js. They are placed into theme so you can modify them suit your project's needs.
+This folder holds build scripts. They are placed into theme vs. an NPM package so you can modify them suit your project's needs.
 
 **/templates** <br>
 The template folder holds custom WordPress page tempaltes.
@@ -222,3 +223,7 @@ Most of Laravel's helpers functions are also available within Primera. To learn 
 ## Translation
 
 Translateble strings need to be defined in the controllers due to how wp-pot node module works. It cannot read blade files because it doesn't recognize blade as PHP.
+
+## Still To-Do
+
+[ ] Create proper comments example at `/source/views/components/comments.blade.php`
