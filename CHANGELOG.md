@@ -1,5 +1,5 @@
 
-### 1.0.4 - April 14, 2020
+### 1.0.4 - Unreleased
 - Improved documentation URL in composer.json
 - Started changelog
 
