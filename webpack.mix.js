@@ -1,8 +1,15 @@
 const mix = require('laravel-mix'),
     glob = require('glob'),
-    autoprefixer = require('autoprefixer')
+    autoprefixer = require('autoprefixer'),
+    dotenv = require('dotenv').config()
 
-const sourcePath = 'source/',
+if (dotenv.error) {
+    throw dotenv.error
+}
+
+const env = dotenv.parsed,
+    bsProxy = env.BROWSERSYNC_PROXY || 'primera',
+    sourcePath = 'source/',
     publicPath = 'public/',
     jsFiles = glob.sync(`${sourcePath}/js/*.js`),
     // sassFiles = glob.sync(`${sourcePath}/scss/*.scss`),
@@ -24,7 +31,7 @@ mix.options({
 // https://browsersync.io/docs/options/
 mix.browserSync({
     // watchEvents: ['change', 'add', 'unlink', 'addDir', 'unlinkDir'],
-    proxy: 'primera',
+    proxy: bsProxy,
     tunnel: false, // string|bool
     notify: false,
     open: false,
