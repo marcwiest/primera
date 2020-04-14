@@ -1,6 +1,5 @@
 {
   "name": "primera",
-  "description": "A modern starter theme for WordPress using Laravel's Blade templating engine.",
   "private": true,
   "scripts": {
     "start": "npm run watch",
@@ -14,19 +13,6 @@
     "zip": "node ./tasks/zip",
     "build": "npm run production && npm run pot && node ./tasks/build && npm run zip"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/marcwiest/primera.git"
-  },
-  "keywords": [
-    "wp", "wordpress", "theme", "woocommerce", "laravel", "blade", "mix", "babel"
-  ],
-  "author": "Marc Wiest",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/gooddaywp/primera/issues"
-  },
-  "homepage": "https://github.com/gooddaywp/primera#readme",
   "devDependencies": {
     "archiver": "^3.1.1",
     "browser-sync": "^2.26.7",
@@ -42,5 +28,17 @@
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
     "wp-pot": "^1.9.1"
-  }
+  },
+  "homepage": "https://github.com/gooddaywp/primera#readme",
+  "bugs": {
+    "url": "https://github.com/gooddaywp/primera/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gooddaywp/primera.git"
+  },
+  "author": "Good Day WP (https://gooddaywp.com)",
+  "contributors": [
+    "Marc Wiest (https://marcwiest.com)"
+  ]
 }
