@@ -3,7 +3,7 @@
 - Improved documentation URL in composer.json
 - Started changelog
 
-### 1.0.1 - April 14, 2020
+### 1.0.3 - April 14, 2020
 - Removed automatic NPM install script in composer.json
 
 ### 1.0.2 - April 14, 2020
