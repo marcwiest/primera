@@ -46,7 +46,7 @@ Make sure all dependencies have been installed before moving on.
 - [WordPress](https://wordpress.org/) >= 5.4
 - [PHP](https://www.php.net/manual/en/install.php) >= 7.3
 - [Composer](https://getcomposer.org/download/)
-- [Node.js](https://nodejs.org/en/) >= 12.0.0
+- [Node.js](https://nodejs.org/en/) >= 12.0
 
 ## Installation
 
@@ -158,7 +158,7 @@ Primera will tell WP to look for the coresponding Blade template (<abbr title="a
 
 If you prefer to use the default WordPress template, simply place it into the root level of your WP theme. However, Controllers and Blade templating won't work in this case.
 
-Primera will also look for so called view scritps inside your public folder. Meaning, CSS or JS scritps (e.g. `front-page.css`) with same name as the WP template will get automatically enqueued on the front page template.
+Primera will also look for so called view scritps inside your public folder. Meaning, CSS or JS scritps with same name as the WP template (e.g. `front-page.css`) will get automatically enqueued on the front page template.
 
 To make data available to the views, you simply create public functions within the Controllers. Each function with represent a variable that's passed to the view. All function names will be converted to `snake_case`. Meaning, `myCoolFnName` will become `my_cool_fn_name`. So it's probably best to write the fucntions with your Controllers in sanke case to not cause confusion later down the line.
 
