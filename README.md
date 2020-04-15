@@ -170,7 +170,7 @@ You are free to handle AJAX & REST any which way you like. However, Primera does
 
 Because the Controllers are loaded via WP's `init` action hook, these methods are also load via this hook. The `__rest_routes` method is then hooked via  `rest_api_init`. To separate asynchronous code from the rest of the Controller, an example using a [PHP trait](https://www.php.net/manual/en/language.oop5.traits.php) is supplied. However, you could also write the code directly into the Controller if you prefer.
 
-Please note that all AJAX & REST callbacks are static. Controllers will not reveal static methods as data to your views. If the ajax/rest callback were defined as a normal public function, the `die()` statement would break the page, since all public functions are automatically exposed to the respective view. Defining the function as static circumvents this, while still allowing the function to run.
+Please note that all AJAX & REST callbacks are static. Controllers will not reveal static methods as data to your views. If the ajax/rest callbacks were defined as a normal public function, the `die()` statement would break the page, since all public functions are automatically exposed to the respective view. Defining the function as static circumvents this, while still allowing the function to run.
 
 ## Blade Templating
 
