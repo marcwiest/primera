@@ -244,3 +244,5 @@ Translateble strings need to be defined in the controllers due to how wp-pot nod
 - [ ] Create more useful starting setup for views
 - [ ] Find better solution for shared config file than .env, or [make .env more secure](https://github.com/wecodemore/wpstarter/issues/64)
 - [ ] Add replace-in-file node module to repalce certain strings like text-domain (useful for install or build process)
+- [ ] Add notes about using WooCommerce blade templates
+- [ ] Use WP CLI command `$ wp i18n make-pot` instead of NPM module
