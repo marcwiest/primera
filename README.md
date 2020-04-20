@@ -68,7 +68,13 @@ If you don't have [Composer](https://getcomposer.org/doc/00-intro.md) installed,
 $ composer create-project gooddaywp/primera my-theme-name
 ```
 
-This will install all PHP and NPM dependencies for you. It will also copy the **.env.example** file to **.env**.
+Last but not least, run the following command to install all NPM packages.
+
+```shell
+$ npm install
+```
+
+Done.
 
 ## Quick Start
 
@@ -246,3 +252,4 @@ Translateble strings need to be defined in the controllers due to how wp-pot nod
 - [ ] Add replace-in-file node module to repalce certain strings like text-domain (useful for install or build process)
 - [ ] Add notes about using WooCommerce blade templates
 - [ ] Use [WP CLI command](https://developer.wordpress.org/block-editor/developers/internationalization/#create-translation-file) `$ wp i18n make-pot` instead of NPM module
+- [ ] Add to PostCSS: http://preset-env.cssdb.org/
