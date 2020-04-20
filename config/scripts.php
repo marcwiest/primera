@@ -19,7 +19,7 @@ add_filter( 'primera/template/script-file-version' , '__return_null' );
 function enqueueFrontendScripts()
 {
     $script_name = str_replace(' ', '-', env('THEME_SLUG', 'primera'));
-    $js_handle = preg_replace('/[^A-Za-z]+/g', '', $script_name);
+    $js_handle = preg_replace('/[^A-Za-z]+/', '', $script_name);
 
     // App CSS
     wp_enqueue_style(
