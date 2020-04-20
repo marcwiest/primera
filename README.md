@@ -198,7 +198,7 @@ Displays the contents of the variable and exits the script via `die()`.
 Displays all Controller data on the page.
 
 **@code** <br>
-Displays all available variables wrapped with currly braces. Useful to grab all data supplied to your view and drop to that into your template.
+Displays all available variables wrapped with currly braces. Useful for grabbing all data supplied to your view and distributing it accross your template file.
 
 **@codeif** <br>
 Same as `@code` but with `@if` statements around the data.
@@ -217,7 +217,7 @@ There are a couple important things to note regarding `.env` files within Primer
 - Due to the dotenv NPM package, the following does not currently work
   - Line breaks are not supported, each value must be writen in one line
   - [Nesting variables](https://github.com/vlucas/phpdotenv#nesting-variables) is currently not possible
-- Primera converts comma separated strings to arrays in PHP (e.g. `"one, two, there"` becomes `["one", "two", "three"]`)
+- Primera converts comma separated strings to arrays in PHP (e.g. `"one, two, three"` becomes `["one", "two", "three"]`)
 
 ## Config Folder & Hierarchy
 
