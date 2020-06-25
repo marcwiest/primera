@@ -71,7 +71,7 @@ $ composer create-project gooddaywp/primera my-theme-name
 Last but not least, run the following command to install all NPM packages.
 
 ```shell
-$ npm install
+$ cd my-theme-name && npm install
 ```
 
 Done.
