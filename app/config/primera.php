@@ -2,6 +2,8 @@
 
 namespace App\config\primera;
 
+// use App\View\Components\Alert;
+
 defined('ABSPATH') || exit;
 
 // Actions
@@ -17,7 +19,7 @@ function initPrimera()
 {
     $envFile = defined('PRIMERA_ENV_FILE') && ! empty(PRIMERA_ENV_FILE)
         ? (string) PRIMERA_ENV_FILE
-        : null;
+        : get_parent_theme_file_path();
 
     primera([
         'viewsDir' => get_theme_file_path('source/views/'),
@@ -35,6 +37,9 @@ function addExampleBladeComponentAliases()
     // @xmpl
     // @endxmpl
     primera('blade')->component('components.example', 'xmpl');
+
+    // New Laravel 7 `x-` component.
+    // primera('blade')->component('alert', Alert::class);
 }
 
 /**
