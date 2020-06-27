@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use WP_REST_Request;
+use WP_REST_Server;
+
 defined('ABSPATH') || exit;
 
 trait AppAsync
@@ -17,7 +20,7 @@ trait AppAsync
     public static function __rest_routes()
     {
         register_rest_route('primera/v1', '/do-something/', [
-            'methods'  => 'POST',
+            'methods'  => WP_REST_Server::EDITABLE,
             'callback' => __CLASS__ . '::rest_do_something',
         ], true);
     }
@@ -33,7 +36,7 @@ trait AppAsync
         wp_send_json_success([]);
     }
 
-    public static function rest_do_something(\WP_REST_Request $request)
+    public static function rest_do_something(WP_REST_Request $request)
     {
         $response = ['success' => true];
         return rest_ensure_response($response);
