@@ -100,10 +100,10 @@ function registerNavMenus()
 function registerSidebars()
 {
     $config = [
-        'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h4 class="widgettitle">',
-        'after_title'   => '</h4>',
+        'before_widget' => '<div class="widget %1$s %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<div class="widget__title">',
+        'after_title'   => '</div>',
     ];
     register_sidebar([
         'id'          => 'primary',
