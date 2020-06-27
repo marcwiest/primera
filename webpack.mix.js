@@ -1,19 +1,19 @@
 const mix = require('laravel-mix'),
     glob = require('glob'),
     autoprefixer = require('autoprefixer'),
-    dotenv = require('dotenv').config()
+    dotenv = require('dotenv').config(),
+    precss = require('precss') // https://github.com/jonathantneal/precss#readme
 
 if (dotenv.error) {
     throw dotenv.error
 }
 
 const env = dotenv.parsed,
-    bsProxy = env.BROWSERSYNC_PROXY || 'primera',
+    bsProxy = env.BROWSERSYNC_PROXY || 'http://localhost',
     sourcePath = 'source/',
     publicPath = 'public/',
     jsFiles = glob.sync(`${sourcePath}/js/*.js`),
-    // sassFiles = glob.sync(`${sourcePath}/scss/*.scss`),
-    postCssFiles = glob.sync(`${sourcePath}/css/*.css`)
+    scssFiles = glob.sync(`${sourcePath}/scss/*.scss`)
 
 // https://laravel-mix.com/docs/5.0/faq#my-mix-manifestjson-file-shouldnt-be-in-the-project-root
 mix.setPublicPath(publicPath)
@@ -23,8 +23,10 @@ mix.disableNotifications()
 // https://laravel-mix.com/docs/5.0/options
 mix.options({
     processCssUrls: false,
+    // https://laravel-mix.com/docs/5.0/css-preprocessors#postcss-plugins
     postCss: [
         autoprefixer,
+        precss,
     ],
 });
 
@@ -39,12 +41,13 @@ mix.browserSync({
         "./app/**/*.php",
         "./source/views/**/**/*.php",
         "./public/img/**/*",
+        // "./public/css/*.css",
+        // "./public/js/*.js",
     ],
 });
 
 jsFiles.forEach(filename => mix.js(filename, publicPath + 'js'))
-// sassFiles.forEach(filename => mix.sass(filename, publicPath + 'css'))
-postCssFiles.forEach(filename => mix.postCss(filename, publicPath + 'css'))
+scssFiles.forEach(filename => mix.sass(filename, publicPath + 'css'))
 
 if (! mix.inProduction()) {
     mix.sourceMaps()
